@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisitBosnia", "VisitBosnia\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisitBosnia.Services", "VisitBosnia.Services\VisitBosnia.Services.csproj", "{7BFDB55F-858D-481A-9930-7370D12F58F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisitBosnia.Model", "VisitBosnia.Model\VisitBosnia.Model.csproj", "{2132E868-D69A-4343-B4B9-E3077E34B1E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisitBosnia.Model", "VisitBosnia.Model\VisitBosnia.Model.csproj", "{2132E868-D69A-4343-B4B9-E3077E34B1E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisitBosnia.WinUI", "VisitBosnia.WinUI\VisitBosnia.WinUI.csproj", "{B9638991-E4B0-4815-9099-630D59E72A56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{2132E868-D69A-4343-B4B9-E3077E34B1E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2132E868-D69A-4343-B4B9-E3077E34B1E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2132E868-D69A-4343-B4B9-E3077E34B1E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9638991-E4B0-4815-9099-630D59E72A56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9638991-E4B0-4815-9099-630D59E72A56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9638991-E4B0-4815-9099-630D59E72A56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9638991-E4B0-4815-9099-630D59E72A56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

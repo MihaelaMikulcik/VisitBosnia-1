@@ -8,5 +8,6 @@ namespace VisitBosnia.Model.Requests
 {
     public class CityUpdateRequest
     {
+
     }
 }
