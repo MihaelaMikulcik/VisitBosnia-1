@@ -14,6 +14,7 @@ namespace VisitBosnia.Services
             CreateMap<Database.City, Model.City>().ReverseMap();
             CreateMap<Database.AppUser, Model.AppUser>().ReverseMap();
             CreateMap<Database.AppUser, Model.Requests.AppUserInsertRequest>().ReverseMap();
+            CreateMap<Database.Role, Model.Role>().ReverseMap();
 
         }
     }

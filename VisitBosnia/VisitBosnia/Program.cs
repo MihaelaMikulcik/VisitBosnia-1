@@ -36,6 +36,8 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddTransient<ICityService, CityService>();
 builder.Services.AddTransient<IAppUserService, AppUserService>();
+//builder.Services.AddTransient<IRoleService, RoleService>();
+builder.Services.AddTransient<IReadService<VisitBosnia.Model.Role, object>, RoleService>();
 
 builder.Services.AddAutoMapper(typeof(ICityService));
 builder.Services.AddDbContext<VisitBosniaContext>(options => options

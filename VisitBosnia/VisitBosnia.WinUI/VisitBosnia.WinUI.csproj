@@ -9,6 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\2754583_man_avatar_user_icon.png" />
+    <None Remove="Resources\9133514_signup_register_login_icon %281%29.png" />
+    <None Remove="Resources\pozadina.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Flurl" Version="3.0.6" />
     <PackageReference Include="Flurl.Http" Version="3.2.4" />
   </ItemGroup>

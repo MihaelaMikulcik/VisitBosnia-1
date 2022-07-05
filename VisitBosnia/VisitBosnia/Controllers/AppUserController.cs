@@ -35,11 +35,18 @@ namespace VisitBosnia.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("/Register")]
-        public Model.AppUser Register([FromBody]AppUserInsertRequest request)
+        [HttpPost("Register")]
+        public async Task<Model.AppUser> Register(/*[FromBody]*/AppUserInsertRequest request)
         {
-            return service.Register(request);
+            return await service.Insert(request);
         }
+
+        //[AllowAnonymous]
+        //[HttpPost("/Register")]
+        //public Model.AppUser Register([FromBody]AppUserInsertRequest request)
+        //{
+        //    return service.Register(request);
+        //}
 
 
     }

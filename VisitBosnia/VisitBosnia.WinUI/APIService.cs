@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VisitBosnia.Model;
+using VisitBosnia.Model.Requests;
 
 namespace VisitBosnia.WinUI
 {
@@ -18,7 +19,7 @@ namespace VisitBosnia.WinUI
         {
             _route = route;
         }
-    
+
         public async Task<T> Get<T>(object request = null)
         {
             var url = $"{_endpoint}{_route}";
@@ -27,11 +28,16 @@ namespace VisitBosnia.WinUI
                 url += "?";
                 url += await request.ToQueryString();
             }
-            var result = await url
-                .WithBasicAuth(Username, Password)
-                .GetJsonAsync<T>();
-            return result;
+            //var result = await url
+            //    //.WithHeader(RequestConstants.UserAgent, RequestConstants.UserAgentValue)
+            //    .WithBasicAuth(Username, Password)
+            //    .GetJsonAsync<T>();
+            //return result;
+            return await url
+               .WithBasicAuth(Username, Password)
+               .GetJsonAsync<T>();
         }
+
 
         public async Task<T> GetById<T>(object id)
         {
@@ -66,15 +72,31 @@ namespace VisitBosnia.WinUI
             return result;
         }
 
-        public async Task<T> Register<T>(object request)
+        public async Task<Model.AppUser> Register(AppUserInsertRequest request)
         {
-            
-            var url = $"{_endpoint}{_route}".AllowAnyHttpStatus();
-            var result = await url.WithHeader("Authorization", "Basic")
-                .PostJsonAsync(request).ReceiveJson<T>();
-            return result;
+            try
+            {
+                var url = $"{_endpoint}{_route}/Register";
+                return await url.PostJsonAsync(request).ReceiveJson<AppUser>();
+            }
+            catch (FlurlHttpException ex)//popraviti 
+            {
+                var errors = await ex.GetResponseJsonAsync<Dictionary<string, string[]>>();
 
+                var stringBuilder = new StringBuilder();
+                foreach (var error in errors)
+                {
+                    stringBuilder.AppendLine($"{error.Key}, ${string.Join(",", error.Value)}");
+                }
 
+                MessageBox.Show(stringBuilder.ToString(), "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return default(Model.AppUser);
+            }
         }
+
+       
+
+
     }
+    
 }

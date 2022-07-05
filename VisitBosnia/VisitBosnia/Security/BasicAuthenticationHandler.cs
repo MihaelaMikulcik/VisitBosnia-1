@@ -32,6 +32,9 @@ namespace VisitBosnia.Security
 
             var user = await appUserService.Login(username, password);
 
+            if (user == null)
+                return AuthenticateResult.Fail("Invalid username or password!");
+
             var claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.NameIdentifier, username),

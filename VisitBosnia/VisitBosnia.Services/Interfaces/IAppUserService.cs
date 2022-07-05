@@ -11,6 +11,6 @@ namespace VisitBosnia.Services.Interfaces
     public interface IAppUserService : ICRUDService<AppUser, AppUserSearchObject, AppUserInsertRequest, AppUserUpdateRequest>
     {
         Task<Model.AppUser> Login(string username, string password);
-        Model.AppUser Register(AppUserInsertRequest request);
+        Task<Model.AppUser> Register(AppUserInsertRequest request);
     }
 }

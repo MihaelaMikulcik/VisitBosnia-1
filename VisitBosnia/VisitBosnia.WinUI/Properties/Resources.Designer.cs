@@ -63,6 +63,16 @@ namespace VisitBosnia.WinUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _2754583_man_avatar_user_icon {
+            get {
+                object obj = ResourceManager.GetObject("2754583_man_avatar_user_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _286658_bosnia_herzegovina_bosnia_icon {
             get {
                 object obj = ResourceManager.GetObject("286658_bosnia-herzegovina_bosnia_icon", resourceCulture);
@@ -86,6 +96,16 @@ namespace VisitBosnia.WinUI.Properties {
         internal static System.Drawing.Bitmap Sarajevo_39_big_1_ {
             get {
                 object obj = ResourceManager.GetObject("Sarajevo-39_big(1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap user {
+            get {
+                object obj = ResourceManager.GetObject("user", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

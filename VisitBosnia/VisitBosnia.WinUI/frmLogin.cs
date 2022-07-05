@@ -8,12 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using VisitBosnia.WinUI.Validator;
 
 namespace VisitBosnia.WinUI
 {
-    public partial class Login : Form
+    public partial class frmLogin : Form
     {
         private readonly APIService appUserService = new APIService("Login");
+        private readonly Validation validator;
 
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn
@@ -25,12 +27,14 @@ namespace VisitBosnia.WinUI
             int nWidthEllipse, // height of ellipse
             int nHeightEllipse // width of ellipse
         );
-        public Login()
+        public frmLogin()
         {
             InitializeComponent();
+            validator = new Validation(error);
             txtPassword.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, txtPassword.Width, txtPassword.Height, 15, 15));
             txtUsername.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, txtUsername.Width, txtUsername.Height, 15, 15));
             btnLogin.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, btnLogin.Width, btnLogin.Height, 15, 15));
+            error.BlinkStyle = ErrorBlinkStyle.NeverBlink;
             
         }
 
@@ -60,28 +64,47 @@ namespace VisitBosnia.WinUI
 
         private async void btnLogin_Click(object sender, EventArgs e)
         {
-            APIService.Username = txtUsername.Text;
-            APIService.Password = txtPassword.Text;
-            try
+            if (ValidateChildren())
             {
-                var result = await appUserService.Login<Model.AppUser>(txtUsername.Text, txtPassword.Text);
-                //dodati provjeru da li je rola admin ili uposlenik
-                if(result != null)
+                APIService.Username = txtUsername.Text;
+                APIService.Password = txtPassword.Text;
+                try
                 {
-                    this.Hide();
-                    MessageBox.Show("Uspjesna prijava");
+                    var result = await appUserService.Login<Model.AppUser>(txtUsername.Text, txtPassword.Text);
+                    //dodati provjeru da li je rola admin ili uposlenik
+                    if (result != null)
+                    {
+                        this.Hide();
+                        MessageBox.Show("Uspjesna prijava");
+                    }
+                    else
+                    {
+                        error.SetError(txtUsername, "Wrong username or password");
+                        error.SetError(txtPassword, "Wrong username or password");
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Unexpected error!");
                 }
             }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString());
-            }
+            
         }
 
         private void lnkCreateAccount_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var form = new Register();
+            var form = new frmRegister();
             form.ShowDialog();
+        }
+
+        private void txtUsername_Validating(object sender, CancelEventArgs e)
+        {
+            validator.RequiredField(txtUsername, e);
+        }
+
+        private void txtPassword_Validating(object sender, CancelEventArgs e)
+        {
+            validator.RequiredField(txtPassword, e);
         }
     }
 }

@@ -19,7 +19,8 @@ namespace VisitBosnia.Model.Requests
         [EmailAddress]
         public string Email { get; set; } = null!;
 
-        [Phone]
+
+        [RegularExpression(@"^\(?\d{3}\)?-? *\d{3}-? *-?\d{3,4}$")]
         public string? Phone { get; set; }
 
         [Required(AllowEmptyStrings = false)]
@@ -36,5 +37,6 @@ namespace VisitBosnia.Model.Requests
         [Required(AllowEmptyStrings = false)]
         public DateTime? DateOfBirth { get; set; }
 
+        //public List<int> Roles { get; set; } = new List<int>();
     }
 }

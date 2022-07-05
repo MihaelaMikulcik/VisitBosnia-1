@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using VisitBosnia.Services.Interfaces;
 
 namespace VisitBosnia.Controllers
 {
+    //[AllowAnonymous]
     [ApiController]
     [Route("[controller]")]
     public class BaseReadController<T, TSearch> :ControllerBase where T : class where TSearch : class
@@ -14,7 +16,7 @@ namespace VisitBosnia.Controllers
         }
 
         [HttpGet]
-        public async virtual Task<List<T>> Get([FromQuery] TSearch search)
+        public async virtual Task<List<T>> Get([FromQuery]TSearch search)
         {
             return await _service.Get(search);
         }
