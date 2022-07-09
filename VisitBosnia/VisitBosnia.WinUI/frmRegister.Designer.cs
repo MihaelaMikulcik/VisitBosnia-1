@@ -224,6 +224,7 @@
             this.Controls.Add(this.pbProfilePicture);
             this.Controls.Add(this.btnChooseImage);
             this.Controls.Add(this.panel1);
+            this.MaximizeBox = false;
             this.Name = "frmRegister";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Register";
