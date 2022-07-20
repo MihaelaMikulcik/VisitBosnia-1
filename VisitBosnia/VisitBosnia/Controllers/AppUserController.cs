@@ -38,7 +38,7 @@ namespace VisitBosnia.Controllers
         [HttpPost("Register")]
         public async Task<Model.AppUser> Register(/*[FromBody]*/AppUserInsertRequest request)
         {
-            return await service.Insert(request);
+            return await service.Register(request);
         }
 
         //[AllowAnonymous]

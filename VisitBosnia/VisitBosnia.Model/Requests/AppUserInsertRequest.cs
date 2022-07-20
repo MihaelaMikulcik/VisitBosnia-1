@@ -34,7 +34,7 @@ namespace VisitBosnia.Model.Requests
 
         public byte[]? Image { get; set; }
 
-        [Required(AllowEmptyStrings = false)]
+        //[Required(AllowEmptyStrings = false)]
         public DateTime? DateOfBirth { get; set; }
 
         //public List<int> Roles { get; set; } = new List<int>();

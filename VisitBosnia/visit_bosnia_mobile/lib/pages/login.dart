@@ -3,7 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
+import 'package:visit_bosnia_mobile/model/appUser/app_user.dart';
 import 'package:visit_bosnia_mobile/pages/register.dart';
+import 'package:visit_bosnia_mobile/pages/test.dart';
+import 'package:visit_bosnia_mobile/providers/appuser_provider.dart';
+import 'package:visit_bosnia_mobile/utils/util.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -13,6 +18,22 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  AppUserProvider? _appUserProvider;
+  dynamic result;
+  Future<void> login() async {
+    result = await _appUserProvider?.login(
+        _usernameController.text, _passwordController.text);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _appUserProvider = context.read<AppUserProvider>();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +66,7 @@ class _LoginState extends State<Login> {
                           "VisitBosnia",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 35.0,
+                              fontSize: 30.0,
                               color: Colors.white),
                         ),
                       )
@@ -60,8 +81,9 @@ class _LoginState extends State<Login> {
                   //   ),
                   // ),
                   SizedBox(
-                    height: 40,
+                    height: 35,
                     child: TextField(
+                      controller: _usernameController,
                       decoration: InputDecoration(
                           contentPadding: const EdgeInsets.only(),
                           border: OutlineInputBorder(
@@ -75,10 +97,11 @@ class _LoginState extends State<Login> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 10),
                   SizedBox(
-                    height: 40,
+                    height: 35,
                     child: TextField(
+                      controller: _passwordController,
                       decoration: InputDecoration(
                           contentPadding: const EdgeInsets.only(),
                           border: OutlineInputBorder(
@@ -95,8 +118,8 @@ class _LoginState extends State<Login> {
                   ),
                   Container(
                     width: 300,
-                    height: 40,
-                    margin: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+                    height: 35,
+                    margin: const EdgeInsets.fromLTRB(0, 15, 0, 10),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(40),
@@ -109,11 +132,51 @@ class _LoginState extends State<Login> {
                       //       offset: Offset(0, -3))
                       // ]
                     ),
-                    child: const Text("Login",
-                        style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white)),
+                    child: InkWell(
+                      onTap: () async {
+                        try {
+                          Authorization.username = _usernameController.text;
+                          Authorization.password = _passwordController.text;
+                          await login();
+                          if (result is AppUser) {
+                            Navigator.pushNamed(context, Test.routeName);
+                          } else {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                      title: Text("Error"),
+                                      content: Text("Doslo je do greske"),
+                                      actions: [
+                                        TextButton(
+                                          child: Text("Ok"),
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                        )
+                                      ],
+                                    ));
+                          }
+                        } catch (e) {
+                          // TODO
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                    title: Text("Error"),
+                                    content: Text(e.toString()),
+                                    actions: [
+                                      TextButton(
+                                        child: Text("Ok"),
+                                        onPressed: () => Navigator.pop(context),
+                                      )
+                                    ],
+                                  ));
+                        }
+                      },
+                      child: const Text("Login",
+                          style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white)),
+                    ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -124,19 +187,19 @@ class _LoginState extends State<Login> {
                         },
                         child: const Text("Create account",
                             style: TextStyle(
-                                fontSize: 16.0,
+                                fontSize: 14.0,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold)),
                       ),
                       const Text(" | ",
                           style: TextStyle(
-                              fontSize: 16.0,
+                              fontSize: 14.0,
                               color: Colors.white,
                               fontWeight: FontWeight.bold)),
                       const InkWell(
                         child: Text("Forgot password?",
                             style: TextStyle(
-                                fontSize: 16.0,
+                                fontSize: 14.0,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold)),
                       )
