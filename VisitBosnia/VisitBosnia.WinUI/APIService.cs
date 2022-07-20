@@ -20,7 +20,7 @@ namespace VisitBosnia.WinUI
             _route = route;
         }
 
-        public async Task<T> Get<T>(object request = null)
+        public async Task<IEnumerable<T>> Get<T>(object request = null)
         {
             var url = $"{_endpoint}{_route}";
             if (request != null)
@@ -36,7 +36,7 @@ namespace VisitBosnia.WinUI
 
             return await url
             .WithBasicAuth(Username, Password)
-            .GetJsonAsync<T>();
+            .GetJsonAsync<IEnumerable<T>>();
         }
 
 

@@ -30,16 +30,16 @@ namespace VisitBosnia.WinUI
         {
             var searchObject = new CitySearchObject();
 
-            var list =await CityService.Get<List<City>>();
+            var list =await CityService.Get<List<Model.City>>();
 
             dgvCity.DataSource = list;
         }
 
-        private void btn_search_Click(object sender, EventArgs e)
+        private async void btn_search_Click(object sender, EventArgs e)
         {
             var searchObject = new CitySearchObject();
             searchObject.Name = txtSearch.Text;
-            var list = CityService.Get<List<City>>(searchObject);
+            var list = await CityService.Get<Model.City>(searchObject);
 
             dgvCity.DataSource = list;
 

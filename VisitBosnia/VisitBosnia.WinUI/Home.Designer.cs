@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.btnSingOut = new System.Windows.Forms.Button();
             this.btnProfile = new System.Windows.Forms.Button();
             this.labelRole = new System.Windows.Forms.Label();
             this.pbProfilePicture = new VisitBosnia.WinUI.CustomInput.Picture();
@@ -36,10 +37,9 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelUserName = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnSingOut = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -75,6 +75,21 @@
             this.splitContainer1.Size = new System.Drawing.Size(925, 633);
             this.splitContainer1.SplitterDistance = 308;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // btnSingOut
+            // 
+            this.btnSingOut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(25)))), ((int)(((byte)(51)))));
+            this.btnSingOut.FlatAppearance.BorderSize = 0;
+            this.btnSingOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSingOut.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnSingOut.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnSingOut.Location = new System.Drawing.Point(0, 456);
+            this.btnSingOut.Margin = new System.Windows.Forms.Padding(0);
+            this.btnSingOut.Name = "btnSingOut";
+            this.btnSingOut.Size = new System.Drawing.Size(315, 39);
+            this.btnSingOut.TabIndex = 7;
+            this.btnSingOut.Text = "Sing Out";
+            this.btnSingOut.UseVisualStyleBackColor = false;
             // 
             // btnProfile
             // 
@@ -154,36 +169,16 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "VisitBosnia";
             // 
-            // btnSingOut
+            // label3
             // 
-            this.btnSingOut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(25)))), ((int)(((byte)(51)))));
-            this.btnSingOut.FlatAppearance.BorderSize = 0;
-            this.btnSingOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSingOut.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnSingOut.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnSingOut.Location = new System.Drawing.Point(0, 456);
-            this.btnSingOut.Margin = new System.Windows.Forms.Padding(0);
-            this.btnSingOut.Name = "btnSingOut";
-            this.btnSingOut.Size = new System.Drawing.Size(315, 39);
-            this.btnSingOut.TabIndex = 7;
-            this.btnSingOut.Text = "Sing Out";
-            this.btnSingOut.UseVisualStyleBackColor = false;
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button1.Location = new System.Drawing.Point(54, 51);
-            this.button1.Name = "button1";
-            this.button1.Padding = new System.Windows.Forms.Padding(0, 18, 0, 0);
-            this.button1.Size = new System.Drawing.Size(242, 89);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Cities \r\n";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label3.Location = new System.Drawing.Point(143, 102);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(153, 19);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "view and managment";
             // 
             // pictureBox2
             // 
@@ -196,16 +191,22 @@
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
             // 
-            // label3
+            // button1
             // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(143, 102);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(153, 19);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "view and managment";
+            this.button1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.button1.Location = new System.Drawing.Point(47, 51);
+            this.button1.Name = "button1";
+            this.button1.Padding = new System.Windows.Forms.Padding(0, 18, 0, 0);
+            this.button1.Size = new System.Drawing.Size(261, 89);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Cities \r\n";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Home
             // 

@@ -76,6 +76,8 @@ namespace VisitBosnia.WinUI
                     {
                         this.Hide();
                         MessageBox.Show("Uspjesna prijava");
+                        var form = new Home();
+                        form.ShowDialog();
                     }
                     else
                     {

@@ -36,14 +36,12 @@ namespace VisitBosnia.WinUI
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.dgvCity = new System.Windows.Forms.DataGridView();
-            this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.County = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ZipCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Edit = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Delete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btn_search = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
+            this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.County = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ZipCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCity)).BeginInit();
             this.SuspendLayout();
             // 
@@ -72,52 +70,18 @@ namespace VisitBosnia.WinUI
             this.dgvCity.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Name,
             this.County,
-            this.ZipCode,
-            this.Edit,
-            this.Delete});
-            this.dgvCity.Location = new System.Drawing.Point(32, 182);
+            this.ZipCode});
+            this.dgvCity.Location = new System.Drawing.Point(32, 145);
             this.dgvCity.Name = "dgvCity";
             this.dgvCity.RowTemplate.Height = 25;
-            this.dgvCity.Size = new System.Drawing.Size(974, 419);
+            this.dgvCity.Size = new System.Drawing.Size(839, 419);
             this.dgvCity.TabIndex = 2;
-            // 
-            // Name
-            // 
-            this.Name.DataPropertyName = "Name";
-            this.Name.HeaderText = "Name";
-            this.Name.Name = "Name";
-            // 
-            // County
-            // 
-            this.County.DataPropertyName = "County";
-            this.County.HeaderText = "County";
-            this.County.Name = "County";
-            // 
-            // ZipCode
-            // 
-            this.ZipCode.DataPropertyName = "ZipCode";
-            this.ZipCode.HeaderText = "ZipCode";
-            this.ZipCode.Name = "ZipCode";
-            // 
-            // Edit
-            // 
-            this.Edit.HeaderText = "Edit";
-            this.Edit.Name = "Edit";
-            this.Edit.Text = "Edit";
-            this.Edit.UseColumnTextForButtonValue = true;
-            // 
-            // Delete
-            // 
-            this.Delete.HeaderText = "Delete";
-            this.Delete.Name = "Delete";
-            this.Delete.Text = "Delete";
-            this.Delete.UseColumnTextForButtonValue = true;
             // 
             // btn_search
             // 
             this.btn_search.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(51)))), ((int)(((byte)(80)))));
             this.btn_search.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btn_search.Location = new System.Drawing.Point(349, 139);
+            this.btn_search.Location = new System.Drawing.Point(344, 102);
             this.btn_search.Name = "btn_search";
             this.btn_search.Size = new System.Drawing.Size(139, 37);
             this.btn_search.TabIndex = 3;
@@ -129,7 +93,7 @@ namespace VisitBosnia.WinUI
             // 
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(51)))), ((int)(((byte)(80)))));
             this.button1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button1.Location = new System.Drawing.Point(827, 132);
+            this.button1.Location = new System.Drawing.Point(692, 97);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(179, 42);
             this.button1.TabIndex = 4;
@@ -138,19 +102,41 @@ namespace VisitBosnia.WinUI
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(32, 147);
+            this.txtSearch.Location = new System.Drawing.Point(32, 110);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(306, 23);
             this.txtSearch.TabIndex = 5;
             // 
+            // Name
+            // 
+            this.Name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Name.DataPropertyName = "Name";
+            this.Name.HeaderText = "Name";
+            this.Name.Name = "Name";
+            // 
+            // County
+            // 
+            this.County.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.County.DataPropertyName = "County";
+            this.County.HeaderText = "County";
+            this.County.Name = "County";
+            // 
+            // ZipCode
+            // 
+            this.ZipCode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ZipCode.DataPropertyName = "ZipCode";
+            this.ZipCode.HeaderText = "ZipCode";
+            this.ZipCode.Name = "ZipCode";
+            // 
             // frmCity
             // 
-            this.ClientSize = new System.Drawing.Size(1028, 621);
+            this.ClientSize = new System.Drawing.Size(900, 585);
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btn_search);
             this.Controls.Add(this.dgvCity);
             this.Controls.Add(this.label2);
+
             ((System.ComponentModel.ISupportInitialize)(this.dgvCity)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -168,7 +154,5 @@ namespace VisitBosnia.WinUI
         private DataGridViewTextBoxColumn Name;
         private DataGridViewTextBoxColumn County;
         private DataGridViewTextBoxColumn ZipCode;
-        private DataGridViewButtonColumn Edit;
-        private DataGridViewButtonColumn Delete;
     }
 }
