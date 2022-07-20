@@ -15,7 +15,7 @@ namespace VisitBosnia.Controllers
         }
 
         [HttpGet]
-        public override Task<List<AppUser>> Get([FromQuery] AppUserSearchObject search)
+        public override Task<IEnumerable<AppUser>> Get([FromQuery] AppUserSearchObject search)
         {
             return base.Get(search);
         }

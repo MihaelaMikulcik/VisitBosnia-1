@@ -98,6 +98,8 @@ namespace VisitBosnia.WinUI
                     //APIService.Password = request.Password;
                     this.Close();
                     MessageBox.Show("Uspjesna registracija");
+                    var form = new Home();
+                    form.ShowDialog();
                 }
                 catch
                 {

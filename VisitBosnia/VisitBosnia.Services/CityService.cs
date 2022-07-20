@@ -19,6 +19,23 @@ namespace VisitBosnia.Services
 
         }
 
-        
+        public override IQueryable<City> AddFilter(IQueryable<City> query, CitySearchObject search = null)
+        {
+            var filteredQuery = base.AddFilter(query, search);
+
+            if (!string.IsNullOrEmpty(search?.Name))
+            {
+                filteredQuery = filteredQuery.Where(x => x.Name == search.Name);
+            }
+
+
+            if (!string.IsNullOrEmpty(search?.County))
+            {
+                filteredQuery = filteredQuery.Where(x => x.County == search.County);
+            }
+
+            return filteredQuery;
+        }
+
     }
 }

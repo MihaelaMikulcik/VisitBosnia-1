@@ -1,11 +1,13 @@
-﻿using VisitBosnia.Model.Requests;
+﻿using Microsoft.AspNetCore.Authorization;
+using VisitBosnia.Model.Requests;
 using VisitBosnia.Services.Interfaces;
 
 namespace VisitBosnia.Controllers
 {
-    public class CityContoller : BaseCRUDController<Model.City, CitySearchObject, CityInsertRequest, CityUpdateRequest>
+    [AllowAnonymous]
+    public class CityController : BaseCRUDController<Model.City, CitySearchObject, CityInsertRequest, CityUpdateRequest>
     {
-        public CityContoller(ICityService service):base(service)
+        public CityController(ICityService service):base(service)
         {
 
         }
