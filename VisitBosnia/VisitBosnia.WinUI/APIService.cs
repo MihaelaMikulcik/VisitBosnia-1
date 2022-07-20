@@ -33,9 +33,10 @@ namespace VisitBosnia.WinUI
             //    .WithBasicAuth(Username, Password)
             //    .GetJsonAsync<T>();
             //return result;
+
             return await url
-               .WithBasicAuth(Username, Password)
-               .GetJsonAsync<T>();
+            .WithBasicAuth(Username, Password)
+            .GetJsonAsync<T>();
         }
 
 

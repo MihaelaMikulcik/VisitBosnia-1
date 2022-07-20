@@ -16,7 +16,7 @@ namespace VisitBosnia.Controllers
         }
 
         [HttpGet]
-        public async virtual Task<List<T>> Get([FromQuery]TSearch search)
+        public async virtual Task<IEnumerable<T>> Get([FromQuery]TSearch search)
         {
             return await _service.Get(search);
         }

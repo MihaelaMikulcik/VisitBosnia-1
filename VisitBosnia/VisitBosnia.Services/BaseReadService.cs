@@ -26,9 +26,12 @@ namespace VisitBosnia.Services
         //    return Mapper.Map<List<T>>(list);
         //}
 
-        public virtual async Task<List<T>> Get(TSearch search = null)
+        public virtual async Task<IEnumerable<T>> Get(TSearch search = null)
         {
-            var entity = Context.Set<TDb>();
+            var entity = Context.Set<TDb>().AsQueryable();
+
+            entity = AddFilter(entity, search);
+
             var list = await entity.ToListAsync();
             return Mapper.Map<List<T>>(list);
         }
@@ -38,6 +41,11 @@ namespace VisitBosnia.Services
             var set = Context.Set<TDb>();
             var entity = await set.FindAsync(id);
             return Mapper.Map<T>(entity);
+        }
+
+        public virtual IQueryable<TDb> AddFilter(IQueryable<TDb> query, TSearch search = null)
+        {
+            return query;
         }
     }
 }

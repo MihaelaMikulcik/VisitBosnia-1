@@ -93,6 +93,16 @@ namespace VisitBosnia.WinUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap pictureIcon {
+            get {
+                object obj = ResourceManager.GetObject("pictureIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Sarajevo_39_big_1_ {
             get {
                 object obj = ResourceManager.GetObject("Sarajevo-39_big(1)", resourceCulture);
