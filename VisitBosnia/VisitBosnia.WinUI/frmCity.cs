@@ -19,18 +19,13 @@ namespace VisitBosnia.WinUI
         public frmCity()
         {
             InitializeComponent();
-        }
-
-        private void frmCity_Load(object sender, System.EventArgs e)
-        {
             LoadTable();
         }
 
-        private async Task LoadTable()
-        {
-            var searchObject = new CitySearchObject();
-
-            var list =await CityService.Get<List<Model.City>>();
+      
+        private async void LoadTable()
+        {        
+            var list = await CityService.Get<Model.City>();
 
             dgvCity.DataSource = list;
         }
@@ -43,6 +38,59 @@ namespace VisitBosnia.WinUI
 
             dgvCity.DataSource = list;
 
+        }
+
+        private void labelBack_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            var form2 = new Home();
+            form2.Closed += (s, args) => this.Close();
+            form2.Show();
+        }
+
+        private async void dgvCity_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var row = dgvCity.Rows[e.RowIndex];
+            var item = row.DataBoundItem as City;
+            var senderGrid = (DataGridView)sender;
+
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
+                e.ColumnIndex == 4)
+            {
+                this.Hide();
+                var form2 = new frmCityDetails(item);
+                form2.Closed += (s, args) => this.Close();
+                form2.Show();
+
+            }
+            else
+            {
+                if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
+                {
+                    var confirmResult = MessageBox.Show("Are you sure to delete this item ??",
+                                         "Confirm Delete!!",
+                                         MessageBoxButtons.YesNo);
+
+                    if (confirmResult == DialogResult.Yes)
+                    {
+                        var delete = await CityService.Delete<Model.City>(item.Id);
+                        LoadTable();
+                        var message = MessageBox.Show("Successfully deleted");
+
+                    }
+
+                }
+            }
+
+          
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            var form2 = new frmCityDetails();
+            form2.Closed += (s, args) => this.Close();
+            form2.Show();
         }
     }
 }
