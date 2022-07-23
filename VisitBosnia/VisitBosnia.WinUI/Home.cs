@@ -19,8 +19,10 @@ namespace VisitBosnia.WinUI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var form = new frmCity();
-            form.ShowDialog();
+            this.Hide();
+            var form2 = new frmCity();
+            form2.Closed += (s, args) => this.Close();
+            form2.Show();
         }
     }
 }

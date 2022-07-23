@@ -110,7 +110,14 @@ namespace VisitBosnia.WinUI
             }
         }
 
-       
+        public async Task<T> Delete<T>(int id)
+        {
+
+            var url = $"{_endpoint}{_route}/delete/{id}";
+            return await url.WithBasicAuth(Username, Password).DeleteAsync().ReceiveJson<T>();
+
+        }
+
 
 
     }

@@ -24,6 +24,7 @@ namespace VisitBosnia.Controllers
            return await crudService.Update(id, request);
         }
 
+        [Route("delete/{id}")]
         [HttpDelete]
         public async virtual Task<T> Delete(int id)
         {
