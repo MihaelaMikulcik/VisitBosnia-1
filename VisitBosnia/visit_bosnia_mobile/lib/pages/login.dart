@@ -1,12 +1,11 @@
-// ignore_for_file: implementation_imports, unnecessary_import
-
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
+import 'package:visit_bosnia_mobile/exception/http_exception.dart';
 import 'package:visit_bosnia_mobile/model/appUser/app_user.dart';
 import 'package:visit_bosnia_mobile/pages/register.dart';
-import 'package:visit_bosnia_mobile/pages/test.dart';
+import 'package:visit_bosnia_mobile/pages/home_page.dart';
 import 'package:visit_bosnia_mobile/providers/appuser_provider.dart';
 import 'package:visit_bosnia_mobile/utils/util.dart';
 
@@ -18,8 +17,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   AppUserProvider? _appUserProvider;
   dynamic result;
   Future<void> login() async {
@@ -37,6 +36,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // resizeToAvoidBottomInset: false,
       body: Center(
         child: Container(
             decoration: const BoxDecoration(
@@ -66,20 +66,13 @@ class _LoginState extends State<Login> {
                           "VisitBosnia",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 30.0,
+                              fontSize: 33.0,
                               color: Colors.white),
                         ),
                       )
                     ],
                   ),
                   const SizedBox(height: 10),
-                  // const SizedBox(
-                  //   height: 60,
-                  //   width: 60,
-                  //   child: Image(
-                  //     image: AssetImage("assets/bosnia_icon.png"),
-                  //   ),
-                  // ),
                   SizedBox(
                     height: 35,
                     child: TextField(
@@ -124,31 +117,39 @@ class _LoginState extends State<Login> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(40),
                       color: const Color.fromRGBO(29, 76, 120, 1),
-                      // boxShadow: const [
-                      //   BoxShadow(
-                      //       color: Color.fromARGB(255, 231, 236, 240),
-                      //       spreadRadius: 10,
-                      //       blurRadius: 10,
-                      //       offset: Offset(0, -3))
-                      // ]
                     ),
                     child: InkWell(
                       onTap: () async {
+                        if (_usernameController.text.isEmpty ||
+                            _passwordController.text.isEmpty) {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text(
+                              "Please insert username and password",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            duration: Duration(seconds: 2),
+                            backgroundColor: Color.fromARGB(255, 165, 46, 37),
+                          ));
+                          return;
+                        }
                         try {
                           Authorization.username = _usernameController.text;
                           Authorization.password = _passwordController.text;
                           await login();
                           if (result is AppUser) {
-                            Navigator.pushNamed(context, Test.routeName);
+                            Navigator.pushNamed(context, Homepage.routeName);
                           } else {
                             showDialog(
                                 context: context,
                                 builder: (BuildContext context) => AlertDialog(
-                                      title: Text("Error"),
-                                      content: Text("Doslo je do greske"),
+                                      title: const Text("Error"),
+                                      content: const Text("Doslo je do greske"),
                                       actions: [
                                         TextButton(
-                                          child: Text("Ok"),
+                                          child: const Text("Ok"),
                                           onPressed: () =>
                                               Navigator.pop(context),
                                         )
@@ -156,19 +157,26 @@ class _LoginState extends State<Login> {
                                     ));
                           }
                         } catch (e) {
-                          // TODO
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                    title: Text("Error"),
-                                    content: Text(e.toString()),
-                                    actions: [
-                                      TextButton(
-                                        child: Text("Ok"),
-                                        onPressed: () => Navigator.pop(context),
-                                      )
-                                    ],
-                                  ));
+                          if (e is UserException) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: Text(
+                                  e.message,
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                                duration: const Duration(seconds: 2),
+                                backgroundColor:
+                                    const Color.fromARGB(255, 165, 46, 37)));
+                          }
+                          // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          //     content: Text(
+                          //       e.toString().substring(
+                          //           e.toString().indexOf(':') + 2,
+                          //           e.toString().length),
+                          //       style: TextStyle(color: Colors.white),
+                          //     ),
+                          //     duration: Duration(seconds: 2),
+                          //     backgroundColor:
+                          //         Color.fromARGB(255, 165, 46, 37)));
                         }
                       },
                       child: const Text("Login",

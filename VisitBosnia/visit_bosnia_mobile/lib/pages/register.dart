@@ -10,8 +10,9 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:visit_bosnia_mobile/exception/http_exception.dart';
 import 'package:visit_bosnia_mobile/model/appUser/app_user_register.dart';
-import 'package:visit_bosnia_mobile/pages/test.dart';
+import 'package:visit_bosnia_mobile/pages/home_page.dart';
 import 'package:visit_bosnia_mobile/pickers/user_image_picker.dart';
 import 'package:visit_bosnia_mobile/providers/appuser_provider.dart';
 import 'package:visit_bosnia_mobile/utils/util.dart';
@@ -32,16 +33,95 @@ class _RegisterState extends State<Register> {
   bool _obsecureConfirmPass = true;
   File? _userImage;
 
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
 
   dynamic response;
   AppUserRegisterRequest request = AppUserRegisterRequest();
   AppUserProvider? _appUserProvider;
+
+  final _formKey = GlobalKey<FormState>();
+  final String _requiredMessage = "This field is required!";
+
+  String _firstName = '';
+  String _lastName = '';
+  String _email = '';
+  String _username = '';
+  String _password = '';
+  String _confirmPassword = '';
+
+  bool _autoValidate = false;
+
+  bool isEmail(String em) {
+    String p =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+
+    RegExp regExp = RegExp(p);
+
+    return regExp.hasMatch(em);
+  }
+
+  void _trySubmit() async {
+    final isValid = _formKey.currentState!.validate();
+    FocusScope.of(context).unfocus();
+
+    if (isValid) {
+      _formKey.currentState!.save();
+      if (_formKey.currentState!.validate()) {
+        request.firstName = _firstName;
+        request.lastName = _lastName;
+        request.email = _email;
+        request.userName = _username;
+        request.password = _password;
+        request.passwordConfirm = _confirmPassword;
+        if (_userImage != null) {
+          request.image = base64String(await _userImage!.readAsBytes());
+        }
+
+        try {
+          await getData(request);
+          Authorization.username = _username;
+          Authorization.password = _password;
+          if (response is AppUser) {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                      title: const Text("Uspjeh"),
+                      content: const Text("Uspjesna registracija"),
+                      actions: [
+                        TextButton(
+                            child: const Text("Ok"),
+                            onPressed: () {
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                              Navigator.pushNamed(context, Homepage.routeName);
+                            })
+                      ],
+                    ));
+          }
+        } catch (e) {
+          if (e is UserException) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+                  e.message,
+                  style: const TextStyle(color: Colors.white),
+                ),
+                duration: const Duration(seconds: 2),
+                backgroundColor: Color.fromARGB(255, 165, 46, 37)));
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text(
+                  "Something went wrong, please try again later...",
+                  style: TextStyle(color: Colors.white),
+                ),
+                duration: Duration(seconds: 2),
+                backgroundColor: Color.fromARGB(255, 165, 46, 37)));
+          }
+        }
+      }
+    } else {
+      _autoValidate = true;
+    }
+  }
 
   void _pickedImage(File image) {
     _userImage = image;
@@ -58,25 +138,6 @@ class _RegisterState extends State<Register> {
     response = await _appUserProvider!.register(request);
   }
 
-  Future<void> _showDialog(String text) async {
-    return showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: Text(text),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,17 +152,17 @@ class _RegisterState extends State<Register> {
               child: SafeArea(
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    Text(
+                    const Text(
                       "Sign up",
                       style: TextStyle(
                           fontSize: 27.0,
                           fontWeight: FontWeight.bold,
                           color: Colors.white),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     UserImagePicker(imagePickFn: _pickedImage)
@@ -111,34 +172,40 @@ class _RegisterState extends State<Register> {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(30, 10, 30, 20),
-              child: Column(
-                children: [
-                  txtFirstName(),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  txtLastName(),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  txtEmail(),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  txtUsername(),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  txtPassword(),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  txtConfirmPassword(),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  btnSignUp()
-                ],
+              child: Form(
+                key: _formKey,
+                autovalidateMode: _autoValidate
+                    ? AutovalidateMode.onUserInteraction
+                    : AutovalidateMode.disabled,
+                child: Column(
+                  children: [
+                    txtFirstName(),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    txtLastName(),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    txtEmail(),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    txtUsername(),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    txtPassword(),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    txtConfirmPassword(),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    btnSignUp()
+                  ],
+                ),
               ),
             ),
           ]),
@@ -148,40 +215,79 @@ class _RegisterState extends State<Register> {
   }
 
   Widget txtFirstName() {
-    return TextField(
-      controller: firstNameController,
-      decoration: const InputDecoration(
-          labelText: "First name", border: UnderlineInputBorder()),
-    );
+    return TextFormField(
+        validator: (value) {
+          if (value!.isEmpty) {
+            return _requiredMessage;
+          }
+          return null;
+        },
+        decoration: const InputDecoration(
+            labelText: "First name", border: UnderlineInputBorder()),
+        onSaved: (value) {
+          _firstName = value!;
+        });
   }
 
   Widget txtLastName() {
-    return TextField(
-      controller: lastNameController,
+    return TextFormField(
+      validator: (value) {
+        if (value!.isEmpty) {
+          return _requiredMessage;
+        }
+        return null;
+      },
       decoration: const InputDecoration(
           labelText: "Last name", border: UnderlineInputBorder()),
+      onSaved: (value) {
+        _lastName = value!;
+      },
     );
   }
 
   Widget txtEmail() {
-    return TextField(
-      controller: emailController,
+    return TextFormField(
+      validator: (value) {
+        if (value!.isEmpty) {
+          return _requiredMessage;
+        } else if (!isEmail(value)) {
+          return "Invalid email format!";
+        }
+        return null;
+      },
       decoration: const InputDecoration(
           labelText: "Email", border: UnderlineInputBorder()),
+      onSaved: (value) {
+        _email = value!;
+      },
     );
   }
 
   Widget txtUsername() {
-    return TextField(
-      controller: usernameController,
+    return TextFormField(
+      validator: (value) {
+        if (value!.isEmpty) {
+          return _requiredMessage;
+        }
+        return null;
+      },
       decoration: const InputDecoration(
           labelText: "Username", border: UnderlineInputBorder()),
+      onSaved: (value) {
+        _username = value!;
+      },
     );
   }
 
   Widget txtPassword() {
-    return TextField(
+    return TextFormField(
       controller: passwordController,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return _requiredMessage;
+        }
+        return null;
+      },
       decoration: InputDecoration(
           labelText: "Password",
           suffixIcon: IconButton(
@@ -194,12 +300,23 @@ class _RegisterState extends State<Register> {
           ),
           border: const UnderlineInputBorder()),
       obscureText: _obsecurePass,
+      onSaved: (value) {
+        _password = value!;
+      },
     );
   }
 
   Widget txtConfirmPassword() {
-    return TextField(
-      controller: confirmPasswordController,
+    return TextFormField(
+      validator: (value) {
+        if (value!.isEmpty) {
+          return _requiredMessage;
+        }
+        if (value != passwordController.text) {
+          return "Password and confirmation do not match!";
+        }
+        return null;
+      },
       decoration: InputDecoration(
           labelText: "Confirm password",
           suffixIcon: IconButton(
@@ -213,73 +330,15 @@ class _RegisterState extends State<Register> {
           ),
           border: const UnderlineInputBorder()),
       obscureText: _obsecureConfirmPass,
+      onSaved: (value) {
+        _confirmPassword = value!;
+      },
     );
   }
 
   Widget btnSignUp() {
     return InkWell(
-        onTap: () async {
-          request.firstName = firstNameController.text;
-          request.lastName = lastNameController.text;
-          request.email = emailController.text;
-          request.userName = usernameController.text;
-          request.password = passwordController.text;
-          request.passwordConfirm = confirmPasswordController.text;
-          if (_userImage != null) {
-            request.image = base64String(await _userImage!.readAsBytes());
-          }
-
-          // Authorization.username = usernameController.text;
-          try {
-            await getData(request);
-            if (response is AppUser) {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                        title: Text("Uspjeh"),
-                        content: Text("Uspjesna registracija"),
-                        actions: [
-                          TextButton(
-                            child: Text("Ok"),
-                            onPressed: () => Navigator.pop(context),
-                          )
-                        ],
-                      ));
-            } else {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                        title: Text("Greska"),
-                        content: Text("Neuspjesna registracija"),
-                        actions: [
-                          TextButton(
-                            child: Text("Ok"),
-                            onPressed: () => Navigator.pop(context),
-                          )
-                        ],
-                      ));
-            }
-          } catch (e) {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                      title: Text("Error"),
-                      content: Text("Doslo je do greske"),
-                      actions: [
-                        TextButton(
-                          child: Text("Ok"),
-                          onPressed: () => Navigator.pop(context),
-                        )
-                      ],
-                    ));
-          }
-          // if (response == null) {
-          //   _showDialog('Došlo je do pogreške!');
-          // } else {
-          //   var korisnik = AppUser.fromJson(response);
-          //   Navigator.pushNamed(context, Test.routeName);
-          // }
-        },
+        onTap: _trySubmit,
         child: Container(
           alignment: Alignment.center,
           width: MediaQuery.of(context).size.width,
@@ -295,103 +354,4 @@ class _RegisterState extends State<Register> {
                   fontSize: 20)),
         ));
   }
-
-  // Widget profileImage() {
-  //   return SizedBox(
-  //       height: 150,
-  //       width: 150,
-  //       child: Stack(
-  //         clipBehavior: Clip.none,
-  //         fit: StackFit.expand,
-  //         children: [
-  //           CircleAvatar(
-  //             //backgroundImage: AssetImage("assets/images/user.png"),
-  //             backgroundImage: _userImage != null
-  //                 ? FileImage(_userImage!)
-  //                 : AssetImage("assets/images/user3.jpg")
-  //                     as ImageProvider<Object>?,
-  //             backgroundColor: Color.fromARGB(255, 123, 179, 231),
-  //             // radius: 70.0,
-  //           ),
-  //           // ClipOval(
-  //           //     child: image != null
-  //           //         ? Image.file(image!)
-  //           //         : const Image(
-  //           //             image: AssetImage("assets/images/user.png"),
-  //           //             height: 150,
-  //           //             width: 150,
-  //           //             fit: BoxFit.cover,
-  //           //           )),
-  //           Positioned(
-  //             bottom: 0,
-  //             right: -10,
-  //             child: RawMaterialButton(
-  //               onPressed: () {
-  //                 showModalBottomSheet(
-  //                     context: context,
-  //                     builder: ((builder) => imageBottomSheet()));
-  //               },
-  //               elevation: 2.0,
-  //               fillColor: Colors.blue,
-  //               padding: const EdgeInsets.all(10.0),
-  //               shape: const CircleBorder(),
-  //               child: const Icon(
-  //                 Icons.camera_alt_outlined,
-  //                 color: Colors.white,
-  //               ),
-  //             ),
-  //           )
-  //         ],
-  //       ));
-  // }
-
-  // Future pickImage(ImageSource source) async {
-  //   try {
-  //     final image = await ImagePicker().pickImage(source: source);
-  //     if (image == null) return;
-  //     final imageTemporary = File(image.path);
-  //     setState(() => this._userImage = imageTemporary);
-  //   } on PlatformException catch (e) {
-  //     print('Failed to pick image: $e');
-  //   }
-  // }
-
-  // Widget imageBottomSheet() {
-  //   return Container(
-  //     height: 100.0,
-  //     width: MediaQuery.of(context).size.width,
-  //     margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-  //     child: Column(
-  //       children: [
-  //         const Text("Choose profile photo", style: TextStyle(fontSize: 20.0)),
-  //         const SizedBox(
-  //           height: 20,
-  //         ),
-  //         Row(
-  //           mainAxisAlignment: MainAxisAlignment.center,
-  //           children: [
-  //             TextButton.icon(
-  //                 style: TextButton.styleFrom(
-  //                   primary: Colors.black,
-  //                 ),
-  //                 onPressed: () {
-  //                   pickImage(ImageSource.camera);
-  //                 },
-  //                 icon: const Icon(Icons.camera),
-  //                 label: const Text("Camera")),
-  //             TextButton.icon(
-  //                 style: TextButton.styleFrom(
-  //                   primary: Colors.black,
-  //                 ),
-  //                 onPressed: () {
-  //                   pickImage(ImageSource.gallery);
-  //                 },
-  //                 icon: const Icon(Icons.image),
-  //                 label: const Text("Gallery"))
-  //           ],
-  //         )
-  //       ],
-  //     ),
-  //   );
-  // }
 }

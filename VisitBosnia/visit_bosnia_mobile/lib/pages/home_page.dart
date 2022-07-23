@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class Test extends StatefulWidget {
-  static const String routeName = "/test";
+class Homepage extends StatefulWidget {
+  static const String routeName = "/homepage";
 
-  const Test({Key? key}) : super(key: key);
+  const Homepage({Key? key}) : super(key: key);
 
   @override
-  State<Test> createState() => _TestState();
+  State<Homepage> createState() => _HomepageState();
 }
 
-class _TestState extends State<Test> {
+class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(

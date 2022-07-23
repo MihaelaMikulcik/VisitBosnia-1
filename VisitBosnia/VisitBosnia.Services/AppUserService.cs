@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VisitBosnia.Filters;
 using VisitBosnia.Helpers;
 using VisitBosnia.Model.Requests;
 using VisitBosnia.Model.SearchObjects;
@@ -27,14 +28,14 @@ namespace VisitBosnia.Services
             var user = await Context.AppUsers.FirstOrDefaultAsync(x => x.UserName == username); //dodati role
             if(user == null)
             {
-                //return null;
-                throw new Exception("Wrong username or password!");
+                return null;
+                //throw new UserException("Wrong username or password!");
             }
             var hash = HashHelper.GenerateHash(user.PasswordSalt, password);
             if(hash != user.PasswordHash)
             {
-                //return null;
-                throw new Exception("Wrong username or password!");
+                return null;
+                //throw new UserException("Wrong username or password!");
             }
             return Mapper.Map<Model.AppUser>(user);
         }
@@ -66,11 +67,11 @@ namespace VisitBosnia.Services
             var userExists = Context.AppUsers.FirstOrDefault(x => x.UserName == request.UserName);
             if (userExists != null)
             {
-                throw new Exception("Username already exists!"); //napraviti odvojenu async funk
+                throw new UserException("Username already exists!"); //napraviti odvojenu async funk
             }
             if (request.Password != request.PasswordConfirm)
             {
-                throw new Exception("Password and confirmation do not match!");
+                throw new UserException("Password and confirmation do not match!");
             }
 
             var entity = Mapper.Map<Database.AppUser>(request);
