@@ -1,11 +1,9 @@
-// ignore_for_file: unused_import
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:visit_bosnia_mobile/pages/login.dart';
 import 'package:visit_bosnia_mobile/pages/register.dart';
-import 'package:visit_bosnia_mobile/pages/test.dart';
+import 'package:visit_bosnia_mobile/pages/home_page.dart';
 import 'package:visit_bosnia_mobile/providers/appuser_provider.dart';
 import 'package:visit_bosnia_mobile/providers/base_provider.dart';
 
@@ -21,8 +19,8 @@ void main() => runApp(MultiProvider(
           if (settings.name == Register.routeName) {
             return MaterialPageRoute(builder: ((context) => const Register()));
           }
-          if (settings.name == Test.routeName) {
-            return MaterialPageRoute(builder: ((context) => const Test()));
+          if (settings.name == Homepage.routeName) {
+            return MaterialPageRoute(builder: ((context) => const Homepage()));
           }
         })));
 

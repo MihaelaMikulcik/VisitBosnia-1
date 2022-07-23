@@ -92,14 +92,21 @@ namespace VisitBosnia.WinUI
                     };
                     if ((string)pbProfilePicture.Tag != "temp_user")
                         request.Image = Helpers.ImageHelper.imageToByteArray(pbProfilePicture.Image);
-                    await appUserService.Register(request);
-                    //var user = appUserService.Register(request);
-                    //APIService.Username = request.UserName;
-                    //APIService.Password = request.Password;
-                    this.Close();
-                    MessageBox.Show("Uspjesna registracija");
-                    var form = new Home();
-                    form.ShowDialog();
+                    var result = await appUserService.Register(request);
+                    if (result != null)
+                    {
+                        APIService.Username = request.UserName;
+                        APIService.Password = request.Password;
+                        MessageBox.Show("Uspješna registracija", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        
+                        this.Hide();
+                        Application.OpenForms["Login"].Hide();
+                        var form = new Home();
+                        form.ShowDialog();
+                        
+                       
+                    }
+                    
                 }
                 catch
                 {

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using VisitBosnia.WinUI.Validator;
+using VisitBosnia.Filters;
 
 namespace VisitBosnia.WinUI
 {
@@ -75,7 +76,7 @@ namespace VisitBosnia.WinUI
                     if (result != null)
                     {
                         this.Hide();
-                        MessageBox.Show("Uspjesna prijava");
+                        //MessageBox.Show("Uspjesna prijava");
                         var form = new Home();
                         form.ShowDialog();
                     }
@@ -85,9 +86,9 @@ namespace VisitBosnia.WinUI
                         error.SetError(txtPassword, "Wrong username or password");
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Unexpected error!");
+                    MessageBox.Show(ex.Message);
                 }
             }
             

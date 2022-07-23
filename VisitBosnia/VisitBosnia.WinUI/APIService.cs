@@ -69,8 +69,23 @@ namespace VisitBosnia.WinUI
         public async Task<T> Login<T>(string username, string password)
         {
             var url = $"{_endpoint}{_route}?Username={username}&Password={password}";
-            var result = await url.WithBasicAuth(username, password).GetJsonAsync<T>();
-            return result;
+            //try
+            //{
+                var result = await url.WithBasicAuth(username, password).GetJsonAsync<T>();
+                return result;
+            //}
+            //catch (FlurlHttpException ex)
+            //{
+            //    var errors = await ex.GetResponseJsonAsync<Dictionary<string, string[]>>();
+            //    var stringBuilder = new StringBuilder();
+            //    foreach (var error in errors)
+            //    {
+            //        stringBuilder.AppendLine($"{error.Key}, ${string.Join(",", error.Value)}");
+            //    }
+            //    MessageBox.Show(stringBuilder.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return default(T);
+            //}
+
         }
 
         public async Task<Model.AppUser> Register(AppUserInsertRequest request)
@@ -87,10 +102,10 @@ namespace VisitBosnia.WinUI
                 var stringBuilder = new StringBuilder();
                 foreach (var error in errors)
                 {
-                    stringBuilder.AppendLine($"{error.Key}, ${string.Join(",", error.Value)}");
+                    stringBuilder.AppendLine($"{error.Key}, {string.Join(",", error.Value)}");
                 }
 
-                MessageBox.Show(stringBuilder.ToString(), "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(stringBuilder.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return default(Model.AppUser);
             }
         }

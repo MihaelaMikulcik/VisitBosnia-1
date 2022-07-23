@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:http/http.dart';
 import 'package:http/io_client.dart';
+import 'package:visit_bosnia_mobile/exception/http_exception.dart';
 import 'package:visit_bosnia_mobile/model/appUser/app_user_register.dart';
 import 'package:visit_bosnia_mobile/providers/base_provider.dart';
 
@@ -18,39 +19,48 @@ class AppUserProvider extends BaseProvider<AppUser> {
   }
 
   Future<AppUser> login(String username, String password) async {
+    var response = null;
     var url =
         "https://10.0.2.2:44373/Login?Username=$username&Password=$password";
-    // var url =
-    //     "https://192.168.0.31/:44373Login?Username=$username&Password=$password";
+    //var url =
+    //   "https://192.168.0.31/:44373/Login?Username=$username&Password=$password";
     var uri = Uri.parse(url);
 
     Map<String, String> headers = createHeaders();
-    print("get me");
-    var response = await http!.get(uri, headers: headers);
-    print("done $response");
-    if (isValidResponseCode(response)) {
-      var data = jsonDecode(response.body);
-      return AppUser.fromJson(data);
-
-      //return data;
-    } else {
-      throw Exception("Exception... handle this gracefully");
+    try {
+      response = await http!.get(uri, headers: headers);
+      if (isValidResponseCode(response)) {
+        var data = jsonDecode(response.body);
+        return AppUser.fromJson(data);
+      } else {
+        throw Exception("Something went wrong!");
+      }
+    } catch (e) {
+      if (response != null && response.body == "") {
+        throw UserException("Username or password incorrect!");
+      } else {
+        throw UserException("Something went wrong, please try again later...");
+      }
     }
   }
 
   Future<AppUser?> register(AppUserRegisterRequest request) async {
-    final String baseUrl = "https://10.0.2.2:44373/AppUser/Register";
-    final response = await http!.post(Uri.parse(baseUrl),
-        body: jsonEncode(request.toJson()),
-        headers: <String, String>{'Content-Type': 'application/json'});
+    const String url = "https://10.0.2.2:44373/AppUser/Register";
+    try {
+      final response = await http!.post(Uri.parse(url),
+          body: jsonEncode(request.toJson()),
+          headers: <String, String>{'Content-Type': 'application/json'});
 
-    if (response.statusCode == 200) {
-      // Client data = Client.fromJsonLimited(json.decode(response.body));
-      // return data;
-      var data = jsonDecode(response.body);
-      return AppUser.fromJson(data);
-    } else {
-      return null;
+      if (isValidResponseCode(response)) {
+        var data = jsonDecode(response.body);
+        return AppUser.fromJson(data);
+      }
+    } catch (e) {
+      if (e.toString().contains("Bad request")) {
+        throw UserException("Username already exists!");
+      } else {
+        rethrow;
+      }
     }
   }
 }
