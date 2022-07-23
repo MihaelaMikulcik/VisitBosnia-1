@@ -23,16 +23,21 @@ namespace VisitBosnia.Services
         {
             var filteredQuery = base.AddFilter(query, search);
 
-            if (!string.IsNullOrEmpty(search?.Name))
+            if (!string.IsNullOrEmpty(search?.SearchText))
             {
-                filteredQuery = filteredQuery.Where(x => x.Name == search.Name);
+                filteredQuery = filteredQuery.Where(x => x.Name.ToLower().StartsWith(search.SearchText.ToLower()) || x.County.ToLower().StartsWith(search.SearchText.ToLower()) || x.ZipCode.ToLower().StartsWith(search.SearchText.ToLower()));
             }
 
 
-            if (!string.IsNullOrEmpty(search?.County))
-            {
-                filteredQuery = filteredQuery.Where(x => x.County == search.County);
-            }
+            //if (!string.IsNullOrEmpty(search?.County))
+            //{
+            //    filteredQuery = filteredQuery.Where(x => x.County.ToLower().StartsWith(search.County.ToLower()));
+            //}
+
+            //if (!string.IsNullOrEmpty(search?.ZipCode))
+            //{
+            //    filteredQuery = filteredQuery.Where(x => x.ZipCode.ToLower().StartsWith(search.ZipCode.ToLower()));
+            //}
 
             return filteredQuery;
         }

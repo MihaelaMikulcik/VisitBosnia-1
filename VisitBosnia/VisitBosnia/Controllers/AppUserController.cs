@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using VisitBosnia.Model;
 using VisitBosnia.Model.Requests;
+using VisitBosnia.Model.SearchObjects;
 using VisitBosnia.Services.Interfaces;
 
 namespace VisitBosnia.Controllers
@@ -14,11 +15,11 @@ namespace VisitBosnia.Controllers
             this.service = service;
         }
 
-        [HttpGet]
-        public override Task<IEnumerable<AppUser>> Get([FromQuery] AppUserSearchObject search)
-        {
-            return base.Get(search);
-        }
+        //[HttpGet]
+        //public override Task<IEnumerable<AppUser>> Get([FromQuery] AppUserSearchObject search = null)
+        //{
+        //    return base.Get(search);
+        //}
 
         [AllowAnonymous]
         [HttpGet("/Login")]

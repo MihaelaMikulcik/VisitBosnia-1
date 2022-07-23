@@ -37,6 +37,8 @@ namespace VisitBosnia.Model.Requests
         //[Required(AllowEmptyStrings = false)]
         public DateTime? DateOfBirth { get; set; }
 
+        public bool IsBlocked { get; set; }
+
         //public List<int> Roles { get; set; } = new List<int>();
     }
 }

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VisitBosnia.Helpers;
 using VisitBosnia.Model.Requests;
+using VisitBosnia.Model.SearchObjects;
 using VisitBosnia.Services.Database;
 using VisitBosnia.Services.Interfaces;
 
@@ -96,7 +97,33 @@ namespace VisitBosnia.Services
             return Mapper.Map<Model.AppUser>(entity);
         }
 
+        public override IQueryable<AppUser> AddFilter(IQueryable<AppUser> query, AppUserSearchObject search = null)
+        {
+            var filteredQuery = base.AddFilter(query, search);
 
+            if (!string.IsNullOrEmpty(search?.SearchText))
+            {
+                filteredQuery = filteredQuery.Where(x => x.FirstName.ToLower().StartsWith(search.SearchText.ToLower()) || x.LastName.ToLower().StartsWith(search.SearchText.ToLower()) || x.Email.ToLower().StartsWith(search.SearchText.ToLower()) || x.UserName.ToLower().StartsWith(search.SearchText.ToLower()));
+            }
+
+
+            //if (!string.IsNullOrEmpty(search?.LastName))
+            //{
+            //    filteredQuery = filteredQuery.Where(x => x.LastName.ToLower().StartsWith(search.LastName.ToLower()));
+            //}
+
+            //if (!string.IsNullOrEmpty(search?.Email))
+            //{
+            //    filteredQuery = filteredQuery.Where(x => x.Email.ToLower().StartsWith(search.Email.ToLower()));
+            //}
+
+            //if (!string.IsNullOrEmpty(search?.UserName))
+            //{
+            //    filteredQuery = filteredQuery.Where(x => x.UserName.ToLower().StartsWith(search.UserName.ToLower()));
+            //}
+
+            return filteredQuery;
+        }
 
     }
 }

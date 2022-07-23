@@ -89,6 +89,7 @@ namespace VisitBosnia.WinUI
                         Password = txtPassword.Text,
                         PasswordConfirm = txtConfirmPass.Text,
                         DateOfBirth = dtpDateOfBirth.Value,
+                        IsBlocked = false
                     };
                     if ((string)pbProfilePicture.Tag != "temp_user")
                         request.Image = Helpers.ImageHelper.imageToByteArray(pbProfilePicture.Image);
