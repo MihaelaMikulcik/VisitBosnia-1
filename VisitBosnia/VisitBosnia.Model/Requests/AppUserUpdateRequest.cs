@@ -10,9 +10,11 @@ namespace VisitBosnia.Model.Requests
     {
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
-        public string? Phone { get; set; }
+        public string? Phone { get; set; } = null;
         public string UserName { get; set; } = null!;
-        public byte[]? Image { get; set; }
-        public DateTime? DateOfBirth { get; set; }
+        //public byte[]? Image { get; set; } = null;
+        //public DateTime? DateOfBirth { get; set; } = null;
+
+        public bool? IsBlocked { get; set; } = null;
     }
 }

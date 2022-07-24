@@ -112,10 +112,24 @@ namespace VisitBosnia.WinUI
 
         public async Task<T> Delete<T>(int id)
         {
-
-            var url = $"{_endpoint}{_route}/delete/{id}";
+            try
+            {
+                var url = $"{_endpoint}{_route}/delete/{id}";
             return await url.WithBasicAuth(Username, Password).DeleteAsync().ReceiveJson<T>();
+            }
+            catch (FlurlHttpException ex)//popraviti 
+            {
+                var errors = await ex.GetResponseJsonAsync<Dictionary<string, string[]>>();
 
+                var stringBuilder = new StringBuilder();
+                foreach (var error in errors)
+                {
+                    stringBuilder.AppendLine($"{error.Key}, ${string.Join(",", error.Value)}");
+                }
+
+                MessageBox.Show(stringBuilder.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return default(T);
+            }
         }
 
 

@@ -19,6 +19,7 @@ namespace VisitBosnia.WinUI
         public frmCity()
         {
             InitializeComponent();
+            dgvCity.AutoGenerateColumns = false;
             LoadTable();
         }
 
@@ -33,7 +34,8 @@ namespace VisitBosnia.WinUI
         private async void btn_search_Click(object sender, EventArgs e)
         {
             var searchObject = new CitySearchObject();
-            searchObject.Name = txtSearch.Text;
+            searchObject.SearchText = txtSearch.Text;
+       
             var list = await CityService.Get<Model.City>(searchObject);
 
             dgvCity.DataSource = list;
@@ -92,5 +94,6 @@ namespace VisitBosnia.WinUI
             form2.Closed += (s, args) => this.Close();
             form2.Show();
         }
+
     }
 }
