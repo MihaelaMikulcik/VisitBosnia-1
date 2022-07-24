@@ -66,7 +66,7 @@ class _LoginState extends State<Login> {
                           "VisitBosnia",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 33.0,
+                              fontSize: 30.0,
                               color: Colors.white),
                         ),
                       )
@@ -140,13 +140,18 @@ class _LoginState extends State<Login> {
                           Authorization.password = _passwordController.text;
                           await login();
                           if (result is AppUser) {
-                            Navigator.pushNamed(context, Homepage.routeName);
+                            // Navigator.pushReplacementNamed(context, Homepage.routeName);
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => Homepage(
+                                      user: result as AppUser,
+                                    )));
                           } else {
                             showDialog(
                                 context: context,
                                 builder: (BuildContext context) => AlertDialog(
                                       title: const Text("Error"),
-                                      content: const Text("Doslo je do greske"),
+                                      content:
+                                          const Text("Something went wrong..."),
                                       actions: [
                                         TextButton(
                                           child: const Text("Ok"),

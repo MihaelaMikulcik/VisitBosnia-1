@@ -19,9 +19,9 @@ void main() => runApp(MultiProvider(
           if (settings.name == Register.routeName) {
             return MaterialPageRoute(builder: ((context) => const Register()));
           }
-          if (settings.name == Homepage.routeName) {
-            return MaterialPageRoute(builder: ((context) => const Homepage()));
-          }
+          // if (settings.name == Homepage.routeName) {
+          //   return MaterialPageRoute(builder: ((context) => Homepage()));
+          // }
         })));
 
 // void main() {

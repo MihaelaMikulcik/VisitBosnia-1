@@ -81,9 +81,9 @@ class _UserImagePickerState extends State<UserImagePicker> {
             //backgroundImage: AssetImage("assets/images/user.png"),
             backgroundImage: imageFile != null
                 ? FileImage(imageFile!)
-                : AssetImage("assets/images/user3.jpg")
+                : const AssetImage("assets/images/user3.jpg")
                     as ImageProvider<Object>?,
-            backgroundColor: Color.fromARGB(255, 123, 179, 231),
+            backgroundColor: const Color.fromARGB(255, 123, 179, 231),
             // radius: 70.0,
           ),
           // ClipOval(
