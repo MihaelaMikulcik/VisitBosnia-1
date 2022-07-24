@@ -15,7 +15,7 @@ namespace VisitBosnia.Model
         public string? Phone { get; set; }
         public string UserName { get; set; } = null!;
         public bool IsBlocked { get; set; }
-        //public byte[]? Image { get; set; }
+        public byte[]? Image { get; set; }
         //public DateTime? DateOfBirth { get; set; }
 
         //public virtual ICollection<AppUserRole> AppUserRoles { get; set; }
