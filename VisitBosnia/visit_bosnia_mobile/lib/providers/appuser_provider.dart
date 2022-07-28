@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:http/io_client.dart';
 import 'package:visit_bosnia_mobile/exception/http_exception.dart';
@@ -12,10 +13,30 @@ import '../model/appUser/app_user.dart';
 class AppUserProvider extends BaseProvider<AppUser> {
   AppUserProvider() : super("AppUser");
 
+  late AppUser userData;
+
   @override
   AppUser fromJson(data) {
     // TODO: implement fromJson
-    return AppUser();
+    return AppUser.fromJson(data);
+  }
+
+  // @override
+  // Future<AppUser?> update(int id, [request]) {
+  //   // TODO: implement update
+  //   try {
+  //     return super.update(id, request);
+  //   } catch (e) {
+  //     if (e.toString().contains("Bad request")) {
+  //       throw UserException(e.toString());
+  //     }
+  //   }
+  //   throw ("Unexpected error...");
+  // }
+
+  void changeUserInfo(AppUser newUserData) {
+    userData = newUserData;
+    notifyListeners();
   }
 
   Future<AppUser> login(String username, String password) async {
@@ -31,6 +52,7 @@ class AppUserProvider extends BaseProvider<AppUser> {
       response = await http!.get(uri, headers: headers);
       if (isValidResponseCode(response)) {
         var data = jsonDecode(response.body);
+        userData = AppUser.fromJson(data);
         return AppUser.fromJson(data);
       } else {
         throw Exception("Something went wrong!");
@@ -53,6 +75,7 @@ class AppUserProvider extends BaseProvider<AppUser> {
 
       if (isValidResponseCode(response)) {
         var data = jsonDecode(response.body);
+        userData = data;
         return AppUser.fromJson(data);
       }
     } catch (e) {

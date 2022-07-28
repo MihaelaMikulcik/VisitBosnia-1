@@ -5,10 +5,19 @@ import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:visit_bosnia_mobile/providers/appuser_provider.dart';
+
+import '../utils/util.dart';
 
 class UserImagePicker extends StatefulWidget {
-  UserImagePicker({Key? key, required this.imagePickFn}) : super(key: key);
+  UserImagePicker(
+      {Key? key, required this.imagePickFn, required this.isProfile})
+      : super(key: key);
   final void Function(File pickedImage) imagePickFn; //dodano
+  bool isProfile = false;
+
+  // final ImageProvider<Object>? profileImg;
 
   @override
   State<UserImagePicker> createState() => _UserImagePickerState();
@@ -16,6 +25,17 @@ class UserImagePicker extends StatefulWidget {
 
 class _UserImagePickerState extends State<UserImagePicker> {
   File? imageFile;
+  // ImageProvider<Object>? profileImg;
+  late AppUserProvider appUserProvider;
+  bool isProfile = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // final profileImg = widget.profileImg;
+    final isProfile = widget.isProfile;
+  }
 
   Future pickImage(ImageSource source) async {
     try {
@@ -68,8 +88,32 @@ class _UserImagePickerState extends State<UserImagePicker> {
     );
   }
 
+  // ImageProvider<Object>? setBackgroundImage() {
+  //   if (imageFile != null) {
+  //     return FileImage(imageFile!);
+  //   } else {
+  //     return const AssetImage("assets/images/user3.jpg")
+  //         as ImageProvider<Object>?;
+  //   }
+  // }
+  ImageProvider<Object>? setBackgroundImage(bool isProfile) {
+    if (imageFile != null) {
+      return FileImage(imageFile!);
+    } else if (isProfile == true && appUserProvider.userData.image != "") {
+      return imageFromBase64String(appUserProvider.userData.image as String)
+          .image;
+    } else {
+      return Image.asset("assets/images/user3.jpg").image;
+      // return const AssetImage("assets/images/user3.jpg")
+      //     as ImageProvider<Object>?;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    // final profileImg = widget.profileImg;
+    final isProfile = widget.isProfile;
+    appUserProvider = Provider.of<AppUserProvider>(context);
     return SizedBox(
       height: 140,
       width: 140,
@@ -79,10 +123,11 @@ class _UserImagePickerState extends State<UserImagePicker> {
         children: [
           CircleAvatar(
             //backgroundImage: AssetImage("assets/images/user.png"),
-            backgroundImage: imageFile != null
-                ? FileImage(imageFile!)
-                : const AssetImage("assets/images/user3.jpg")
-                    as ImageProvider<Object>?,
+            backgroundImage: setBackgroundImage(isProfile),
+            // backgroundImage: imageFile != null
+            //     ? FileImage(imageFile!)
+            //     : const AssetImage("assets/images/user3.jpg")
+            //         as ImageProvider<Object>?,
             backgroundColor: const Color.fromARGB(255, 123, 179, 231),
             // radius: 70.0,
           ),

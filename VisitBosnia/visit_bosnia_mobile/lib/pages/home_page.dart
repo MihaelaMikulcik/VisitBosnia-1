@@ -25,7 +25,7 @@ class _HomepageState extends State<Homepage> {
           appBar: AppBar(
             backgroundColor: Color.fromRGBO(29, 76, 120, 1),
           ),
-          drawer: NavigationDrawer(user: user),
+          drawer: NavigationDrawer(),
           body: Center(
             child: Text("HomePage"),
           ),

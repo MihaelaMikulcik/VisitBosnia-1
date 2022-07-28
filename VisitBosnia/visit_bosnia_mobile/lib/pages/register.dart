@@ -93,7 +93,10 @@ class _RegisterState extends State<Register> {
                             onPressed: () {
                               Navigator.pop(context);
                               Navigator.pop(context);
-                              Navigator.pushNamed(context, Homepage.routeName);
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Homepage(
+                                        user: response as AppUser,
+                                      )));
                             })
                       ],
                     ));
@@ -165,7 +168,7 @@ class _RegisterState extends State<Register> {
                     const SizedBox(
                       height: 15,
                     ),
-                    UserImagePicker(imagePickFn: _pickedImage)
+                    UserImagePicker(imagePickFn: _pickedImage, isProfile: false)
                   ],
                 ),
               ),
