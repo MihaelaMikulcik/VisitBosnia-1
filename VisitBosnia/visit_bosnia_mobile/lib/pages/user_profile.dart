@@ -312,9 +312,7 @@ class _UserProfileState extends State<UserProfile> {
       controller: phoneController,
       focusNode: fcsPhone,
       validator: (value) {
-        if (value!.isEmpty) {
-          return _requiredMessage;
-        } else if (!isPhone(value)) {
+        if (value != "" && !isPhone(value!)) {
           return "Invalid phone format!";
         }
         return null;

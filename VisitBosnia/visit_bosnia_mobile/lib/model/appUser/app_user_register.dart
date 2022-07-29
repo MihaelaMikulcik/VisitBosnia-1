@@ -1,3 +1,5 @@
+// import 'dart:ffi';
+
 class AppUserRegisterRequest {
   String? firstName;
   String? lastName;
@@ -6,6 +8,7 @@ class AppUserRegisterRequest {
   String? password;
   String? passwordConfirm;
   String? image;
+  // bool? isBlocked;
 
   AppUserRegisterRequest({
     this.firstName,
@@ -15,6 +18,7 @@ class AppUserRegisterRequest {
     this.password,
     this.passwordConfirm,
     this.image,
+    // this.isBlocked
   });
 
   AppUserRegisterRequest.fromJson(Map<String, dynamic> json) {
@@ -25,6 +29,7 @@ class AppUserRegisterRequest {
     password = json['password'];
     passwordConfirm = json['passwordConfirm'];
     image = json['image'];
+    // isBlocked = json['isBlocked'];
   }
 
   Map<String, dynamic> toJson() {
@@ -36,6 +41,7 @@ class AppUserRegisterRequest {
     data['password'] = this.password;
     data['passwordConfirm'] = this.passwordConfirm;
     data['image'] = this.image;
+    // data['isBlocked'] = this.isBlocked;
     return data;
   }
 }

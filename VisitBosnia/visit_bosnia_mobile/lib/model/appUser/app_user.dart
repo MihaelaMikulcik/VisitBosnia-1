@@ -1,3 +1,5 @@
+// import 'dart:ffi';
+
 class AppUser {
   int? id;
   String? firstName;
@@ -6,15 +8,18 @@ class AppUser {
   String? image;
   String? phone;
   String? email;
+  // bool? isBlocked;
 
-  AppUser(
-      {this.id,
-      this.firstName,
-      this.lastName,
-      this.userName,
-      this.image,
-      this.phone,
-      this.email});
+  AppUser({
+    this.id,
+    this.firstName,
+    this.lastName,
+    this.userName,
+    this.image,
+    this.phone,
+    this.email,
+    // this.isBlocked
+  });
 
   AppUser.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -24,6 +29,7 @@ class AppUser {
     image = json['image'];
     phone = json['phone'];
     email = json['email'];
+    // isBlocked = json['isBlocked'];
   }
 
   Map<String, dynamic> toJson() {
@@ -35,6 +41,7 @@ class AppUser {
     data['image'] = this.image;
     data['phone'] = this.phone;
     data['email'] = this.email;
+    // data['isBlocked'] = this.isBlocked;
 
     return data;
   }

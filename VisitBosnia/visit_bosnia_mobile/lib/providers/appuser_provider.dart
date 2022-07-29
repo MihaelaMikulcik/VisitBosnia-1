@@ -75,7 +75,7 @@ class AppUserProvider extends BaseProvider<AppUser> {
 
       if (isValidResponseCode(response)) {
         var data = jsonDecode(response.body);
-        userData = data;
+        userData = AppUser.fromJson(data);
         return AppUser.fromJson(data);
       }
     } catch (e) {
