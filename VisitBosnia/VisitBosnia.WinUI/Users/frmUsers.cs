@@ -18,21 +18,19 @@ namespace VisitBosnia.WinUI.Users
 
         private readonly APIService appUserService = new APIService("AppUser");
 
-
         public frmUsers()
         {
             InitializeComponent();
             dgvUsers.AutoGenerateColumns = false;
 
             LoadTable();
+
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
             this.Hide();
-            var form2 = new Home();
-            form2.Closed += (s, args) => this.Close();
-            form2.Show();
+            this.Close();
         }
 
 

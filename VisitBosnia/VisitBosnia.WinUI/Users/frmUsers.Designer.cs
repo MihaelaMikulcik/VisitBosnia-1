@@ -42,13 +42,13 @@
             this.btnSearch = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.dgvUsers = new System.Windows.Forms.DataGridView();
-            this.textSearch = new System.Windows.Forms.TextBox();
             this.FirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UserName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PhoneNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Blocked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.textSearch = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             this.SuspendLayout();
@@ -196,13 +196,6 @@
             this.dgvUsers.TabIndex = 13;
             this.dgvUsers.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsers_CellContentClick);
             // 
-            // textSearch
-            // 
-            this.textSearch.Location = new System.Drawing.Point(26, 113);
-            this.textSearch.Name = "textSearch";
-            this.textSearch.Size = new System.Drawing.Size(304, 23);
-            this.textSearch.TabIndex = 14;
-            // 
             // FirstName
             // 
             this.FirstName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -245,6 +238,13 @@
             this.Blocked.HeaderText = "Blocked";
             this.Blocked.Name = "Blocked";
             // 
+            // textSearch
+            // 
+            this.textSearch.Location = new System.Drawing.Point(26, 113);
+            this.textSearch.Name = "textSearch";
+            this.textSearch.Size = new System.Drawing.Size(304, 23);
+            this.textSearch.TabIndex = 14;
+            // 
             // frmUsers
             // 
             this.ClientSize = new System.Drawing.Size(892, 602);
@@ -253,7 +253,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.label3);
-       
+
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             ((System.ComponentModel.ISupportInitialize)(this.dgvCity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).EndInit();
             this.ResumeLayout(false);

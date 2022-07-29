@@ -17,11 +17,14 @@ namespace VisitBosnia.WinUI
 
         public APIService CityService { get; set; } = new APIService("City");
 
-        public frmCityDetails(Model.City model = null)
+
+
+        public frmCityDetails( Model.City model = null)
         {
             InitializeComponent();
             _model = model;
             LoadData();
+
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

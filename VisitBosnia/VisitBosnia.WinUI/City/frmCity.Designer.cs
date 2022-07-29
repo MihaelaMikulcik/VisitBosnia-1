@@ -66,6 +66,7 @@ namespace VisitBosnia.WinUI
             this.label2.Size = new System.Drawing.Size(107, 46);
             this.label2.TabIndex = 0;
             this.label2.Text = "Cities";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // dgvCity
             // 
@@ -152,6 +153,7 @@ namespace VisitBosnia.WinUI
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(306, 23);
             this.txtSearch.TabIndex = 5;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // labelBack
             // 
@@ -175,6 +177,7 @@ namespace VisitBosnia.WinUI
             this.Controls.Add(this.dgvCity);
             this.Controls.Add(this.label2);
 
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             ((System.ComponentModel.ISupportInitialize)(this.dgvCity)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

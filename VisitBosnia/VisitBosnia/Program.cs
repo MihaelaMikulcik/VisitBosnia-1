@@ -37,6 +37,12 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddTransient<ICityService, CityService>();
+builder.Services.AddTransient<IEventService, EventService>();
+builder.Services.AddTransient<ICategoryService, CategoryService>();
+builder.Services.AddTransient<IAgencyService, AgencyService>();
+builder.Services.AddTransient<IAgencyMemberService, AgencyMemberService>();
+
+builder.Services.AddTransient<IAppUserRoleService, AppUserRoleService>();
 builder.Services.AddTransient<IAppUserService, AppUserService>();
 //builder.Services.AddTransient<IRoleService, RoleService>();
 builder.Services.AddTransient<IReadService<VisitBosnia.Model.Role, object>, RoleService>();

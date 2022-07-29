@@ -44,6 +44,8 @@
             this.error = new System.Windows.Forms.ErrorProvider(this.components);
             this.fileDialog = new System.Windows.Forms.OpenFileDialog();
             this.pbProfilePicture = new VisitBosnia.WinUI.CustomInput.Picture();
+            this.cbAgency = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.error)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbProfilePicture)).BeginInit();
@@ -52,6 +54,8 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(51)))), ((int)(((byte)(80)))));
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.cbAgency);
             this.panel1.Controls.Add(this.txtConfirmPass);
             this.panel1.Controls.Add(this.txtPassword);
             this.panel1.Controls.Add(this.txtPhone);
@@ -70,7 +74,7 @@
             // txtConfirmPass
             // 
             this.txtConfirmPass.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtConfirmPass.Location = new System.Drawing.Point(311, 258);
+            this.txtConfirmPass.Location = new System.Drawing.Point(312, 234);
             this.txtConfirmPass.MinimumSize = new System.Drawing.Size(235, 27);
             this.txtConfirmPass.Name = "txtConfirmPass";
             this.txtConfirmPass.PasswordChar = '*';
@@ -82,7 +86,7 @@
             // txtPassword
             // 
             this.txtPassword.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtPassword.Location = new System.Drawing.Point(311, 210);
+            this.txtPassword.Location = new System.Drawing.Point(312, 186);
             this.txtPassword.MinimumSize = new System.Drawing.Size(235, 27);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
@@ -94,7 +98,7 @@
             // txtPhone
             // 
             this.txtPhone.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtPhone.Location = new System.Drawing.Point(311, 160);
+            this.txtPhone.Location = new System.Drawing.Point(312, 136);
             this.txtPhone.MinimumSize = new System.Drawing.Size(235, 27);
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.PlaceholderText = "Phone number";
@@ -105,7 +109,7 @@
             // txtEmail
             // 
             this.txtEmail.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtEmail.Location = new System.Drawing.Point(38, 258);
+            this.txtEmail.Location = new System.Drawing.Point(39, 234);
             this.txtEmail.MinimumSize = new System.Drawing.Size(235, 27);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.PlaceholderText = "Email";
@@ -116,7 +120,7 @@
             // txtUsername
             // 
             this.txtUsername.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtUsername.Location = new System.Drawing.Point(38, 306);
+            this.txtUsername.Location = new System.Drawing.Point(39, 282);
             this.txtUsername.MinimumSize = new System.Drawing.Size(235, 27);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.PlaceholderText = "Username";
@@ -127,7 +131,7 @@
             // txtLastName
             // 
             this.txtLastName.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtLastName.Location = new System.Drawing.Point(38, 210);
+            this.txtLastName.Location = new System.Drawing.Point(39, 186);
             this.txtLastName.MinimumSize = new System.Drawing.Size(235, 27);
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.PlaceholderText = "Last name";
@@ -143,7 +147,7 @@
             this.dtpDateOfBirth.CalendarTrailingForeColor = System.Drawing.SystemColors.WindowFrame;
             this.dtpDateOfBirth.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.dtpDateOfBirth.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDateOfBirth.Location = new System.Drawing.Point(311, 306);
+            this.dtpDateOfBirth.Location = new System.Drawing.Point(312, 282);
             this.dtpDateOfBirth.MinimumSize = new System.Drawing.Size(235, 27);
             this.dtpDateOfBirth.Name = "dtpDateOfBirth";
             this.dtpDateOfBirth.Size = new System.Drawing.Size(235, 27);
@@ -164,7 +168,7 @@
             // txtFirstName
             // 
             this.txtFirstName.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtFirstName.Location = new System.Drawing.Point(38, 160);
+            this.txtFirstName.Location = new System.Drawing.Point(39, 136);
             this.txtFirstName.MinimumSize = new System.Drawing.Size(235, 27);
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.PlaceholderText = "First name";
@@ -215,6 +219,25 @@
             this.pbProfilePicture.TabIndex = 2;
             this.pbProfilePicture.TabStop = false;
             // 
+            // cbAgency
+            // 
+            this.cbAgency.FormattingEnabled = true;
+            this.cbAgency.Location = new System.Drawing.Point(39, 350);
+            this.cbAgency.Name = "cbAgency";
+            this.cbAgency.Size = new System.Drawing.Size(508, 23);
+            this.cbAgency.TabIndex = 9;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label2.Location = new System.Drawing.Point(39, 327);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(57, 19);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Agency:";
+            // 
             // frmRegister
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -254,5 +277,7 @@
         private ErrorProvider error;
         private OpenFileDialog fileDialog;
         private CustomInput.Picture pbProfilePicture;
+        private Label label2;
+        private ComboBox cbAgency;
     }
 }

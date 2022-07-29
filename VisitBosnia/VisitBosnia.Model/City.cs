@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VisitBosnia.Model
 {
-    public class City
+    public class City 
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;

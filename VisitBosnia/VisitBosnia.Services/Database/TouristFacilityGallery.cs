@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace VisitBosnia.Services.Database
 {
-    public partial class TouristFacilityGallery
+    public class TouristFacilityGallery
     {
         public int Id { get; set; }
         public string? ImageType { get; set; }

@@ -10,12 +10,16 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using VisitBosnia.WinUI.Validator;
 using VisitBosnia.Filters;
+using VisitBosnia.Model.Requests;
+using VisitBosnia.Model;
 
 namespace VisitBosnia.WinUI
 {
     public partial class frmLogin : Form
     {
         private readonly APIService appUserService = new APIService("Login");
+        private readonly APIService roleService = new APIService("Role");
+        private readonly APIService appUserRoleService = new APIService("AppUserRole");
         private readonly Validation validator;
 
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
@@ -75,10 +79,23 @@ namespace VisitBosnia.WinUI
                     //dodati provjeru da li je rola admin ili uposlenik
                     if (result != null)
                     {
-                        this.Hide();
-                        //MessageBox.Show("Uspjesna prijava");
-                        var form = new Home();
-                        form.ShowDialog();
+                        var appUserRole = await appUserRoleService.Get<AppUserRole>(new AppUserRoleSearchObject { AppUserId = result.Id });
+                        var role = await roleService.GetById<Role>(appUserRole.FirstOrDefault().RoleId);
+
+                        if (role.Name == "Admin")
+                        {
+                            this.Hide();
+                            //MessageBox.Show("Uspjesna prijava");
+                            var form = new AdminHome(result.Id);
+                            form.ShowDialog();
+                        }
+                        else
+                        {
+                            this.Hide();
+                            //MessageBox.Show("Uspjesna prijava");
+                            var form = new AgencyHome(result.Id);
+                            form.ShowDialog();
+                        }
                     }
                     else
                     {

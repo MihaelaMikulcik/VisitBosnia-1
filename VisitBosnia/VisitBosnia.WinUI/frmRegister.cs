@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using VisitBosnia.Model;
 using VisitBosnia.Model.Requests;
+using VisitBosnia.WinUI.Helpers;
 using VisitBosnia.WinUI.Properties;
 using VisitBosnia.WinUI.Validator;
 
@@ -18,6 +19,10 @@ namespace VisitBosnia.WinUI
     public partial class frmRegister : Form
     {
         private readonly APIService appUserService = new APIService("AppUser");
+        private readonly APIService appUserRoleService = new APIService("AppUserRole");
+        private readonly APIService agencyMemberService = new APIService("AgencyMember");
+        private readonly APIService agencyService = new APIService("Agency");
+        private readonly APIService roleService = new APIService("Role");
         //private readonly APIService roleService = new APIService("Role");
         private readonly Validator.Validation validator; 
 
@@ -55,7 +60,7 @@ namespace VisitBosnia.WinUI
 
         }
 
-        private void Register_Load(object sender, EventArgs e)
+        private async void Register_Load(object sender, EventArgs e)
         {
             btnChooseImage.FlatStyle = FlatStyle.Flat;
             btnChooseImage.FlatAppearance.BorderSize = 0;
@@ -69,6 +74,23 @@ namespace VisitBosnia.WinUI
             //cmbRole.DataSource = roles;
             //cmbRole.DisplayMember = "Name";
             //cmbRole.ValueMember = "Id";
+
+            var items = new List<ComboItem>();
+
+            var agency = await agencyService.GetWithoutAuth<Agency>();
+
+            foreach (var ag in agency)
+            {
+                items.Add(new ComboItem
+                {
+                    Id = ag.Id,
+                    Text = ag.Name
+                });
+            }
+
+            cbAgency.DataSource = items;
+            cbAgency.ValueMember = "Id";
+            cbAgency.DisplayMember = "Text";
         }
 
 
@@ -98,11 +120,17 @@ namespace VisitBosnia.WinUI
                     {
                         APIService.Username = request.UserName;
                         APIService.Password = request.Password;
+
+                        var roles = await roleService.Get<Role>();
+                        var userrole = await appUserRoleService.Insert<AppUserRole>(new AppUserRoleInsertRequest { RoleId = roles.Where(x => x.Name == "Agency").FirstOrDefault().Id, AppUserId = result.Id });
+                        var agencyId = (int)cbAgency.SelectedValue;
+                        var agencyMember = await agencyMemberService.Insert<AgencyMember>(new AgencyMemberInsertRequest { AppUserId = result.Id, AgencyId = agencyId });
+
                         MessageBox.Show("Uspješna registracija", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         
                         this.Hide();
                         Application.OpenForms["Login"].Hide();
-                        var form = new Home();
+                        var form = new AgencyHome(result.Id);
                         form.ShowDialog();
                         
                        

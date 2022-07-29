@@ -3,14 +3,13 @@ using System.Collections.Generic;
 
 namespace VisitBosnia.Services.Database
 {
-    public partial class Event
+    public partial class Event : TouristFacility
     {
         public Event()
         {
             EventOrders = new HashSet<EventOrder>();
         }
 
-        public int Id { get; set; }
         public int AgencyId { get; set; }
         public int AgencyMemberId { get; set; }
         public DateTime Date { get; set; }
@@ -19,6 +18,8 @@ namespace VisitBosnia.Services.Database
         public string PlaceOfDeparture { get; set; } = null!;
         public decimal PricePerPerson { get; set; }
         public int MaxNumberOfParticipants { get; set; }
+
+
 
         public virtual Agency Agency { get; set; } = null!;
         public virtual AgencyMember AgencyMember { get; set; } = null!;

@@ -31,6 +31,7 @@ namespace VisitBosnia.Services
             var entity = Context.Set<TDb>().AsQueryable();
 
             entity = AddFilter(entity, search);
+            entity = AddInclude(entity, search);
 
             var list = await entity.ToListAsync();
             return Mapper.Map<List<T>>(list);
@@ -44,6 +45,11 @@ namespace VisitBosnia.Services
         }
 
         public virtual IQueryable<TDb> AddFilter(IQueryable<TDb> query, TSearch search = null)
+        {
+            return query;
+        }
+
+        public virtual IQueryable<TDb> AddInclude(IQueryable<TDb> query, TSearch search = null)
         {
             return query;
         }

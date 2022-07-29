@@ -18,12 +18,12 @@ namespace VisitBosnia.Services
         }
 
         public async virtual Task<T> Insert(TInsert request)
-        {
-            var set = Context.Set<TDb>();
-            TDb entity = Mapper.Map<TDb>(request);
-            set.Add(entity);
-            await Context.SaveChangesAsync();
-            return Mapper.Map<T>(entity);
+        {     
+                var set = Context.Set<TDb>();
+                TDb entity = Mapper.Map<TDb>(request);
+                set.Add(entity);
+                await Context.SaveChangesAsync();
+                return Mapper.Map<T>(entity);       
         }
 
         public async virtual Task<T> Update(int id, TUpdate request)

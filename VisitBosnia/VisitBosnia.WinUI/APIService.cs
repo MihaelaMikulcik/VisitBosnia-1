@@ -39,6 +39,24 @@ namespace VisitBosnia.WinUI
             .GetJsonAsync<IEnumerable<T>>();
         }
 
+        public async Task<IEnumerable<T>> GetWithoutAuth<T>(object request = null)
+        {
+            var url = $"{_endpoint}{_route}";
+            if (request != null)
+            {
+                url += "?";
+                url += await request.ToQueryString();
+            }
+            //var result = await url
+            //    //.WithHeader(RequestConstants.UserAgent, RequestConstants.UserAgentValue)
+            //    .WithBasicAuth(Username, Password)
+            //    .GetJsonAsync<T>();
+            //return result;
+
+            return await url
+            .GetJsonAsync<IEnumerable<T>>();
+        }
+
 
         public async Task<T> GetById<T>(object id)
         {
@@ -50,11 +68,20 @@ namespace VisitBosnia.WinUI
 
         public async Task<T> Insert<T>(object request)
         {
+            
             var url = $"{_endpoint}{_route}";
-            var result = await url
-                .WithBasicAuth(Username, Password)
-                .PostJsonAsync(request).ReceiveJson<T>();
-            return result;
+            try
+            {
+                var result = await url
+                    .WithBasicAuth(Username, Password)
+                    .PostJsonAsync(request).ReceiveJson<T>();
+                return result;
+            }
+            catch(Exception ex)
+            {
+                return default(T);
+            }
+        
         }
 
         public async Task<T> Update<T>(int id, object request)

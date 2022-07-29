@@ -16,11 +16,13 @@ namespace VisitBosnia.WinUI
     {
         public APIService CityService { get; set; } = new APIService("City");
 
+
         public frmCity()
         {
             InitializeComponent();
             dgvCity.AutoGenerateColumns = false;
             LoadTable();
+
         }
 
       
@@ -45,9 +47,8 @@ namespace VisitBosnia.WinUI
         private void labelBack_Click(object sender, EventArgs e)
         {
             this.Hide();
-            var form2 = new Home();
-            form2.Closed += (s, args) => this.Close();
-            form2.Show();
+            this.Close();
+
         }
 
         private async void dgvCity_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -95,5 +96,14 @@ namespace VisitBosnia.WinUI
             form2.Show();
         }
 
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
