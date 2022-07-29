@@ -59,20 +59,6 @@ namespace VisitBosnia.Services
             return query;
         }
 
-        public override async Task<Model.Event> Insert(EventInsertRequest request)
-        {
-            var setT = Context.Set<TouristFacility>();
-            var newFacility =new TouristFacility { CityId = request.CityId, Name = request.Name, CategoryId = request.CategoryId };
-            setT.Add(newFacility);
-            await Context.SaveChangesAsync();
-
-            request.IdNavigation = newFacility.Id;
-            var set = Context.Set<Event>();
-            Event entity = Mapper.Map<Event>(request);
-            set.Add(entity);
-            await Context.SaveChangesAsync();
-            return Mapper.Map<Model.Event>(entity);
-
-        }
+      
     }
 }

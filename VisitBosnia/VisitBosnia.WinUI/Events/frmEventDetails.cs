@@ -21,6 +21,7 @@ namespace VisitBosnia.WinUI.Events
 
         public APIService EventService { get; set; } = new APIService("Event");
         public APIService CityService { get; set; } = new APIService("City");
+        public APIService TouristFacilityService { get; set; } = new APIService("TouristFacility");
         public APIService GuideService { get; set; } = new APIService("AgencyMember");
         public APIService AppUserService { get; set; } = new APIService("AppUser");
         public APIService CategoryService { get; set; } = new APIService("Category");
@@ -123,6 +124,16 @@ namespace VisitBosnia.WinUI.Events
             {
                 if (_model == null)
                 {
+                    var facilityInsertRequest = new TouristFacilityInsertRequest
+                    {
+                        CategoryId = (int)cbCategory.SelectedValue,
+                        Description = txtDescription.Text,
+                        Name = txtName.Text,
+                        CityId = (int)cbCity.SelectedValue
+                    };
+
+                   var newFacility = await TouristFacilityService.Insert<Event>(facilityInsertRequest);
+
                     var fromH = txtFrom.Text.Substring(0, txtFrom.Text.IndexOf(":"));
                     var fromM = txtFrom.Text.Substring(txtFrom.Text.IndexOf(":") + 1);
                     var toH = txtTo.Text.Substring(0, txtTo.Text.IndexOf(":"));
@@ -130,17 +141,14 @@ namespace VisitBosnia.WinUI.Events
 
                     var insertRequest = new Model.Requests.EventInsertRequest
                     {
-                        Name = txtName.Text,
                         AgencyId = _agencyId,
                         PlaceOfDeparture = txtPleace.Text,
-                        Description = txtDescription.Text,
                         AgencyMemberId =(int)cbGuide.SelectedValue,
-                        CategoryId = (int)cbCategory.SelectedValue,
                         FromTime = int.Parse(fromH) * 60 + int.Parse(fromM),
                         ToTime = int.Parse(toH) * 60 + int.Parse(toM),
                         PricePerPerson=numberPrice.Value,
                         MaxNumberOfParticipants=(int)numberMax.Value,
-                        CityId = (int)cbCity.SelectedValue
+                        IdNavigation = newFacility.Id
                     };
 
                     try

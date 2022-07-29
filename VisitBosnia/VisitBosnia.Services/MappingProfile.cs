@@ -41,7 +41,9 @@ namespace VisitBosnia.Services
             CreateMap<Database.AppUserRole, Model.Requests.AppUserRoleInsertRequest>().ReverseMap();
             CreateMap<Database.AppUserRole, Model.Requests.AppUserRoleUpdatetRequest>().ReverseMap();
 
-          
+            CreateMap<Database.TouristFacility, Model.TouristFacility>().ReverseMap();
+            CreateMap<Database.TouristFacility, Model.Requests.TouristFacilityInsertRequest>().ReverseMap();
+            CreateMap<Database.TouristFacility, Model.Requests.TouristFacilityUpdatetRequest>().ReverseMap();
         }
     }
 }

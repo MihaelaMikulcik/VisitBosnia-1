@@ -38,6 +38,7 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddTransient<ICityService, CityService>();
 builder.Services.AddTransient<IEventService, EventService>();
+builder.Services.AddTransient<ITouristFacilityService, TouristFacilityService>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
 builder.Services.AddTransient<IAgencyService, AgencyService>();
 builder.Services.AddTransient<IAgencyMemberService, AgencyMemberService>();
