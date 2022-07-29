@@ -1,6 +1,7 @@
 // ignore_for_file: implementation_imports, unnecessary_import
 
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -73,6 +74,7 @@ class _RegisterState extends State<Register> {
         request.userName = _username;
         request.password = _password;
         request.passwordConfirm = _confirmPassword;
+        // request.isBlocked = false;
         if (_userImage != null) {
           request.image = base64String(await _userImage!.readAsBytes());
         }
@@ -93,7 +95,10 @@ class _RegisterState extends State<Register> {
                             onPressed: () {
                               Navigator.pop(context);
                               Navigator.pop(context);
-                              Navigator.pushNamed(context, Homepage.routeName);
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Homepage(
+                                        user: response as AppUser,
+                                      )));
                             })
                       ],
                     ));
@@ -165,7 +170,7 @@ class _RegisterState extends State<Register> {
                     const SizedBox(
                       height: 15,
                     ),
-                    UserImagePicker(imagePickFn: _pickedImage)
+                    UserImagePicker(imagePickFn: _pickedImage, isProfile: false)
                   ],
                 ),
               ),

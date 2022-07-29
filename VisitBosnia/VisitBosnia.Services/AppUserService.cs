@@ -42,10 +42,15 @@ namespace VisitBosnia.Services
 
         public async override Task<Model.AppUser> Insert(AppUserInsertRequest request)
         {
-            var userExists = Context.AppUsers.FirstOrDefault(x => x.UserName == request.UserName);
-            if (userExists != null)
+            //var userExists = Context.AppUsers.FirstOrDefault(x => x.UserName == request.UserName);
+            //if (userExists != null)
+            //{
+            //    throw new Exception("Username already exists!"); //napraviti odvojenu async funk
+            //}
+            if (await UsernameExists(request.UserName))
             {
-                throw new Exception("Username already exists!"); //napraviti odvojenu async funk
+                throw new Exception("Username already exists!");
+
             }
             if (request.Password != request.PasswordConfirm)
             {
@@ -60,14 +65,30 @@ namespace VisitBosnia.Services
             return Mapper.Map<Model.AppUser>(user);
         }
 
+        public async Task<bool> UsernameExists(string username) 
+        {
+            var userExists = await Context.AppUsers.FirstOrDefaultAsync(x => x.UserName == username);
+            if (userExists != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
 
 
         public async Task<Model.AppUser> Register(AppUserInsertRequest request)
         {
-            var userExists = Context.AppUsers.FirstOrDefault(x => x.UserName == request.UserName);
-            if (userExists != null)
+
+            //var userExists = Context.AppUsers.FirstOrDefault(x => x.UserName == request.UserName);
+            //if (userExists != null)
+            //{
+            //    throw new UserException("Username already exists!"); //napraviti odvojenu async funk
+            //}
+            if (await UsernameExists(request.UserName))
             {
-                throw new UserException("Username already exists!"); //napraviti odvojenu async funk
+                throw new UserException("Username already exists!");
+
             }
             if (request.Password != request.PasswordConfirm)
             {
@@ -97,6 +118,15 @@ namespace VisitBosnia.Services
 
             return Mapper.Map<Model.AppUser>(entity);
         }
+        //public async override Task<Model.AppUser> Update(int id, AppUserUpdateRequest request)
+        //{
+        //    if (await UsernameExists(request.UserName))
+        //    {
+        //        throw new UserException("Username already exists!");
+        //    }
+
+        //    return await base.Update(id, request);
+        //}
 
         public override IQueryable<AppUser> AddFilter(IQueryable<AppUser> query, AppUserSearchObject search = null)
         {

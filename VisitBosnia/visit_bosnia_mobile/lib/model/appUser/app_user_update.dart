@@ -1,47 +1,36 @@
-// import 'dart:ffi';
-
-class AppUser {
-  int? id;
+class AppUserUpdateRequest {
   String? firstName;
   String? lastName;
+  String? email;
   String? userName;
   String? image;
   String? phone;
-  String? email;
-  // bool? isBlocked;
 
-  AppUser({
-    this.id,
-    this.firstName,
-    this.lastName,
-    this.userName,
-    this.image,
-    this.phone,
-    this.email,
-    // this.isBlocked
-  });
+  AppUserUpdateRequest(
+      {this.firstName,
+      this.lastName,
+      this.email,
+      this.userName,
+      this.image,
+      this.phone});
 
-  AppUser.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+  AppUserUpdateRequest.fromJson(Map<String, dynamic> json) {
     firstName = json['firstName'];
     lastName = json['lastName'];
+    email = json['email'];
     userName = json['userName'];
     image = json['image'];
     phone = json['phone'];
-    email = json['email'];
-    // isBlocked = json['isBlocked'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
     data['firstName'] = this.firstName;
     data['lastName'] = this.lastName;
+    data['email'] = this.email;
     data['userName'] = this.userName;
     data['image'] = this.image;
     data['phone'] = this.phone;
-    data['email'] = this.email;
-    // data['isBlocked'] = this.isBlocked;
 
     return data;
   }

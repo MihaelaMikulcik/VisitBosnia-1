@@ -13,5 +13,6 @@ namespace VisitBosnia.Services.Interfaces
     {
         Task<Model.AppUser> Login(string username, string password);
         Task<Model.AppUser> Register(AppUserInsertRequest request);
+        //Task<bool> UsernameExists(string username);
     }
 }
