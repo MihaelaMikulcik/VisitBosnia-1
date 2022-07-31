@@ -8,7 +8,6 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:visit_bosnia_mobile/exception/http_exception.dart';
-import 'package:visit_bosnia_mobile/helpers/navigation_drawer.dart';
 import 'package:visit_bosnia_mobile/model/appUser/app_user.dart';
 import 'package:visit_bosnia_mobile/model/appUser/app_user_update.dart';
 import 'package:visit_bosnia_mobile/pages/loading.dart';
