@@ -5,7 +5,7 @@ using VisitBosnia.Services.Interfaces;
 
 namespace VisitBosnia.Controllers
 {
-    public class TouristFacilityController : BaseCRUDController<Model.TouristFacility, TouristFacilitySearchObject, TouristFacilityInsertRequest, TouristFacilityUpdatetRequest>
+    public class TouristFacilityController : BaseCRUDController<Model.TouristFacility, TouristFacilitySearchObject, TouristFacilityInsertRequest, TouristFacilityUpdateRequest>
     {
         public TouristFacilityController(ITouristFacilityService service) : base(service)
         {

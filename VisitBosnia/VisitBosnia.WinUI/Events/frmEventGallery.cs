@@ -43,7 +43,7 @@ namespace VisitBosnia.WinUI.Events
 
         private async void InitPictures()
         {
-            var gallery = await TouristFacilityGalleryService.Get<TouristFacilityGallery>(new TouristFacilityGallerySearchObject { EventId = _eventId });
+            var gallery = await TouristFacilityGalleryService.Get<TouristFacilityGallery>(new TouristFacilityGallerySearchObject { FacilityId = _eventId });
             _gallery = gallery.ToList();
 
             if (gallery.Count() != 0)
@@ -57,7 +57,7 @@ namespace VisitBosnia.WinUI.Events
             else
             {
                 pbEvent.Image = null;
-                MessageBox.Show("No images to display! You can add some with the 'Add new image' button.");
+               
             }
         }
 
@@ -66,7 +66,7 @@ namespace VisitBosnia.WinUI.Events
             ImageConverter converter = new ImageConverter();
             var pictureSource = _gallery[selectedId].Image;
             pbEvent.Image = null;
-            pbEvent.Image = (Image)converter.ConvertFrom(pictureSource);
+            pbEvent.Image = Helpers.ImageHelper.byteArrayToImage(pictureSource);
         }
 
  
@@ -87,7 +87,56 @@ namespace VisitBosnia.WinUI.Events
 
         private void btnNext_Click_1(object sender, EventArgs e)
         {
+            if (_selectedIndex == _gallery.Count() - 1)
+            {
+                _selectedIndex = 0;
+            }
+            else
+            {
+                _selectedIndex++;
+            }
 
+            RenderPicture(_selectedIndex);
+        }
+
+        private async void btnAdd_Click(object sender, EventArgs e)
+        {
+            if (ofdNewImage.ShowDialog() == DialogResult.OK)
+            {
+                var request = new TouristFacilityGalleryInsertRequest
+                {
+                    TouristFacilityId = _eventId,
+                    Thumbnail = false,
+
+                };
+
+                var file = Image.FromFile(ofdNewImage.FileName);
+                var image = Helpers.ImageHelper.imageToByteArray(file);
+
+                request.Image = image;
+                request.ImageType = Path.GetExtension(ofdNewImage.FileName);
+
+                await TouristFacilityGalleryService.Insert<TouristFacilityGallery>(request);
+
+                MessageBox.Show("Successfully added new image!");
+                InitPictures();
+
+            }
+
+        }
+
+        private async void btnDelete_Click(object sender, EventArgs e)
+        {
+            int imageId = _gallery[_selectedIndex].Id;
+            var image = await TouristFacilityGalleryService.Delete<TouristFacilityGallery>(imageId);
+            MessageBox.Show("Successfully deleted selected picture.");
+            InitPictures();
+        }
+
+        private void labelBack_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            this.Close();
         }
     }
 }

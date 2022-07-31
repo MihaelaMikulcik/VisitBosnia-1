@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace VisitBosnia.Model.Requests
 {
-    public class CategorySearchObject 
+    public class AttractionUpdateRequest
     {
-        public string? SearchText { get; set; }
 
+        public string Name { get; set; } = null!;
+        public string? Description { get; set; }
     }
 }

@@ -27,7 +27,7 @@ namespace VisitBosnia.Services
 
             if (!string.IsNullOrEmpty(search?.SearchText))
             {
-                filteredQuery = filteredQuery.Where(x => x.Name.ToLower().StartsWith(search.SearchText.ToLower()));
+                filteredQuery = filteredQuery.Where(x => x.IdNavigation.Name.ToLower().StartsWith(search.SearchText.ToLower()));
             }
 
 
@@ -46,19 +46,30 @@ namespace VisitBosnia.Services
                 query = query.Include("AgencyMember");
             }
 
-            if (search?.IncludeCity == true)
+            if (search?.IncludeIdNavigation == true)
             {
-                query = query.Include("City");
-            }
+                query = query.Include("IdNavigation");
+                query = query.Include("IdNavigation.City");
+                query = query.Include("IdNavigation.Category");
 
-            if (search?.IncludeCategory == true)
-            {
-                query = query.Include("Category");
             }
 
             return query;
         }
 
-      
+        public override async Task<Model.Event> GetById(int id)
+        {
+
+            var entity = Context.Set<Services.Database.Event>().AsQueryable();
+
+            entity = entity.Include("IdNavigation");
+            entity = entity.Include("IdNavigation.City");
+            entity = entity.Include("IdNavigation.Category");
+
+            var model = entity.Where(x => x.Id == id).FirstOrDefault();
+
+            return Mapper.Map<Model.Event>(model);
+        }
+
     }
 }

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace VisitBosnia.Services.Database
+namespace VisitBosnia.Model
 {
-    public partial class Attraction 
+    public partial class Attraction
     {
         [ForeignKey("IdNavigation")]
         public int Id { get; set; }

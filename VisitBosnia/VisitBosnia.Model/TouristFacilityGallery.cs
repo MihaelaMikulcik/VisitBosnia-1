@@ -11,7 +11,7 @@ namespace VisitBosnia.Model
         public int Id { get; set; }
         public string? ImageType { get; set; }
         public bool? Thumbnail { get; set; }
-        public byte[] Image { get; set; } = null!;
+        public byte[] Image { get; set; }
         public int TouristFacilityId { get; set; }
 
         public virtual TouristFacility TouristFacility { get; set; } = null!;

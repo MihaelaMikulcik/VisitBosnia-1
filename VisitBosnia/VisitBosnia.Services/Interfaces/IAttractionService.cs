@@ -8,7 +8,7 @@ using VisitBosnia.Model.Requests;
 
 namespace VisitBosnia.Services.Interfaces
 {
-    public interface ITouristFacilityService : ICRUDService<TouristFacility, TouristFacilitySearchObject, TouristFacilityInsertRequest, TouristFacilityUpdateRequest>
+    public interface IAttractionService : ICRUDService<Attraction, AttractionSearchObject, AttractionInsertRequest, AttractionUpdateRequest>
     {
     }
 }

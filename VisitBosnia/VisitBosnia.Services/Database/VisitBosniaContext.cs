@@ -41,7 +41,7 @@ namespace VisitBosnia.Services.Database
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=.;Database=VisitBosnia;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=.;Database=VisitBosnia2;Trusted_Connection=True;");
             }
         }
 
@@ -51,21 +51,11 @@ namespace VisitBosnia.Services.Database
             {
                 entity.ToTable("Agency");
 
-                entity.Property(e => e.Address).HasMaxLength(255);
-
-                entity.Property(e => e.Email).HasMaxLength(255);
-
-                entity.Property(e => e.Name).HasMaxLength(255);
-
-                entity.Property(e => e.Phone).HasMaxLength(255);
-
-                entity.Property(e => e.ResponsiblePerson).HasMaxLength(255);
+                entity.HasIndex(e => e.CityId, "IX_Agency_CityId");
 
                 entity.HasOne(d => d.City)
                     .WithMany(p => p.Agencies)
-                    .HasForeignKey(d => d.CityId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_AgencyCity");
+                    .HasForeignKey(d => d.CityId);
             });
 
             modelBuilder.Entity<AgencyMember>(entity =>
@@ -146,52 +136,35 @@ namespace VisitBosnia.Services.Database
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
-                entity.Property(e => e.AddressMap).HasMaxLength(255);
-
                 entity.HasOne(d => d.IdNavigation)
                     .WithOne(p => p.Attraction)
                     .HasForeignKey<Attraction>(d => d.Id)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Attraction__Id__403A8C7D");
+                    .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.ToTable("Category");
-
-                entity.Property(e => e.Description).HasMaxLength(255);
-
-                entity.Property(e => e.Name).HasMaxLength(255);
             });
 
             modelBuilder.Entity<City>(entity =>
             {
                 entity.ToTable("City");
-
-                entity.Property(e => e.County).HasMaxLength(255);
-
-                entity.Property(e => e.Name).HasMaxLength(255);
-
-                entity.Property(e => e.ZipCode).HasMaxLength(255);
             });
 
             modelBuilder.Entity<Event>(entity =>
             {
                 entity.ToTable("Event");
 
+                entity.HasIndex(e => e.AgencyId, "IX_Event_AgencyId");
+
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
-                entity.Property(e => e.Date).HasColumnType("datetime");
-
-                entity.Property(e => e.PlaceOfDeparture).HasMaxLength(255);
-
-                entity.Property(e => e.PricePerPerson).HasColumnType("decimal(18, 0)");
+                entity.Property(e => e.PricePerPerson).HasColumnType("decimal(18, 2)");
 
                 entity.HasOne(d => d.Agency)
                     .WithMany(p => p.Events)
-                    .HasForeignKey(d => d.AgencyId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_EventAgency");
+                    .HasForeignKey(d => d.AgencyId);
 
                 entity.HasOne(d => d.AgencyMember)
                     .WithMany(p => p.Events)
@@ -202,8 +175,7 @@ namespace VisitBosnia.Services.Database
                 entity.HasOne(d => d.IdNavigation)
                     .WithOne(p => p.Event)
                     .HasForeignKey<Event>(d => d.Id)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Event__Id__4316F928");
+                    .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
             modelBuilder.Entity<EventOrder>(entity =>
@@ -335,21 +307,17 @@ namespace VisitBosnia.Services.Database
             {
                 entity.ToTable("TouristFacility");
 
-                entity.Property(e => e.Description).HasMaxLength(255);
+                entity.HasIndex(e => e.CategoryId, "IX_TouristFacility_CategoryId");
 
-                entity.Property(e => e.Name).HasMaxLength(255);
+                entity.HasIndex(e => e.CityId, "IX_TouristFacility_CityId");
 
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.TouristFacilities)
-                    .HasForeignKey(d => d.CategoryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_TouristFacilityCategory");
+                    .HasForeignKey(d => d.CategoryId);
 
                 entity.HasOne(d => d.City)
                     .WithMany(p => p.TouristFacilities)
-                    .HasForeignKey(d => d.CityId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_TouristFacilityCity");
+                    .HasForeignKey(d => d.CityId);
             });
 
             modelBuilder.Entity<TouristFacilityGallery>(entity =>

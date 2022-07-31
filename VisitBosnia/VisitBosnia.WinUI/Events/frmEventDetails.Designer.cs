@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.txtPleace = new System.Windows.Forms.TextBox();
             this.txtName = new System.Windows.Forms.TextBox();
@@ -37,8 +38,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.txtTo = new System.Windows.Forms.TextBox();
-            this.txtFrom = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -57,8 +56,20 @@
             this.cbCategory = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
+            this.nFromH = new System.Windows.Forms.NumericUpDown();
+            this.nFromM = new System.Windows.Forms.NumericUpDown();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.nToM = new System.Windows.Forms.NumericUpDown();
+            this.nToH = new System.Windows.Forms.NumericUpDown();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.numberMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numberPrice)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nFromH)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nFromM)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nToM)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nToH)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -77,6 +88,7 @@
             this.txtPleace.Name = "txtPleace";
             this.txtPleace.Size = new System.Drawing.Size(195, 23);
             this.txtPleace.TabIndex = 11;
+            this.txtPleace.Validating += new System.ComponentModel.CancelEventHandler(this.txtPleace_Validating);
             // 
             // txtName
             // 
@@ -84,6 +96,7 @@
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(195, 23);
             this.txtName.TabIndex = 10;
+            this.txtName.Validating += new System.ComponentModel.CancelEventHandler(this.txtName_Validating);
             // 
             // label4
             // 
@@ -144,20 +157,6 @@
             this.label7.Size = new System.Drawing.Size(48, 19);
             this.label7.TabIndex = 13;
             this.label7.Text = "Guide:";
-            // 
-            // txtTo
-            // 
-            this.txtTo.Location = new System.Drawing.Point(507, 287);
-            this.txtTo.Name = "txtTo";
-            this.txtTo.Size = new System.Drawing.Size(195, 23);
-            this.txtTo.TabIndex = 23;
-            // 
-            // txtFrom
-            // 
-            this.txtFrom.Location = new System.Drawing.Point(507, 238);
-            this.txtFrom.Name = "txtFrom";
-            this.txtFrom.Size = new System.Drawing.Size(195, 23);
-            this.txtFrom.TabIndex = 22;
             // 
             // label8
             // 
@@ -318,11 +317,73 @@
             this.label15.TabIndex = 43;
             this.label15.Text = "of departure:";
             // 
+            // nFromH
+            // 
+            this.nFromH.Location = new System.Drawing.Point(509, 240);
+            this.nFromH.Name = "nFromH";
+            this.nFromH.Size = new System.Drawing.Size(71, 23);
+            this.nFromH.TabIndex = 44;
+            this.nFromH.Validating += new System.ComponentModel.CancelEventHandler(this.nFromH_Validating);
+            // 
+            // nFromM
+            // 
+            this.nFromM.Location = new System.Drawing.Point(632, 240);
+            this.nFromM.Name = "nFromM";
+            this.nFromM.Size = new System.Drawing.Size(70, 23);
+            this.nFromM.TabIndex = 45;
+            this.nFromM.Validating += new System.ComponentModel.CancelEventHandler(this.nFromM_Validating);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label16.Location = new System.Drawing.Point(596, 240);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(14, 21);
+            this.label16.TabIndex = 46;
+            this.label16.Text = ":";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label17.Location = new System.Drawing.Point(596, 283);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(14, 21);
+            this.label17.TabIndex = 49;
+            this.label17.Text = ":";
+            // 
+            // nToM
+            // 
+            this.nToM.Location = new System.Drawing.Point(632, 283);
+            this.nToM.Name = "nToM";
+            this.nToM.Size = new System.Drawing.Size(70, 23);
+            this.nToM.TabIndex = 48;
+            this.nToM.Validating += new System.ComponentModel.CancelEventHandler(this.nToM_Validating);
+            // 
+            // nToH
+            // 
+            this.nToH.Location = new System.Drawing.Point(509, 283);
+            this.nToH.Name = "nToH";
+            this.nToH.Size = new System.Drawing.Size(71, 23);
+            this.nToH.TabIndex = 47;
+            this.nToH.Validating += new System.ComponentModel.CancelEventHandler(this.nToH_Validating);
+            // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
+            // 
             // frmEventDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(756, 621);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.nToM);
+            this.Controls.Add(this.nToH);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.nFromM);
+            this.Controls.Add(this.nFromH);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.cbCategory);
             this.Controls.Add(this.label14);
@@ -337,8 +398,6 @@
             this.Controls.Add(this.cbCity);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.txtTo);
-            this.Controls.Add(this.txtFrom);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label10);
@@ -356,6 +415,11 @@
             this.Text = "frmEventDetails";
             ((System.ComponentModel.ISupportInitialize)(this.numberMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numberPrice)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nFromH)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nFromM)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nToM)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nToH)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -372,8 +436,6 @@
         private Label label5;
         private Label label6;
         private Label label7;
-        private TextBox txtTo;
-        private TextBox txtFrom;
         private Label label8;
         private Label label9;
         private Label label10;
@@ -392,5 +454,12 @@
         private ComboBox cbCategory;
         private Label label14;
         private Label label15;
+        private NumericUpDown nFromH;
+        private NumericUpDown nFromM;
+        private Label label16;
+        private Label label17;
+        private NumericUpDown nToM;
+        private NumericUpDown nToH;
+        private ErrorProvider errorProvider;
     }
 }

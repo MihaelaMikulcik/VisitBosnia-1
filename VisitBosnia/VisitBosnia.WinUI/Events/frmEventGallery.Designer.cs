@@ -34,6 +34,8 @@
             this.btnPrevious = new System.Windows.Forms.Button();
             this.pbEvent = new System.Windows.Forms.PictureBox();
             this.labelEvent = new System.Windows.Forms.Label();
+            this.ofdNewImage = new System.Windows.Forms.OpenFileDialog();
+            this.labelBack = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbEvent)).BeginInit();
             this.SuspendLayout();
             // 
@@ -45,6 +47,7 @@
             this.btnDelete.TabIndex = 40;
             this.btnDelete.Text = "Delete selected photo";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnAdd
             // 
@@ -54,6 +57,7 @@
             this.btnAdd.TabIndex = 39;
             this.btnAdd.Text = "Add new photo";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnNext
             // 
@@ -77,6 +81,7 @@
             // 
             // pbEvent
             // 
+            this.pbEvent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbEvent.Location = new System.Drawing.Point(82, 71);
             this.pbEvent.Name = "pbEvent";
             this.pbEvent.Size = new System.Drawing.Size(474, 246);
@@ -92,11 +97,24 @@
             this.labelEvent.Size = new System.Drawing.Size(0, 37);
             this.labelEvent.TabIndex = 41;
             // 
+            // labelBack
+            // 
+            this.labelBack.AutoSize = true;
+            this.labelBack.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelBack.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.labelBack.Location = new System.Drawing.Point(561, 445);
+            this.labelBack.Name = "labelBack";
+            this.labelBack.Size = new System.Drawing.Size(67, 19);
+            this.labelBack.TabIndex = 42;
+            this.labelBack.Text = "go back ";
+            this.labelBack.Click += new System.EventHandler(this.labelBack_Click);
+            // 
             // frmEventGallery
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(666, 461);
+            this.ClientSize = new System.Drawing.Size(640, 473);
+            this.Controls.Add(this.labelBack);
             this.Controls.Add(this.labelEvent);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnAdd);
@@ -104,6 +122,7 @@
             this.Controls.Add(this.btnPrevious);
             this.Controls.Add(this.pbEvent);
             this.Name = "frmEventGallery";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmEventGallery";
             ((System.ComponentModel.ISupportInitialize)(this.pbEvent)).EndInit();
             this.ResumeLayout(false);
@@ -119,5 +138,7 @@
         private Button btnPrevious;
         private PictureBox pbEvent;
         private Label labelEvent;
+        private OpenFileDialog ofdNewImage;
+        private Label labelBack;
     }
 }

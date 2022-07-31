@@ -27,8 +27,6 @@ namespace VisitBosnia.Services.Database
         public byte[]? Image { get; set; }
         public DateTime? DateOfBirth { get; set; }
 
-        public bool IsBlocked { get; set; }
-
         public virtual ICollection<AgencyMember> AgencyMembers { get; set; }
         public virtual ICollection<AppUserFavourite> AppUserFavourites { get; set; }
         public virtual ICollection<AppUserRole> AppUserRoles { get; set; }

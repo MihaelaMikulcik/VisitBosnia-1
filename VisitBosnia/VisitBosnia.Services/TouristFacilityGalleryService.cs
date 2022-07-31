@@ -23,9 +23,9 @@ namespace VisitBosnia.Services
         {
             var filteredQuery = base.AddFilter(query, search);
 
-            if (search?.EventId != null)
+            if (search?.FacilityId != null)
             {
-                filteredQuery = filteredQuery.Where(x => x.TouristFacilityId == search.EventId);
+                filteredQuery = filteredQuery.Where(x => x.TouristFacilityId == search.FacilityId);
             }
 
             return filteredQuery;

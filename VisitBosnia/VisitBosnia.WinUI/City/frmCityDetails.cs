@@ -103,7 +103,7 @@ namespace VisitBosnia.WinUI
             {
                 e.Cancel = true;
                 txtCounty.Focus();
-                errorProvider.SetError(txtCounty, "Name should not be left blank!");
+                errorProvider.SetError(txtCounty, "County should not be left blank!");
             }
             else
             {
@@ -118,7 +118,7 @@ namespace VisitBosnia.WinUI
             {
                 e.Cancel = true;
                 txtCounty.Focus();
-                errorProvider.SetError(txtZipCode, "Name should not be left blank!");
+                errorProvider.SetError(txtZipCode, "ZipCode should not be left blank!");
             }
             else
             {

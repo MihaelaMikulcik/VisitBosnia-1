@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace VisitBosnia.Services.Database
+namespace VisitBosnia.Model
 {
-    public partial class TouristFacilityGallery
+    public partial class AppUserFavourite
     {
         public int Id { get; set; }
-        public string? ImageType { get; set; }
-        public bool? Thumbnail { get; set; }
-        public byte[] Image { get; set; }
+        public int AppUserId { get; set; }
         public int TouristFacilityId { get; set; }
 
+        public virtual AppUser AppUser { get; set; } = null!;
         public virtual TouristFacility TouristFacility { get; set; } = null!;
     }
 }

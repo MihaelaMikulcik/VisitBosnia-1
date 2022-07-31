@@ -12,7 +12,7 @@ namespace VisitBosnia.Model.Requests
         //public string? Description { get; set; }
         //public int CityId { get; set; }
         //public int CategoryId { get; set; }
-        public int? Id { get; set; }
+        public int Id { get; set; }
 
         public int AgencyId { get; set; }
         public int AgencyMemberId { get; set; }
@@ -23,6 +23,5 @@ namespace VisitBosnia.Model.Requests
         public decimal PricePerPerson { get; set; }
         public int MaxNumberOfParticipants { get; set; }
 
-        public int IdNavigation { get; set; }
     }
 }

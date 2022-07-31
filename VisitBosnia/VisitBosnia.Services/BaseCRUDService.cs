@@ -23,6 +23,8 @@ namespace VisitBosnia.Services
                 TDb entity = Mapper.Map<TDb>(request);
                 set.Add(entity);
                 await Context.SaveChangesAsync();
+
+
                 return Mapper.Map<T>(entity);       
         }
 
@@ -31,15 +33,25 @@ namespace VisitBosnia.Services
             var set = Context.Set<TDb>();
             var entity = set.Find(id);
             Mapper.Map(request, entity);
-            await Context.SaveChangesAsync();
+            try
+            {
+                await Context.SaveChangesAsync();
+            }
+            catch(Exception ex)
+            {
+
+            }
             return Mapper.Map<T>(entity);
         }
+
         public async virtual Task<T> Delete(int id)
         {
             var set = Context.Set<TDb>();
             var entity = set.Find(id);
             set.Remove(entity);
-            await Context.SaveChangesAsync();
+                   
+           await Context.SaveChangesAsync();
+
             return Mapper.Map<T>(entity);
         }
 

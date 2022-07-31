@@ -9,7 +9,7 @@ namespace VisitBosnia.Model.Requests
     public class TouristFacilityGallerySearchObject
     {
         public string? SearchText { get; set; }
-        public int? EventId { get; set; }
+        public int? FacilityId { get; set; }
 
     }
 }
