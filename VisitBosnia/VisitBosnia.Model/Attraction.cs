@@ -9,6 +9,8 @@ namespace VisitBosnia.Model
         [ForeignKey("IdNavigation")]
         public int Id { get; set; }
         public string? AddressMap { get; set; }
+        public double GeoLong { get; set; } 
+        public double GeoLat { get; set; } 
 
         public virtual TouristFacility IdNavigation { get; set; } = null!;
     }

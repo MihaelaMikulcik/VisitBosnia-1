@@ -30,6 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cbAgency = new System.Windows.Forms.ComboBox();
             this.txtConfirmPass = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtPhone = new System.Windows.Forms.TextBox();
@@ -44,8 +46,6 @@
             this.error = new System.Windows.Forms.ErrorProvider(this.components);
             this.fileDialog = new System.Windows.Forms.OpenFileDialog();
             this.pbProfilePicture = new VisitBosnia.WinUI.CustomInput.Picture();
-            this.cbAgency = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.error)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbProfilePicture)).BeginInit();
@@ -71,6 +71,27 @@
             this.panel1.Size = new System.Drawing.Size(589, 519);
             this.panel1.TabIndex = 0;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label2.Location = new System.Drawing.Point(39, 327);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(57, 19);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Agency:";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // cbAgency
+            // 
+            this.cbAgency.FormattingEnabled = true;
+            this.cbAgency.Location = new System.Drawing.Point(39, 350);
+            this.cbAgency.Name = "cbAgency";
+            this.cbAgency.Size = new System.Drawing.Size(508, 23);
+            this.cbAgency.TabIndex = 9;
+            this.cbAgency.SelectedIndexChanged += new System.EventHandler(this.cbAgency_SelectedIndexChanged);
+            // 
             // txtConfirmPass
             // 
             this.txtConfirmPass.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
@@ -81,6 +102,7 @@
             this.txtConfirmPass.PlaceholderText = "Confirm password";
             this.txtConfirmPass.Size = new System.Drawing.Size(235, 27);
             this.txtConfirmPass.TabIndex = 6;
+            this.txtConfirmPass.TextChanged += new System.EventHandler(this.txtConfirmPass_TextChanged);
             this.txtConfirmPass.Validating += new System.ComponentModel.CancelEventHandler(this.txtConfirmPass_Validating);
             // 
             // txtPassword
@@ -93,6 +115,7 @@
             this.txtPassword.PlaceholderText = "Password";
             this.txtPassword.Size = new System.Drawing.Size(235, 27);
             this.txtPassword.TabIndex = 5;
+            this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
             this.txtPassword.Validating += new System.ComponentModel.CancelEventHandler(this.txtPassword_Validating);
             // 
             // txtPhone
@@ -104,6 +127,7 @@
             this.txtPhone.PlaceholderText = "Phone number";
             this.txtPhone.Size = new System.Drawing.Size(235, 27);
             this.txtPhone.TabIndex = 4;
+            this.txtPhone.TextChanged += new System.EventHandler(this.txtPhone_TextChanged);
             this.txtPhone.Validating += new System.ComponentModel.CancelEventHandler(this.txtPhone_Validating);
             // 
             // txtEmail
@@ -115,6 +139,7 @@
             this.txtEmail.PlaceholderText = "Email";
             this.txtEmail.Size = new System.Drawing.Size(235, 27);
             this.txtEmail.TabIndex = 2;
+            this.txtEmail.TextChanged += new System.EventHandler(this.txtEmail_TextChanged);
             this.txtEmail.Validating += new System.ComponentModel.CancelEventHandler(this.txtEmail_Validating);
             // 
             // txtUsername
@@ -126,6 +151,7 @@
             this.txtUsername.PlaceholderText = "Username";
             this.txtUsername.Size = new System.Drawing.Size(235, 27);
             this.txtUsername.TabIndex = 3;
+            this.txtUsername.TextChanged += new System.EventHandler(this.txtUsername_TextChanged);
             this.txtUsername.Validating += new System.ComponentModel.CancelEventHandler(this.txtUsername_Validating);
             // 
             // txtLastName
@@ -137,6 +163,7 @@
             this.txtLastName.PlaceholderText = "Last name";
             this.txtLastName.Size = new System.Drawing.Size(235, 27);
             this.txtLastName.TabIndex = 1;
+            this.txtLastName.TextChanged += new System.EventHandler(this.txtLastName_TextChanged);
             this.txtLastName.Validating += new System.ComponentModel.CancelEventHandler(this.txtLastName_Validating);
             // 
             // dtpDateOfBirth
@@ -152,6 +179,7 @@
             this.dtpDateOfBirth.Name = "dtpDateOfBirth";
             this.dtpDateOfBirth.Size = new System.Drawing.Size(235, 27);
             this.dtpDateOfBirth.TabIndex = 7;
+            this.dtpDateOfBirth.ValueChanged += new System.EventHandler(this.dtpDateOfBirth_ValueChanged);
             // 
             // btnRegister
             // 
@@ -174,6 +202,7 @@
             this.txtFirstName.PlaceholderText = "First name";
             this.txtFirstName.Size = new System.Drawing.Size(235, 27);
             this.txtFirstName.TabIndex = 0;
+            this.txtFirstName.TextChanged += new System.EventHandler(this.txtFirstName_TextChanged);
             this.txtFirstName.Validating += new System.ComponentModel.CancelEventHandler(this.txtFirstName_Validating);
             // 
             // label1
@@ -186,6 +215,7 @@
             this.label1.Size = new System.Drawing.Size(269, 37);
             this.label1.TabIndex = 1;
             this.label1.Text = "Create new account";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // btnChooseImage
             // 
@@ -218,25 +248,7 @@
             this.pbProfilePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbProfilePicture.TabIndex = 2;
             this.pbProfilePicture.TabStop = false;
-            // 
-            // cbAgency
-            // 
-            this.cbAgency.FormattingEnabled = true;
-            this.cbAgency.Location = new System.Drawing.Point(39, 350);
-            this.cbAgency.Name = "cbAgency";
-            this.cbAgency.Size = new System.Drawing.Size(508, 23);
-            this.cbAgency.TabIndex = 9;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label2.Location = new System.Drawing.Point(39, 327);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(57, 19);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Agency:";
+            this.pbProfilePicture.Click += new System.EventHandler(this.pbProfilePicture_Click);
             // 
             // frmRegister
             // 

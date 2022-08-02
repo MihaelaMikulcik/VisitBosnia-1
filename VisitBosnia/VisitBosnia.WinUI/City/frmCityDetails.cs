@@ -37,11 +37,18 @@ namespace VisitBosnia.WinUI
 
         private void LoadData()
         {
-            if(_model != null)
+            pbPicture.Tag = "not_changed";
+
+            if (_model != null)
             {
                 txtName.Text = _model.Name;
                 txtZipCode.Text = _model.ZipCode;
                 txtCounty.Text = _model.County;
+
+            if(_model.Image != null || _model.Image.Length > 0)
+            {
+                pbPicture.Image = Helpers.ImageHelper.byteArrayToImage(_model.Image);
+            }
             }
         }
 
@@ -59,6 +66,9 @@ namespace VisitBosnia.WinUI
                         ZipCode = txtZipCode.Text
                     };
 
+                    if ((string)pbPicture.Tag == "city_image")
+                        insertRequest.Image = Helpers.ImageHelper.imageToByteArray(pbPicture.Image);
+
                     var newCity = await CityService.Insert<City>(insertRequest);
                 }
                 else
@@ -69,6 +79,9 @@ namespace VisitBosnia.WinUI
                         County = txtCounty.Text,
                         ZipCode = txtZipCode.Text
                     };
+
+                    if ((string)pbPicture.Tag == "city_image")
+                        updateRequest.Image = Helpers.ImageHelper.imageToByteArray(pbPicture.Image);
 
                     var updatedCity = await CityService.Update<City>(_model.Id, updateRequest);
                 }
@@ -124,6 +137,15 @@ namespace VisitBosnia.WinUI
             {
                 e.Cancel = false;
                 errorProvider.SetError(txtZipCode, "");
+            }
+        }
+
+        private void btnChooseImage_Click(object sender, EventArgs e)
+        {
+            if (ofdNewImage.ShowDialog() == DialogResult.OK)
+            {
+                pbPicture.Image = Image.FromFile(ofdNewImage.FileName);
+                pbPicture.Tag = "city_image";
             }
         }
     }

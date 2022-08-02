@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using VisitBosnia.Model;
 using VisitBosnia.Model.Requests;
+using VisitBosnia.WinUI.AgencyMembers;
 using VisitBosnia.WinUI.Events;
 
 namespace VisitBosnia.WinUI
@@ -54,6 +55,13 @@ namespace VisitBosnia.WinUI
         {
             var agencyId = await agencyMemberService.Get<AgencyMember>(new AgencyMemberSearchObject { AppUserId = _appUser.Id });
             var form2 = new frmEvent(agencyId.FirstOrDefault().AgencyId);
+            form2.Show();
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            var agencyId = await agencyMemberService.Get<AgencyMember>(new AgencyMemberSearchObject { AppUserId = _appUser.Id });
+            var form2 = new frmAgencyMember(agencyId.FirstOrDefault().AgencyId);
             form2.Show();
         }
     }

@@ -179,6 +179,7 @@
             this.label3.Size = new System.Drawing.Size(107, 46);
             this.label3.TabIndex = 7;
             this.label3.Text = "Users";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // dgvUsers
             // 
@@ -244,6 +245,7 @@
             this.textSearch.Name = "textSearch";
             this.textSearch.Size = new System.Drawing.Size(304, 23);
             this.textSearch.TabIndex = 14;
+            this.textSearch.TextChanged += new System.EventHandler(this.textSearch_TextChanged);
             // 
             // frmUsers
             // 
@@ -253,7 +255,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.label3);
-
+       
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             ((System.ComponentModel.ISupportInitialize)(this.dgvCity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).EndInit();

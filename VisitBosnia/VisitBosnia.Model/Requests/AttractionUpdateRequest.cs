@@ -11,5 +11,8 @@ namespace VisitBosnia.Model.Requests
 
         public string Name { get; set; } = null!;
         public string? Description { get; set; }
+
+        public double? GeoLong { get; set; }
+        public double? GeoLat { get; set; }
     }
 }

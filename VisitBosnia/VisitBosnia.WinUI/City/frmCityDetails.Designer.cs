@@ -39,7 +39,11 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnChooseImage = new System.Windows.Forms.Button();
+            this.ofdNewImage = new System.Windows.Forms.OpenFileDialog();
+            this.pbPicture = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPicture)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -134,11 +138,39 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // btnChooseImage
+            // 
+            this.btnChooseImage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(51)))), ((int)(((byte)(80)))));
+            this.btnChooseImage.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnChooseImage.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnChooseImage.Location = new System.Drawing.Point(409, 304);
+            this.btnChooseImage.Name = "btnChooseImage";
+            this.btnChooseImage.Size = new System.Drawing.Size(193, 33);
+            this.btnChooseImage.TabIndex = 9;
+            this.btnChooseImage.Text = "Choose image...";
+            this.btnChooseImage.UseVisualStyleBackColor = false;
+            this.btnChooseImage.Click += new System.EventHandler(this.btnChooseImage_Click);
+            // 
+            // ofdNewImage
+            // 
+            this.ofdNewImage.FileName = "openFileDialog1";
+            // 
+            // pbPicture
+            // 
+            this.pbPicture.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pbPicture.Location = new System.Drawing.Point(361, 26);
+            this.pbPicture.Name = "pbPicture";
+            this.pbPicture.Size = new System.Drawing.Size(286, 258);
+            this.pbPicture.TabIndex = 10;
+            this.pbPicture.TabStop = false;
+            // 
             // frmCityDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(702, 450);
+            this.Controls.Add(this.pbPicture);
+            this.Controls.Add(this.btnChooseImage);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtZipCode);
@@ -152,6 +184,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmCityDetails";
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPicture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -169,5 +202,8 @@
         private Button btnSave;
         private Button btnCancel;
         private ErrorProvider errorProvider;
+        private Button btnChooseImage;
+        private OpenFileDialog ofdNewImage;
+        private PictureBox pbPicture;
     }
 }

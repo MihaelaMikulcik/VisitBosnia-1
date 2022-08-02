@@ -79,22 +79,29 @@ namespace VisitBosnia.WinUI
                     //dodati provjeru da li je rola admin ili uposlenik
                     if (result != null)
                     {
-                        var appUserRole = await appUserRoleService.Get<AppUserRole>(new AppUserRoleSearchObject { AppUserId = result.Id });
-                        var role = await roleService.GetById<Role>(appUserRole.FirstOrDefault().RoleId);
-
-                        if (role.Name == "Admin")
+                        if (result.IsBlocked == true)
                         {
-                            this.Hide();
-                            //MessageBox.Show("Uspjesna prijava");
-                            var form = new AdminHome(result.Id);
-                            form.ShowDialog();
+                            MessageBox.Show("You don't have permission to access this account");
                         }
                         else
                         {
-                            this.Hide();
-                            //MessageBox.Show("Uspjesna prijava");
-                            var form = new AgencyHome(result.Id);
-                            form.ShowDialog();
+                            var appUserRole = await appUserRoleService.Get<AppUserRole>(new AppUserRoleSearchObject { AppUserId = result.Id });
+                            var role = await roleService.GetById<Role>(appUserRole.FirstOrDefault().RoleId);
+
+                            if (role.Name == "Admin")
+                            {
+                                this.Hide();
+                                //MessageBox.Show("Uspjesna prijava");
+                                var form = new AdminHome(result.Id);
+                                form.ShowDialog();
+                            }
+                            else
+                            {
+                                this.Hide();
+                                //MessageBox.Show("Uspjesna prijava");
+                                var form = new AgencyHome(result.Id);
+                                form.ShowDialog();
+                            }
                         }
                     }
                     else

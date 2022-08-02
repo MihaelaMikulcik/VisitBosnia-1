@@ -68,7 +68,7 @@ namespace VisitBosnia.WinUI.Users
                     Phone = item.Phone
                 };
 
-                var updatedCity = await appUserService.Update<AppUser>(item.Id, updateRequest);
+                var updatedUser = await appUserService.Update<AppUser>(item.Id, updateRequest);
 
                 if(item.IsBlocked)
                 {
@@ -82,6 +82,16 @@ namespace VisitBosnia.WinUI.Users
 
                 LoadTable();
             }
+        }
+
+        private void textSearch_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

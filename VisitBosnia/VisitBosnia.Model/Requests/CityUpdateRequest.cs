@@ -11,5 +11,8 @@ namespace VisitBosnia.Model.Requests
         public string Name { get; set; } = null!;
         public string County { get; set; } = null!;
         public string ZipCode { get; set; } = null!;
+
+        public byte[]? Image { get; set; }
+
     }
 }
