@@ -3,11 +3,16 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:visit_bosnia_mobile/model/appUser/app_user.dart';
+import 'package:visit_bosnia_mobile/model/events/event_search_object.dart';
+import 'package:visit_bosnia_mobile/model/touristFacilityGallery/tourist_facility_gallery.dart';
+import 'package:visit_bosnia_mobile/model/touristFacilityGallery/tourist_facility_gallery_search_object.dart';
 import 'package:visit_bosnia_mobile/pages/event_details.dart';
-import 'package:visit_bosnia_mobile/providers/event_provicer.dart';
+import 'package:visit_bosnia_mobile/providers/event_provider.dart';
+import 'package:visit_bosnia_mobile/providers/tourist_facility_provider.dart';
 
 import '../components/navigation_drawer.dart';
 import '../model/events/event.dart';
+import '../utils/util.dart';
 
 class Homepage extends StatefulWidget {
   static const String routeName = "/homepage";
@@ -21,23 +26,27 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   _HomepageState(this.user);
-  EventProvider? _eventProvider = null;
+  late EventProvider _eventProvider;
+  late TouristFacilityGalleryProvider _touristFacilityGalleryProvider;
+
   AppUser user;
-  List<Event> events = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _eventProvider = context.read<EventProvider>();
-    loadData();
+    _touristFacilityGalleryProvider =
+        context.read<TouristFacilityGalleryProvider>();
   }
 
-  Future loadData() async {
-    var tempData = await _eventProvider?.get();
-    setState(() {
-      events = tempData!;
-    });
+  Future<List<Event>> loadEvents() async {
+    var search = EventSearchObject(
+        includeAgency: true,
+        includeAgencyMember: true,
+        includeIdNavigation: true);
+    var events = await _eventProvider.get(search.toJson());
+    return events;
   }
 
   @override
@@ -63,23 +72,16 @@ class _HomepageState extends State<Homepage> {
               SizedBox(height: 10),
               Container(
                 height: 220,
-                child: GridView(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 1,
-                        childAspectRatio: 6 / 4,
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 15),
-                    scrollDirection: Axis.horizontal,
-                    children: _buildEventCardList()),
+                child: _buildEvents(),
               ),
               SizedBox(
                 width: double.infinity,
                 child: Container(
-                  padding: EdgeInsets.only(top: 10.0),
+                  padding: const EdgeInsets.only(top: 10.0, right: 10.0),
                   child: InkWell(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
+                      children: const [
                         Text(
                           "View all",
                           style: TextStyle(
@@ -101,28 +103,46 @@ class _HomepageState extends State<Homepage> {
     );
   }
 
-  List<Widget> _buildEventCardList() {
-    if (events.length == 0) {
-      return [Text("Loadind...")];
-    }
-    List<Widget> list = events
-        .map((x) => InkWell(
-              onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => EventDetails(x)));
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.amber,
-                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                ),
-                height: 220,
-                width: 200,
-                child: Text(x.name ?? ""),
-              ),
-            ))
-        .cast<Widget>()
-        .toList();
-    return list;
+  Widget _eventCard(Event event) {
+    return InkWell(
+      onTap: () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => EventDetails(event)));
+      },
+      child: Container(
+        height: 220,
+        width: 150,
+        margin: EdgeInsets.only(right: 15),
+        decoration: BoxDecoration(
+            color: Colors.amber, borderRadius: BorderRadius.circular(20)),
+        child: Text(event.idNavigation!.name!),
+      ),
+    );
+  }
+
+  _buildEvents() {
+    return FutureBuilder<List<Event>>(
+        future: loadEvents(),
+        builder: (BuildContext context, AsyncSnapshot<List<Event>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+              // child: Text('Loading...'),
+            );
+          } else {
+            if (snapshot.hasError) {
+              return Center(
+                // child: Text('${snapshot.error}'),
+                child: Text('Something went wrong...'),
+              );
+            } else {
+              return ListView(
+                scrollDirection: Axis.horizontal,
+                physics: ScrollPhysics(),
+                children: snapshot.data!.map((e) => _eventCard(e)).toList(),
+              );
+            }
+          }
+        });
   }
 }

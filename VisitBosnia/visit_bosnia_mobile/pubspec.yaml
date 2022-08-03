@@ -40,6 +40,9 @@ dependencies:
   json_serializable: ^6.3.1
   carousel_slider: ^4.1.1
   smooth_page_indicator: ^1.0.0+2
+  flutter_map: ^2.1.1
+  latlong2: ^0.8.1
+  intl: ^0.17.0
 
   
 

@@ -13,7 +13,7 @@ class BuyTicketDialog extends StatefulWidget {
 
 class _BuyTicketDialogState extends State<BuyTicketDialog> {
   int _count = 0;
-  int _price = 0;
+  double _price = 0;
   Event event;
   _BuyTicketDialogState(this.event);
 
@@ -48,8 +48,8 @@ class _BuyTicketDialogState extends State<BuyTicketDialog> {
                   SizedBox(
                     // flex: 1,
                     child: Container(
-                      padding: EdgeInsets.only(left: 20),
-                      child: Text("People",
+                      padding: const EdgeInsets.only(left: 20),
+                      child: const Text("People",
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold)),
                     ),
@@ -66,21 +66,24 @@ class _BuyTicketDialogState extends State<BuyTicketDialog> {
                                 child: Container(
                                     decoration: BoxDecoration(
                                         color: Colors.grey,
-                                        border:
-                                            Border.all(color: Colors.black)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(5.0),
+                                        border: Border.all(
+                                            color: const Color.fromARGB(
+                                                255, 56, 54, 54))),
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(5.0),
                                       child: Icon(Icons.remove),
                                     ))),
                             Container(
                                 decoration: BoxDecoration(
                                     color: Colors.white,
-                                    border: Border.all(color: Colors.black)),
+                                    border: Border.all(
+                                        color: const Color.fromARGB(
+                                            255, 56, 54, 54))),
                                 child: Padding(
                                   padding:
                                       const EdgeInsets.fromLTRB(12, 8, 12, 8),
                                   child: Text("$_count",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontWeight: FontWeight.bold)),
                                 )),
                             InkWell(
@@ -88,10 +91,11 @@ class _BuyTicketDialogState extends State<BuyTicketDialog> {
                                 child: Container(
                                     decoration: BoxDecoration(
                                         color: Colors.grey,
-                                        border:
-                                            Border.all(color: Colors.black)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(5.0),
+                                        border: Border.all(
+                                            color: const Color.fromARGB(
+                                                255, 56, 54, 54))),
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(5.0),
                                       child: Icon(Icons.add),
                                     )))
                           ]),

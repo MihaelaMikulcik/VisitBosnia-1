@@ -28,8 +28,15 @@ namespace VisitBosnia.Services
                 filteredQuery = filteredQuery.Where(x => x.TouristFacilityId == search.FacilityId);
             }
 
+            if (search?.isThumbnail != null)
+            {
+                filteredQuery = filteredQuery.Where(x => x.Thumbnail == search.isThumbnail);
+            }
+
             return filteredQuery;
         }
+
+
 
     }
 }

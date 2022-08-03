@@ -1,5 +1,5 @@
 // import 'dart:html';
-// import 'dart:html';
+import 'dart:convert';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,11 @@ import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:visit_bosnia_mobile/components/buy_ticket_dialog.dart';
 import 'package:visit_bosnia_mobile/model/events/event.dart';
-import 'package:visit_bosnia_mobile/providers/event_provicer.dart';
+import 'package:visit_bosnia_mobile/model/touristFacilityGallery/tourist_facility_gallery.dart';
+import 'package:visit_bosnia_mobile/model/touristFacilityGallery/tourist_facility_gallery_search_object.dart';
+import 'package:visit_bosnia_mobile/providers/event_provider.dart';
+import 'package:visit_bosnia_mobile/providers/tourist_facility_provider.dart';
+import 'package:visit_bosnia_mobile/utils/util.dart';
 
 class EventDetails extends StatefulWidget {
   EventDetails(this.event, {Key? key}) : super(key: key);
@@ -20,57 +24,73 @@ class EventDetails extends StatefulWidget {
 }
 
 class _EventDetailsState extends State<EventDetails> {
-  // late EventProvider _eventProvider;
   Event event;
   _EventDetailsState(this.event);
+  late TouristFacilityGalleryProvider _touristFacilityGalleryProvider;
+
   int activeIndex = 0;
-  dynamic response;
+  static dynamic gallery;
+  bool hasImages = false;
+  bool loading = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _touristFacilityGalleryProvider =
+        context.read<TouristFacilityGalleryProvider>();
+    LoadEventImages();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    gallery = [];
+  }
+
+  void LoadEventImages() async {
+    TouristFacilityGallerySearchObject search =
+        TouristFacilityGallerySearchObject(facilityId: event.idNavigation!.id);
+    try {
+      loading = true;
+      var tempImages =
+          await _touristFacilityGalleryProvider.get(search.toJson());
+      loading = false;
+      if (tempImages.isEmpty) {
+        setState(() => hasImages = false);
+        return;
+      }
+      setState(() {
+        hasImages = true;
+        gallery = tempImages;
+      });
+    } catch (e) {
+      hasImages = false;
+      return;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
       child: Column(children: [
-        CarouselSlider(
-          options: CarouselOptions(
-              height: 300.0,
-              viewportFraction: 1,
-              onPageChanged: (index, reason) =>
-                  setState(() => activeIndex = index)),
-          items: [1, 2, 3, 4, 5].map((i) {
-            return Builder(
-              builder: (BuildContext context) {
-                return Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.symmetric(horizontal: 2.0),
-                    decoration: const BoxDecoration(
-                        color: Colors.amber,
-                        borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(30.0),
-                            bottomRight: Radius.circular(30.0))),
-                    child: Text(
-                      'text $i',
-                      style: TextStyle(fontSize: 16.0),
-                    ));
-              },
-            );
-          }).toList(),
-        ),
+        _buildCarouselSlider(context),
         const SizedBox(height: 10),
         buildIndicator(),
         Container(
           width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+          padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
           child: Column(children: [
             Row(
               children: [
                 Expanded(
                     child: Text(
-                  event.name!,
-                  // "Višegrad, Andrićgrad and Drvengrad tour",
+                  event.idNavigation!.name!,
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 )),
-                Column(children: [
+                Column(children: const [
                   Icon(
                     Icons.star,
                     color: Color.fromARGB(255, 245, 173, 40),
@@ -83,48 +103,43 @@ class _EventDetailsState extends State<EventDetails> {
                 ])
               ],
             ),
-            SizedBox(height: 5),
             Row(
               children: [
                 Text(
-                  "Višegrad",
-                  style: TextStyle(fontSize: 20),
+                  // "Višegrad",
+                  event.idNavigation!.city!.name!,
+                  style: const TextStyle(fontSize: 20),
                 ),
-                Icon(Icons.location_on)
+                const Icon(Icons.location_on)
               ],
             ),
+            const SizedBox(
+              height: 15,
+            ),
+            const SizedBox(
+                width: double.infinity,
+                child: Text("Description",
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold))),
             SizedBox(
               width: double.infinity,
               child: Container(
-                padding: EdgeInsets.only(top: 10.0),
-                // color: Colors.red,
+                padding: const EdgeInsets.only(top: 10.0, bottom: 20.0),
                 child: Text(
-                  "Description",
+                  event.idNavigation!.description!,
                   textAlign: TextAlign.left,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  style: const TextStyle(fontSize: 18),
                 ),
               ),
             ),
-            SizedBox(
-              width: double.infinity,
-              child: Container(
-                padding: EdgeInsets.only(top: 10.0, bottom: 20.0),
-                // color: Colors.red,
-                child: Text(
-                  event.description!,
-                  // "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-            ),
-            buildDetailRow("Tourist agency", "Meet Bosnia Tours"),
-            buildDetailRow("Tourist guide", "Adnan Hodzic"),
-            buildDetailRow("Duration", "7-8 hours"),
-            buildDetailRow("Date", event.date!),
-            buildDetailRow("Time", "${event.fromTime.toString()} AM"),
+            buildDetailRow("Tourist agency", event.agency!.name!),
+            buildDetailRow("Tourist guide",
+                "${event.agencyMember!.appUser!.firstName!} ${event.agencyMember!.appUser!.lastName!}"),
+            buildDetailRow("Duration", "${getDuration()} hours"),
+            buildDetailRow("Date", formatStringDate(event.date!)),
+            buildDetailRow("Time", timeToString(event.fromTime!)),
             buildDetailRow("Price", "${event.pricePerPerson.toString()} KM"),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             btnBuyTicket(),
             buildReviews()
           ]),
@@ -133,10 +148,25 @@ class _EventDetailsState extends State<EventDetails> {
     ));
   }
 
+  String getDuration() {
+    // var duration = event.toTime! - event.fromTime!;
+    // return timeToString(duration);
+
+    var duration = event.toTime! - event.fromTime!;
+    var d = Duration(minutes: duration);
+    List<String> parts = d.toString().split(':');
+    if (parts[1] != '00') {
+      int satiInt = int.parse(parts[0]) + 1;
+      return '${parts[0]} - $satiInt';
+    } else {
+      return parts[0];
+    }
+  }
+
   Widget buildReviews() {
     return Padding(
       padding: const EdgeInsets.only(top: 20.0),
-      child: Row(children: [
+      child: Row(children: const [
         Text(
           "Reviews ",
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
@@ -165,23 +195,24 @@ class _EventDetailsState extends State<EventDetails> {
                     children: [
                       Align(
                           alignment: Alignment.centerLeft,
-                          child: Text(event.name!,
-                              style: TextStyle(
+                          child: Text(event.idNavigation!.name!,
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 22))),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Row(
                         children: [
                           Text(
-                            event.date.toString(),
-                            style: TextStyle(color: Colors.grey, fontSize: 19),
+                            formatStringDate(event.date!),
+                            style: const TextStyle(
+                                color: Colors.grey, fontSize: 19),
                           ),
-                          Icon(
+                          const Icon(
                             Icons.access_time,
                             color: Colors.grey,
                           )
                         ],
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                     ],
                   ),
                   content: BuyTicketDialog(event)),
@@ -192,7 +223,7 @@ class _EventDetailsState extends State<EventDetails> {
           width: MediaQuery.of(context).size.width,
           height: 50,
           decoration: BoxDecoration(
-            color: Color.fromARGB(255, 211, 75, 70),
+            color: const Color.fromARGB(255, 211, 75, 70),
             borderRadius: BorderRadius.circular(10),
           ),
           child: const Text("Buy a ticket",
@@ -210,28 +241,83 @@ class _EventDetailsState extends State<EventDetails> {
           width: MediaQuery.of(context).size.width * 0.35,
           child: Text(
             title,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
         ),
         Expanded(
           flex: 1,
           child: Container(
-            padding: EdgeInsets.only(left: 20),
-            child: Text(value, style: TextStyle(fontSize: 18)),
+            padding: const EdgeInsets.only(left: 20),
+            child: Text(value, style: const TextStyle(fontSize: 18)),
           ),
         ),
-        SizedBox(height: 30)
+        const SizedBox(height: 30)
       ],
     );
   }
 
   Widget buildIndicator() => AnimatedSmoothIndicator(
         activeIndex: activeIndex,
-        count: 5,
+        count: gallery != null ? gallery.length : 0,
         effect: const ScrollingDotsEffect(
             dotWidth: 10,
             dotHeight: 10,
             dotColor: Colors.grey,
             activeDotColor: Colors.blueGrey),
       );
+
+  _buildCarouselSlider(BuildContext context) {
+    if (loading) {
+      return Container(
+        height: 300,
+        width: MediaQuery.of(context).size.width,
+        decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 197, 194, 194),
+        ),
+        child: const Center(
+          child: CircularProgressIndicator(
+            color: Colors.white,
+          ),
+        ),
+      );
+    } else if (!hasImages && gallery?.length == 0) {
+      return Container(
+        height: 300,
+        width: MediaQuery.of(context).size.width,
+        decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 197, 194, 194),
+        ),
+        child: const Center(
+            child: Text("There are no currently available pictures...")),
+      );
+    } else {
+      return CarouselSlider(
+          options: CarouselOptions(
+              autoPlay: gallery.length > 1 ? true : false,
+              autoPlayCurve: Curves.easeInBack,
+              autoPlayInterval: Duration(seconds: 3),
+              autoPlayAnimationDuration: Duration(milliseconds: 800),
+              height: 300.0,
+              viewportFraction: 1,
+              onPageChanged: (index, reason) =>
+                  setState(() => activeIndex = index)),
+          items: gallery
+              .map((i) {
+                return Builder(builder: (BuildContext context) {
+                  return Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.symmetric(horizontal: 2.0),
+                    decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(30.0),
+                            bottomRight: Radius.circular(30.0))),
+                    child: Image.memory(base64Decode(i.image!),
+                        fit: BoxFit.cover, gaplessPlayback: true),
+                  );
+                });
+              })
+              .toList()
+              .cast<Widget>());
+    }
+  }
 }
