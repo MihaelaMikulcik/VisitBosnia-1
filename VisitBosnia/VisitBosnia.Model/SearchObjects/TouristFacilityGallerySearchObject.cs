@@ -10,6 +10,7 @@ namespace VisitBosnia.Model.Requests
     {
         public string? SearchText { get; set; }
         public int? FacilityId { get; set; }
+        public bool? isThumbnail { get; set; }
 
     }
 }
