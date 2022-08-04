@@ -15,6 +15,8 @@ import 'package:visit_bosnia_mobile/providers/event_provider.dart';
 import 'package:visit_bosnia_mobile/providers/tourist_facility_provider.dart';
 import 'package:visit_bosnia_mobile/utils/util.dart';
 
+import '../providers/tourist_facility_gallery_provider.dart';
+
 class EventDetails extends StatefulWidget {
   EventDetails(this.event, {Key? key}) : super(key: key);
   Event event;
