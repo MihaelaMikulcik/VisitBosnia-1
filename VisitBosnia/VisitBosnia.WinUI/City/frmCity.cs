@@ -9,12 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using VisitBosnia.Model;
 using VisitBosnia.Model.Requests;
+using VisitBosnia.Model.SearchObjects;
 
 namespace VisitBosnia.WinUI
 {
     public partial class frmCity : Form
     {
         public APIService CityService { get; set; } = new APIService("City");
+        public APIService ForumService { get; set; } = new APIService("Forum");
 
 
         public frmCity()
@@ -77,6 +79,13 @@ namespace VisitBosnia.WinUI
                     if (confirmResult == DialogResult.Yes)
                     {
                         var delete = await CityService.Delete<Model.City>(item.Id);
+                        var forumSearchObj = new ForumSearchObject { CityId = item.Id };    
+                        var forumFilter = await ForumService.Get<Model.Forum>(forumSearchObj);
+                        var forum = forumFilter.FirstOrDefault();
+                        if(forum != null)
+                        {
+                            var deleteForum = ForumService.Delete<Model.Forum>(forum.Id);
+                        }
                         LoadTable();
                         var message = MessageBox.Show("Successfully deleted");
 

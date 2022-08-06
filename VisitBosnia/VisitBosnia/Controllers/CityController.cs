@@ -12,17 +12,5 @@ namespace VisitBosnia.Controllers
             
         }
 
-        //[HttpGet]
-        //public string GetName()
-        //{
-        //    return "Ime test";
-        //}
-
-        [HttpGet("GetName2")]
-        public async Task<IActionResult> GetName2()
-        {
-            var result = await base.GetById(1);
-            return Ok(result.Name);
-        }
     }
 }

@@ -52,6 +52,10 @@ namespace VisitBosnia.Services
             CreateMap<Database.TouristFacilityGallery, Model.TouristFacilityGallery>().ReverseMap();
             CreateMap<Database.TouristFacilityGallery, Model.Requests.TouristFacilityGalleryInsertRequest>().ReverseMap();
             CreateMap<Database.TouristFacilityGallery, Model.Requests.TouristFacilityGalleryUpdateRequest>().ReverseMap();
+
+            CreateMap<Database.Forum, Model.Forum>().ReverseMap();
+            CreateMap<Database.Forum, Model.Requests.ForumInsertRequest>().ReverseMap();
+
         }
     }
 }
