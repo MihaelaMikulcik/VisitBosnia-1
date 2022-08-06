@@ -1,6 +1,6 @@
 ﻿namespace VisitBosnia.WinUI.Events
 {
-    partial class frmEventGallery
+    partial class frmFacilityGallery
     {
         /// <summary>
         /// Required designer variable.
