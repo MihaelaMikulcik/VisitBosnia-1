@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:visit_bosnia_mobile/components/tourist_facility_info.dart';
 
 class AttractionDetails extends StatefulWidget {
   const AttractionDetails({Key? key}) : super(key: key);

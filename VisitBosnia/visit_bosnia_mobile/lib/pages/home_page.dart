@@ -7,8 +7,9 @@ import 'package:visit_bosnia_mobile/model/events/event_search_object.dart';
 import 'package:visit_bosnia_mobile/model/touristFacilityGallery/tourist_facility_gallery.dart';
 import 'package:visit_bosnia_mobile/model/touristFacilityGallery/tourist_facility_gallery_search_object.dart';
 import 'package:visit_bosnia_mobile/pages/event_details.dart';
+import 'package:visit_bosnia_mobile/pages/event_details2.dart';
 import 'package:visit_bosnia_mobile/providers/event_provider.dart';
-import 'package:visit_bosnia_mobile/providers/tourist_facility_provider.dart';
+import 'package:visit_bosnia_mobile/providers/tourist_facility_gallery_provider.dart';
 
 import '../components/navigation_drawer.dart';
 import '../model/events/event.dart';
@@ -106,8 +107,8 @@ class _HomepageState extends State<Homepage> {
   Widget _eventCard(Event event) {
     return InkWell(
       onTap: () {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => EventDetails(event)));
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => EventDetails2(event)));
       },
       child: Container(
         height: 220,

@@ -3,6 +3,7 @@ class City {
   String? name;
   String? county;
   String? zipCode;
+  String? image;
 
   City({this.id, this.name, this.county, this.zipCode});
 
@@ -11,6 +12,7 @@ class City {
     name = json['name'];
     county = json['county'];
     zipCode = json['zipCode'];
+    image = json['image'];
   }
 
   Map<String, dynamic> toJson() {
@@ -19,6 +21,7 @@ class City {
     data['name'] = this.name;
     data['county'] = this.county;
     data['zipCode'] = this.zipCode;
+    data['image'] = this.image;
     return data;
   }
 }

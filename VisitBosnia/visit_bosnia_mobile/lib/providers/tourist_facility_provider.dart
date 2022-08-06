@@ -1,14 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:visit_bosnia_mobile/model/id_navigation.dart';
-import 'package:visit_bosnia_mobile/model/touristFacilityGallery/tourist_facility_gallery.dart';
-import 'package:visit_bosnia_mobile/providers/base_provider.dart';
 
-class TouristFacilityGalleryProvider extends BaseProvider {
-  TouristFacilityGalleryProvider() : super("TouristFacilityGallery");
+import 'base_provider.dart';
 
+class TouristFacilityProvider extends BaseProvider<IdNavigation> {
+  TouristFacilityProvider() : super("TouristFacility");
   @override
-  fromJson(data) {
+  IdNavigation fromJson(data) {
     // TODO: implement fromJson
-    return TouristFacilityGallery.fromJson(data);
+    return IdNavigation.fromJson(data);
   }
 }
