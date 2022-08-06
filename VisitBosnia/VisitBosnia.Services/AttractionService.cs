@@ -21,6 +21,20 @@ namespace VisitBosnia.Services
 
         }
 
+        public override IQueryable<Attraction> AddFilter(IQueryable<Attraction> query, AttractionSearchObject search = null)
+        {
+            var filteredQuery = base.AddFilter(query, search);
+
+
+            if (!string.IsNullOrEmpty(search?.SearchText))
+            {
+                filteredQuery = filteredQuery.Where(x => x.IdNavigation.Name.ToLower().StartsWith(search.SearchText.ToLower()));
+            }
+
+
+            return filteredQuery;
+        }
+
         public override IQueryable<Attraction> AddInclude(IQueryable<Attraction> query, AttractionSearchObject search = null)
         {
             if (search?.IncludeIdNavigation == true)
@@ -33,6 +47,19 @@ namespace VisitBosnia.Services
 
             return query;
 
+        }
+
+        public override async Task<Model.Attraction> GetById(int id)
+        {
+            var entity = Context.Set<Services.Database.Attraction>().AsQueryable();
+
+            entity = entity.Include("IdNavigation");
+            entity = entity.Include("IdNavigation.City");
+            entity = entity.Include("IdNavigation.Category");
+
+            var model = entity.Where(x => x.Id == id).FirstOrDefault();
+
+            return Mapper.Map<Model.Attraction>(model);
         }
 
 

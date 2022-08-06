@@ -9,97 +9,85 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using VisitBosnia.Model.Requests;
 using VisitBosnia.Model.ViewModels;
+using VisitBosnia.WinUI.Events;
 
-namespace VisitBosnia.WinUI.Events
+namespace VisitBosnia.WinUI.Attraction
 {
-    public partial class frmEvent : Form
+    public partial class frmAttraction : Form
     {
-        public APIService EventService { get; set; } = new APIService("Event");
+        public APIService AttractionService { get; set; } = new APIService("Attraction");
         public APIService TouristFacilityService { get; set; } = new APIService("TouristFacility");
-        private int _agencyId;
-
-        public frmEvent(int agencyId)
+        public frmAttraction()
         {
             InitializeComponent();
-            dgvEvent.AutoGenerateColumns = false;
+            dgvAttraction.AutoGenerateColumns = false;
             LoadTable();
-            _agencyId = agencyId;
         }
 
         private async void LoadTable()
         {
-            var searchObject = new EventSearchObject();
+            var searchObject = new AttractionSearchObject();
             searchObject.IncludeIdNavigation = true;
+            var attractions = await AttractionService.Get<Model.Attraction>(searchObject);
+            var list = new List<AttractionViewModel>();
 
-            var events = await EventService.Get<Model.Event>(searchObject);
-
-            var list = new List<EventViewModel>();
-
-            foreach (var item in events)
+            foreach (var item in attractions)
             {
 
-                list.Add(new EventViewModel
+                list.Add(new AttractionViewModel
                 {
                     Id = item.Id,
                     City = item.IdNavigation.City.Name,
                     Category = item.IdNavigation.Category.Name,
                     Name = item.IdNavigation.Name,
-                    Date = item.Date.ToShortDateString()
-                }) ;
-            }
-
-            dgvEvent.DataSource = list;
-          
-        }
-
-        private async void btn_search_Click(object sender, EventArgs e)
-        {
-            var searchObject = new EventSearchObject();
-            searchObject.SearchText = txtSearch.Text;
-            searchObject.IncludeIdNavigation = true;
-
-            var events = await EventService.Get<Model.Event>(searchObject);
-
-            var list = new List<EventViewModel>();
-
-            foreach (var item in events)
-            {
-
-                list.Add(new EventViewModel
-                {
-                    Id = item.Id,
-                    City = item.IdNavigation.City.Name,
-                    Category = item.IdNavigation.Category.Name,
-                    Name = item.IdNavigation.Name,
-                    Date = item.Date.ToShortDateString()
                 });
             }
 
-            dgvEvent.DataSource = list;
+            dgvAttraction.DataSource = list;
         }
 
-        private void labelBack_Click(object sender, EventArgs e)
+        private void btnAdd_Click(object sender, EventArgs e)
         {
             this.Hide();
-            this.Close();
+            var formDetails = new frmAttractionDetails();
+            formDetails.Closed += (s, args) => this.Close();
+            formDetails.Show();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void btnSearch_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            var form2 = new frmEventDetails(_agencyId);
-            form2.Closed += (s, args) => this.Close();
-            form2.Show();
+
+            var searchObject = new AttractionSearchObject();
+            searchObject.SearchText = txtSearch.Text;
+            searchObject.IncludeIdNavigation = true;
+
+            var attractions = await AttractionService.Get<Model.Attraction>(searchObject);
+
+            var list = new List<AttractionViewModel>();
+
+            foreach (var item in attractions)
+            {
+
+                list.Add(new AttractionViewModel
+                {
+                    Id = item.Id,
+                    City = item.IdNavigation.City.Name,
+                    Category = item.IdNavigation.Category.Name,
+                    Name = item.IdNavigation.Name,
+                });
+            }
+
+            dgvAttraction.DataSource = list;
         }
 
-        private async void dgvEvent_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private async void dgvAttraction_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            var row = dgvEvent.Rows[e.RowIndex];
-            var item = row.DataBoundItem as EventViewModel;
+            var row = dgvAttraction.Rows[e.RowIndex];
+            var item = row.DataBoundItem as AttractionViewModel;
             var senderGrid = (DataGridView)sender;
 
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
-                e.ColumnIndex == 4)
+                e.ColumnIndex == 3)
             {
                 var confirmResult = MessageBox.Show("Are you sure to delete this item ??",
                                         "Confirm Delete!!",
@@ -107,30 +95,29 @@ namespace VisitBosnia.WinUI.Events
 
                 if (confirmResult == DialogResult.Yes)
                 {
-                    var delete = await EventService.Delete<Model.Event>(item.Id);
+                    var delete = await AttractionService.Delete<Model.Attraction>(item.Id);
                     var deleteFacility = await TouristFacilityService.Delete<Model.TouristFacility>(item.Id);
                     LoadTable();
                     var message = MessageBox.Show("Successfully deleted");
 
                 }
-              
+
 
             }
             else
             {
-                if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.ColumnIndex == 5)
+                if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.ColumnIndex == 4)
                 {
                     this.Hide();
-                    var form2 = new frmEventDetails(_agencyId,item.Id);
-                    form2.Closed += (s, args) => this.Close();
-                    form2.Show();
+                    var frmAttraction = new frmAttractionDetails(item.Id);
+                    frmAttraction.Closed += (s, args) => this.Close();
+                    frmAttraction.Show();
 
                 }
                 else
                 {
-                    
+
                     var form2 = new frmFacilityGallery(item.Id);
-            
                     form2.Show();
                 }
             }

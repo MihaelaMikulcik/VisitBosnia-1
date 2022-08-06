@@ -11,7 +11,7 @@ namespace VisitBosnia.Model.Requests
         public int Id { get; set; }
         public string? AddressMap { get; set; }
 
-        public double GeoLong { get; set; }
-        public double GeoLat { get; set; }
+        public decimal GeoLong { get; set; }
+        public decimal GeoLat { get; set; }
     }
 }

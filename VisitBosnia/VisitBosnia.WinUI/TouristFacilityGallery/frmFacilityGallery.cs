@@ -12,7 +12,7 @@ using VisitBosnia.Model.Requests;
 
 namespace VisitBosnia.WinUI.Events
 {
-    public partial class frmEventGallery : Form
+    public partial class frmFacilityGallery : Form
     {
         private List<TouristFacilityGallery> _gallery;
         private int _selectedIndex;
@@ -20,7 +20,7 @@ namespace VisitBosnia.WinUI.Events
 
         public APIService TouristFacilityGalleryService { get; set; } = new APIService("TouristFacilityGallery");
 
-        public frmEventGallery(int eventId)
+        public frmFacilityGallery(int eventId)
         {
             InitializeComponent();
             _eventId = eventId;

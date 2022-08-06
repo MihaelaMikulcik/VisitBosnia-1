@@ -3,51 +3,80 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:visit_bosnia_mobile/components/tourist_facility_info.dart';
+import 'package:visit_bosnia_mobile/model/attractions/attraction.dart';
 
 class AttractionDetails extends StatefulWidget {
-  const AttractionDetails({Key? key}) : super(key: key);
-
+  AttractionDetails(this.attraction, {Key? key}) : super(key: key);
+  Attraction attraction;
   @override
-  State<AttractionDetails> createState() => _AttractionDetailsState();
+  State<AttractionDetails> createState() => _AttractionDetailsState(attraction);
 }
 
 class _AttractionDetailsState extends State<AttractionDetails> {
+  _AttractionDetailsState(this.attraction);
+  Attraction attraction;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-      child: Container(
-        height: 200,
-        width: 500,
-        child: FlutterMap(
-          options: MapOptions(
-            center: LatLng(43.859675, 18.4312194444),
-            zoom: 18.0,
-          ),
-          layers: [
-            TileLayerOptions(
-              urlTemplate: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-              userAgentPackageName: 'com.example.app',
+        body: SingleChildScrollView(
+      child: Column(
+        children: [
+          TouristFacilityInfo(attraction.idNavigation!),
+          Padding(
+            padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
+            child: Column(
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: Text("Location",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  height: 150,
+                  width: MediaQuery.of(context).size.width,
+                  child: FlutterMap(
+                    options: MapOptions(
+                      center: LatLng(attraction.geoLat!, attraction.geoLong!),
+                      zoom: 16.0,
+                      maxZoom: 18.0,
+                    ),
+                    layers: [
+                      TileLayerOptions(
+                        urlTemplate:
+                            "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                        userAgentPackageName: 'com.example.app',
+                      ),
+                      MarkerLayerOptions(markers: [
+                        Marker(
+                            point:
+                                LatLng(attraction.geoLat!, attraction.geoLong!),
+                            builder: (context) => Icon(
+                                  Icons.location_on,
+                                  size: 40,
+                                  color: Color.fromARGB(255, 240, 76, 64),
+                                ))
+                      ])
+                    ],
+                  ),
+                )
+              ],
             ),
-            MarkerLayerOptions(markers: [
-              Marker(
-                  point: LatLng(43.859675, 18.4312194444),
-                  builder: (context) => Icon(
-                        Icons.pin_drop,
-                        size: 40,
-                        color: Color.fromARGB(255, 240, 76, 64),
-                      ))
-            ])
-          ],
-          // nonRotatedChildren: [
-          //   AttributionWidget.defaultWidget(
-          //     source: 'OpenStreetMap contributors',
-          //     onSourceTapped: null,
-          //   ),
-          // ],
-        ),
+          )
+        ],
       ),
     ));
   }

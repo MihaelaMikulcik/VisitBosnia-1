@@ -135,6 +135,9 @@ namespace VisitBosnia.Services.Database
                 entity.ToTable("Attraction");
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.GeoLat).HasColumnType("decimal(10, 6)");
+                entity.Property(e => e.GeoLong).HasColumnType("decimal(10, 6)");
+
 
                 entity.HasOne(d => d.IdNavigation)
                     .WithOne(p => p.Attraction)
