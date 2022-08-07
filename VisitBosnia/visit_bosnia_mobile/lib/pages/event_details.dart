@@ -138,7 +138,7 @@ class _EventDetailsState extends State<EventDetails> {
             buildDetailRow("Tourist guide",
                 "${event.agencyMember!.appUser!.firstName!} ${event.agencyMember!.appUser!.lastName!}"),
             buildDetailRow("Duration", "${getDuration()} hours"),
-            buildDetailRow("Date", formatStringDate(event.date!)),
+            buildDetailRow("Date", formatStringDate(event.date!, 'EEE, MMM d')),
             buildDetailRow("Time", timeToString(event.fromTime!)),
             buildDetailRow("Price", "${event.pricePerPerson.toString()} KM"),
             const SizedBox(height: 20),
@@ -204,7 +204,7 @@ class _EventDetailsState extends State<EventDetails> {
                       Row(
                         children: [
                           Text(
-                            formatStringDate(event.date!),
+                            formatStringDate(event.date!, 'EEE, MMM d'),
                             style: const TextStyle(
                                 color: Colors.grey, fontSize: 19),
                           ),

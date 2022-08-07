@@ -9,7 +9,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:visit_bosnia_mobile/main.dart';
 import 'package:visit_bosnia_mobile/model/appUser/app_user.dart';
-import 'package:visit_bosnia_mobile/pages/forum.dart';
+import 'package:visit_bosnia_mobile/pages/forum_filter.dart';
 import 'package:visit_bosnia_mobile/pages/user_profile.dart';
 import 'package:visit_bosnia_mobile/utils/util.dart';
 
@@ -103,7 +103,7 @@ class NavigationDrawer extends StatelessWidget {
             onTap: () {
               Navigator.of(context).pop();
               Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => Forum()));
+                  .push(MaterialPageRoute(builder: (context) => ForumFilter()));
             },
           ),
           buildDivider(),

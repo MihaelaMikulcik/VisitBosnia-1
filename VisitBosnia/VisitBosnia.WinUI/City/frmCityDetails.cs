@@ -75,7 +75,7 @@ namespace VisitBosnia.WinUI
 
                     var forumInsertRequest = new Model.Requests.ForumInsertRequest
                     {
-                        Title = newCity.Name + " forum",
+                        Title = newCity.Name + " Forum",
                         CityId = newCity.Id,
                         CreatedTime = DateTime.Now
                     };

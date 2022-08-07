@@ -50,7 +50,7 @@ builder.Services.AddTransient<IAppUserService, AppUserService>();
 //builder.Services.AddTransient<IRoleService, RoleService>();
 builder.Services.AddTransient<IReadService<VisitBosnia.Model.Role, object>, RoleService>();
 builder.Services.AddTransient<IForumService, ForumService>();
-//builder.Services.AddTransient<IReadService<VisitBosnia.Model.Forum, object>, ForumService>();
+builder.Services.AddTransient<IPostService, PostService>();
 
 
 builder.Services.AddAutoMapper(typeof(ICityService));

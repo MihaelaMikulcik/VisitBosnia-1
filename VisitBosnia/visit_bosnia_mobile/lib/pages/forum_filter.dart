@@ -1,41 +1,46 @@
+import 'dart:ui';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:visit_bosnia_mobile/components/navigation_drawer.dart';
+import 'package:visit_bosnia_mobile/model/forum/forum.dart';
+import 'package:visit_bosnia_mobile/model/forum/forum_search_object.dart';
+import 'package:visit_bosnia_mobile/pages/forum_topics.dart';
 import 'package:visit_bosnia_mobile/providers/city_provider.dart';
+import 'package:visit_bosnia_mobile/providers/forum_provider.dart';
 import 'package:visit_bosnia_mobile/utils/util.dart';
 
 import '../model/city/city.dart';
 
-class Forum extends StatefulWidget {
-  const Forum({Key? key}) : super(key: key);
+class ForumFilter extends StatefulWidget {
+  const ForumFilter({Key? key}) : super(key: key);
 
   @override
-  State<Forum> createState() => _ForumState();
+  State<ForumFilter> createState() => _ForumFilterState();
 }
 
-class _ForumState extends State<Forum> {
-  late CityProvider _cityProvider;
-  // List<City> _cities = [];
+class _ForumFilterState extends State<ForumFilter> {
+  late ForumProvider _forumProvider;
   String? search = "";
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _cityProvider = context.read<CityProvider>();
+    _forumProvider = context.read<ForumProvider>();
   }
 
-  Future<List<City>> GetData() async {
-    List<City> cities;
+  Future<List<Forum>> GetData() async {
+    List<Forum> forums;
+    ForumSearchObject searchObj = ForumSearchObject(includeCity: true);
     if (search != "") {
-      cities = await _cityProvider.get({'Name': search});
-    } else {
-      cities = await _cityProvider.get();
+      searchObj.title = search;
     }
-    return cities;
+    forums = await _forumProvider.get(searchObj.toJson());
+    return forums;
   }
 
   @override
@@ -101,7 +106,6 @@ class _ForumState extends State<Forum> {
                           setState(() {
                             search = value;
                           });
-                          // GetData(value);
                         },
                       ),
                     ),
@@ -111,42 +115,42 @@ class _ForumState extends State<Forum> {
             ),
             const SizedBox(height: 50),
             Expanded(
-              // height: 300,
-              child: _buildCityList(),
+              child: _buildForumList(),
             )
           ],
         ));
   }
 
-  Widget _buildCityList() {
-    return FutureBuilder<List<City>>(
+  Widget _buildForumList() {
+    return FutureBuilder<List<Forum>>(
         future: GetData(),
-        builder: (BuildContext context, AsyncSnapshot<List<City>> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<List<Forum>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
-              // child: Text('Loading...'),
             );
           } else {
             if (snapshot.hasError) {
               return const Center(
-                // child: Text('${snapshot.error}'),
                 child: Text('Something went wrong...'),
               );
             } else {
               return ListView(
                 scrollDirection: Axis.vertical,
                 physics: const ScrollPhysics(),
-                children: snapshot.data!.map((e) => cityWidget(e)).toList(),
+                children: snapshot.data!.map((e) => forumWidget(e)).toList(),
               );
             }
           }
         });
   }
 
-  Widget cityWidget(City city) {
+  Widget forumWidget(Forum forum) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => ForumTopics(forum)));
+      },
       child: Container(
         height: 85,
         padding: const EdgeInsets.all(30),
@@ -154,14 +158,14 @@ class _ForumState extends State<Forum> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           image: DecorationImage(
-            image: imageFromBase64String(city.image!).image,
+            image: imageFromBase64String(forum.city!.image!).image,
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
                 Colors.black.withOpacity(0.5), BlendMode.darken),
           ),
         ),
         child: Text(
-          city.name!,
+          forum.city!.name!,
           textAlign: TextAlign.center,
           style: const TextStyle(
               fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
