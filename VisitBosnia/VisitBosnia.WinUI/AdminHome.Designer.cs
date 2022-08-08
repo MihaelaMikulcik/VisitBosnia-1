@@ -225,7 +225,7 @@
             this.button4.Padding = new System.Windows.Forms.Padding(0, 18, 0, 0);
             this.button4.Size = new System.Drawing.Size(261, 89);
             this.button4.TabIndex = 9;
-            this.button4.Text = "Attractions";
+            this.button4.Text = "        Attractions";
             this.button4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button4.UseVisualStyleBackColor = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
@@ -264,7 +264,7 @@
             this.button3.Padding = new System.Windows.Forms.Padding(0, 18, 0, 0);
             this.button3.Size = new System.Drawing.Size(261, 89);
             this.button3.TabIndex = 6;
-            this.button3.Text = "Cities \r\n";
+            this.button3.Text = "       Categories";
             this.button3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
