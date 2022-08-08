@@ -29,9 +29,9 @@ String timeToString(int minutes) {
   return '${parts[0].padLeft(2, '0')}:${parts[1].padLeft(2, '0')}';
 }
 
-String formatStringDate(String dateTime) {
+String formatStringDate(String dateTime, String format) {
   DateTime tempDate = DateFormat('yyyy-MM-dd').parse(dateTime);
-  var outputFormat = DateFormat('EEE, MMM d');
+  var outputFormat = DateFormat(format);
   var outputDate = outputFormat.format(tempDate);
   return outputDate.toString();
 }

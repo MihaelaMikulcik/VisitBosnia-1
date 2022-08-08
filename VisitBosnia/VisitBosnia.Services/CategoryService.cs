@@ -19,7 +19,16 @@ namespace VisitBosnia.Services
 
         }
 
-     
+        public override IQueryable<Category> AddFilter(IQueryable<Category> query, CategorySearchObject search = null)
+        {
+            var filteredQuery = base.AddFilter(query, search);
+            if (!string.IsNullOrEmpty(search.SearchText))
+            {
+                filteredQuery = filteredQuery.Where(x => x.Name.ToLower().StartsWith(search.SearchText.ToLower()) || x.Description.ToLower().StartsWith(search.SearchText.ToLower()));
+            }
+            return filteredQuery;
+        }
+
 
     }
 }

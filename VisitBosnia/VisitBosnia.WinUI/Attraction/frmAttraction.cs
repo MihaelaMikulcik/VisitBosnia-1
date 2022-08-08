@@ -122,5 +122,11 @@ namespace VisitBosnia.WinUI.Attraction
                 }
             }
         }
+
+        private void labelBack_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            this.Close();
+        }
     }
 }

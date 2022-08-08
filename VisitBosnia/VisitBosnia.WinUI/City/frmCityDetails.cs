@@ -16,6 +16,8 @@ namespace VisitBosnia.WinUI
         private Model.City _model = null;
 
         public APIService CityService { get; set; } = new APIService("City");
+        public APIService ForumService { get; set; } = new APIService("Forum");
+
 
 
 
@@ -70,6 +72,15 @@ namespace VisitBosnia.WinUI
                         insertRequest.Image = Helpers.ImageHelper.imageToByteArray(pbPicture.Image);
 
                     var newCity = await CityService.Insert<City>(insertRequest);
+
+                    var forumInsertRequest = new Model.Requests.ForumInsertRequest
+                    {
+                        Title = newCity.Name + " Forum",
+                        CityId = newCity.Id,
+                        CreatedTime = DateTime.Now
+                    };
+
+                    var newForum = await ForumService.Insert<Forum>(forumInsertRequest);
                 }
                 else
                 {

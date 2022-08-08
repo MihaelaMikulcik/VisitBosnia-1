@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using VisitBosnia.WinUI.Attraction;
+using VisitBosnia.WinUI.Categories;
 using VisitBosnia.WinUI.Users;
 
 namespace VisitBosnia.WinUI
@@ -65,7 +66,8 @@ namespace VisitBosnia.WinUI
 
         private void button3_Click(object sender, EventArgs e)
         {
-
+            var frmCategories = new frmCategory();
+            frmCategories.Show();
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
