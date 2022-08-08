@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
+import 'package:visit_bosnia_mobile/model/post/post_insert_request.dart';
 import 'package:visit_bosnia_mobile/model/post/post_search_object.dart';
+import 'package:visit_bosnia_mobile/providers/appuser_provider.dart';
 import 'package:visit_bosnia_mobile/providers/post_provider.dart';
 import 'package:visit_bosnia_mobile/utils/util.dart';
 
@@ -23,6 +25,10 @@ class ForumTopics extends StatefulWidget {
 class _ForumTopicsState extends State<ForumTopics> {
   _ForumTopicsState(this.forum);
   late PostProvider _postProvider;
+  late AppUserProvider _appUserProvider;
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _contentController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   Forum forum;
   String? search = "";
@@ -45,6 +51,8 @@ class _ForumTopicsState extends State<ForumTopics> {
 
   @override
   Widget build(BuildContext context) {
+    _appUserProvider = context.read<AppUserProvider>();
+
     return Scaffold(
       drawer: NavigationDrawer(),
       appBar: AppBar(
@@ -67,21 +75,11 @@ class _ForumTopicsState extends State<ForumTopics> {
                     color: Colors.black.withOpacity(0.5),
                     colorBlendMode: BlendMode.darken,
                   ),
-                  // decoration: BoxDecoration(
-                  //   image: DecorationImage(
-                  // // image: imageFromBase64String(forum.city!.image!).image,
-                  // image: Image.memory(
-                  //   base64Decode(forum.city!.image!),
-                  //   gaplessPlayback: true,
-                  // ).image,
-                  // fit: BoxFit.cover,
-                  // colorFilter: ColorFilter.mode(
-                  //     Colors.black.withOpacity(0.5), BlendMode.darken),
                 ),
                 Center(
                   child: Text(
                     forum.title!,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 25,
                         color: Colors.white),
@@ -96,7 +94,7 @@ class _ForumTopicsState extends State<ForumTopics> {
                       left: 40,
                       right: 40,
                     ),
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     height: 45,
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -115,7 +113,6 @@ class _ForumTopicsState extends State<ForumTopics> {
                           contentPadding: EdgeInsets.symmetric(
                               horizontal: 10, vertical: 8)),
                       onChanged: (value) {
-                        print(value);
                         setState(() {
                           search = value;
                         });
@@ -130,11 +127,17 @@ class _ForumTopicsState extends State<ForumTopics> {
           Align(
             alignment: Alignment.topRight,
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                        title: const Text("+ Create new post"),
+                        content: buildCreateDialog()));
+              },
               child: Container(
-                margin: EdgeInsets.only(bottom: 15.0, right: 15.0),
+                margin: const EdgeInsets.only(bottom: 15.0, right: 15.0),
                 width: 100,
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                     boxShadow: const [
                       BoxShadow(
@@ -142,9 +145,9 @@ class _ForumTopicsState extends State<ForumTopics> {
                           blurRadius: 3,
                           color: Color.fromARGB(255, 63, 62, 62))
                     ],
-                    color: Color.fromARGB(255, 217, 217, 217),
+                    color: const Color.fromARGB(255, 217, 217, 217),
                     borderRadius: BorderRadius.circular(10)),
-                child: Text(
+                child: const Text(
                   "+ New topic",
                   style: TextStyle(
                       color: Colors.black, fontWeight: FontWeight.bold),
@@ -153,9 +156,9 @@ class _ForumTopicsState extends State<ForumTopics> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(left: 20.0, right: 20.0),
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
+            margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+            padding: const EdgeInsets.all(10),
+            decoration: const BoxDecoration(
                 border: Border(
                     bottom: BorderSide(color: Colors.black, width: 1.3))),
             child: Row(
@@ -180,13 +183,105 @@ class _ForumTopicsState extends State<ForumTopics> {
     );
   }
 
+  Widget buildCreateDialog() {
+    return Form(
+      key: _formKey,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _txtTitle(),
+          _txtContent(),
+          const SizedBox(
+            height: 5,
+          ),
+          MaterialButton(
+            onPressed: () async {
+              final isValid = _formKey.currentState!.validate();
+              if (isValid) {
+                PostInsertRequest request = PostInsertRequest(
+                    forumId: forum.id,
+                    appUserId: _appUserProvider.userData.id,
+                    title: _titleController.text,
+                    content: _contentController.text,
+                    createdTime: DateTime.now().toIso8601String());
+                try {
+                  await _postProvider.insert(request);
+                } catch (e) {
+                  print(e.toString());
+                }
+                _titleController.clear();
+                _contentController.clear();
+                Navigator.pop(context);
+              }
+            },
+            minWidth: 230,
+            color: const Color.fromRGBO(29, 76, 120, 1),
+            textColor: Colors.white,
+            child: const Text(
+              "Create post",
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _txtContent() {
+    return TextFormField(
+        validator: (value) {
+          if (value!.isEmpty) {
+            return "";
+          }
+          return null;
+        },
+        controller: _contentController,
+        keyboardType: TextInputType.multiline,
+        minLines: 3,
+        maxLines: 3,
+        decoration: const InputDecoration(
+            errorStyle: TextStyle(height: 0),
+            hintText: "Write your post here...",
+            focusedErrorBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+            errorBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+            enabledBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey))));
+  }
+
+  Widget _txtTitle() {
+    return TextFormField(
+      validator: (value) {
+        if (value!.isEmpty) {
+          return "";
+        }
+        return null;
+      },
+      controller: _titleController,
+      decoration: const InputDecoration(
+          errorStyle: TextStyle(height: 0),
+          hintText: "Title",
+          contentPadding: EdgeInsets.all(10),
+          focusedErrorBorder:
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+          errorBorder:
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+          focusedBorder:
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+          enabledBorder:
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+    );
+  }
+
   Widget postWidget(Post post) {
     return InkWell(
       child: Container(
-        padding: EdgeInsets.all(15),
-        margin: EdgeInsets.only(left: 20, top: 10, right: 20),
+        padding: const EdgeInsets.all(15),
+        margin: const EdgeInsets.only(left: 20, top: 10, right: 20),
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 217, 217, 217),
+          color: const Color.fromARGB(255, 217, 217, 217),
           borderRadius: BorderRadius.circular(10),
           boxShadow: const [
             BoxShadow(
@@ -202,16 +297,16 @@ class _ForumTopicsState extends State<ForumTopics> {
               children: [
                 Expanded(
                   child: Text(post.title!,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.bold,
                       )),
                 ),
-                Text("3",
+                const Text("3",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             SizedBox(
               width: double.infinity,
               child: Text(
@@ -219,7 +314,7 @@ class _ForumTopicsState extends State<ForumTopics> {
                   post.createdTime!,
                   'yMd',
                 ),
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 16,
                     color: Color.fromARGB(255, 133, 128, 128),
                     fontWeight: FontWeight.bold),

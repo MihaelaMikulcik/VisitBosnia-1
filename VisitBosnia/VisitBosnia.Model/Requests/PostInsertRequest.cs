@@ -11,6 +11,7 @@ namespace VisitBosnia.Model.Requests
         public int Id { get; set; }
         public int AppUserId { get; set; }
         public int ForumId { get; set; }
+        //public string CreatedTime { get; set; } = null!;
         public DateTime CreatedTime { get; set; }
         public string Title { get; set; } = null!;
         public string Content { get; set; } = null!;
