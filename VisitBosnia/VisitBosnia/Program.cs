@@ -51,6 +51,7 @@ builder.Services.AddTransient<IAppUserService, AppUserService>();
 builder.Services.AddTransient<IReadService<VisitBosnia.Model.Role, object>, RoleService>();
 builder.Services.AddTransient<IForumService, ForumService>();
 builder.Services.AddTransient<IPostService, PostService>();
+builder.Services.AddTransient<IReviewService, ReviewService>();
 
 
 builder.Services.AddAutoMapper(typeof(ICityService));
