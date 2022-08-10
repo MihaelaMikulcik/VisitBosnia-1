@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,14 +24,20 @@ namespace VisitBosnia.Services
         {
             var filteredQuery = base.AddFilter(query, search);
 
-            //if (!string.IsNullOrEmpty(search?.SearchText))
-            //{
-            //    filteredQuery = filteredQuery.Where(x => x.Name.ToLower().StartsWith(search.SearchText.ToLower()) || x.County.ToLower().StartsWith(search.SearchText.ToLower()) || x.ZipCode.ToLower().StartsWith(search.SearchText.ToLower()));
-            //}
-
-
+            if (!string.IsNullOrEmpty(search?.SearchText))
+            {
+                filteredQuery = filteredQuery.Where(x => x.Name.ToLower().StartsWith(search.SearchText.ToLower()) || x.Address.ToLower().StartsWith(search.SearchText.ToLower()) || x.City.Name.ToLower().StartsWith(search.SearchText.ToLower()));
+            }
 
             return filteredQuery;
+        }
+        public override IQueryable<Agency> AddInclude(IQueryable<Agency> query, AgencySearchObject search = null)
+        {
+            if (search.IncludeCity == true)
+            {
+                query = query.Include("City");
+            }
+            return query;
         }
 
     }

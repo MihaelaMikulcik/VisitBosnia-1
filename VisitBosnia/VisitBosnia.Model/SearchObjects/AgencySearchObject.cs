@@ -9,6 +9,7 @@ namespace VisitBosnia.Model.Requests
     public class AgencySearchObject 
     {
         public string? SearchText { get; set; }
-
+        public bool? IncludeCity { get; set; }
+      
     }
 }
