@@ -6,6 +6,7 @@ import 'package:visit_bosnia_mobile/pages/event_details.dart';
 import 'package:visit_bosnia_mobile/pages/login.dart';
 import 'package:visit_bosnia_mobile/pages/register.dart';
 import 'package:visit_bosnia_mobile/pages/home_page.dart';
+import 'package:visit_bosnia_mobile/providers/appuser_favourite_provider.dart';
 import 'package:visit_bosnia_mobile/providers/appuser_provider.dart';
 import 'package:visit_bosnia_mobile/providers/attraction_provider.dart';
 import 'package:visit_bosnia_mobile/providers/base_provider.dart';
@@ -29,6 +30,7 @@ void main() => runApp(MultiProvider(
           ChangeNotifierProvider(create: (_) => ForumProvider()),
           ChangeNotifierProvider(create: (_) => PostProvider()),
           ChangeNotifierProvider(create: (_) => CategoryProvider()),
+          ChangeNotifierProvider(create: (_) => AppUserFavouriteProvider()),
         ],
         child: MaterialApp(
             debugShowCheckedModeBanner: true,

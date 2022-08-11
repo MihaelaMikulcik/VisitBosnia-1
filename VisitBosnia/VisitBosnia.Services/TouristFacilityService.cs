@@ -46,5 +46,17 @@ namespace VisitBosnia.Services
             return query;
         }
 
+        public override async Task<Model.TouristFacility> GetById(int id)
+        {
+            var entity = Context.Set<Services.Database.TouristFacility>().AsQueryable();
+
+            entity = entity.Include("City");
+            entity = entity.Include("Category");
+
+            var model = entity.Where(x => x.Id == id).FirstOrDefault();
+
+            return Mapper.Map<Model.TouristFacility>(model);
+        }
+
     }
 }

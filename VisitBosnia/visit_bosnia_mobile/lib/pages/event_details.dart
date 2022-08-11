@@ -8,13 +8,18 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:visit_bosnia_mobile/components/buy_ticket_dialog.dart';
+import 'package:visit_bosnia_mobile/model/appUserFavourite/app_user_favourite_insert_request.dart';
 import 'package:visit_bosnia_mobile/model/events/event.dart';
 import 'package:visit_bosnia_mobile/model/touristFacilityGallery/tourist_facility_gallery.dart';
 import 'package:visit_bosnia_mobile/model/touristFacilityGallery/tourist_facility_gallery_search_object.dart';
+import 'package:visit_bosnia_mobile/providers/appuser_favourite_provider.dart';
 import 'package:visit_bosnia_mobile/providers/event_provider.dart';
 import 'package:visit_bosnia_mobile/providers/tourist_facility_provider.dart';
 import 'package:visit_bosnia_mobile/utils/util.dart';
 
+import '../exception/http_exception.dart';
+import '../model/appUserFavourite/app_user_favourite_search_object.dart';
+import '../providers/appuser_provider.dart';
 import '../providers/tourist_facility_gallery_provider.dart';
 
 class EventDetails extends StatefulWidget {
@@ -29,11 +34,15 @@ class _EventDetailsState extends State<EventDetails> {
   Event event;
   _EventDetailsState(this.event);
   late TouristFacilityGalleryProvider _touristFacilityGalleryProvider;
+  late AppUserFavouriteProvider _appUserFavouriteProvider;
+  late AppUserProvider _appUserProvider;
 
   int activeIndex = 0;
   static dynamic gallery;
   bool hasImages = false;
   bool loading = false;
+  bool isFavourite = false;
+  int favoruiteId = 0;
 
   @override
   void initState() {
@@ -41,7 +50,10 @@ class _EventDetailsState extends State<EventDetails> {
     super.initState();
     _touristFacilityGalleryProvider =
         context.read<TouristFacilityGalleryProvider>();
+    _appUserFavouriteProvider = context.read<AppUserFavouriteProvider>();
+    _appUserProvider = context.read<AppUserProvider>();
     LoadEventImages();
+    loadFavourite();
   }
 
   @override
@@ -49,6 +61,18 @@ class _EventDetailsState extends State<EventDetails> {
     // TODO: implement dispose
     super.dispose();
     gallery = [];
+  }
+
+  Future loadFavourite() async {
+    var search = AppUserFavouriteSearchObject(
+        appUserId: _appUserProvider.userData.id, touristFacilityId: event.id!);
+    var favourite = await _appUserFavouriteProvider.get(search.toJson());
+    if (favourite.length > 0) {
+      setState(() {
+        isFavourite = true;
+        favoruiteId == favourite.first.id;
+      });
+    }
   }
 
   void LoadEventImages() async {
@@ -73,6 +97,45 @@ class _EventDetailsState extends State<EventDetails> {
     }
   }
 
+  Future selectFavourite() async {
+    try {
+      if (isFavourite == false) {
+        var newFavourite = await _appUserFavouriteProvider.insert(
+            new AppUserFavouriteInsertRequest(
+                appUserId: _appUserProvider.userData.id,
+                touristFacilityId: event.id!));
+        setState(() {
+          isFavourite = true;
+          favoruiteId = newFavourite!.id!;
+        });
+      } else {
+        await _appUserFavouriteProvider.delete(favoruiteId);
+        setState(() {
+          isFavourite = false;
+          favoruiteId = 0;
+        });
+      }
+    } catch (e) {
+      if (e is UserException) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+              e.message,
+              style: const TextStyle(color: Colors.white),
+            ),
+            duration: const Duration(seconds: 2),
+            backgroundColor: Color.fromARGB(255, 165, 46, 37)));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+              "Something went wrong, please try again later...",
+              style: TextStyle(color: Colors.white),
+            ),
+            duration: Duration(seconds: 2),
+            backgroundColor: Color.fromARGB(255, 165, 46, 37)));
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,7 +155,14 @@ class _EventDetailsState extends State<EventDetails> {
                   event.idNavigation!.name!,
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 )),
-                Column(children: const [
+                Column(children: [
+                  InkWell(
+                    // When the user taps the button, show a snackbar.
+                    onTap: () async => await selectFavourite(),
+                    child: isFavourite == true
+                        ? Image.asset("assets/images/heart-icon.png")
+                        : Image.asset("assets/images/heart2-icon.png"),
+                  ),
                   Icon(
                     Icons.star,
                     color: Color.fromARGB(255, 245, 173, 40),

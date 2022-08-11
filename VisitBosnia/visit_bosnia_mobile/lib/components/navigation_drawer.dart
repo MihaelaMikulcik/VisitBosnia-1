@@ -13,6 +13,7 @@ import 'package:visit_bosnia_mobile/pages/forum_filter.dart';
 import 'package:visit_bosnia_mobile/pages/user_profile.dart';
 import 'package:visit_bosnia_mobile/utils/util.dart';
 
+import '../pages/user_favourites.dart';
 import '../providers/appuser_provider.dart';
 
 class NavigationDrawer extends StatelessWidget {
@@ -84,7 +85,12 @@ class NavigationDrawer extends StatelessWidget {
               child: Text("Favorites",
                   style: TextStyle(color: Colors.white, fontSize: 20)),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => UserFavourites(
+                      user: Provider.of<AppUserProvider>(context).userData)));
+            },
           ),
           buildDivider(),
           ListTile(

@@ -28,7 +28,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
     http = IOClient(client);
   }
 
-  Future<List<T>> getById(int id, [dynamic additionalData]) async {
+  Future<T> getById(int id, [dynamic additionalData]) async {
     var url = Uri.parse("$_baseUrl$_endpoint/$id");
 
     Map<String, String> headers = createHeaders();
@@ -37,7 +37,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
 
     if (isValidResponseCode(response)) {
       var data = jsonDecode(response.body);
-      return data.map((x) => fromJson(x)).cast<T>().toList();
+      return fromJson(data) as T;
     } else {
       throw Exception("Exception... handle this gracefully");
     }
@@ -89,6 +89,22 @@ abstract class BaseProvider<T> with ChangeNotifier {
 
     var response =
         await http!.put(uri, headers: headers, body: jsonEncode(request));
+
+    if (isValidResponseCode(response)) {
+      var data = jsonDecode(response.body);
+      return fromJson(data) as T;
+    } else {
+      return null;
+    }
+  }
+
+  Future<T?> delete(int id) async {
+    var url = "$_baseUrl$_endpoint/delete/$id";
+    var uri = Uri.parse(url);
+
+    Map<String, String> headers = createHeaders();
+
+    var response = await http!.delete(uri, headers: headers);
 
     if (isValidResponseCode(response)) {
       var data = jsonDecode(response.body);

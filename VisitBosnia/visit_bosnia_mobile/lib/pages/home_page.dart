@@ -3,6 +3,8 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:visit_bosnia_mobile/model/appUser/app_user.dart';
+import 'package:visit_bosnia_mobile/model/appUserFavourite/app_user_favourite.dart';
+import 'package:visit_bosnia_mobile/model/appUserFavourite/app_user_favourite_search_object.dart';
 import 'package:visit_bosnia_mobile/model/attractions/attraction.dart';
 import 'package:visit_bosnia_mobile/model/events/event_search_object.dart';
 import 'package:visit_bosnia_mobile/model/touristFacilityGallery/tourist_facility_gallery.dart';
@@ -10,6 +12,7 @@ import 'package:visit_bosnia_mobile/model/touristFacilityGallery/tourist_facilit
 import 'package:visit_bosnia_mobile/pages/attraction_details.dart';
 import 'package:visit_bosnia_mobile/pages/event_details.dart';
 import 'package:visit_bosnia_mobile/pages/event_details2.dart';
+import 'package:visit_bosnia_mobile/providers/appuser_favourite_provider.dart';
 import 'package:visit_bosnia_mobile/providers/appuser_provider.dart';
 import 'package:visit_bosnia_mobile/providers/attraction_provider.dart';
 import 'package:visit_bosnia_mobile/providers/category_provider.dart';
@@ -40,6 +43,9 @@ class _HomepageState extends State<Homepage> {
   late TouristFacilityGalleryProvider _touristFacilityGalleryProvider;
   late AppUserProvider _appUserProvider;
   late CategoryProvider _categoryProvider;
+  late AppUserFavouriteProvider _appUserFavouriteProvider;
+
+  dynamic userFavourite = {};
 
   AppUser user;
   int selectedCategory = 0;
@@ -54,6 +60,8 @@ class _HomepageState extends State<Homepage> {
         context.read<TouristFacilityGalleryProvider>();
     _appUserProvider = context.read<AppUserProvider>();
     _categoryProvider = context.read<CategoryProvider>();
+    _appUserFavouriteProvider = context.read<AppUserFavouriteProvider>();
+    loadAppUserFavourite();
   }
 
   Future<List<Event>> loadEvents() async {
@@ -80,6 +88,15 @@ class _HomepageState extends State<Homepage> {
   Future<List<Category>> loadCategories() async {
     var categories = await _categoryProvider.get(null);
     return categories;
+  }
+
+  Future loadAppUserFavourite() async {
+    var search =
+        AppUserFavouriteSearchObject(appUserId: _appUserProvider.userData.id);
+    var favourites = await _appUserFavouriteProvider.get(search.toJson());
+    setState(() {
+      userFavourite = favourites;
+    });
   }
 
   Future<List<TouristFacilityGallery>> getGallery(int facilityId) async {
@@ -164,7 +181,7 @@ class _HomepageState extends State<Homepage> {
                 width: double.infinity,
                 child: Text("Attractions",
                     style:
-                        TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                        TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
               ),
               SizedBox(height: 10),
               Container(
@@ -174,7 +191,8 @@ class _HomepageState extends State<Homepage> {
               SizedBox(
                 width: double.infinity,
                 child: Container(
-                  padding: const EdgeInsets.only(top: 10.0, right: 10.0),
+                  padding:
+                      const EdgeInsets.only(top: 10.0, right: 10.0, bottom: 10),
                   child: InkWell(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -197,7 +215,7 @@ class _HomepageState extends State<Homepage> {
                 width: double.infinity,
                 child: Text("Events",
                     style:
-                        TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                        TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
               ),
               SizedBox(height: 10),
               Container(
@@ -234,6 +252,8 @@ class _HomepageState extends State<Homepage> {
   }
 
   Widget _eventCard(Event event) {
+    var contain =
+        userFavourite.where((element) => element.touristFacilityId == event.id);
     return InkWell(
         onTap: () {
           Navigator.of(context).push(
@@ -246,19 +266,31 @@ class _HomepageState extends State<Homepage> {
             Positioned(
               child: Text(
                 event.idNavigation!.name!,
-                textAlign: TextAlign.center,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
-                    fontSize: 20),
+                    fontSize: 15),
               ),
-              bottom: 1,
+              bottom: 5,
+            ),
+            Positioned(
+              child: Container(
+                height: 30,
+                width: 30,
+                child: contain.length > 0
+                    ? Image.asset("assets/images/heart-icon.png")
+                    : null,
+              ),
+              top: 10,
+              right: 25,
             )
           ],
         ));
   }
 
   Widget _attractionCard(Attraction attraction) {
+    var contain = userFavourite
+        .where((element) => element.touristFacilityId == attraction.id);
     return InkWell(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
@@ -274,8 +306,20 @@ class _HomepageState extends State<Homepage> {
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
-                    fontSize: 20),
+                    fontSize: 15),
               ),
+              bottom: 5,
+            ),
+            Positioned(
+              child: Container(
+                height: 30,
+                width: 30,
+                child: contain.length > 0
+                    ? Image.asset("assets/images/heart-icon.png")
+                    : null,
+              ),
+              top: 10,
+              right: 25,
             )
           ],
         ));
@@ -353,9 +397,9 @@ class _HomepageState extends State<Homepage> {
                     child: ListView(children: [
                       Container(
                           padding: EdgeInsets.only(bottom: 20),
-                          height: 70,
-                          width: 70,
-                          child: Image.asset("assets/images/emoji.jpg")),
+                          height: 90,
+                          width: 90,
+                          child: Image.asset("assets/images/sad.jpg")),
                       Text(
                         "Oops ... No events to show",
                         textAlign: TextAlign.center,
@@ -439,13 +483,13 @@ class _HomepageState extends State<Homepage> {
                       'Hi, ',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontSize: 25,
                       ),
                     ),
                     Text(_appUserProvider.userData.firstName!,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 20,
+                          fontSize: 25,
                         ))
                   ]),
                 ),

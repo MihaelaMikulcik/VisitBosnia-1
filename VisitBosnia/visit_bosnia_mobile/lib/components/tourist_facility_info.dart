@@ -9,7 +9,12 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:visit_bosnia_mobile/model/id_navigation.dart';
 import 'package:visit_bosnia_mobile/providers/tourist_facility_provider.dart';
 
+import '../exception/http_exception.dart';
+import '../model/appUserFavourite/app_user_favourite_insert_request.dart';
+import '../model/appUserFavourite/app_user_favourite_search_object.dart';
 import '../model/touristFacilityGallery/tourist_facility_gallery_search_object.dart';
+import '../providers/appuser_favourite_provider.dart';
+import '../providers/appuser_provider.dart';
 import '../providers/tourist_facility_gallery_provider.dart';
 
 class TouristFacilityInfo extends StatefulWidget {
@@ -24,12 +29,18 @@ class TouristFacilityInfo extends StatefulWidget {
 class _TouristFacilityInfoState extends State<TouristFacilityInfo> {
   late TouristFacilityGalleryProvider _touristFacilityGalleryProvider;
   late TouristFacilityProvider _touristFacilityProvider;
+  late AppUserFavouriteProvider _appUserFavouriteProvider;
+  late AppUserProvider _appUserProvider;
+
   IdNavigation touristFacility;
   _TouristFacilityInfoState(this.touristFacility);
+
   int activeIndex = 0;
   static dynamic gallery;
   bool hasImages = false;
   bool loading = false;
+
+  int favouriteId = 0;
 
   @override
   void initState() {
@@ -38,7 +49,10 @@ class _TouristFacilityInfoState extends State<TouristFacilityInfo> {
     _touristFacilityGalleryProvider =
         context.read<TouristFacilityGalleryProvider>();
     _touristFacilityProvider = context.read<TouristFacilityProvider>();
+    _appUserFavouriteProvider = context.read<AppUserFavouriteProvider>();
+    _appUserProvider = context.read<AppUserProvider>();
     LoadEventImages();
+    loadFavourite();
   }
 
   @override
@@ -46,6 +60,55 @@ class _TouristFacilityInfoState extends State<TouristFacilityInfo> {
     // TODO: implement dispose
     super.dispose();
     gallery = [];
+  }
+
+  Future loadFavourite() async {
+    var search = AppUserFavouriteSearchObject(
+        appUserId: _appUserProvider.userData.id,
+        touristFacilityId: touristFacility.id!);
+    var favourite = await _appUserFavouriteProvider.get(search.toJson());
+    if (favourite.length > 0) {
+      setState(() {
+        favouriteId = favourite.first.id!;
+      });
+    }
+  }
+
+  Future selectFavourite() async {
+    try {
+      if (favouriteId == 0) {
+        var newFavourite = await _appUserFavouriteProvider.insert(
+            new AppUserFavouriteInsertRequest(
+                appUserId: _appUserProvider.userData.id,
+                touristFacilityId: touristFacility.id!));
+        setState(() {
+          favouriteId = newFavourite!.id!;
+        });
+      } else {
+        await _appUserFavouriteProvider.delete(favouriteId);
+        setState(() {
+          favouriteId = 0;
+        });
+      }
+    } catch (e) {
+      if (e is UserException) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+              e.message,
+              style: const TextStyle(color: Colors.white),
+            ),
+            duration: const Duration(seconds: 2),
+            backgroundColor: Color.fromARGB(255, 165, 46, 37)));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+              "Something went wrong, please try again later...",
+              style: TextStyle(color: Colors.white),
+            ),
+            duration: Duration(seconds: 2),
+            backgroundColor: Color.fromARGB(255, 165, 46, 37)));
+      }
+    }
   }
 
   void LoadEventImages() async {
@@ -88,7 +151,18 @@ class _TouristFacilityInfoState extends State<TouristFacilityInfo> {
                     touristFacility.name!,
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   )),
-                  Column(children: const [
+                  InkWell(
+                      // When the user taps the button, show a snackbar.
+                      onTap: () async => await selectFavourite(),
+                      child: Container(
+                        width: 55,
+                        height: 55,
+                        padding: EdgeInsets.only(bottom: 20),
+                        child: favouriteId != 0
+                            ? Image.asset("assets/images/heart-icon.png")
+                            : Image.asset("assets/images/heart2-icon.png"),
+                      )),
+                  Column(children: [
                     Icon(
                       Icons.star,
                       color: Color.fromARGB(255, 245, 173, 40),
