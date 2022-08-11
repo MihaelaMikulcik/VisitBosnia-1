@@ -181,46 +181,46 @@
             // 
             // txtEmail
             // 
+            this.txtEmail.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtEmail.Location = new System.Drawing.Point(333, 438);
-            this.txtEmail.MinimumSize = new System.Drawing.Size(213, 28);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(213, 28);
+            this.txtEmail.Size = new System.Drawing.Size(213, 27);
             this.txtEmail.TabIndex = 6;
             this.txtEmail.Validating += new System.ComponentModel.CancelEventHandler(this.txtEmail_Validating);
             // 
             // txtPhoneNumber
             // 
+            this.txtPhoneNumber.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtPhoneNumber.Location = new System.Drawing.Point(333, 372);
-            this.txtPhoneNumber.MinimumSize = new System.Drawing.Size(213, 28);
             this.txtPhoneNumber.Name = "txtPhoneNumber";
-            this.txtPhoneNumber.Size = new System.Drawing.Size(213, 28);
+            this.txtPhoneNumber.Size = new System.Drawing.Size(213, 27);
             this.txtPhoneNumber.TabIndex = 5;
             this.txtPhoneNumber.Validating += new System.ComponentModel.CancelEventHandler(this.txtPhoneNumber_Validating);
             // 
             // txtUserName
             // 
+            this.txtUserName.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtUserName.Location = new System.Drawing.Point(71, 502);
-            this.txtUserName.MinimumSize = new System.Drawing.Size(213, 28);
             this.txtUserName.Name = "txtUserName";
-            this.txtUserName.Size = new System.Drawing.Size(213, 28);
+            this.txtUserName.Size = new System.Drawing.Size(213, 27);
             this.txtUserName.TabIndex = 3;
             this.txtUserName.Validating += new System.ComponentModel.CancelEventHandler(this.txtUserName_Validating);
             // 
             // txtLastName
             // 
+            this.txtLastName.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtLastName.Location = new System.Drawing.Point(71, 436);
-            this.txtLastName.MinimumSize = new System.Drawing.Size(213, 28);
             this.txtLastName.Name = "txtLastName";
-            this.txtLastName.Size = new System.Drawing.Size(213, 28);
+            this.txtLastName.Size = new System.Drawing.Size(213, 27);
             this.txtLastName.TabIndex = 2;
             this.txtLastName.Validating += new System.ComponentModel.CancelEventHandler(this.txtLastName_Validating);
             // 
             // txtFirstName
             // 
+            this.txtFirstName.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtFirstName.Location = new System.Drawing.Point(71, 372);
-            this.txtFirstName.MinimumSize = new System.Drawing.Size(213, 28);
             this.txtFirstName.Name = "txtFirstName";
-            this.txtFirstName.Size = new System.Drawing.Size(213, 28);
+            this.txtFirstName.Size = new System.Drawing.Size(213, 27);
             this.txtFirstName.TabIndex = 1;
             this.txtFirstName.Validating += new System.ComponentModel.CancelEventHandler(this.txtFirstName_Validating);
             // 
@@ -250,7 +250,9 @@
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(848, 618);
             this.Controls.Add(this.panel1);
+            this.MaximizeBox = false;
             this.Name = "frmUserProfile";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmUserProfile";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

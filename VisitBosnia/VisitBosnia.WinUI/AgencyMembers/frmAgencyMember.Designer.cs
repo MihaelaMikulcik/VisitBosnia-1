@@ -45,9 +45,10 @@
             // 
             // textSearch
             // 
+            this.textSearch.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.textSearch.Location = new System.Drawing.Point(31, 108);
             this.textSearch.Name = "textSearch";
-            this.textSearch.Size = new System.Drawing.Size(304, 23);
+            this.textSearch.Size = new System.Drawing.Size(304, 27);
             this.textSearch.TabIndex = 19;
             // 
             // dgvMembers
@@ -123,10 +124,12 @@
             // btnSearch
             // 
             this.btnSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(51)))), ((int)(((byte)(80)))));
+            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnSearch.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnSearch.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnSearch.Location = new System.Drawing.Point(343, 103);
+            this.btnSearch.Location = new System.Drawing.Point(341, 106);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(139, 37);
+            this.btnSearch.Size = new System.Drawing.Size(139, 31);
             this.btnSearch.TabIndex = 16;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = false;
@@ -145,10 +148,12 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(51)))), ((int)(((byte)(80)))));
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.button1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button1.Location = new System.Drawing.Point(691, 97);
+            this.button1.Location = new System.Drawing.Point(706, 100);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(179, 42);
+            this.button1.Size = new System.Drawing.Size(164, 39);
             this.button1.TabIndex = 20;
             this.button1.Text = "+ Add new";
             this.button1.UseVisualStyleBackColor = false;
@@ -165,6 +170,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.label3);
+            this.MaximizeBox = false;
             this.Name = "frmAgencyMember";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmAgencyMember";

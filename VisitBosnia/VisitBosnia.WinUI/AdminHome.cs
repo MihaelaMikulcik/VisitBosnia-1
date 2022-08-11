@@ -49,45 +49,36 @@ namespace VisitBosnia.WinUI
             return bm;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnCities_Click(object sender, EventArgs e)
         {
             var form2 = new frmCity();
             form2.Show();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnUsers_Click(object sender, EventArgs e)
         {
             var form2 = new frmUsers();
             form2.Show();
         }
 
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
+        private void btnCategories_Click(object sender, EventArgs e)
         {
             var frmCategories = new frmCategory();
             frmCategories.Show();
         }
 
-        private void pictureBox3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button4_Click(object sender, EventArgs e)
+        private void btnAttractions_Click(object sender, EventArgs e)
         {
             var frmAttractions = new frmAttraction();
             frmAttractions.Show();
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void btnAgencies_Click(object sender, EventArgs e)
         {
             var frmAgencies = new frmAgency();
             frmAgencies.Show();
         }
+
 
         private void btnProfile_Click(object sender, EventArgs e)
         {
@@ -95,6 +86,13 @@ namespace VisitBosnia.WinUI
             var frmProfile = new frmUserProfile(_appUser.Id);
             frmProfile.Closed += (s, args) => this.Close();
             frmProfile.Show();
+        }
+
+        private void btnSingOut_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            var formLogin = new frmLogin();
+            formLogin.Show();
         }
     }
 }

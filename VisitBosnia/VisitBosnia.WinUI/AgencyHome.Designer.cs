@@ -129,6 +129,7 @@
             this.btnSingOut.TabIndex = 15;
             this.btnSingOut.Text = "Sing Out";
             this.btnSingOut.UseVisualStyleBackColor = false;
+            this.btnSingOut.Click += new System.EventHandler(this.btnSingOut_Click);
             // 
             // btnProfile
             // 
@@ -372,6 +373,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(958, 633);
             this.Controls.Add(this.splitContainer1);
+            this.MaximizeBox = false;
             this.Name = "AgencyHome";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AgencyHome";

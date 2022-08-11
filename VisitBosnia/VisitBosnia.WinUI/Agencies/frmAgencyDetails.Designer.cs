@@ -52,7 +52,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 17F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(48, 23);
+            this.label1.Location = new System.Drawing.Point(31, 29);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(170, 31);
             this.label1.TabIndex = 0;
@@ -61,6 +61,8 @@
             // btnSave
             // 
             this.btnSave.BackColor = System.Drawing.Color.DarkGreen;
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnSave.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnSave.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnSave.Location = new System.Drawing.Point(46, 399);
             this.btnSave.Name = "btnSave";
@@ -73,6 +75,8 @@
             // btnCancel
             // 
             this.btnCancel.BackColor = System.Drawing.Color.Maroon;
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnCancel.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnCancel.Location = new System.Drawing.Point(152, 399);
             this.btnCancel.Name = "btnCancel";
@@ -84,85 +88,97 @@
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(177, 116);
+            this.txtName.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtName.Location = new System.Drawing.Point(177, 117);
+            this.txtName.MinimumSize = new System.Drawing.Size(216, 27);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(216, 23);
+            this.txtName.Size = new System.Drawing.Size(216, 27);
             this.txtName.TabIndex = 3;
             this.txtName.Validating += new System.ComponentModel.CancelEventHandler(this.txtName_Validating);
             // 
             // txtPhone
             // 
-            this.txtPhone.Location = new System.Drawing.Point(177, 181);
+            this.txtPhone.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtPhone.Location = new System.Drawing.Point(177, 182);
+            this.txtPhone.MinimumSize = new System.Drawing.Size(216, 27);
             this.txtPhone.Name = "txtPhone";
-            this.txtPhone.Size = new System.Drawing.Size(216, 23);
+            this.txtPhone.Size = new System.Drawing.Size(216, 27);
             this.txtPhone.TabIndex = 4;
             this.txtPhone.Validating += new System.ComponentModel.CancelEventHandler(this.txtPhone_Validating);
             // 
             // txtResponsiblePerson
             // 
-            this.txtResponsiblePerson.Location = new System.Drawing.Point(177, 252);
+            this.txtResponsiblePerson.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtResponsiblePerson.Location = new System.Drawing.Point(177, 253);
             this.txtResponsiblePerson.Name = "txtResponsiblePerson";
-            this.txtResponsiblePerson.Size = new System.Drawing.Size(216, 23);
+            this.txtResponsiblePerson.Size = new System.Drawing.Size(216, 27);
             this.txtResponsiblePerson.TabIndex = 5;
             // 
             // txtEmail
             // 
-            this.txtEmail.Location = new System.Drawing.Point(492, 181);
+            this.txtEmail.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtEmail.Location = new System.Drawing.Point(492, 182);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(216, 23);
+            this.txtEmail.Size = new System.Drawing.Size(216, 27);
             this.txtEmail.TabIndex = 7;
             this.txtEmail.Validating += new System.ComponentModel.CancelEventHandler(this.txtEmail_Validating);
             // 
             // txtAdress
             // 
-            this.txtAdress.Location = new System.Drawing.Point(492, 116);
+            this.txtAdress.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtAdress.Location = new System.Drawing.Point(492, 117);
             this.txtAdress.Name = "txtAdress";
-            this.txtAdress.Size = new System.Drawing.Size(216, 23);
+            this.txtAdress.Size = new System.Drawing.Size(216, 27);
             this.txtAdress.TabIndex = 6;
             this.txtAdress.Validating += new System.ComponentModel.CancelEventHandler(this.txtAdress_Validating);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(49, 120);
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label2.Location = new System.Drawing.Point(31, 120);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(39, 15);
+            this.label2.Size = new System.Drawing.Size(49, 20);
             this.label2.TabIndex = 9;
             this.label2.Text = "Name";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(49, 185);
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label3.Location = new System.Drawing.Point(31, 185);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 15);
+            this.label3.Size = new System.Drawing.Size(50, 20);
             this.label3.TabIndex = 10;
             this.label3.Text = "Phone";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label4.Location = new System.Drawing.Point(431, 120);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(42, 15);
+            this.label4.Size = new System.Drawing.Size(53, 20);
             this.label4.TabIndex = 11;
             this.label4.Text = "Adress";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(437, 185);
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label5.Location = new System.Drawing.Point(431, 185);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(36, 15);
+            this.label5.Size = new System.Drawing.Size(46, 20);
             this.label5.TabIndex = 12;
             this.label5.Text = "Email";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(49, 256);
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label6.Location = new System.Drawing.Point(31, 256);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(109, 15);
+            this.label6.Size = new System.Drawing.Size(138, 20);
             this.label6.TabIndex = 13;
             this.label6.Text = "Responsible person";
             // 
@@ -173,19 +189,21 @@
             // 
             // cmbCity
             // 
+            this.cmbCity.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmbCity.FormattingEnabled = true;
-            this.cmbCity.Location = new System.Drawing.Point(492, 253);
+            this.cmbCity.Location = new System.Drawing.Point(492, 252);
             this.cmbCity.Name = "cmbCity";
-            this.cmbCity.Size = new System.Drawing.Size(216, 23);
+            this.cmbCity.Size = new System.Drawing.Size(216, 28);
             this.cmbCity.TabIndex = 14;
             this.cmbCity.Validating += new System.ComponentModel.CancelEventHandler(this.cmbCity_Validating);
             // 
             // City
             // 
             this.City.AutoSize = true;
-            this.City.Location = new System.Drawing.Point(437, 256);
+            this.City.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.City.Location = new System.Drawing.Point(431, 256);
             this.City.Name = "City";
-            this.City.Size = new System.Drawing.Size(28, 15);
+            this.City.Size = new System.Drawing.Size(34, 20);
             this.City.TabIndex = 15;
             this.City.Text = "City";
             // 
@@ -209,7 +227,9 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.label1);
+            this.MaximizeBox = false;
             this.Name = "frmAgencyDetails";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmAgencyDetails";
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);

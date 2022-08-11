@@ -32,11 +32,11 @@
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.dgvReviews = new System.Windows.Forms.DataGridView();
-            this.labelBack = new System.Windows.Forms.Label();
             this.User = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TouristFacility = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Rating = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Text = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.labelBack = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReviews)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,18 +52,21 @@
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(24, 67);
+            this.txtSearch.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtSearch.Location = new System.Drawing.Point(24, 63);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(273, 23);
+            this.txtSearch.Size = new System.Drawing.Size(273, 27);
             this.txtSearch.TabIndex = 1;
             // 
             // btnSearch
             // 
             this.btnSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(51)))), ((int)(((byte)(80)))));
+            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnSearch.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnSearch.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnSearch.Location = new System.Drawing.Point(303, 59);
+            this.btnSearch.Location = new System.Drawing.Point(303, 61);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(139, 37);
+            this.btnSearch.Size = new System.Drawing.Size(134, 30);
             this.btnSearch.TabIndex = 2;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = false;
@@ -82,17 +85,6 @@
             this.dgvReviews.RowTemplate.Height = 25;
             this.dgvReviews.Size = new System.Drawing.Size(851, 464);
             this.dgvReviews.TabIndex = 3;
-            // 
-            // labelBack
-            // 
-            this.labelBack.AutoSize = true;
-            this.labelBack.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.labelBack.Location = new System.Drawing.Point(774, 564);
-            this.labelBack.Name = "labelBack";
-            this.labelBack.Size = new System.Drawing.Size(101, 19);
-            this.labelBack.TabIndex = 4;
-            this.labelBack.Text = "back to home";
-            this.labelBack.Click += new System.EventHandler(this.labelBack_Click);
             // 
             // User
             // 
@@ -122,6 +114,17 @@
             this.Text.HeaderText = "Text";
             this.Text.Name = "Text";
             // 
+            // labelBack
+            // 
+            this.labelBack.AutoSize = true;
+            this.labelBack.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelBack.Location = new System.Drawing.Point(774, 564);
+            this.labelBack.Name = "labelBack";
+            this.labelBack.Size = new System.Drawing.Size(101, 19);
+            this.labelBack.TabIndex = 4;
+            this.labelBack.Text = "back to home";
+            this.labelBack.Click += new System.EventHandler(this.labelBack_Click);
+            // 
             // frmReview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -132,7 +135,9 @@
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.label1);
+            this.MaximizeBox = false;
             this.Name = "frmReview";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             ((System.ComponentModel.ISupportInitialize)(this.dgvReviews)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

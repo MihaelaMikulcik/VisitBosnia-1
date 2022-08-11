@@ -33,7 +33,6 @@
             this.button1 = new System.Windows.Forms.Button();
             this.btn_search = new System.Windows.Forms.Button();
             this.dgvEvent = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
             this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.City = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -41,6 +40,7 @@
             this.Delete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Edit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Gallery = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEvent)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,18 +58,21 @@
             // 
             // txtSearch
             // 
+            this.txtSearch.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtSearch.Location = new System.Drawing.Point(31, 107);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(306, 23);
+            this.txtSearch.Size = new System.Drawing.Size(306, 27);
             this.txtSearch.TabIndex = 11;
             // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(51)))), ((int)(((byte)(80)))));
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.button1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button1.Location = new System.Drawing.Point(691, 94);
+            this.button1.Location = new System.Drawing.Point(703, 97);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(179, 42);
+            this.button1.Size = new System.Drawing.Size(167, 39);
             this.button1.TabIndex = 10;
             this.button1.Text = "+ Add new";
             this.button1.UseVisualStyleBackColor = false;
@@ -78,10 +81,12 @@
             // btn_search
             // 
             this.btn_search.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(51)))), ((int)(((byte)(80)))));
+            this.btn_search.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_search.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btn_search.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btn_search.Location = new System.Drawing.Point(343, 99);
+            this.btn_search.Location = new System.Drawing.Point(343, 104);
             this.btn_search.Name = "btn_search";
-            this.btn_search.Size = new System.Drawing.Size(139, 37);
+            this.btn_search.Size = new System.Drawing.Size(139, 32);
             this.btn_search.TabIndex = 9;
             this.btn_search.Text = "Search";
             this.btn_search.UseVisualStyleBackColor = false;
@@ -104,16 +109,6 @@
             this.dgvEvent.Size = new System.Drawing.Size(839, 419);
             this.dgvEvent.TabIndex = 8;
             this.dgvEvent.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEvent_CellContentClick);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(31, 6);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(123, 46);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Events";
             // 
             // Name
             // 
@@ -167,6 +162,16 @@
             this.Gallery.Text = "Gallery";
             this.Gallery.UseColumnTextForButtonValue = true;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label2.Location = new System.Drawing.Point(31, 6);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(123, 46);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Events";
+            // 
             // frmEvent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -178,7 +183,7 @@
             this.Controls.Add(this.btn_search);
             this.Controls.Add(this.dgvEvent);
             this.Controls.Add(this.label2);
-
+            this.MaximizeBox = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmEvent";
             ((System.ComponentModel.ISupportInitialize)(this.dgvEvent)).EndInit();

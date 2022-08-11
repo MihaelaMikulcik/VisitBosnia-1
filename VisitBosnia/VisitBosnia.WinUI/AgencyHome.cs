@@ -96,5 +96,12 @@ namespace VisitBosnia.WinUI
             //frmAgency.Closed += (s, args) => this.Close();
             frmAgency.Show();
         }
+
+        private void btnSingOut_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            var formLogin = new frmLogin();
+            formLogin.Show();
+        }
     }
 }
