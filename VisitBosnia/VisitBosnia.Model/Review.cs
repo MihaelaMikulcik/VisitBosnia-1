@@ -5,7 +5,6 @@ namespace VisitBosnia.Model
 {
     public partial class Review
     {
-       
         public int Id { get; set; }
         public int AppUserId { get; set; }
         public int TouristFacilityId { get; set; }
@@ -14,6 +13,5 @@ namespace VisitBosnia.Model
 
         public virtual AppUser AppUser { get; set; } = null!;
         public virtual TouristFacility TouristFacility { get; set; } = null!;
-     
     }
 }

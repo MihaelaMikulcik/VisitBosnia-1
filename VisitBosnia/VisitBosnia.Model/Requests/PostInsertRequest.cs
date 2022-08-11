@@ -8,15 +8,11 @@ namespace VisitBosnia.Model.Requests
 {
     public class PostInsertRequest
     {
-        public int Id { get; set; }
         public int AppUserId { get; set; }
         public int ForumId { get; set; }
-        //public string CreatedTime { get; set; } = null!;
         public DateTime CreatedTime { get; set; }
         public string Title { get; set; } = null!;
         public string Content { get; set; } = null!;
 
-        //public virtual AppUser AppUser { get; set; } = null!;
-        //public virtual Forum Forum { get; set; } = null!;
     }
 }

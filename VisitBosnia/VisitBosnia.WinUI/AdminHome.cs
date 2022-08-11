@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using VisitBosnia.WinUI.Agencies;
 using VisitBosnia.WinUI.Attraction;
 using VisitBosnia.WinUI.Categories;
 using VisitBosnia.WinUI.Users;
@@ -79,6 +80,12 @@ namespace VisitBosnia.WinUI
         {
             var frmAttractions = new frmAttraction();
             frmAttractions.Show();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            var frmAgencies = new frmAgency();
+            frmAgencies.Show();
         }
     }
 }

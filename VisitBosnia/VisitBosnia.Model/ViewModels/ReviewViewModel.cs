@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VisitBosnia.Model.Requests
+namespace VisitBosnia.Model.ViewModels
 {
-    public class ReviewInsertRequest
+    public class ReviewViewModel
     {
-        public int AppUserId { get; set; }
-        public int TouristFacilityId { get; set; }
+        public string AppUserName { get; set; }
+        public string TouristFacilityName { get; set; }
         public int Rating { get; set; }
         public string? Text { get; set; }
+
     }
 }
