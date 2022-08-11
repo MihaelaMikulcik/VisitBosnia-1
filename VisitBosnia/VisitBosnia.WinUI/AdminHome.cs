@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using VisitBosnia.WinUI.Agencies;
+using VisitBosnia.WinUI.ApplicationUser;
 using VisitBosnia.WinUI.Attraction;
 using VisitBosnia.WinUI.Categories;
 using VisitBosnia.WinUI.Users;
@@ -86,6 +87,14 @@ namespace VisitBosnia.WinUI
         {
             var frmAgencies = new frmAgency();
             frmAgencies.Show();
+        }
+
+        private void btnProfile_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            var frmProfile = new frmUserProfile(_appUser.Id);
+            frmProfile.Closed += (s, args) => this.Close();
+            frmProfile.Show();
         }
     }
 }

@@ -20,19 +20,34 @@ namespace VisitBosnia.WinUI.Agencies
         private readonly Validator.Validation validator;
         private Agency _model = null;
 
-        public frmAgencyDetails(int id = 0)
+        public frmAgencyDetails(int id = 0, bool readOnly = false)
         {
             InitializeComponent();
             LoadData(id);
+            if (readOnly == true)
+            {
+                btnSave.Dispose();
+                btnCancel.Dispose();
+                Button button = new Button();
+                this.Controls.Add(button);
+                button.Name = "btnBack";
+                button.Text = "Back";
+                button.BackColor = Color.FromArgb(26, 51, 80);
+                button.Size = new System.Drawing.Size(100, 34);
+                button.Location = new System.Drawing.Point(46, 399);
+                button.ForeColor = Color.White;
+                button.FlatStyle = FlatStyle.Popup;
+                button.Click += new EventHandler(btnBack_Click);
+            }
             validator = new Validator.Validation(errorProvider);
         }
 
         private async void LoadData(int id)
         {
+            btnSave.Text = id != 0 ? "Change" : "Save";
             var cities = await CityService.Get<Model.City>();
             var itemsCity = new List<ComboItem>();
             itemsCity.Add(new ComboItem { Id = -1, Text = "Select a city"});
-            //cmbCity.SelectedIndex = -1;
 
             foreach (var city in cities)
             {
@@ -57,6 +72,12 @@ namespace VisitBosnia.WinUI.Agencies
                 cmbCity.SelectedValue = _model.CityId;
             }
 
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            this.Close();
         }
 
         private void txtName_Validating(object sender, CancelEventArgs e)

@@ -242,6 +242,7 @@
             // 
             this.pbProfilePicture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbProfilePicture.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbProfilePicture.Image = global::VisitBosnia.WinUI.Properties.Resources.user;
             this.pbProfilePicture.Location = new System.Drawing.Point(37, 72);
             this.pbProfilePicture.Name = "pbProfilePicture";
             this.pbProfilePicture.Size = new System.Drawing.Size(266, 259);

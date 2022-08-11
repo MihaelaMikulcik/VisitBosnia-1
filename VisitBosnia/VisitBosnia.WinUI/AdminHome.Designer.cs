@@ -133,6 +133,7 @@
             this.btnProfile.TabIndex = 6;
             this.btnProfile.Text = "Profile";
             this.btnProfile.UseVisualStyleBackColor = false;
+            this.btnProfile.Click += new System.EventHandler(this.btnProfile_Click);
             // 
             // labelRole
             // 
@@ -150,10 +151,10 @@
             this.pbProfilePicture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbProfilePicture.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbProfilePicture.Image = global::VisitBosnia.WinUI.Properties.Resources.user;
-            this.pbProfilePicture.Location = new System.Drawing.Point(29, 109);
+            this.pbProfilePicture.Location = new System.Drawing.Point(50, 118);
             this.pbProfilePicture.Name = "pbProfilePicture";
-            this.pbProfilePicture.Size = new System.Drawing.Size(244, 195);
-            this.pbProfilePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbProfilePicture.Size = new System.Drawing.Size(207, 186);
+            this.pbProfilePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbProfilePicture.TabIndex = 4;
             this.pbProfilePicture.TabStop = false;
             // 

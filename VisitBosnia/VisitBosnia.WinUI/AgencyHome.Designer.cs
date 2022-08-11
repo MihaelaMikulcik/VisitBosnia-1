@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.btnMyAgency = new System.Windows.Forms.Button();
             this.btnSingOut = new System.Windows.Forms.Button();
             this.btnProfile = new System.Windows.Forms.Button();
             this.labelRole = new System.Windows.Forms.Label();
@@ -37,24 +38,28 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelUserName = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.button5 = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbProfilePicture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -66,6 +71,7 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(51)))), ((int)(((byte)(80)))));
+            this.splitContainer1.Panel1.Controls.Add(this.btnMyAgency);
             this.splitContainer1.Panel1.Controls.Add(this.btnSingOut);
             this.splitContainer1.Panel1.Controls.Add(this.btnProfile);
             this.splitContainer1.Panel1.Controls.Add(this.labelRole);
@@ -77,6 +83,9 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.label6);
+            this.splitContainer1.Panel2.Controls.Add(this.pictureBox5);
+            this.splitContainer1.Panel2.Controls.Add(this.button5);
             this.splitContainer1.Panel2.Controls.Add(this.label5);
             this.splitContainer1.Panel2.Controls.Add(this.pictureBox4);
             this.splitContainer1.Panel2.Controls.Add(this.button3);
@@ -89,6 +98,22 @@
             this.splitContainer1.Size = new System.Drawing.Size(958, 633);
             this.splitContainer1.SplitterDistance = 319;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // btnMyAgency
+            // 
+            this.btnMyAgency.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(25)))), ((int)(((byte)(51)))));
+            this.btnMyAgency.FlatAppearance.BorderSize = 0;
+            this.btnMyAgency.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMyAgency.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnMyAgency.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnMyAgency.Location = new System.Drawing.Point(2, 441);
+            this.btnMyAgency.Margin = new System.Windows.Forms.Padding(0);
+            this.btnMyAgency.Name = "btnMyAgency";
+            this.btnMyAgency.Size = new System.Drawing.Size(315, 39);
+            this.btnMyAgency.TabIndex = 16;
+            this.btnMyAgency.Text = "My agency";
+            this.btnMyAgency.UseVisualStyleBackColor = false;
+            this.btnMyAgency.Click += new System.EventHandler(this.btnMyAgency_Click);
             // 
             // btnSingOut
             // 
@@ -112,13 +137,14 @@
             this.btnProfile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnProfile.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnProfile.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnProfile.Location = new System.Drawing.Point(2, 431);
+            this.btnProfile.Location = new System.Drawing.Point(2, 391);
             this.btnProfile.Margin = new System.Windows.Forms.Padding(0);
             this.btnProfile.Name = "btnProfile";
             this.btnProfile.Size = new System.Drawing.Size(315, 39);
             this.btnProfile.TabIndex = 14;
             this.btnProfile.Text = "Profile";
             this.btnProfile.UseVisualStyleBackColor = false;
+            this.btnProfile.Click += new System.EventHandler(this.btnProfile_Click);
             // 
             // labelRole
             // 
@@ -136,12 +162,13 @@
             this.pbProfilePicture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbProfilePicture.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbProfilePicture.Image = global::VisitBosnia.WinUI.Properties.Resources.user;
-            this.pbProfilePicture.Location = new System.Drawing.Point(31, 114);
+            this.pbProfilePicture.Location = new System.Drawing.Point(52, 114);
             this.pbProfilePicture.Name = "pbProfilePicture";
-            this.pbProfilePicture.Size = new System.Drawing.Size(244, 195);
-            this.pbProfilePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbProfilePicture.Size = new System.Drawing.Size(207, 186);
+            this.pbProfilePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbProfilePicture.TabIndex = 12;
             this.pbProfilePicture.TabStop = false;
+            this.pbProfilePicture.Click += new System.EventHandler(this.pbProfilePicture_Click);
             // 
             // label2
             // 
@@ -183,6 +210,83 @@
             this.label1.Size = new System.Drawing.Size(159, 37);
             this.label1.TabIndex = 8;
             this.label1.Text = "VisitBosnia";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label6.Location = new System.Drawing.Point(124, 202);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(153, 19);
+            this.label6.TabIndex = 17;
+            this.label6.Text = "view and managment";
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.pictureBox5.Image = global::VisitBosnia.WinUI.Properties.Resources.pictureIcon;
+            this.pictureBox5.Location = new System.Drawing.Point(35, 172);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(84, 49);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox5.TabIndex = 16;
+            this.pictureBox5.TabStop = false;
+            // 
+            // button5
+            // 
+            this.button5.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button5.FlatAppearance.BorderSize = 0;
+            this.button5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button5.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.button5.Location = new System.Drawing.Point(28, 151);
+            this.button5.Name = "button5";
+            this.button5.Padding = new System.Windows.Forms.Padding(0, 18, 0, 0);
+            this.button5.Size = new System.Drawing.Size(261, 89);
+            this.button5.TabIndex = 15;
+            this.button5.Text = "   Reports";
+            this.button5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.button5.UseVisualStyleBackColor = false;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label5.Location = new System.Drawing.Point(431, 202);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(153, 19);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "view and managment";
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.pictureBox4.Image = global::VisitBosnia.WinUI.Properties.Resources.pictureIcon;
+            this.pictureBox4.Location = new System.Drawing.Point(342, 172);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(84, 49);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox4.TabIndex = 13;
+            this.pictureBox4.TabStop = false;
+            // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button3.FlatAppearance.BorderSize = 0;
+            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.button3.Location = new System.Drawing.Point(335, 151);
+            this.button3.Name = "button3";
+            this.button3.Padding = new System.Windows.Forms.Padding(0, 18, 0, 0);
+            this.button3.Size = new System.Drawing.Size(261, 89);
+            this.button3.TabIndex = 12;
+            this.button3.Text = "  Reviews";
+            this.button3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // label3
             // 
@@ -262,45 +366,6 @@
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(431, 202);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(153, 19);
-            this.label5.TabIndex = 14;
-            this.label5.Text = "view and managment";
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.pictureBox4.Image = global::VisitBosnia.WinUI.Properties.Resources.pictureIcon;
-            this.pictureBox4.Location = new System.Drawing.Point(342, 172);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(84, 49);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox4.TabIndex = 13;
-            this.pictureBox4.TabStop = false;
-            // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button3.Location = new System.Drawing.Point(335, 151);
-            this.button3.Name = "button3";
-            this.button3.Padding = new System.Windows.Forms.Padding(0, 18, 0, 0);
-            this.button3.Size = new System.Drawing.Size(261, 89);
-            this.button3.TabIndex = 12;
-            this.button3.Text = "  Reviews";
-            this.button3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
             // AgencyHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -318,9 +383,10 @@
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbProfilePicture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -345,5 +411,9 @@
         private Label label5;
         private PictureBox pictureBox4;
         private Button button3;
+        private Button btnMyAgency;
+        private Label label6;
+        private PictureBox pictureBox5;
+        private Button button5;
     }
 }

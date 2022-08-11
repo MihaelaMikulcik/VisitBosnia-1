@@ -22,6 +22,10 @@ namespace VisitBosnia.Services
         public override IQueryable<AppUserRole> AddFilter(IQueryable<AppUserRole> query, AppUserRoleSearchObject search = null)
         {
             var filteredQuery = base.AddFilter(query, search);
+            if (search.AppUserId != null)
+            {
+                filteredQuery = filteredQuery.Where(x => x.AppUserId == search.AppUserId);
+            }
 
             //if (!string.IsNullOrEmpty(search?.SearchText))
             //{
