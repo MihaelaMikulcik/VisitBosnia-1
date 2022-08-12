@@ -54,7 +54,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 17F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(29, 20);
+            this.label1.Location = new System.Drawing.Point(44, 20);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(201, 31);
             this.label1.TabIndex = 0;
@@ -62,84 +62,94 @@
             // 
             // txtName
             // 
+            this.txtName.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtName.Location = new System.Drawing.Point(148, 97);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(195, 23);
+            this.txtName.Size = new System.Drawing.Size(195, 27);
             this.txtName.TabIndex = 1;
             this.txtName.Validating += new System.ComponentModel.CancelEventHandler(this.txtName_Validating);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label2.Location = new System.Drawing.Point(44, 101);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(39, 15);
+            this.label2.Size = new System.Drawing.Size(49, 20);
             this.label2.TabIndex = 2;
             this.label2.Text = "Name";
             // 
             // cmbCity
             // 
+            this.cmbCity.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmbCity.FormattingEnabled = true;
             this.cmbCity.Location = new System.Drawing.Point(148, 151);
             this.cmbCity.Name = "cmbCity";
-            this.cmbCity.Size = new System.Drawing.Size(195, 23);
+            this.cmbCity.Size = new System.Drawing.Size(195, 28);
             this.cmbCity.TabIndex = 3;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label3.Location = new System.Drawing.Point(44, 155);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(28, 15);
+            this.label3.Size = new System.Drawing.Size(34, 20);
             this.label3.TabIndex = 4;
             this.label3.Text = "City";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label4.Location = new System.Drawing.Point(44, 210);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(55, 15);
+            this.label4.Size = new System.Drawing.Size(69, 20);
             this.label4.TabIndex = 6;
             this.label4.Text = "Category";
             // 
             // cmbCategory
             // 
+            this.cmbCategory.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmbCategory.FormattingEnabled = true;
             this.cmbCategory.Location = new System.Drawing.Point(148, 206);
             this.cmbCategory.Name = "cmbCategory";
-            this.cmbCategory.Size = new System.Drawing.Size(195, 23);
+            this.cmbCategory.Size = new System.Drawing.Size(195, 28);
             this.cmbCategory.TabIndex = 5;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label5.Location = new System.Drawing.Point(399, 102);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(50, 15);
+            this.label5.Size = new System.Drawing.Size(63, 20);
             this.label5.TabIndex = 7;
             this.label5.Text = "Latitude";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label6.Location = new System.Drawing.Point(399, 156);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(61, 15);
+            this.label6.Size = new System.Drawing.Size(76, 20);
             this.label6.TabIndex = 8;
             this.label6.Text = "Longitude";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label7.Location = new System.Drawing.Point(44, 265);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(67, 15);
+            this.label7.Size = new System.Drawing.Size(85, 20);
             this.label7.TabIndex = 11;
             this.label7.Text = "Description";
             // 
             // txtDescription
             // 
+            this.txtDescription.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtDescription.Location = new System.Drawing.Point(44, 298);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
@@ -149,6 +159,8 @@
             // btnSave
             // 
             this.btnSave.BackColor = System.Drawing.Color.DarkGreen;
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnSave.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnSave.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnSave.Location = new System.Drawing.Point(44, 485);
             this.btnSave.Name = "btnSave";
@@ -161,6 +173,8 @@
             // btnCancel
             // 
             this.btnCancel.BackColor = System.Drawing.Color.Maroon;
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnCancel.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnCancel.Location = new System.Drawing.Point(150, 485);
             this.btnCancel.Name = "btnCancel";
@@ -177,17 +191,19 @@
             // numLatitude
             // 
             this.numLatitude.DecimalPlaces = 6;
+            this.numLatitude.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.numLatitude.Location = new System.Drawing.Point(503, 99);
             this.numLatitude.Name = "numLatitude";
-            this.numLatitude.Size = new System.Drawing.Size(195, 23);
+            this.numLatitude.Size = new System.Drawing.Size(195, 27);
             this.numLatitude.TabIndex = 15;
             // 
             // numLongitude
             // 
             this.numLongitude.DecimalPlaces = 6;
+            this.numLongitude.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.numLongitude.Location = new System.Drawing.Point(503, 151);
             this.numLongitude.Name = "numLongitude";
-            this.numLongitude.Size = new System.Drawing.Size(195, 23);
+            this.numLongitude.Size = new System.Drawing.Size(195, 27);
             this.numLongitude.TabIndex = 16;
             // 
             // frmAttractionDetails
@@ -211,7 +227,9 @@
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.label1);
             this.Location = new System.Drawing.Point(28, 97);
+            this.MaximizeBox = false;
             this.Name = "frmAttractionDetails";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmAttractionDetails";
             this.Load += new System.EventHandler(this.frmAttractionDetails_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();

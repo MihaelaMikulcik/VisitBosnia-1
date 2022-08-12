@@ -159,5 +159,15 @@ namespace VisitBosnia.WinUI
                 pbPicture.Tag = "city_image";
             }
         }
+
+        private void txtCounty_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

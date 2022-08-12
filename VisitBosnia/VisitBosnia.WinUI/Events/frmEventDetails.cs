@@ -290,5 +290,10 @@ namespace VisitBosnia.WinUI.Events
                 errorProvider.SetError(nToM, "");
             }
         }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

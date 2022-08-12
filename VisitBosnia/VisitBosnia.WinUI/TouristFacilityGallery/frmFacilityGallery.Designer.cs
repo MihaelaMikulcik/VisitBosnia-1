@@ -41,6 +41,7 @@
             // 
             // btnDelete
             // 
+            this.btnDelete.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnDelete.Location = new System.Drawing.Point(331, 379);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(225, 32);
@@ -51,6 +52,7 @@
             // 
             // btnAdd
             // 
+            this.btnAdd.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnAdd.Location = new System.Drawing.Point(82, 379);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(232, 32);
@@ -61,6 +63,7 @@
             // 
             // btnNext
             // 
+            this.btnNext.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnNext.Location = new System.Drawing.Point(331, 341);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(225, 32);
@@ -71,6 +74,7 @@
             // 
             // btnPrevious
             // 
+            this.btnPrevious.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnPrevious.Location = new System.Drawing.Point(82, 341);
             this.btnPrevious.Name = "btnPrevious";
             this.btnPrevious.Size = new System.Drawing.Size(232, 32);
@@ -109,7 +113,7 @@
             this.labelBack.Text = "go back ";
             this.labelBack.Click += new System.EventHandler(this.labelBack_Click);
             // 
-            // frmEventGallery
+            // frmFacilityGallery
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -121,7 +125,8 @@
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.btnPrevious);
             this.Controls.Add(this.pbEvent);
-            this.Name = "frmEventGallery";
+            this.MaximizeBox = false;
+            this.Name = "frmFacilityGallery";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmEventGallery";
             ((System.ComponentModel.ISupportInitialize)(this.pbEvent)).EndInit();

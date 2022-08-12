@@ -126,10 +126,12 @@ namespace VisitBosnia.WinUI
             // btn_search
             // 
             this.btn_search.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(51)))), ((int)(((byte)(80)))));
+            this.btn_search.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_search.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btn_search.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btn_search.Location = new System.Drawing.Point(344, 102);
+            this.btn_search.Location = new System.Drawing.Point(344, 110);
             this.btn_search.Name = "btn_search";
-            this.btn_search.Size = new System.Drawing.Size(139, 37);
+            this.btn_search.Size = new System.Drawing.Size(139, 29);
             this.btn_search.TabIndex = 3;
             this.btn_search.Text = "Search";
             this.btn_search.UseVisualStyleBackColor = false;
@@ -138,10 +140,12 @@ namespace VisitBosnia.WinUI
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(51)))), ((int)(((byte)(80)))));
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.button1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button1.Location = new System.Drawing.Point(692, 97);
+            this.button1.Location = new System.Drawing.Point(702, 101);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(179, 42);
+            this.button1.Size = new System.Drawing.Size(169, 38);
             this.button1.TabIndex = 4;
             this.button1.Text = "+ Add new";
             this.button1.UseVisualStyleBackColor = false;
@@ -149,9 +153,10 @@ namespace VisitBosnia.WinUI
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(32, 110);
+            this.txtSearch.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtSearch.Location = new System.Drawing.Point(32, 111);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(306, 23);
+            this.txtSearch.Size = new System.Drawing.Size(306, 27);
             this.txtSearch.TabIndex = 5;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
@@ -176,7 +181,7 @@ namespace VisitBosnia.WinUI
             this.Controls.Add(this.btn_search);
             this.Controls.Add(this.dgvCity);
             this.Controls.Add(this.label2);
-
+            this.MaximizeBox = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             ((System.ComponentModel.ISupportInitialize)(this.dgvCity)).EndInit();
             this.ResumeLayout(false);

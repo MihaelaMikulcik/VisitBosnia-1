@@ -39,19 +39,19 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btnAgencies = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btnAttractions = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnCategories = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnUsers = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnCities = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -87,19 +87,19 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.label7);
             this.splitContainer1.Panel2.Controls.Add(this.pictureBox6);
-            this.splitContainer1.Panel2.Controls.Add(this.button5);
+            this.splitContainer1.Panel2.Controls.Add(this.btnAgencies);
             this.splitContainer1.Panel2.Controls.Add(this.label6);
             this.splitContainer1.Panel2.Controls.Add(this.pictureBox5);
-            this.splitContainer1.Panel2.Controls.Add(this.button4);
+            this.splitContainer1.Panel2.Controls.Add(this.btnAttractions);
             this.splitContainer1.Panel2.Controls.Add(this.label5);
             this.splitContainer1.Panel2.Controls.Add(this.pictureBox4);
-            this.splitContainer1.Panel2.Controls.Add(this.button3);
+            this.splitContainer1.Panel2.Controls.Add(this.btnCategories);
             this.splitContainer1.Panel2.Controls.Add(this.label4);
             this.splitContainer1.Panel2.Controls.Add(this.pictureBox3);
-            this.splitContainer1.Panel2.Controls.Add(this.button2);
+            this.splitContainer1.Panel2.Controls.Add(this.btnUsers);
             this.splitContainer1.Panel2.Controls.Add(this.label3);
             this.splitContainer1.Panel2.Controls.Add(this.pictureBox2);
-            this.splitContainer1.Panel2.Controls.Add(this.button1);
+            this.splitContainer1.Panel2.Controls.Add(this.btnCities);
             this.splitContainer1.Size = new System.Drawing.Size(954, 633);
             this.splitContainer1.SplitterDistance = 317;
             this.splitContainer1.TabIndex = 0;
@@ -118,6 +118,7 @@
             this.btnSingOut.TabIndex = 7;
             this.btnSingOut.Text = "Sing Out";
             this.btnSingOut.UseVisualStyleBackColor = false;
+            this.btnSingOut.Click += new System.EventHandler(this.btnSingOut_Click);
             // 
             // btnProfile
             // 
@@ -133,6 +134,7 @@
             this.btnProfile.TabIndex = 6;
             this.btnProfile.Text = "Profile";
             this.btnProfile.UseVisualStyleBackColor = false;
+            this.btnProfile.Click += new System.EventHandler(this.btnProfile_Click);
             // 
             // labelRole
             // 
@@ -150,10 +152,10 @@
             this.pbProfilePicture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbProfilePicture.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbProfilePicture.Image = global::VisitBosnia.WinUI.Properties.Resources.user;
-            this.pbProfilePicture.Location = new System.Drawing.Point(29, 109);
+            this.pbProfilePicture.Location = new System.Drawing.Point(50, 118);
             this.pbProfilePicture.Name = "pbProfilePicture";
-            this.pbProfilePicture.Size = new System.Drawing.Size(244, 195);
-            this.pbProfilePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbProfilePicture.Size = new System.Drawing.Size(207, 186);
+            this.pbProfilePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbProfilePicture.TabIndex = 4;
             this.pbProfilePicture.TabStop = false;
             // 
@@ -220,22 +222,22 @@
             this.pictureBox6.TabIndex = 13;
             this.pictureBox6.TabStop = false;
             // 
-            // button5
+            // btnAgencies
             // 
-            this.button5.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button5.FlatAppearance.BorderSize = 0;
-            this.button5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button5.Location = new System.Drawing.Point(339, 51);
-            this.button5.Name = "button5";
-            this.button5.Padding = new System.Windows.Forms.Padding(0, 18, 0, 0);
-            this.button5.Size = new System.Drawing.Size(261, 89);
-            this.button5.TabIndex = 12;
-            this.button5.Text = "     Agencies";
-            this.button5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button5.UseVisualStyleBackColor = false;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.btnAgencies.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnAgencies.FlatAppearance.BorderSize = 0;
+            this.btnAgencies.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.btnAgencies.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgencies.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnAgencies.Location = new System.Drawing.Point(339, 51);
+            this.btnAgencies.Name = "btnAgencies";
+            this.btnAgencies.Padding = new System.Windows.Forms.Padding(0, 18, 0, 0);
+            this.btnAgencies.Size = new System.Drawing.Size(261, 89);
+            this.btnAgencies.TabIndex = 12;
+            this.btnAgencies.Text = "     Agencies";
+            this.btnAgencies.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnAgencies.UseVisualStyleBackColor = false;
+            this.btnAgencies.Click += new System.EventHandler(this.btnAgencies_Click);
             // 
             // label6
             // 
@@ -259,22 +261,22 @@
             this.pictureBox5.TabIndex = 10;
             this.pictureBox5.TabStop = false;
             // 
-            // button4
+            // btnAttractions
             // 
-            this.button4.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button4.Location = new System.Drawing.Point(47, 281);
-            this.button4.Name = "button4";
-            this.button4.Padding = new System.Windows.Forms.Padding(0, 18, 0, 0);
-            this.button4.Size = new System.Drawing.Size(261, 89);
-            this.button4.TabIndex = 9;
-            this.button4.Text = "        Attractions";
-            this.button4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.btnAttractions.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnAttractions.FlatAppearance.BorderSize = 0;
+            this.btnAttractions.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.btnAttractions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAttractions.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnAttractions.Location = new System.Drawing.Point(47, 281);
+            this.btnAttractions.Name = "btnAttractions";
+            this.btnAttractions.Padding = new System.Windows.Forms.Padding(0, 18, 0, 0);
+            this.btnAttractions.Size = new System.Drawing.Size(261, 89);
+            this.btnAttractions.TabIndex = 9;
+            this.btnAttractions.Text = "        Attractions";
+            this.btnAttractions.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnAttractions.UseVisualStyleBackColor = false;
+            this.btnAttractions.Click += new System.EventHandler(this.btnAttractions_Click);
             // 
             // label5
             // 
@@ -298,22 +300,22 @@
             this.pictureBox4.TabIndex = 7;
             this.pictureBox4.TabStop = false;
             // 
-            // button3
+            // btnCategories
             // 
-            this.button3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button3.Location = new System.Drawing.Point(47, 164);
-            this.button3.Name = "button3";
-            this.button3.Padding = new System.Windows.Forms.Padding(0, 18, 0, 0);
-            this.button3.Size = new System.Drawing.Size(261, 89);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "       Categories";
-            this.button3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btnCategories.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnCategories.FlatAppearance.BorderSize = 0;
+            this.btnCategories.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.btnCategories.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCategories.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnCategories.Location = new System.Drawing.Point(47, 164);
+            this.btnCategories.Name = "btnCategories";
+            this.btnCategories.Padding = new System.Windows.Forms.Padding(0, 18, 0, 0);
+            this.btnCategories.Size = new System.Drawing.Size(261, 89);
+            this.btnCategories.TabIndex = 6;
+            this.btnCategories.Text = "       Categories";
+            this.btnCategories.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnCategories.UseVisualStyleBackColor = false;
+            this.btnCategories.Click += new System.EventHandler(this.btnCategories_Click);
             // 
             // label4
             // 
@@ -325,7 +327,6 @@
             this.label4.Size = new System.Drawing.Size(153, 19);
             this.label4.TabIndex = 5;
             this.label4.Text = "view and managment";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // pictureBox3
             // 
@@ -337,24 +338,23 @@
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 4;
             this.pictureBox3.TabStop = false;
-            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
             // 
-            // button2
+            // btnUsers
             // 
-            this.button2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button2.Location = new System.Drawing.Point(339, 164);
-            this.button2.Name = "button2";
-            this.button2.Padding = new System.Windows.Forms.Padding(0, 18, 0, 0);
-            this.button2.Size = new System.Drawing.Size(261, 89);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Users";
-            this.button2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnUsers.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnUsers.FlatAppearance.BorderSize = 0;
+            this.btnUsers.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.btnUsers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUsers.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnUsers.Location = new System.Drawing.Point(339, 164);
+            this.btnUsers.Name = "btnUsers";
+            this.btnUsers.Padding = new System.Windows.Forms.Padding(0, 18, 0, 0);
+            this.btnUsers.Size = new System.Drawing.Size(261, 89);
+            this.btnUsers.TabIndex = 3;
+            this.btnUsers.Text = "Users";
+            this.btnUsers.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnUsers.UseVisualStyleBackColor = false;
+            this.btnUsers.Click += new System.EventHandler(this.btnUsers_Click);
             // 
             // label3
             // 
@@ -378,22 +378,22 @@
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
             // 
-            // button1
+            // btnCities
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button1.Location = new System.Drawing.Point(47, 51);
-            this.button1.Name = "button1";
-            this.button1.Padding = new System.Windows.Forms.Padding(0, 18, 0, 0);
-            this.button1.Size = new System.Drawing.Size(261, 89);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Cities \r\n";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnCities.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnCities.FlatAppearance.BorderSize = 0;
+            this.btnCities.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.btnCities.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCities.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnCities.Location = new System.Drawing.Point(47, 51);
+            this.btnCities.Name = "btnCities";
+            this.btnCities.Padding = new System.Windows.Forms.Padding(0, 18, 0, 0);
+            this.btnCities.Size = new System.Drawing.Size(261, 89);
+            this.btnCities.TabIndex = 0;
+            this.btnCities.Text = "Cities \r\n";
+            this.btnCities.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnCities.UseVisualStyleBackColor = false;
+            this.btnCities.Click += new System.EventHandler(this.btnCities_Click);
             // 
             // AdminHome
             // 
@@ -401,6 +401,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(954, 633);
             this.Controls.Add(this.splitContainer1);
+            this.MaximizeBox = false;
             this.Name = "AdminHome";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Home";
@@ -434,18 +435,18 @@
         private Button btnSingOut;
         private Label label3;
         private PictureBox pictureBox2;
-        private Button button1;
+        private Button btnCities;
         private Label label4;
         private PictureBox pictureBox3;
-        private Button button2;
+        private Button btnUsers;
         private Label label5;
         private PictureBox pictureBox4;
-        private Button button3;
+        private Button btnCategories;
         private Label label6;
         private PictureBox pictureBox5;
-        private Button button4;
+        private Button btnAttractions;
         private Label label7;
         private PictureBox pictureBox6;
-        private Button button5;
+        private Button btnAgencies;
     }
 }

@@ -85,10 +85,11 @@
             // 
             // cbAgency
             // 
+            this.cbAgency.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cbAgency.FormattingEnabled = true;
             this.cbAgency.Location = new System.Drawing.Point(39, 350);
             this.cbAgency.Name = "cbAgency";
-            this.cbAgency.Size = new System.Drawing.Size(508, 23);
+            this.cbAgency.Size = new System.Drawing.Size(508, 25);
             this.cbAgency.TabIndex = 9;
             this.cbAgency.SelectedIndexChanged += new System.EventHandler(this.cbAgency_SelectedIndexChanged);
             // 
@@ -184,6 +185,7 @@
             // btnRegister
             // 
             this.btnRegister.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.btnRegister.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnRegister.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnRegister.Location = new System.Drawing.Point(132, 415);
             this.btnRegister.Name = "btnRegister";
@@ -220,6 +222,7 @@
             // btnChooseImage
             // 
             this.btnChooseImage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(51)))), ((int)(((byte)(80)))));
+            this.btnChooseImage.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnChooseImage.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnChooseImage.ForeColor = System.Drawing.SystemColors.Control;
             this.btnChooseImage.Location = new System.Drawing.Point(74, 350);
@@ -242,6 +245,7 @@
             // 
             this.pbProfilePicture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbProfilePicture.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbProfilePicture.Image = global::VisitBosnia.WinUI.Properties.Resources.user;
             this.pbProfilePicture.Location = new System.Drawing.Point(37, 72);
             this.pbProfilePicture.Name = "pbProfilePicture";
             this.pbProfilePicture.Size = new System.Drawing.Size(266, 259);
