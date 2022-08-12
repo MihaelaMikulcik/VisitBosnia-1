@@ -4,12 +4,14 @@ class EventSearchObject {
   bool? includeAgencyMember;
   bool? includeAgency;
   int? categoryId;
+  int? cityId;
 
   EventSearchObject(
       {this.searchText,
       this.includeIdNavigation,
       this.includeAgencyMember,
       this.includeAgency,
+      this.cityId,
       this.categoryId});
 
   EventSearchObject.fromJson(Map<String, dynamic> json) {
@@ -18,6 +20,7 @@ class EventSearchObject {
     includeAgencyMember = json['includeAgencyMember'];
     includeAgency = json['includeAgency'];
     categoryId = json['categoryId'];
+    cityId = json['cityId'];
   }
 
   Map<String, dynamic> toJson() {
@@ -27,6 +30,7 @@ class EventSearchObject {
     data['includeAgencyMember'] = this.includeAgencyMember;
     data['includeAgency'] = this.includeAgency;
     data['categoryId'] = this.categoryId;
+    data['cityId'] = this.cityId;
     return data;
   }
 }

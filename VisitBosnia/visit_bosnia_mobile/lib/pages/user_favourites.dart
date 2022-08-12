@@ -134,8 +134,8 @@ class _UserFavouritesState extends State<UserFavourites> {
               );
             } else {
               return Row(children: [
-                Container(
-                  padding: EdgeInsets.only(left: 50, bottom: 10),
+                Expanded(
+                  // padding: EdgeInsets.only(left: 50, bottom: 10),
                   child: Text(
                     snapshot.data!.name! + ", " + snapshot.data!.city!.name!,
                     textAlign: TextAlign.center,
@@ -148,7 +148,7 @@ class _UserFavouritesState extends State<UserFavourites> {
                 Container(
                   width: 40,
                   height: 40,
-                  padding: EdgeInsets.only(left: 10, bottom: 10),
+                  padding: EdgeInsets.only(bottom: 10),
                   child:
                       Image.asset("assets/images/black_favourite_location.png"),
                 )
@@ -259,6 +259,7 @@ class _UserFavouritesState extends State<UserFavourites> {
                     padding: EdgeInsets.only(top: 20),
                     child: Column(children: [
                       titleSection(),
+                      Divider(),
                       Container(child: _buildFavourites())
                     ])))));
   }

@@ -12,6 +12,7 @@ import 'package:visit_bosnia_mobile/model/touristFacilityGallery/tourist_facilit
 import 'package:visit_bosnia_mobile/pages/attraction_details.dart';
 import 'package:visit_bosnia_mobile/pages/event_details.dart';
 import 'package:visit_bosnia_mobile/pages/event_details2.dart';
+import 'package:visit_bosnia_mobile/pages/pick_city.dart';
 import 'package:visit_bosnia_mobile/providers/appuser_favourite_provider.dart';
 import 'package:visit_bosnia_mobile/providers/appuser_provider.dart';
 import 'package:visit_bosnia_mobile/providers/attraction_provider.dart';
@@ -194,6 +195,10 @@ class _HomepageState extends State<Homepage> {
                   padding:
                       const EdgeInsets.only(top: 10.0, right: 10.0, bottom: 10),
                   child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => PickCity("Attraction")));
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: const [
@@ -227,6 +232,10 @@ class _HomepageState extends State<Homepage> {
                 child: Container(
                   padding: const EdgeInsets.only(top: 10.0, right: 10.0),
                   child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => PickCity("Event")));
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: const [

@@ -35,7 +35,10 @@ namespace VisitBosnia.Services
             {
                 filteredQuery = filteredQuery.Where(x => x.IdNavigation.CategoryId == search.CategoryId);
             }
-
+            if (search?.CityId != null)
+            {
+                filteredQuery = filteredQuery.Where(x => x.IdNavigation.CityId == search.CityId);
+            }
             return filteredQuery;
         }
 

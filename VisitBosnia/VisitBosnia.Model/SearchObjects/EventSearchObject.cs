@@ -13,6 +13,7 @@ namespace VisitBosnia.Model.Requests
         public bool IncludeAgencyMember { get; set; }
         public bool IncludeAgency { get; set; }
         public int? CategoryId { get; set; }
+        public int? CityId { get; set; }
 
     }
 }
