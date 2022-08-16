@@ -15,7 +15,7 @@ import '../model/attractions/attraction_search_object.dart';
 import '../model/category.dart';
 import '../model/city/city.dart';
 import '../model/events/event_search_object.dart';
-import '../model/id_navigation.dart';
+import '../model/tourist_facility.dart';
 import '../model/touristFacilityGallery/tourist_facility_gallery.dart';
 import '../model/touristFacilityGallery/tourist_facility_gallery_search_object.dart';
 import '../providers/appuser_provider.dart';
@@ -133,16 +133,14 @@ class _CityFacilityState extends State<CityFacility> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        onWillPop: () async => false,
-        child: Scaffold(
-            appBar: AppBar(
-              backgroundColor: Color.fromRGBO(29, 76, 120, 1),
-            ),
-            drawer: NavigationDrawer(),
-            body: SingleChildScrollView(
-                child: Padding(
-                    padding: EdgeInsets.only(top: 20), child: _buildCity()))));
+    return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color.fromRGBO(29, 76, 120, 1),
+        ),
+        drawer: NavigationDrawer(),
+        body: SingleChildScrollView(
+            child: Padding(
+                padding: EdgeInsets.only(top: 20), child: _buildCity())));
   }
 
   Container imageContainer(TouristFacilityGallery gallery) {

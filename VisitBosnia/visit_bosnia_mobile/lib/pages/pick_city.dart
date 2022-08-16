@@ -8,7 +8,7 @@ import 'package:visit_bosnia_mobile/providers/city_provider.dart';
 import '../components/navigation_drawer.dart';
 import '../model/appUser/app_user.dart';
 import '../model/city/city.dart';
-import '../model/id_navigation.dart';
+import '../model/tourist_facility.dart';
 import '../providers/appuser_provider.dart';
 import 'city_facility.dart';
 
@@ -96,15 +96,13 @@ class _PickCityState extends State<PickCity> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        onWillPop: () async => false,
-        child: Scaffold(
-            appBar: AppBar(
-              backgroundColor: Color.fromRGBO(29, 76, 120, 1),
-            ),
-            drawer: NavigationDrawer(),
-            body: SingleChildScrollView(
-                child: Column(children: [titleSection(), _buildGrid()]))));
+    return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color.fromRGBO(29, 76, 120, 1),
+        ),
+        drawer: NavigationDrawer(),
+        body: SingleChildScrollView(
+            child: Column(children: [titleSection(), _buildGrid()])));
   }
 
   Widget _gridItem(City city) {

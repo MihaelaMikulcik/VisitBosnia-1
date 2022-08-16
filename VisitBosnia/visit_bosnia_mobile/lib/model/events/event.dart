@@ -89,7 +89,7 @@
 
 import '../agency.dart';
 import '../agency_member.dart';
-import '../id_navigation.dart';
+import '../tourist_facility.dart';
 
 class Event {
   int? id;
@@ -103,7 +103,7 @@ class Event {
   int? agencyMemberId;
   Agency? agency;
   AgencyMember? agencyMember;
-  IdNavigation? idNavigation;
+  TouristFacility? idNavigation;
 
   Event(
       {this.id,
@@ -135,7 +135,7 @@ class Event {
         ? new AgencyMember.fromJson(json['agencyMember'])
         : null;
     idNavigation = json['idNavigation'] != null
-        ? new IdNavigation.fromJson(json['idNavigation'])
+        ? new TouristFacility.fromJson(json['idNavigation'])
         : null;
   }
 

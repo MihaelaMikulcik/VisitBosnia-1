@@ -6,7 +6,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:visit_bosnia_mobile/model/id_navigation.dart';
+import 'package:visit_bosnia_mobile/model/tourist_facility.dart';
 import 'package:visit_bosnia_mobile/providers/tourist_facility_provider.dart';
 
 import '../exception/http_exception.dart';
@@ -19,7 +19,7 @@ import '../providers/tourist_facility_gallery_provider.dart';
 
 class TouristFacilityInfo extends StatefulWidget {
   TouristFacilityInfo(this.touristFacility, {Key? key}) : super(key: key);
-  IdNavigation touristFacility;
+  TouristFacility touristFacility;
 
   @override
   State<TouristFacilityInfo> createState() =>
@@ -32,7 +32,7 @@ class _TouristFacilityInfoState extends State<TouristFacilityInfo> {
   late AppUserFavouriteProvider _appUserFavouriteProvider;
   late AppUserProvider _appUserProvider;
 
-  IdNavigation touristFacility;
+  TouristFacility touristFacility;
   _TouristFacilityInfoState(this.touristFacility);
 
   int activeIndex = 0;
