@@ -15,6 +15,7 @@ import 'package:visit_bosnia_mobile/providers/event_provider.dart';
 import 'package:visit_bosnia_mobile/providers/tourist_facility_gallery_provider.dart';
 import 'package:visit_bosnia_mobile/utils/util.dart';
 
+import '../components/review_facility.dart';
 import '../components/tourist_facility_info.dart';
 
 class EventDetails2 extends StatefulWidget {
@@ -49,10 +50,10 @@ class _EventDetails2State extends State<EventDetails2> {
               buildDetailRow("Price", "${event.pricePerPerson.toString()} KM"),
               const SizedBox(height: 20),
               btnBuyTicket(),
-              buildReviews(),
             ],
           ),
-        )
+        ),
+        ReviewFacility(event.idNavigation!),
       ]),
     ));
   }

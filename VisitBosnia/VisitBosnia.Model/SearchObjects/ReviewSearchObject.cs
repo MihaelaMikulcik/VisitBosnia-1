@@ -13,8 +13,9 @@ namespace VisitBosnia.Model.SearchObjects
         public int? AgencyId { get; set; }
         public bool? IncludeTouristFacility { get; set; }
         public bool? IncludeAppUser { get; set; }
+        public int? Rating { get; set; }
 
-
+        public int? FacilityId { get; set; }
 
     }
 }

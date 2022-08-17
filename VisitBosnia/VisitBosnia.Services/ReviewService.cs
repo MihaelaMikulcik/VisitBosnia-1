@@ -26,15 +26,32 @@ namespace VisitBosnia.Services
             {
                 filteredQuery = filteredQuery.Where(x => x.TouristFacility.Event.AgencyId == search.AgencyId);
             }
+
             if (!string.IsNullOrEmpty(search.SearchText))
             {
                 filteredQuery = filteredQuery.Where(x => x.Text.ToLower().Contains(search.SearchText.ToLower()) || x.AppUser.FirstName.ToLower().StartsWith(search.SearchText.ToLower()) || x.AppUser.LastName.ToLower().StartsWith(search.SearchText.ToLower()) || x.TouristFacility.Name.ToLower().StartsWith(search.SearchText.ToLower()));
             }
+
+            if (search.FacilityId != null)
+            {
+                filteredQuery = filteredQuery.Where(x => x.TouristFacilityId == search.FacilityId);
+            }
+
+            if (search.Rating != null)
+            {
+                filteredQuery = filteredQuery.Where(x => x.Rating == search.Rating);
+            }
+
             return filteredQuery;
         }
 
         public override IQueryable<Review> AddInclude(IQueryable<Review> query, ReviewSearchObject search = null)
         {
+            if ( search.IncludeAppUser == true)
+            {
+                query = query.Include("AppUser");
+            }
+
             if (search.IncludeTouristFacility ==true && search.IncludeAppUser == true)
             {
                 query = query.Include("TouristFacility");
