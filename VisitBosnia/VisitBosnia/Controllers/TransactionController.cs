@@ -3,11 +3,12 @@ using Stripe;
 using VisitBosnia.Filters;
 using VisitBosnia.Model;
 using VisitBosnia.Model.Requests;
+using VisitBosnia.Model.SearchObjects;
 using VisitBosnia.Services.Interfaces;
 
 namespace VisitBosnia.Controllers
 {
-    public class TransactionController:BaseCRUDController<Model.Transaction, object, TransactionInsertRequest, object>
+    public class TransactionController:BaseCRUDController<Model.Transaction, TransactionSearchObject, TransactionInsertRequest, object>
     {
         ITransactionService transactionService;
         private readonly IConfiguration configuration;
