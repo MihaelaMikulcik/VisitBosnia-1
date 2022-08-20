@@ -1,7 +1,7 @@
 import 'category.dart';
 import 'city/city.dart';
 
-class IdNavigation {
+class TouristFacility {
   int? id;
   String? name;
   String? description;
@@ -10,7 +10,7 @@ class IdNavigation {
   Category? category;
   City? city;
 
-  IdNavigation(
+  TouristFacility(
       {this.id,
       this.name,
       this.description,
@@ -19,7 +19,7 @@ class IdNavigation {
       this.category,
       this.city});
 
-  IdNavigation.fromJson(Map<String, dynamic> json) {
+  TouristFacility.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     description = json['description'];

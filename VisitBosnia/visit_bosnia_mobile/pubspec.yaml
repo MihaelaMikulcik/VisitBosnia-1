@@ -43,6 +43,8 @@ dependencies:
   flutter_map: ^2.1.1
   latlong2: ^0.8.1
   intl: ^0.17.0
+  flutter_multi_formatter: ^2.6.0
+  dropdown_button2: ^1.7.2
   flutter_rating_bar: ^4.0.1
   full_screen_image: ^1.0.2
   full_screen_image_null_safe: ^2.0.0

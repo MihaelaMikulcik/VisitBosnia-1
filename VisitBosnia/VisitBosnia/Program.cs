@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Stripe;
 using VisitBosnia.Filters;
 using VisitBosnia.Security;
 using VisitBosnia.Services;
@@ -37,7 +38,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddTransient<ICityService, CityService>();
-builder.Services.AddTransient<IEventService, EventService>();
+builder.Services.AddTransient<IEventService, VisitBosnia.Services.EventService>();
 builder.Services.AddTransient<ITouristFacilityService, TouristFacilityService>();
 builder.Services.AddTransient<ITouristFacilityGalleryService, TouristFacilityGalleryService>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
@@ -54,6 +55,9 @@ builder.Services.AddTransient<IPostService, PostService>();
 builder.Services.AddTransient<IAppUserFavouriteService, AppUserFavouriteService>();
 builder.Services.AddTransient<IReviewService, ReviewService>();
 builder.Services.AddTransient<IReviewGalleryService, ReviewGalleryService>();
+builder.Services.AddTransient<IReviewService, VisitBosnia.Services.ReviewService>();
+builder.Services.AddTransient<IEventOrderService, EventOrderService>();
+builder.Services.AddTransient<ITransactionService, TransactionService>();
 
 
 builder.Services.AddAutoMapper(typeof(ICityService));
@@ -77,6 +81,9 @@ if (app.Environment.IsDevelopment())
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+//StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe")["SecretKey"];
+
 
 app.MapControllers();
 

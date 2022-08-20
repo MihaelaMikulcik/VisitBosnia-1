@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -112,9 +113,17 @@ class _HomepageState extends State<Homepage> {
         builder: (BuildContext context,
             AsyncSnapshot<List<TouristFacilityGallery>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-              // child: Text('Loading...'),
+            return Container(
+              height: 220,
+              width: 150,
+              decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 205, 210, 215),
+                  borderRadius: BorderRadius.circular(20)),
+              margin: EdgeInsets.only(right: 15),
+              child: Center(
+                child: CircularProgressIndicator(),
+                // child: Text('Loading...'),
+              ),
             );
           } else {
             if (snapshot.hasError) {
@@ -151,6 +160,10 @@ class _HomepageState extends State<Homepage> {
       margin: EdgeInsets.only(right: 15),
       decoration: BoxDecoration(
           image: DecorationImage(
+            colorFilter: const ColorFilter.mode(
+              Color.fromARGB(66, 77, 76, 76),
+              BlendMode.darken,
+            ),
             image: MemoryImage(base64Decode(gallery.image!)),
             fit: BoxFit.cover,
           ),
@@ -174,15 +187,17 @@ class _HomepageState extends State<Homepage> {
             child: Column(children: [
               titleSection(),
               Container(
-                width: 340,
-                padding: EdgeInsets.only(top: 20, bottom: 20),
+                // width: 340,
+                width: MediaQuery.of(context).size.width,
+                padding:
+                    EdgeInsets.only(top: 15, bottom: 20, right: 30, left: 10),
                 child: _buildDropDown(),
               ),
               SizedBox(
                 width: double.infinity,
                 child: Text("Attractions",
                     style:
-                        TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+                        TextStyle(fontSize: 23, fontWeight: FontWeight.bold)),
               ),
               SizedBox(height: 10),
               Container(
@@ -194,25 +209,25 @@ class _HomepageState extends State<Homepage> {
                 child: Container(
                   padding:
                       const EdgeInsets.only(top: 10.0, right: 10.0, bottom: 10),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => PickCity("Attraction")));
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: const [
-                        Text(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => PickCity("Attraction")));
+                        },
+                        child: Text(
                           "View all",
                           style: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w600,
                               color: Color.fromARGB(255, 102, 101, 101)),
                         ),
-                        Icon(Icons.arrow_forward,
-                            color: Color.fromARGB(255, 102, 101, 101))
-                      ],
-                    ),
+                      ),
+                      Icon(Icons.arrow_forward,
+                          color: Color.fromARGB(255, 102, 101, 101))
+                    ],
                   ),
                 ),
               ),
@@ -220,7 +235,7 @@ class _HomepageState extends State<Homepage> {
                 width: double.infinity,
                 child: Text("Events",
                     style:
-                        TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+                        TextStyle(fontSize: 23, fontWeight: FontWeight.bold)),
               ),
               SizedBox(height: 10),
               Container(
@@ -230,26 +245,27 @@ class _HomepageState extends State<Homepage> {
               SizedBox(
                 width: double.infinity,
                 child: Container(
-                  padding: const EdgeInsets.only(top: 10.0, right: 10.0),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => PickCity("Event")));
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: const [
-                        Text(
+                  padding:
+                      const EdgeInsets.only(top: 10.0, right: 10.0, bottom: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => PickCity("Event")));
+                        },
+                        child: Text(
                           "View all",
                           style: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w600,
                               color: Color.fromARGB(255, 102, 101, 101)),
                         ),
-                        Icon(Icons.arrow_forward,
-                            color: Color.fromARGB(255, 102, 101, 101))
-                      ],
-                    ),
+                      ),
+                      Icon(Icons.arrow_forward,
+                          color: Color.fromARGB(255, 102, 101, 101))
+                    ],
                   ),
                 ),
               ),
@@ -269,7 +285,7 @@ class _HomepageState extends State<Homepage> {
               MaterialPageRoute(builder: (context) => EventDetails2(event)));
         },
         child: Stack(
-          alignment: Alignment.center,
+          alignment: Alignment.bottomCenter,
           children: [
             _buildImage(event.id!),
             Positioned(
@@ -278,9 +294,11 @@ class _HomepageState extends State<Homepage> {
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
-                    fontSize: 15),
+                    fontSize: 17),
               ),
-              bottom: 5,
+              bottom: 10,
+              left: 10,
+              right: 10,
             ),
             Positioned(
               child: Container(
@@ -306,18 +324,20 @@ class _HomepageState extends State<Homepage> {
               builder: (context) => AttractionDetails(attraction)));
         },
         child: Stack(
+          alignment: Alignment.bottomCenter,
           children: [
             _buildImage(attraction.id!),
             Positioned(
               child: Text(
                 attraction.idNavigation!.name!,
-                textAlign: TextAlign.center,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
-                    fontSize: 15),
+                    fontSize: 17),
               ),
-              bottom: 5,
+              bottom: 10,
+              left: 10,
+              right: 10,
             ),
             Positioned(
               child: Container(
@@ -422,7 +442,13 @@ class _HomepageState extends State<Homepage> {
 
   DropdownMenuItem<int> _dropDownItem(Category category) {
     return DropdownMenuItem<int>(
-      child: Text(category.name!),
+      child: Text(
+        category.name!,
+        style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 18,
+            color: Color.fromARGB(255, 92, 88, 88)),
+      ),
       value: category.id,
     );
   }
@@ -453,22 +479,90 @@ class _HomepageState extends State<Homepage> {
               );
             } else {
               return Container(
-                  width: 250,
-                  height: 40,
-                  padding: EdgeInsets.only(left: 20, right: 20),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black),
-                      borderRadius: BorderRadius.circular(12)),
-                  child: DropdownButtonHideUnderline(
-                      child: DropdownButton<int>(
-                    items: snapshot.data!.map((e) => _dropDownItem(e)).toList(),
-                    onChanged: dropdownCallback,
-                    iconSize: 40.0,
-                    isExpanded: true,
-                    value: selectedCategory == 0 ? null : selectedCategory,
-                    hint: Text("Choose category"),
-                    style: TextStyle(color: Colors.black, fontSize: 20),
-                  )));
+                width: MediaQuery.of(context).size.width,
+                height: 40,
+                child: DropdownButton2(
+                  // dropdownDecoration: ,
+                  isExpanded: true,
+                  onChanged: dropdownCallback,
+                  hint: Row(
+                    children: const [
+                      SizedBox(
+                        width: 4,
+                      ),
+                      Expanded(
+                        child: Text(
+                          'Choose category',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 90, 90, 85),
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                  iconSize: 40,
+                  dropdownMaxHeight: 200,
+                  dropdownElevation: 8,
+                  scrollbarRadius: const Radius.circular(40),
+                  scrollbarThickness: 6,
+                  scrollbarAlwaysShow: true,
+                  buttonPadding: const EdgeInsets.only(left: 14, right: 14),
+                  itemPadding: const EdgeInsets.only(left: 14, right: 14),
+                  items: snapshot.data!.map((e) => _dropDownItem(e)).toList(),
+                  value: selectedCategory == 0 ? null : selectedCategory,
+                  dropdownDecoration: BoxDecoration(
+                    // borderRadius: BorderRadius.circular(14),
+                    color: Color.fromARGB(255, 205, 210, 215),
+                  ),
+                  buttonDecoration: BoxDecoration(
+                    boxShadow: const [
+                      BoxShadow(
+                          offset: Offset(0, 2),
+                          blurRadius: 2,
+                          color: Color.fromARGB(255, 63, 62, 62))
+                    ],
+                    borderRadius: BorderRadius.circular(10),
+                    // border: Border.all(
+                    //     color: Colors.black26,
+                    //     ),
+                    color: Color.fromARGB(255, 205, 210, 215),
+                  ),
+                ),
+              );
+              // return Container(
+              //     // width: 250,
+              //     width: MediaQuery.of(context).size.width,
+              //     height: 40,
+              //     padding: EdgeInsets.only(left: 20, right: 20),
+              //     decoration: BoxDecoration(
+              //         boxShadow: const [
+              //           BoxShadow(
+              //               offset: Offset(0, 2),
+              //               blurRadius: 2,
+              //               color: Color.fromARGB(255, 63, 62, 62))
+              //         ],
+              //         color: Color.fromARGB(255, 205, 210, 215),
+              //         // border: Border.all(color: Colors.black),
+              //         borderRadius: BorderRadius.circular(12)),
+              //     child: DropdownButtonHideUnderline(
+              //         child: DropdownButton<int>(
+              //       dropdownColor: Color.fromARGB(255, 205, 210, 215),
+              //       items: snapshot.data!.map((e) => _dropDownItem(e)).toList(),
+              //       onChanged: dropdownCallback,
+              //       iconSize: 40.0,
+              //       isExpanded: true,
+              //       value: selectedCategory == 0 ? null : selectedCategory,
+              //       hint: Text(
+              //         "Choose category",
+              //       ),
+              //       style: TextStyle(
+              //         color: Colors.black,
+              //         fontSize: 20,
+              //       ),
+              //     )));
             }
           }
         });
@@ -495,7 +589,7 @@ class _HomepageState extends State<Homepage> {
                         fontSize: 25,
                       ),
                     ),
-                    Text(_appUserProvider.userData.firstName!,
+                    Text(_appUserProvider.userData.firstName! + "!",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 25,

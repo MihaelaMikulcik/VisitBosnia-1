@@ -1,10 +1,10 @@
-import 'package:visit_bosnia_mobile/model/id_navigation.dart';
+import 'package:visit_bosnia_mobile/model/tourist_facility.dart';
 
 class Attraction {
   int? id;
   double? geoLong;
   double? geoLat;
-  IdNavigation? idNavigation;
+  TouristFacility? idNavigation;
 
   Attraction({this.id, this.geoLong, this.geoLat, this.idNavigation});
 
@@ -13,7 +13,7 @@ class Attraction {
     geoLong = json['geoLong'];
     geoLat = json['geoLat'];
     idNavigation = json['idNavigation'] != null
-        ? new IdNavigation.fromJson(json['idNavigation'])
+        ? new TouristFacility.fromJson(json['idNavigation'])
         : null;
   }
 

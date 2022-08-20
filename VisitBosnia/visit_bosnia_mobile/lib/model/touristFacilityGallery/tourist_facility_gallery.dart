@@ -1,4 +1,4 @@
-import 'package:visit_bosnia_mobile/model/id_navigation.dart';
+import 'package:visit_bosnia_mobile/model/tourist_facility.dart';
 
 class TouristFacilityGallery {
   int? id;
@@ -6,7 +6,7 @@ class TouristFacilityGallery {
   bool? thumbnail;
   String? image;
   int? touristFacilityId;
-  IdNavigation? touristFacility;
+  TouristFacility? touristFacility;
 
   TouristFacilityGallery(
       {this.id,
@@ -24,7 +24,7 @@ class TouristFacilityGallery {
     touristFacilityId = json['touristFacilityId'];
     // touristFacility = json['touristFacility'];
     touristFacility = json['idNavigation'] != null
-        ? new IdNavigation.fromJson(json['idNavigation'])
+        ? new TouristFacility.fromJson(json['idNavigation'])
         : null;
   }
 

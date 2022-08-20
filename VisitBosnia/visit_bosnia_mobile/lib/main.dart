@@ -19,6 +19,7 @@ import 'package:visit_bosnia_mobile/providers/review_gallery_provider.dart';
 import 'package:visit_bosnia_mobile/providers/review_provider.dart';
 import 'package:visit_bosnia_mobile/providers/tourist_facility_gallery_provider.dart';
 import 'package:visit_bosnia_mobile/providers/tourist_facility_provider.dart';
+import 'package:visit_bosnia_mobile/providers/transaction_provider.dart';
 
 void main() => runApp(MultiProvider(
         providers: [
@@ -35,6 +36,7 @@ void main() => runApp(MultiProvider(
           ChangeNotifierProvider(create: (_) => AppUserFavouriteProvider()),
           ChangeNotifierProvider(create: (_) => ReviewProvider()),
           ChangeNotifierProvider(create: (_) => ReviewGalleryProvider()),
+          ChangeNotifierProvider(create: (_) => TransactionProvider()),
         ],
         child: MaterialApp(
             debugShowCheckedModeBanner: true,

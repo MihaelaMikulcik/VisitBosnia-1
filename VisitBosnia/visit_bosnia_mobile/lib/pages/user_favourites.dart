@@ -8,7 +8,7 @@ import 'package:visit_bosnia_mobile/model/appUserFavourite/app_user_favourite.da
 import '../components/navigation_drawer.dart';
 import '../model/appUser/app_user.dart';
 import '../model/appUserFavourite/app_user_favourite_search_object.dart';
-import '../model/id_navigation.dart';
+import '../model/tourist_facility.dart';
 import '../model/touristFacilityGallery/tourist_facility_gallery.dart';
 import '../model/touristFacilityGallery/tourist_facility_gallery_search_object.dart';
 import '../providers/appuser_favourite_provider.dart';
@@ -60,7 +60,7 @@ class _UserFavouritesState extends State<UserFavourites> {
     return gallery;
   }
 
-  Future<IdNavigation> getFacility(int facilityId) async {
+  Future<TouristFacility> getFacility(int facilityId) async {
     var facility = await _touristFacilityProvider.getById(facilityId);
     return facility;
   }
@@ -118,9 +118,10 @@ class _UserFavouritesState extends State<UserFavourites> {
   }
 
   _buildText(int facilityId) {
-    return FutureBuilder<IdNavigation>(
+    return FutureBuilder<TouristFacility>(
         future: getFacility(facilityId),
-        builder: (BuildContext context, AsyncSnapshot<IdNavigation> snapshot) {
+        builder:
+            (BuildContext context, AsyncSnapshot<TouristFacility> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(),
@@ -247,21 +248,19 @@ class _UserFavouritesState extends State<UserFavourites> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        onWillPop: () async => false,
-        child: Scaffold(
-            appBar: AppBar(
-              backgroundColor: Color.fromRGBO(29, 76, 120, 1),
-            ),
-            drawer: NavigationDrawer(),
-            body: SingleChildScrollView(
-                child: Padding(
-                    padding: EdgeInsets.only(top: 20),
-                    child: Column(children: [
-                      titleSection(),
-                      Divider(),
-                      Container(child: _buildFavourites())
-                    ])))));
+    return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color.fromRGBO(29, 76, 120, 1),
+        ),
+        drawer: NavigationDrawer(),
+        body: SingleChildScrollView(
+            child: Padding(
+                padding: EdgeInsets.only(top: 20),
+                child: Column(children: [
+                  titleSection(),
+                  Divider(),
+                  Container(child: _buildFavourites())
+                ]))));
   }
 
   Widget titleSection() {

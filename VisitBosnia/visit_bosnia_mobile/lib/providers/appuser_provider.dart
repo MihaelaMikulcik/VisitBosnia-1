@@ -43,8 +43,8 @@ class AppUserProvider extends BaseProvider<AppUser> {
     var response = null;
     var url =
         "https://10.0.2.2:44373/Login?Username=$username&Password=$password";
-    //var url =
-    //   "https://192.168.0.31/:44373/Login?Username=$username&Password=$password";
+    // var url =
+    //     "https://192.168.0.24/:44373/Login?Username=$username&Password=$password";
     var uri = Uri.parse(url);
 
     Map<String, String> headers = createHeaders();
