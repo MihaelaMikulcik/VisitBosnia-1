@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VisitBosnia.Model.Requests;
+using VisitBosnia.Model.SearchObjects;
 
 namespace VisitBosnia.Services.Interfaces
 {
-    public interface ITransactionService:ICRUDService<Model.Transaction, object, TransactionInsertRequest, object>
+    public interface ITransactionService:ICRUDService<Model.Transaction, TransactionSearchObject, TransactionInsertRequest, object>
     {
     }
+
 }

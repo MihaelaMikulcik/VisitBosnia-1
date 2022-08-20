@@ -13,6 +13,7 @@ import 'package:visit_bosnia_mobile/pages/forum_filter.dart';
 import 'package:visit_bosnia_mobile/pages/user_profile.dart';
 import 'package:visit_bosnia_mobile/utils/util.dart';
 
+import '../pages/my_tickets.dart';
 import '../pages/user_favourites.dart';
 import '../providers/appuser_provider.dart';
 
@@ -98,7 +99,11 @@ class NavigationDrawer extends StatelessWidget {
               child: Text("My tickets",
                   style: TextStyle(color: Colors.white, fontSize: 20)),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pop();
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => MyTickets()));
+            },
           ),
           buildDivider(),
           ListTile(

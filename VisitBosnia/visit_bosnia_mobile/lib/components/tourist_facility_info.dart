@@ -6,6 +6,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:visit_bosnia_mobile/model/touristFacilityGallery/tourist_facility_gallery.dart';
 import 'package:visit_bosnia_mobile/model/tourist_facility.dart';
 import 'package:visit_bosnia_mobile/providers/tourist_facility_provider.dart';
 
@@ -36,7 +37,8 @@ class _TouristFacilityInfoState extends State<TouristFacilityInfo> {
   _TouristFacilityInfoState(this.touristFacility);
 
   int activeIndex = 0;
-  static dynamic gallery;
+  // static dynamic gallery;
+  static List<TouristFacilityGallery> gallery = [];
   bool hasImages = false;
   bool loading = false;
 
@@ -212,7 +214,7 @@ class _TouristFacilityInfoState extends State<TouristFacilityInfo> {
 
   Widget buildIndicator() => AnimatedSmoothIndicator(
         activeIndex: activeIndex,
-        count: gallery != null ? gallery.length : 0,
+        count: (gallery.isNotEmpty) ? gallery.length : 0,
         effect: const ScrollingDotsEffect(
             dotWidth: 10,
             dotHeight: 10,
@@ -234,7 +236,7 @@ class _TouristFacilityInfoState extends State<TouristFacilityInfo> {
           ),
         ),
       );
-    } else if (!hasImages && gallery?.length == 0) {
+    } else if (!hasImages && gallery.isEmpty) {
       return Container(
         height: 300,
         width: MediaQuery.of(context).size.width,
@@ -247,7 +249,8 @@ class _TouristFacilityInfoState extends State<TouristFacilityInfo> {
     } else {
       return CarouselSlider(
           options: CarouselOptions(
-              autoPlay: gallery.length > 1 ? true : false,
+              autoPlay:
+                  (gallery.isNotEmpty && gallery.length > 1) ? true : false,
               autoPlayCurve: Curves.easeInBack,
               autoPlayInterval: Duration(seconds: 3),
               autoPlayAnimationDuration: Duration(milliseconds: 800),

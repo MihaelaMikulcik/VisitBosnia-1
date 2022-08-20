@@ -47,7 +47,7 @@ class _HomepageState extends State<Homepage> {
   late CategoryProvider _categoryProvider;
   late AppUserFavouriteProvider _appUserFavouriteProvider;
 
-  dynamic userFavourite = {};
+  List<AppUserFavourite> userFavourite = [];
 
   AppUser user;
   int selectedCategory = 0;
