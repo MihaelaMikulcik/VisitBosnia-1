@@ -1,5 +1,3 @@
-import 'package:visit_bosnia_mobile/model/id_navigation.dart';
-
 import '../review/review.dart';
 
 class ReviewGallery {

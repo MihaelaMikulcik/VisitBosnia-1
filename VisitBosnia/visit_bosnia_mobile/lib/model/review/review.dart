@@ -1,6 +1,6 @@
 import 'package:visit_bosnia_mobile/model/appUser/app_user.dart';
 
-import '../id_navigation.dart';
+import '../tourist_facility.dart';
 
 class Review {
   int? id;
@@ -9,7 +9,7 @@ class Review {
   int? appUserId;
   int? idNavigationId;
   AppUser? appUser;
-  IdNavigation? idNavigation;
+  TouristFacility? idNavigation;
 
   Review(
       {this.id,
@@ -29,7 +29,7 @@ class Review {
     appUser =
         json['appUser'] != null ? new AppUser.fromJson(json['appUser']) : null;
     idNavigation = json['idNavigation'] != null
-        ? new IdNavigation.fromJson(json['idNavigation'])
+        ? new TouristFacility.fromJson(json['idNavigation'])
         : null;
   }
 

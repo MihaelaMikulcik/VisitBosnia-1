@@ -1,5 +1,9 @@
 import 'dart:convert';
 
+import 'dart:ffi';
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -7,23 +11,30 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:visit_bosnia_mobile/model/id_navigation.dart';
+import 'package:visit_bosnia_mobile/model/reviewGallery.dart/review_gallery_insert_request.dart';
+
 import 'package:visit_bosnia_mobile/providers/tourist_facility_provider.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../exception/http_exception.dart';
 import '../model/appUser/app_user.dart';
 import '../model/review/review.dart';
+import '../model/review/review_insert_request.dart';
 import '../model/review/review_search_object.dart';
 import '../model/reviewGallery.dart/review_gallery.dart';
 import '../model/reviewGallery.dart/review_gallery_search_object.dart';
+import '../model/tourist_facility.dart';
+import '../pages/add_review.dart';
+import '../pickers/review_image_picker.dart';
+import '../pickers/user_image_picker.dart';
 import '../providers/appuser_provider.dart';
 import '../providers/review_gallery_provider.dart';
 import '../providers/review_provider.dart';
 import '../providers/tourist_facility_gallery_provider.dart';
+import '../utils/util.dart';
 
 class ReviewFacility extends StatefulWidget {
   ReviewFacility(this.touristFacility, {Key? key}) : super(key: key);
-  IdNavigation touristFacility;
+  TouristFacility touristFacility;
 
   @override
   State<ReviewFacility> createState() => _ReviewFacilityState(touristFacility);
@@ -35,7 +46,7 @@ class _ReviewFacilityState extends State<ReviewFacility> {
   late ReviewProvider _reviewProvider;
   late ReviewGalleryProvider _reviewGalleryProvider;
 
-  IdNavigation touristFacility;
+  TouristFacility touristFacility;
   _ReviewFacilityState(this.touristFacility);
 
   int one = 0;
@@ -45,6 +56,11 @@ class _ReviewFacilityState extends State<ReviewFacility> {
   int five = 0;
   double rating = 0;
   int total = 0;
+
+  int perPage = 3;
+
+  late List<Review> originalItems = [];
+  late List<Review> items = [];
 
   @override
   void initState() {
@@ -63,7 +79,12 @@ class _ReviewFacilityState extends State<ReviewFacility> {
     if (reviews.length > 0) {
       setRatings(reviews);
     }
-    return reviews.take(3).toList();
+    return reviews;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   void setRatings(List<Review> reviews) {
@@ -99,6 +120,65 @@ class _ReviewFacilityState extends State<ReviewFacility> {
   Widget build(BuildContext context) {
     return Padding(
         padding: EdgeInsets.fromLTRB(20, 0, 20, 10), child: _buildReviewList());
+    // return FutureBuilder<void>(
+    //     future: loadReviews(),
+    //     builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+    //       if (snapshot.connectionState == ConnectionState.waiting) {
+    //         return Center(
+    //           child: CircularProgressIndicator(),
+    //           // child: Text('Loading...'),
+    //         );
+    //       } else {
+    //         if (snapshot.hasError) {
+    //           return Center(
+    //             // child: Text('${snapshot.error}'),
+    //             child: Text('Something went wrong...'),
+    //           );
+    //         } else {
+    //           return Padding(
+    //               padding: const EdgeInsets.all(8),
+    //               child: Column(children: [
+    //                 Column(children: [
+    //                   Column(children: [
+    //                     Padding(
+    //                       padding: const EdgeInsets.only(left: 10),
+    //                       child: buildReviews(),
+    //                     ),
+    //                     ListView.builder(
+    //                         shrinkWrap: true,
+    //                         physics: const NeverScrollableScrollPhysics(),
+    //                         // itemCount:
+    //                         itemCount: perPage,
+    //                         itemBuilder: (context, index) {
+    //                           return Column(children: [
+    //                             Container(child: _reviewCard(items[index])),
+    //                           ]);
+    //                           // : Container(child: Text(index.toString()));
+    //                         }),
+    //                     (perPage <= items.length)
+    //                         ? Container(
+    //                             child: TextButton(
+    //                               child: Text("Load More"),
+    //                               onPressed: () {
+    //                                 setState(() {
+    //                                   perPage = perPage + 3;
+    //                                   if ((perPage) > originalItems.length) {
+    //                                     items.addAll(originalItems);
+    //                                   } else {
+    //                                     items.addAll(
+    //                                         originalItems.getRange(0, perPage));
+    //                                   }
+    //                                 });
+    //                               },
+    //                             ),
+    //                           )
+    //                         : Container()
+    //                   ])
+    //                 ])
+    //               ]));
+    //         }
+    //       }
+    //     });
   }
 
   Widget chartRow(String label, int pct) {
@@ -148,14 +228,20 @@ class _ReviewFacilityState extends State<ReviewFacility> {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
             ),
           ),
-          Icon(
-            Icons.reviews_outlined,
-            size: 30,
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Icon(
+              Icons.reviews_outlined,
+              size: 30,
+            ),
           ),
           Container(
-            padding: EdgeInsets.only(left: 100),
+            padding: EdgeInsets.only(left: 100, top: 10),
             child: ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => AddReview(touristFacility)));
+              },
               label: const Text('Write a review'),
               icon: const Icon(Icons.create_rounded),
               style: ElevatedButton.styleFrom(
@@ -169,7 +255,7 @@ class _ReviewFacilityState extends State<ReviewFacility> {
       ),
       Align(
         alignment: Alignment.centerLeft,
-        child: Text("123 reviews",
+        child: Text(total.toString() + " reviews",
             style: TextStyle(
                 color: Color.fromARGB(255, 92, 91, 91),
                 fontWeight: FontWeight.bold,
@@ -194,7 +280,7 @@ class _ReviewFacilityState extends State<ReviewFacility> {
         Container(
           padding: EdgeInsets.only(left: 50),
           child: Text(
-            rating.toString(),
+            rating.toStringAsFixed(2),
             style: TextStyle(fontSize: 20),
           ),
         ),
@@ -239,7 +325,6 @@ class _ReviewFacilityState extends State<ReviewFacility> {
     return Container(
         child: Column(
       children: [
-        Divider(),
         Row(
           children: [
             imageContainer(review),
@@ -248,7 +333,7 @@ class _ReviewFacilityState extends State<ReviewFacility> {
               child: Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.only(top: 30),
+                    padding: EdgeInsets.only(top: 20),
                     child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
@@ -261,21 +346,16 @@ class _ReviewFacilityState extends State<ReviewFacility> {
                   Container(
                     height: 20,
                     padding: EdgeInsets.only(left: 10),
-                    child: RatingBar.builder(
-                      initialRating: review.rating!.toDouble(),
+                    child: RatingBarIndicator(
+                      rating: review.rating!.toDouble(),
                       itemSize: 25,
-                      minRating: 1,
                       direction: Axis.horizontal,
-                      allowHalfRating: true,
                       itemCount: 5,
                       itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
                       itemBuilder: (context, _) => Icon(
                         Icons.star,
                         color: Colors.amber,
                       ),
-                      onRatingUpdate: (rating) {
-                        print(rating);
-                      },
                     ),
                   )
                 ],
@@ -283,9 +363,13 @@ class _ReviewFacilityState extends State<ReviewFacility> {
             )
           ],
         ),
-        Text(review.text!, style: TextStyle(fontSize: 15)),
+        Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(review.text!, style: TextStyle(fontSize: 15)),
+            )),
         _buildReviewGallery(review.id!),
-        Divider()
       ],
     ));
   }
@@ -315,8 +399,25 @@ class _ReviewFacilityState extends State<ReviewFacility> {
                       ],
                     ),
                     Column(
-                        children:
-                            snapshot.data!.map((e) => _reviewCard(e)).toList())
+                        children: snapshot.data!
+                            .take(perPage)
+                            .map((e) => _reviewCard(e))
+                            .toList()),
+                    (perPage < snapshot.data!.length)
+                        ? Container(
+                            child: TextButton(
+                              child: Text("Load More"),
+                              onPressed: () {
+                                setState(() {
+                                  perPage = perPage + 3;
+                                  if ((perPage) > snapshot.data!.length) {
+                                    perPage = snapshot.data!.length;
+                                  }
+                                });
+                              },
+                            ),
+                          )
+                        : Container()
                   ],
                 );
                 // snapshot.data!.map((e) => _reviewCard(e)).toList());

@@ -53,8 +53,14 @@ abstract class BaseProvider<T> with ChangeNotifier {
 
     var uri = Uri.parse(url);
 
-    Map<String, String> headers = createHeaders();
+    // Map<String, String> headers = createHeaders();
     // print("get me");
+    Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: "application/json",
+      "Connection": "Keep-Alive",
+      "Keep-Alive": "timeout=5, max=1000"
+    };
+
     var response = await http!.get(uri, headers: headers);
     // print("done $response");
     if (isValidResponseCode(response)) {

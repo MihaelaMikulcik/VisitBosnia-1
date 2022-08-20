@@ -41,8 +41,8 @@ class _EventDetails2State extends State<EventDetails2> {
           child: Column(
             children: [
               buildDetailRow("Tourist agency", event.agency!.name!),
-              buildDetailRow("Tourist guide",
-                  "${event.agencyMember!.appUser!.firstName!} ${event.agencyMember!.appUser!.lastName!}"),
+              // buildDetailRow("Tourist guide",
+              //     "${event.agencyMember!.appUser!.firstName!} ${event.agencyMember!.appUser!.lastName!}"),
               buildDetailRow("Duration", "${getDuration()} hours"),
               buildDetailRow(
                   "Date", formatStringDate(event.date!, 'EEE, MMM d')),

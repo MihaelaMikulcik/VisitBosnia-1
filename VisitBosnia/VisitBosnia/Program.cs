@@ -53,7 +53,7 @@ builder.Services.AddTransient<IReadService<VisitBosnia.Model.Role, object>, Role
 builder.Services.AddTransient<IForumService, ForumService>();
 builder.Services.AddTransient<IPostService, PostService>();
 builder.Services.AddTransient<IAppUserFavouriteService, AppUserFavouriteService>();
-builder.Services.AddTransient<IReviewService, ReviewService>();
+
 builder.Services.AddTransient<IReviewGalleryService, ReviewGalleryService>();
 builder.Services.AddTransient<IReviewService, VisitBosnia.Services.ReviewService>();
 builder.Services.AddTransient<IEventOrderService, EventOrderService>();
