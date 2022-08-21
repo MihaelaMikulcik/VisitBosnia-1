@@ -271,7 +271,7 @@ class _ReviewFacilityState extends State<ReviewFacility> {
               chartRow('5', five),
               chartRow('4', four),
               chartRow('3', three),
-              chartRow('4', two),
+              chartRow('2', two),
               chartRow('1', one),
               SizedBox(height: 8),
             ],

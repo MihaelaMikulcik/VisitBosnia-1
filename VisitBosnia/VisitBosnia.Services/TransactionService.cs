@@ -64,7 +64,7 @@ namespace VisitBosnia.Services
                 query = query.Include("EventOrder.Event.IdNavigation.City");
                 query = query.Include("EventOrder.Event.Agency");
                 query = query.Include("EventOrder.Event.AgencyMember");
-                query = query.Include("EventOrder.Event.AgencyMember");
+                //query = query.Include("EventOrder.Event.AgencyMember");
                 //query = query.Include("IdNavigation");
             }
             return query;

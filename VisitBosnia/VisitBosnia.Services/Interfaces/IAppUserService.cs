@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.ML;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,9 @@ namespace VisitBosnia.Services.Interfaces
     {
         Task<Model.AppUser> Login(string username, string password);
         Task<Model.AppUser> Register(AppUserInsertRequest request);
+        Task<List<Model.Attraction>> RecommendAttracions(int appUserId, int? categoryId);
+        Task<List<Model.Event>> RecommendEvents(int appUserId, int? categoryId);
+        //ITransformer TrainData(bool isAttraction, bool retrainData);
         //Task<bool> UsernameExists(string username);
     }
 }

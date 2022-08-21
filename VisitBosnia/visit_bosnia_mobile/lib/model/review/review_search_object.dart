@@ -29,8 +29,8 @@ class ReviewSearchObject {
     data['includeTouristFacility'] = this.includeTouristFacility;
     data['includeAppUser'] = this.includeAppUser;
     data['agencyId'] = this.agencyId;
-    data['categoryId'] = this.facilityId;
-    data['cityId'] = this.rating;
+    data['facilityId'] = this.facilityId;
+    data['rating'] = this.rating;
     return data;
   }
 }

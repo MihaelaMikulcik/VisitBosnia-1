@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:visit_bosnia_mobile/main.dart';
 import 'package:visit_bosnia_mobile/model/appUser/app_user.dart';
 import 'package:visit_bosnia_mobile/pages/forum_filter.dart';
+import 'package:visit_bosnia_mobile/pages/login.dart';
 import 'package:visit_bosnia_mobile/pages/user_profile.dart';
 import 'package:visit_bosnia_mobile/utils/util.dart';
 
@@ -123,7 +124,14 @@ class NavigationDrawer extends StatelessWidget {
               child: Text("Sign out",
                   style: TextStyle(color: Colors.white, fontSize: 20)),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (BuildContext context) => Login(),
+                ),
+                (route) => false,
+              );
+            },
           ),
           buildDivider()
         ],

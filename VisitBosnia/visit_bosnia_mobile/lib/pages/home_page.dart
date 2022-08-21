@@ -67,23 +67,27 @@ class _HomepageState extends State<Homepage> {
   }
 
   Future<List<Event>> loadEvents() async {
-    var search = EventSearchObject(
-        includeAgency: true,
-        includeAgencyMember: true,
-        includeIdNavigation: true);
-    if (selectedCategory != 0) {
-      search.categoryId = selectedCategory;
-    }
-    var events = await _eventProvider.get(search.toJson());
+    // var search = EventSearchObject(
+    //     includeAgency: true,
+    //     includeAgencyMember: true,
+    //     includeIdNavigation: true);
+    // if (selectedCategory != 0) {
+    //   search.categoryId = selectedCategory;
+    // }
+    var events = await _appUserProvider.recommendEvents(
+        _appUserProvider.userData.id!, selectedCategory);
     return events;
   }
 
   Future<List<Attraction>> loadAttractions() async {
-    var search = AttractionSearchObject(includeIdNavigation: true);
-    if (selectedCategory != 0) {
-      search.categoryId = selectedCategory;
-    }
-    var attractions = await _attractionProvider.get(search.toJson());
+    // var search = AttractionSearchObject(includeIdNavigation: true);
+    // if (selectedCategory != 0) {
+    //   search.categoryId = selectedCategory;
+    // }
+    // var attractions = await _attractionProvider.get(search.toJson());
+    var attractions = await _appUserProvider.recommendAttractions(
+        _appUserProvider.userData.id!, selectedCategory);
+
     return attractions;
   }
 

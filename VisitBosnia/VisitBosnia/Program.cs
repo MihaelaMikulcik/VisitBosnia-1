@@ -59,7 +59,7 @@ builder.Services.AddTransient<IReviewService, VisitBosnia.Services.ReviewService
 builder.Services.AddTransient<IEventOrderService, EventOrderService>();
 builder.Services.AddTransient<ITransactionService, TransactionService>();
 
-
+builder.Services.AddMemoryCache();
 builder.Services.AddAutoMapper(typeof(ICityService));
 builder.Services.AddDbContext<VisitBosniaContext>(options => options
 .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

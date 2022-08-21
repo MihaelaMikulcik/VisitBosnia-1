@@ -41,6 +41,21 @@ namespace VisitBosnia.Controllers
         {
             return await service.Register(request);
         }
+
+        [HttpGet("RecommendAttractions")]
+        public async Task<List<Model.Attraction>> RecommendAttractions(int appUserId, int categoryId)
+        {
+            var attractions = await service.RecommendAttracions(appUserId, categoryId);
+            return attractions;
+        }
+
+        [HttpGet("RecommendEvents")]
+        public async Task<List<Model.Event>> RecommendEvents(int appUserId, int categoryId)
+        {
+            var events = await service.RecommendEvents(appUserId, categoryId);
+            return events;
+        }
+
         //[AllowAnonymous]
         //[HttpPost("/Register")]
         //public Model.AppUser Register([FromBody]AppUserInsertRequest request)
