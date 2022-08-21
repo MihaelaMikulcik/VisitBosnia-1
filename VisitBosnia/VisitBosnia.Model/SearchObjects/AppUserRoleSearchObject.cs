@@ -10,6 +10,6 @@ namespace VisitBosnia.Model.Requests
     {
         public int? RoleId { get; set; }
         public int? AppUserId { get; set; }
-
+        public bool IncludeRole { get; set; }
     }
 }

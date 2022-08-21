@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:visit_bosnia_mobile/model/post/post_insert_request.dart';
 import 'package:visit_bosnia_mobile/model/post/post_search_object.dart';
+import 'package:visit_bosnia_mobile/pages/post.dart';
 import 'package:visit_bosnia_mobile/providers/appuser_provider.dart';
 import 'package:visit_bosnia_mobile/providers/post_provider.dart';
 import 'package:visit_bosnia_mobile/utils/util.dart';
@@ -41,7 +42,8 @@ class _ForumTopicsState extends State<ForumTopics> {
   }
 
   Future<List<Post>> GetData() async {
-    PostSearchObject searchObj = PostSearchObject(forumId: forum.id);
+    PostSearchObject searchObj =
+        PostSearchObject(forumId: forum.id, includeAppUser: true);
     if (search != "") {
       searchObj.title = search;
     }
@@ -277,6 +279,10 @@ class _ForumTopicsState extends State<ForumTopics> {
 
   Widget postWidget(Post post) {
     return InkWell(
+      onTap: () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => ForumPost(post)));
+      },
       child: Container(
         padding: const EdgeInsets.all(15),
         margin: const EdgeInsets.only(left: 20, top: 10, right: 20),

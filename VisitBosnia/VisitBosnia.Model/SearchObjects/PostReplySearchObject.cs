@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace VisitBosnia.Model.SearchObjects
 {
-    public class PostSearchObject
+    public class PostReplySearchObject
     {
-        public string? Title { get; set; }
-        public int? ForumId { get; set; }
+        public int? AppUserId { get; set; }
+        public int? PostId { get; set; }
         public bool IncludeAppUser { get; set; }
     }
 }

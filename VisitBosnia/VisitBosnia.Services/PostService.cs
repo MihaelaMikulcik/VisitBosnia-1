@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,16 @@ namespace VisitBosnia.Services
                 filteredQuery = filteredQuery.Where(x=>x.Title.ToLower().Contains(search.Title.ToLower()));
             }
             return filteredQuery;
+        }
+
+        public override IQueryable<Post> AddInclude(IQueryable<Post> query, PostSearchObject search = null)
+        {
+            if (search?.IncludeAppUser == true)
+            {
+                query = query.Include("AppUser");
+            }
+
+            return query;
         }
     }
 }

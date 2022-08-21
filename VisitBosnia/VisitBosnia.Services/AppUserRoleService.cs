@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,16 @@ namespace VisitBosnia.Services
 
 
             return filteredQuery;
+        }
+
+        public override IQueryable<AppUserRole> AddInclude(IQueryable<AppUserRole> query, AppUserRoleSearchObject search = null)
+        {
+            if (search?.IncludeRole == true)
+            {
+                query = query.Include("Role");
+            }
+
+            return query;
         }
 
     }

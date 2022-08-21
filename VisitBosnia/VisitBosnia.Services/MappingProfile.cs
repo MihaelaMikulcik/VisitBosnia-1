@@ -63,8 +63,14 @@ namespace VisitBosnia.Services
             CreateMap<Database.Post, Model.Post>().ReverseMap();
             CreateMap<Database.Post, Model.Requests.PostInsertRequest>().ReverseMap();
 
+            CreateMap<Database.PostReply, Model.PostReply>().ReverseMap();
+            CreateMap<Database.PostReply, Model.Requests.PostReplyInsertRequest>().ReverseMap();
+
             CreateMap<Database.Review, Model.Review>().ReverseMap();
             CreateMap<Database.Review, Model.Requests.ReviewInsertRequest>().ReverseMap();
+
+            CreateMap<Database.ReviewGallery, Model.ReviewGallery>().ReverseMap();
+            CreateMap<Database.ReviewGallery, Model.Requests.ReviewGalleryInsertRequest>().ReverseMap();
 
             CreateMap<Database.EventOrder, Model.EventOrder>().ReverseMap();
             CreateMap<Database.EventOrder, Model.Requests.EventOrderInsertRequest>().ReverseMap();
