@@ -61,7 +61,7 @@ class _AddReviewState extends State<AddReview> {
     FocusScope.of(context).unfocus();
 
     if (isValid) {
-      _formKey.currentState!.save();
+      // _formKey.currentState!.save();
       if (_formKey.currentState!.validate()) {
         var request = new ReviewInsertRequest();
         request.appUserId = _appUserProvider.userData.id;

@@ -60,7 +60,7 @@ builder.Services.AddTransient<IEventOrderService, EventOrderService>();
 builder.Services.AddTransient<ITransactionService, TransactionService>();
 builder.Services.AddTransient<IPostReplyService, PostReplyService>();
 
-
+builder.Services.AddMemoryCache();
 builder.Services.AddAutoMapper(typeof(ICityService));
 builder.Services.AddDbContext<VisitBosniaContext>(options => options
 .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

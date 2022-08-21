@@ -6,6 +6,9 @@ import 'package:http/http.dart';
 import 'package:http/io_client.dart';
 import 'package:visit_bosnia_mobile/exception/http_exception.dart';
 import 'package:visit_bosnia_mobile/model/appUser/app_user_register.dart';
+import 'package:visit_bosnia_mobile/model/attractions/attraction.dart';
+import 'package:visit_bosnia_mobile/model/events/event.dart';
+import 'package:visit_bosnia_mobile/model/tourist_facility.dart';
 import 'package:visit_bosnia_mobile/providers/base_provider.dart';
 
 import '../model/appUser/app_user.dart';
@@ -84,6 +87,44 @@ class AppUserProvider extends BaseProvider<AppUser> {
       } else {
         rethrow;
       }
+    }
+  }
+
+  Future<List<Attraction>> recommendAttractions(
+      int appUserId, int? categoryId) async {
+    var url =
+        "https://10.0.2.2:44373/AppUser/RecommendAttractions?appUserId=${appUserId.toString()}&categoryId=${categoryId.toString()}";
+    var uri = Uri.parse(url);
+
+    Map<String, String> headers = createHeaders();
+    var response = await http!.get(uri, headers: headers);
+    // print("done $response");
+    if (isValidResponseCode(response)) {
+      var data = jsonDecode(response.body);
+      // return Attraction.fromJson(data);
+      return data
+          .map((x) => Attraction.fromJson(x))
+          .cast<Attraction>()
+          .toList();
+    } else {
+      throw Exception("Exception... handle this gracefully");
+    }
+  }
+
+  Future<List<Event>> recommendEvents(int appUserId, int? categoryId) async {
+    var url =
+        "https://10.0.2.2:44373/AppUser/RecommendEvents?appUserId=${appUserId.toString()}&categoryId=${categoryId.toString()}";
+    var uri = Uri.parse(url);
+
+    Map<String, String> headers = createHeaders();
+    var response = await http!.get(uri, headers: headers);
+    // print("done $response");
+    if (isValidResponseCode(response)) {
+      var data = jsonDecode(response.body);
+      // return Attraction.fromJson(data);
+      return data.map((x) => Event.fromJson(x)).cast<Event>().toList();
+    } else {
+      throw Exception("Exception... handle this gracefully");
     }
   }
 }

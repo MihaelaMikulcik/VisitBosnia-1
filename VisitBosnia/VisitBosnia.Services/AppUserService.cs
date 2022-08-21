@@ -1,5 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.ML;
+using Microsoft.ML.Data;
+using Microsoft.ML.Trainers;
+using Microsoft.ML.Transforms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +22,12 @@ namespace VisitBosnia.Services
     public class AppUserService
         : BaseCRUDService<Model.AppUser, AppUser, AppUserSearchObject, AppUserInsertRequest, AppUserUpdateRequest>, IAppUserService
     {
-        public AppUserService(VisitBosniaContext context, IMapper mapper)
+
+        private readonly IMemoryCache _memoryCache;
+        public AppUserService(VisitBosniaContext context, IMapper mapper, IMemoryCache memoryCache)
             : base(context, mapper)
         {
+            _memoryCache = memoryCache;
         }
         
 
@@ -156,5 +164,215 @@ namespace VisitBosnia.Services
             return filteredQuery;
         }
 
+        class TouristFacilityRating
+        {
+            [KeyType(count: 400)]
+            public uint AppUserId { get; set; }
+            [KeyType(count: 400)]
+            public uint FacilityId { get; set; }
+            public float Rating { get; set; }
+        }
+
+        class TouristFacilityRatingPrediction
+        {
+            public float Label { get; set; }
+            public float Score { get; set; }
+        }
+
+        static object isLocked = new object();
+        private static MLContext mlContext = null;
+        //private static ITransformer model = null;
+
+        public async Task<List<Model.Attraction>> RecommendAttracions(int appUserId, int? categoryId = null)
+        {
+            //lock (isLocked)
+            //{
+            //    mlContext = new MLContext();
+
+            //    //var tmpData = Context.Reviews.ToList();
+            //    var tmpData = Context.Reviews.Where(x => x.TouristFacility.Attraction != null)
+            //        .Include(x => x.TouristFacility)
+            //        .Include(x => x.AppUser)
+            //        .ToList();
+            //    var data = new List<TouristFacilityRating>();
+
+            //    foreach (var review in tmpData)
+            //    {
+            //        data.Add(new TouristFacilityRating
+            //        {
+            //            AppUserId = (uint)review.AppUserId,
+            //            AttractionId = (uint)review.TouristFacilityId,
+            //            Rating = review.Rating
+            //        });
+            //    }
+
+            //    var trainingData = mlContext.Data.LoadFromEnumerable(data);
+
+            //    var options = new MatrixFactorizationTrainer.Options
+            //    {
+            //        MatrixColumnIndexColumnName = "AppUserId",
+            //        MatrixRowIndexColumnName = "AttractionId",
+            //        LabelColumnName = "Rating",
+            //        NumberOfIterations = 20,
+            //        ApproximationRank = 100
+            //    };
+
+            //    var est = mlContext.Recommendation().Trainers.MatrixFactorization(options);
+
+
+            //    model = est.Fit(trainingData);
+            //    //model = est.Append(mlContext.Recommendation().Trainers.MatrixFactorization(options));
+            //}
+
+            var model = TrainData(true);
+
+            var attractions = await Context.Attractions
+                .Include(x=>x.IdNavigation)
+                .Include(x=>x.IdNavigation.City)
+                .Include(x=>x.IdNavigation.Category)
+                .ToListAsync();
+           
+            var predictionResult = new List<Tuple<Database.Attraction, float>>();
+
+            foreach (var attraction in attractions)
+            {
+                var predictionEngine = mlContext.Model.CreatePredictionEngine<TouristFacilityRating, TouristFacilityRatingPrediction>(model);
+
+                var prediction = predictionEngine.Predict(new TouristFacilityRating
+                {
+                    FacilityId = (uint)attraction.Id,
+                    AppUserId = (uint)appUserId
+                });
+
+                predictionResult.Add(new Tuple<Database.Attraction, float>(attraction, prediction.Score));
+                System.Diagnostics.Debug.WriteLine(attraction.Id.ToString() + " - " + prediction.Score);
+            }
+
+            var finalResult = predictionResult.OrderByDescending(x => x.Item2)
+                .Select(x => x.Item1).Take(10).ToList();
+            if(categoryId!=0)
+                finalResult = finalResult.Where(x => x.IdNavigation.CategoryId == categoryId).ToList();
+
+            return Mapper.Map<List<Model.Attraction>>(finalResult);
+        }
+
+        public async Task<List<Model.Event>> RecommendEvents(int appUserId, int? categoryId = null)
+        {
+
+            var model = TrainData(false);
+
+            var events = await Context.Events
+                .Include(x => x.IdNavigation)
+                .Include(x => x.IdNavigation.City)
+                .Include(x => x.IdNavigation.Category)
+                .Include(x=>x.Agency)
+                .Include(x=>x.AgencyMember)
+                .ToListAsync();
+            var predictionResult = new List<Tuple<Database.Event, float>>();
+
+            foreach (var x in events)
+            {
+                var predictionEngine = mlContext.Model.CreatePredictionEngine<TouristFacilityRating, TouristFacilityRatingPrediction>(model);
+
+                var prediction = predictionEngine.Predict(new TouristFacilityRating
+                {
+                    FacilityId = (uint)x.Id,
+                    AppUserId = (uint)appUserId
+                });
+
+                predictionResult.Add(new Tuple<Database.Event, float>(x, prediction.Score));
+                System.Diagnostics.Debug.WriteLine(x.Id.ToString() + " - " + prediction.Score);
+            }
+
+            var finalResult = predictionResult.OrderByDescending(x => x.Item2)
+                .Select(x => x.Item1).Take(10).ToList();
+
+            if (categoryId != 0)
+                finalResult = finalResult.Where(x => x.IdNavigation.CategoryId == categoryId).ToList();
+
+            return Mapper.Map<List<Model.Event>>(finalResult);
+        }
+
+
+        public ITransformer TrainData(bool isAttraction)
+        {
+            lock (isLocked)
+            {
+                if (mlContext == null)
+                   mlContext = new MLContext();
+                List<Review> tempData;
+
+                if (isAttraction)
+                {
+                    tempData = Context.Reviews.Where(x => x.TouristFacility.Attraction != null)
+                    //.Include(x => x.TouristFacility)
+                    //.Include(x => x.AppUser)
+                    .ToList();
+                }
+                else
+                {
+                    tempData = Context.Reviews.Where(x => x.TouristFacility.Event != null)
+                    //.Include(x => x.TouristFacility)
+                    //.Include(x => x.AppUser)
+                    .ToList();
+                }
+
+                var data = new List<TouristFacilityRating>();
+
+                foreach (var review in tempData)
+                {
+                    data.Add(new TouristFacilityRating
+                    {
+                        AppUserId = (uint)review.AppUserId,
+                        FacilityId = (uint)review.TouristFacilityId,
+                        Rating = review.Rating
+                    });
+                }
+
+                var trainingData = mlContext.Data.LoadFromEnumerable(data);
+
+                var options = new MatrixFactorizationTrainer.Options
+                {
+                    MatrixColumnIndexColumnName = "AppUserId",
+                    MatrixRowIndexColumnName = "FacilityId",
+                    LabelColumnName = "Rating",
+                    NumberOfIterations = 20,
+                    ApproximationRank = 100
+                };
+
+                var est = mlContext.Recommendation().Trainers.MatrixFactorization(options);
+
+                ITransformer model;
+                if (isAttraction)
+                {
+                    model = _memoryCache.Get<ITransformer>("attractionsModel");
+                    if (model == null)
+                    {
+                        model = est.Fit(trainingData);
+                        _memoryCache.Set("attractionsModel", model, TimeSpan.FromMinutes(5));
+                    }
+                }
+                else
+                {
+                    model = _memoryCache.Get<ITransformer>("eventsModel");
+                    if (model == null)
+                    {
+                        model = est.Fit(trainingData);
+                        _memoryCache.Set("eventsModel", model, TimeSpan.FromMinutes(15));
+                    }
+                }
+
+                return model;
+                //model = est.Append(mlContext.Recommendation().Trainers.MatrixFactorization(options));
+            }
+        }
+
+
+
+
     }
+
+
+
 }
+
