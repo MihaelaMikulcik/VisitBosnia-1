@@ -51,8 +51,6 @@ class _ForumPostState extends State<ForumPost> {
   ];
   String dropdownvalue = 'Newest first';
 
-  int total = 0;
-
   @override
   void initState() {
     // TODO: implement initState
@@ -71,9 +69,7 @@ class _ForumPostState extends State<ForumPost> {
     PostReplySearchObject searchObj =
         PostReplySearchObject(postId: forumPost.id, includeAppUser: true);
     var tempData = await _postReplyProvider.get(searchObj.toJson());
-    setState(() {
-      total = tempData.length;
-    });
+
     return tempData;
   }
 
@@ -94,11 +90,7 @@ class _ForumPostState extends State<ForumPost> {
           backgroundColor: const Color.fromRGBO(29, 76, 120, 1),
         ),
         body: SingleChildScrollView(
-          child: Column(children: [
-            _buildPost(),
-            buidlFilter(),
-            Padding(padding: EdgeInsets.only(top: 20), child: _buildeReplies())
-          ]),
+          child: Column(children: [_buildPost(), _buildeReplies()]),
         ));
   }
 
@@ -134,23 +126,26 @@ class _ForumPostState extends State<ForumPost> {
               child: Row(children: [
             Column(children: [
               imageContainer(forumPost.appUser!),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                    forumPost.appUser!.firstName! +
-                        " " +
-                        forumPost.appUser!.lastName!,
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+              Container(
+                width: 100,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(forumPost.appUser!.userName!,
+                      maxLines: 50,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                ),
               )
             ]),
-            SizedBox(width: 25),
+            SizedBox(width: 20),
             Align(
               alignment: Alignment.topCenter,
               child: Container(
                 padding: EdgeInsets.only(bottom: 6),
                 child: SizedBox(
-                    width: 230,
+                    width: 220,
                     child: Text(
                       forumPost.title!,
                       style:
@@ -167,7 +162,7 @@ class _ForumPostState extends State<ForumPost> {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
-                    width: 230,
+                    width: 350,
                     child: Text(
                       forumPost.content!,
                       maxLines: 100,
@@ -186,7 +181,7 @@ class _ForumPostState extends State<ForumPost> {
                       ),
                     ))),
             Padding(
-              padding: const EdgeInsets.only(left: 190.0),
+              padding: const EdgeInsets.only(left: 190.0, top: 8),
               child: Container(
                 height: 35,
                 width: 90,
@@ -216,7 +211,7 @@ class _ForumPostState extends State<ForumPost> {
         ]));
   }
 
-  buidlFilter() {
+  buidlFilter(int total) {
     return Padding(
       padding: const EdgeInsets.only(left: 25.0),
       child: Row(
@@ -282,17 +277,32 @@ class _ForumPostState extends State<ForumPost> {
             } else {
               if (snapshot.data!.length > 0) {
                 if (dropdownvalue == 'Newest first') {
-                  return Column(
-                    children: snapshot.data!.reversed
-                        .toList()
-                        .map((e) => _buildReplyCard(e))
-                        .toList(),
-                  );
+                  return Column(children: [
+                    Container(
+                      child: buidlFilter(snapshot.data!.length),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.only(top: 20),
+                        child: Column(
+                          children: snapshot.data!.reversed
+                              .toList()
+                              .map((e) => _buildReplyCard(e))
+                              .toList(),
+                        ))
+                  ]);
                 } else {
-                  return Column(
-                    children:
-                        snapshot.data!.map((e) => _buildReplyCard(e)).toList(),
-                  );
+                  return Column(children: [
+                    Container(
+                      child: buidlFilter(snapshot.data!.length),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.only(top: 20),
+                        child: Column(
+                          children: snapshot.data!
+                              .map((e) => _buildReplyCard(e))
+                              .toList(),
+                        ))
+                  ]);
                 }
               } else {
                 return Container();
@@ -328,7 +338,7 @@ class _ForumPostState extends State<ForumPost> {
                   Text(" Guide")
                 ]);
               } else {
-                return Text(" User");
+                return Container();
               }
             }
           }
@@ -363,15 +373,18 @@ class _ForumPostState extends State<ForumPost> {
                       padding: const EdgeInsets.only(top: 10.0),
                       child: imageContainer(reply.appUser!),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                          reply.appUser!.firstName! +
-                              " " +
-                              reply.appUser!.lastName!,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18)),
-                    ),
+                    Container(
+                      width: 100,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(reply.appUser!.userName!,
+                            maxLines: 50,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 18)),
+                      ),
+                    )
                   ],
                 ),
                 Padding(
@@ -389,7 +402,7 @@ class _ForumPostState extends State<ForumPost> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 8.0),
+              padding: const EdgeInsets.only(left: 10),
               child: _buildeRole(reply.appUserId!),
             ),
             Row(children: [
