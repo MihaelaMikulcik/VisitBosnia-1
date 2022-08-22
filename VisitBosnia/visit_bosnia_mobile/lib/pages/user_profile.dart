@@ -114,7 +114,7 @@ class _UserProfileState extends State<UserProfile> {
           phone: phoneController.text,
           image: _userImage != null
               ? base64String(await _userImage!.readAsBytes())
-              : _appUserProvider.userData.image
+              : AppUserProvider.userData.image
           // image: base64String(await _userImage!.readAsBytes())
           );
       if (_userImage != null) {

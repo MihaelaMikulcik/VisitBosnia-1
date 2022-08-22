@@ -38,7 +38,7 @@ class _RegisterState extends State<Register> {
 
   dynamic response;
   AppUserRegisterRequest request = AppUserRegisterRequest();
-  AppUserProvider? _appUserProvider;
+  late AppUserProvider _appUserProvider;
 
   final _formKey = GlobalKey<FormState>();
   final String _requiredMessage = "This field is required!";
@@ -140,7 +140,7 @@ class _RegisterState extends State<Register> {
   }
 
   Future<void> getData(AppUserRegisterRequest request) async {
-    response = await _appUserProvider!.register(request);
+    response = await _appUserProvider.register(request);
   }
 
   @override

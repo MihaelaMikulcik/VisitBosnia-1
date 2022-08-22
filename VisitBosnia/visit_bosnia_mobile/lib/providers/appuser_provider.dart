@@ -16,7 +16,8 @@ import '../model/appUser/app_user.dart';
 class AppUserProvider extends BaseProvider<AppUser> {
   AppUserProvider() : super("AppUser");
 
-  late AppUser userData;
+  // late AppUser userData;
+  static late AppUser userData;
 
   @override
   AppUser fromJson(data) {
@@ -45,7 +46,9 @@ class AppUserProvider extends BaseProvider<AppUser> {
   Future<AppUser> login(String username, String password) async {
     var response = null;
     var url =
-        "https://10.0.2.2:44373/Login?Username=$username&Password=$password";
+        "${BaseProvider.baseUrl}Login?Username=$username&Password=$password";
+    // var url =
+    //     "https://10.0.2.2:44373/Login?Username=$username&Password=$password";
     // var url =
     //     "https://192.168.0.24/:44373/Login?Username=$username&Password=$password";
     var uri = Uri.parse(url);
@@ -70,7 +73,8 @@ class AppUserProvider extends BaseProvider<AppUser> {
   }
 
   Future<AppUser?> register(AppUserRegisterRequest request) async {
-    const String url = "https://10.0.2.2:44373/AppUser/Register";
+    var url = "${BaseProvider.baseUrl}AppUser/Register";
+    // const String url = "https://10.0.2.2:44373/AppUser/Register";
     try {
       final response = await http!.post(Uri.parse(url),
           body: jsonEncode(request.toJson()),
@@ -93,7 +97,9 @@ class AppUserProvider extends BaseProvider<AppUser> {
   Future<List<Attraction>> recommendAttractions(
       int appUserId, int? categoryId) async {
     var url =
-        "https://10.0.2.2:44373/AppUser/RecommendAttractions?appUserId=${appUserId.toString()}&categoryId=${categoryId.toString()}";
+        "${BaseProvider.baseUrl}AppUser/RecommendAttractions?appUserId=${appUserId.toString()}&categoryId=${categoryId.toString()}";
+    // var url =
+    //     "https://10.0.2.2:44373/AppUser/RecommendAttractions?appUserId=${appUserId.toString()}&categoryId=${categoryId.toString()}";
     var uri = Uri.parse(url);
 
     Map<String, String> headers = createHeaders();
@@ -113,7 +119,9 @@ class AppUserProvider extends BaseProvider<AppUser> {
 
   Future<List<Event>> recommendEvents(int appUserId, int? categoryId) async {
     var url =
-        "https://10.0.2.2:44373/AppUser/RecommendEvents?appUserId=${appUserId.toString()}&categoryId=${categoryId.toString()}";
+        "${BaseProvider.baseUrl}AppUser/RecommendEvents?appUserId=${appUserId.toString()}&categoryId=${categoryId.toString()}";
+    // var url =
+    //     "https://10.0.2.2:44373/AppUser/RecommendAttractions?appUserId=${appUserId.toString()}&categoryId=${categoryId.toString()}";
     var uri = Uri.parse(url);
 
     Map<String, String> headers = createHeaders();

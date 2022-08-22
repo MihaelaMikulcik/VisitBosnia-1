@@ -25,7 +25,7 @@ class _BuyTicketDialogState extends State<BuyTicketDialog> {
   double _price = 0;
   Event event;
 
-  late AppUserProvider _appUserProvider;
+  // late AppUserProvider _appUserProvider;
   late TransactionProvider _transactionProvider;
 
   final TextEditingController _cardNumberController = TextEditingController();
@@ -40,7 +40,7 @@ class _BuyTicketDialogState extends State<BuyTicketDialog> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _appUserProvider = context.read<AppUserProvider>();
+    // _appUserProvider = context.read<AppUserProvider>();
     _transactionProvider = context.read<TransactionProvider>();
   }
 
@@ -314,7 +314,7 @@ class _BuyTicketDialogState extends State<BuyTicketDialog> {
             quantity: _count,
             price: _price,
             description: event.idNavigation!.name,
-            appUserId: _appUserProvider.userData.id);
+            appUserId: AppUserProvider.userData.id);
         var response = await _transactionProvider.ProcessTransaction(request);
         if (response != null) {
           Navigator.pop(context);

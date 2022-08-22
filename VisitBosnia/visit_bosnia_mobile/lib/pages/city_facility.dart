@@ -42,7 +42,7 @@ class _CityFacilityState extends State<CityFacility> {
   String facility;
   int cityId;
 
-  late AppUserProvider _appUserProvider;
+  // late AppUserProvider _appUserProvider;
   late CityProvider _cityProvider;
   late AttractionProvider _attractionProvider;
   late EventProvider _eventProvider;
@@ -54,7 +54,7 @@ class _CityFacilityState extends State<CityFacility> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _appUserProvider = context.read<AppUserProvider>();
+    // _appUserProvider = context.read<AppUserProvider>();
     _cityProvider = context.read<CityProvider>();
     _eventProvider = context.read<EventProvider>();
     _attractionProvider = context.read<AttractionProvider>();

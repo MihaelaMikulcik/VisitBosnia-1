@@ -36,7 +36,7 @@ class _AddReviewState extends State<AddReview> {
 
   TouristFacility facility;
 
-  late AppUserProvider _appUserProvider;
+  // late AppUserProvider _appUserProvider;
   late ReviewProvider _reviewProvider;
   late ReviewGalleryProvider _reviewGalleryProvider;
 
@@ -51,7 +51,7 @@ class _AddReviewState extends State<AddReview> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _appUserProvider = context.read<AppUserProvider>();
+    // _appUserProvider = context.read<AppUserProvider>();
     _reviewProvider = context.read<ReviewProvider>();
     _reviewGalleryProvider = context.read<ReviewGalleryProvider>();
   }
@@ -64,7 +64,7 @@ class _AddReviewState extends State<AddReview> {
       // _formKey.currentState!.save();
       if (_formKey.currentState!.validate()) {
         var request = new ReviewInsertRequest();
-        request.appUserId = _appUserProvider.userData.id;
+        request.appUserId = AppUserProvider.userData.id;
         request.rating = int.parse(_ratingController.text);
         request.text = _contentController.text;
         request.touristFacilityId = facility.id;

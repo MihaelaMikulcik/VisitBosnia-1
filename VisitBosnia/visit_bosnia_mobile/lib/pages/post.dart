@@ -34,7 +34,7 @@ class ForumPost extends StatefulWidget {
 class _ForumPostState extends State<ForumPost> {
   _ForumPostState(this.forumPost);
 
-  late PostProvider _postProvider;
+  // late PostProvider _postProvider;
   late PostReplyProvider _postReplyProvider;
   late AppUserProvider _appUserProvider;
   late AppUserRoleProvider _appUserRoleProvider;
@@ -55,7 +55,7 @@ class _ForumPostState extends State<ForumPost> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _postProvider = context.read<PostProvider>();
+    // _postProvider = context.read<PostProvider>();
     _postReplyProvider = context.read<PostReplyProvider>();
     _appUserRoleProvider = context.read<AppUserRoleProvider>();
   }
@@ -406,7 +406,7 @@ class _ForumPostState extends State<ForumPost> {
               child: _buildeRole(reply.appUserId!),
             ),
             Row(children: [
-              reply.appUserId! != _appUserProvider.userData.id!
+              reply.appUserId! != AppUserProvider.userData.id!
                   ? Container()
                   : removeReply(reply),
               Align(
@@ -488,7 +488,7 @@ class _ForumPostState extends State<ForumPost> {
                   if (isValid) {
                     PostReplyInsertRequest request = PostReplyInsertRequest(
                         postId: forumPost.id,
-                        appUserId: _appUserProvider.userData.id,
+                        appUserId: AppUserProvider.userData.id,
                         content: _contentController.text,
                         createdTime: DateTime.now().toIso8601String());
                     try {

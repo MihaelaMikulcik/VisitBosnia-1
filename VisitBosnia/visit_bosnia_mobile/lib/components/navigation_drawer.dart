@@ -42,27 +42,30 @@ class NavigationDrawer extends StatelessWidget {
   Widget buildHeader(BuildContext context) => Container(
       padding: EdgeInsets.only(
           top: 24 + MediaQuery.of(context).padding.top, bottom: 24),
-      child: Consumer<AppUserProvider>(
-        builder: ((context, value, child) {
-          return Column(children: [
-            CircleAvatar(
-                //child: CircularProgressIndicator(),
-                radius: 58,
-                backgroundColor: Color.fromARGB(255, 211, 208, 208),
-                backgroundImage: value.userData.image == ""
-                    ? const AssetImage("assets/images/user3.jpg")
-                    : imageFromBase64String(value.userData.image as String)
-                        .image),
-            const SizedBox(height: 10),
-            Text(
-                "${Provider.of<AppUserProvider>(context).userData.firstName!} ${Provider.of<AppUserProvider>(context).userData.lastName!}",
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 25))
-          ]);
-        }),
-      ));
+      // child: Consumer<AppUserProvider>(
+      //   builder: ((context, value, child) {
+      // return child: Column(children: [
+      child: Column(children: [
+        CircleAvatar(
+            //child: CircularProgressIndicator(),
+            radius: 58,
+            backgroundColor: Color.fromARGB(255, 211, 208, 208),
+            backgroundImage: AppUserProvider.userData.image == ""
+                ? const AssetImage("assets/images/user3.jpg")
+                : imageFromBase64String(
+                        AppUserProvider.userData.image as String)
+                    .image),
+        const SizedBox(height: 10),
+        Text(
+            "${AppUserProvider.userData.firstName!} ${AppUserProvider.userData.lastName!}",
+            style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.normal,
+                fontSize: 25))
+      ])
+      //   }),
+      // )
+      );
   Widget buildMenuItems(BuildContext context) => Wrap(
         runSpacing: 1,
         children: [
@@ -77,8 +80,8 @@ class NavigationDrawer extends StatelessWidget {
             onTap: () {
               Navigator.of(context).pop();
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => UserProfile(
-                      user: Provider.of<AppUserProvider>(context).userData)));
+                  builder: (context) =>
+                      UserProfile(user: AppUserProvider.userData)));
             },
           ),
           buildDivider(),
@@ -90,8 +93,8 @@ class NavigationDrawer extends StatelessWidget {
             onTap: () {
               Navigator.of(context).pop();
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => UserFavourites(
-                      user: Provider.of<AppUserProvider>(context).userData)));
+                  builder: (context) =>
+                      UserFavourites(user: AppUserProvider.userData)));
             },
           ),
           buildDivider(),

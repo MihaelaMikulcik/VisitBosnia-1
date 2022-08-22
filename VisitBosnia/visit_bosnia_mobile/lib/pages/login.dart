@@ -20,10 +20,10 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  AppUserProvider? _appUserProvider;
+  late AppUserProvider _appUserProvider;
   dynamic result;
   Future<void> login() async {
-    result = await _appUserProvider?.login(
+    result = await _appUserProvider.login(
         _usernameController.text, _passwordController.text);
   }
 

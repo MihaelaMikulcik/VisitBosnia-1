@@ -9,18 +9,18 @@ import 'package:http/io_client.dart';
 import '../utils/util.dart';
 
 abstract class BaseProvider<T> with ChangeNotifier {
-  static String? _baseUrl;
+  static String? baseUrl;
   String? _endpoint;
 
   HttpClient client = new HttpClient();
   IOClient? http;
 
   BaseProvider(String endpoint) {
-    _baseUrl = const String.fromEnvironment("baseUrl",
+    baseUrl = const String.fromEnvironment("baseUrl",
         defaultValue: "https://10.0.2.2:44373/");
 
-    if (_baseUrl!.endsWith("/") == false) {
-      _baseUrl = _baseUrl! + "/";
+    if (baseUrl!.endsWith("/") == false) {
+      baseUrl = baseUrl! + "/";
     }
 
     _endpoint = endpoint;
@@ -29,7 +29,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
   }
 
   Future<T> getById(int id, [dynamic additionalData]) async {
-    var url = Uri.parse("$_baseUrl$_endpoint/$id");
+    var url = Uri.parse("$baseUrl$_endpoint/$id");
 
     Map<String, String> headers = createHeaders();
 
@@ -44,7 +44,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
   }
 
   Future<List<T>> get([dynamic search]) async {
-    var url = "$_baseUrl$_endpoint";
+    var url = "$baseUrl$_endpoint";
 
     if (search != null) {
       String queryString = getQueryString(search);
@@ -72,7 +72,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
   }
 
   Future<T?> insert(dynamic request) async {
-    var url = "$_baseUrl$_endpoint";
+    var url = "$baseUrl$_endpoint";
     var uri = Uri.parse(url);
 
     Map<String, String> headers = createHeaders();
@@ -88,7 +88,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
   }
 
   Future<T?> update(int id, [dynamic request]) async {
-    var url = "$_baseUrl$_endpoint/$id";
+    var url = "$baseUrl$_endpoint/$id";
     var uri = Uri.parse(url);
 
     Map<String, String> headers = createHeaders();
@@ -105,7 +105,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
   }
 
   Future<T?> delete(int id) async {
-    var url = "$_baseUrl$_endpoint/delete/$id";
+    var url = "$baseUrl$_endpoint/delete/$id";
     var uri = Uri.parse(url);
 
     Map<String, String> headers = createHeaders();

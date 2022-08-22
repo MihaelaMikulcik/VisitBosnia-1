@@ -29,7 +29,7 @@ class MyTickets extends StatefulWidget {
 
 class _MyTicketsState extends State<MyTickets> {
   late TransactionProvider _transactionProvider;
-  late AppUserProvider _appUserProvider;
+  // late AppUserProvider _appUserProvider;
   late TouristFacilityGalleryProvider _touristFacilityGalleryProvider;
 
   @override
@@ -37,7 +37,7 @@ class _MyTicketsState extends State<MyTickets> {
     // TODO: implement initState
     super.initState();
     _transactionProvider = context.read<TransactionProvider>();
-    _appUserProvider = context.read<AppUserProvider>();
+    // _appUserProvider = context.read<AppUserProvider>();
     _touristFacilityGalleryProvider =
         context.read<TouristFacilityGalleryProvider>();
   }
@@ -56,7 +56,7 @@ class _MyTicketsState extends State<MyTickets> {
   Future<List<Transaction>> GetData() async {
     List<Transaction> transactions;
     var search = TransactionSearchObject(
-        appUserId: _appUserProvider.userData.id,
+        appUserId: AppUserProvider.userData.id,
         status: "succeeded",
         includeEventOrder: true);
     transactions = await _transactionProvider.get(search.toJson());
@@ -245,11 +245,27 @@ class _MyTicketsState extends State<MyTickets> {
                 child: Text('Something went wrong...'),
               );
             } else {
-              return ListView(
-                scrollDirection: Axis.vertical,
-                physics: const ScrollPhysics(),
-                children: snapshot.data!.map((e) => _ticketWidget(e)).toList(),
-              );
+              if (snapshot.hasData && snapshot.data!.isEmpty) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                        padding: EdgeInsets.only(bottom: 20),
+                        height: 90,
+                        width: 90,
+                        child: Image.asset("assets/images/no_ticket.png")),
+                    Text('No tickets yet...', style: TextStyle(fontSize: 17)),
+                  ],
+                );
+              } else {
+                return ListView(
+                  scrollDirection: Axis.vertical,
+                  physics: const ScrollPhysics(),
+                  children:
+                      snapshot.data!.map((e) => _ticketWidget(e)).toList(),
+                );
+              }
             }
           }
         });
