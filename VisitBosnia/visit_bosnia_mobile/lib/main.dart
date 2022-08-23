@@ -6,6 +6,7 @@ import 'package:visit_bosnia_mobile/pages/event_details.dart';
 import 'package:visit_bosnia_mobile/pages/login.dart';
 import 'package:visit_bosnia_mobile/pages/register.dart';
 import 'package:visit_bosnia_mobile/pages/home_page.dart';
+import 'package:visit_bosnia_mobile/providers/agency_member_provider.dart';
 import 'package:visit_bosnia_mobile/providers/appuser_role_provider.dart';
 import 'package:visit_bosnia_mobile/providers/appuser_favourite_provider.dart';
 import 'package:visit_bosnia_mobile/providers/appuser_provider.dart';
@@ -13,6 +14,7 @@ import 'package:visit_bosnia_mobile/providers/attraction_provider.dart';
 import 'package:visit_bosnia_mobile/providers/base_provider.dart';
 import 'package:visit_bosnia_mobile/providers/category_provider.dart';
 import 'package:visit_bosnia_mobile/providers/city_provider.dart';
+import 'package:visit_bosnia_mobile/providers/event_order_provider.dart';
 import 'package:visit_bosnia_mobile/providers/event_provider.dart';
 import 'package:visit_bosnia_mobile/providers/forum_provider.dart';
 import 'package:visit_bosnia_mobile/providers/post_provider.dart';
@@ -43,6 +45,8 @@ void main() => runApp(MultiProvider(
           ChangeNotifierProvider(create: (_) => PostReplyProvider()),
           ChangeNotifierProvider(create: (_) => RoleProvider()),
           ChangeNotifierProvider(create: (_) => AppUserRoleProvider()),
+          ChangeNotifierProvider(create: (_) => AgencyMemberProvider()),
+          ChangeNotifierProvider(create: (_) => EventOrderProvider()),
         ],
         child: MaterialApp(
             debugShowCheckedModeBanner: true,

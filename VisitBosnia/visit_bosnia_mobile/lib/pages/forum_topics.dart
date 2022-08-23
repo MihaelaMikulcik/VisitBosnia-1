@@ -26,7 +26,7 @@ class ForumTopics extends StatefulWidget {
 class _ForumTopicsState extends State<ForumTopics> {
   _ForumTopicsState(this.forum);
   late PostProvider _postProvider;
-  late AppUserProvider _appUserProvider;
+  // late AppUserProvider _appUserProvider;
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -53,7 +53,7 @@ class _ForumTopicsState extends State<ForumTopics> {
 
   @override
   Widget build(BuildContext context) {
-    _appUserProvider = context.read<AppUserProvider>();
+    // _appUserProvider = context.read<AppUserProvider>();
 
     return Scaffold(
       drawer: NavigationDrawer(),
@@ -202,7 +202,7 @@ class _ForumTopicsState extends State<ForumTopics> {
               if (isValid) {
                 PostInsertRequest request = PostInsertRequest(
                     forumId: forum.id,
-                    appUserId: _appUserProvider.userData.id,
+                    appUserId: AppUserProvider.userData.id,
                     title: _titleController.text,
                     content: _contentController.text,
                     createdTime: DateTime.now().toIso8601String());

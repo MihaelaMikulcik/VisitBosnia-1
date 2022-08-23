@@ -38,7 +38,14 @@ namespace VisitBosnia.Services
             {
                 filteredQuery = filteredQuery.Where(x => x.IdNavigation.CityId == search.CityId);
             }
-
+            if (search?.AgencyId != null)
+            {
+                filteredQuery = filteredQuery.Where(x => x.AgencyId == search.AgencyId);
+            }
+            if (search?.AgencyMemberId != null)
+            {
+                filteredQuery = filteredQuery.Where(x => x.AgencyMemberId == search.AgencyMemberId);
+            }
 
             return filteredQuery;
         }
@@ -79,6 +86,27 @@ namespace VisitBosnia.Services
 
             return Mapper.Map<Model.Event>(model);
         }
+
+        public async Task<int> GetNumberOfParticipants(int eventId)
+        {
+            var entity = Context.Set<Services.Database.Event>().AsQueryable();
+            entity = entity.Include("EventOrders");
+            var model = await entity.Where(x => x.Id == eventId).FirstOrDefaultAsync();
+            if (model!=null && model.EventOrders.Count() > 0)
+            {
+                var participants = 0;
+                foreach (var eventOrder in model!.EventOrders)
+                {
+                    participants += eventOrder.Quantity;
+                }
+                return participants;
+            }
+            else
+                return 0;
+
+        }
+
+        
 
     }
 }

@@ -40,8 +40,8 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   _HomepageState(this.user);
-  late EventProvider _eventProvider;
-  late AttractionProvider _attractionProvider;
+  // late EventProvider _eventProvider;
+  // late AttractionProvider _attractionProvider;
   late TouristFacilityGalleryProvider _touristFacilityGalleryProvider;
   late AppUserProvider _appUserProvider;
   late CategoryProvider _categoryProvider;
@@ -56,8 +56,8 @@ class _HomepageState extends State<Homepage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _eventProvider = context.read<EventProvider>();
-    _attractionProvider = context.read<AttractionProvider>();
+    // _eventProvider = context.read<EventProvider>();
+    // _attractionProvider = context.read<AttractionProvider>();
     _touristFacilityGalleryProvider =
         context.read<TouristFacilityGalleryProvider>();
     _appUserProvider = context.read<AppUserProvider>();
@@ -75,7 +75,7 @@ class _HomepageState extends State<Homepage> {
     //   search.categoryId = selectedCategory;
     // }
     var events = await _appUserProvider.recommendEvents(
-        _appUserProvider.userData.id!, selectedCategory);
+        AppUserProvider.userData.id!, selectedCategory);
     return events;
   }
 
@@ -86,7 +86,7 @@ class _HomepageState extends State<Homepage> {
     // }
     // var attractions = await _attractionProvider.get(search.toJson());
     var attractions = await _appUserProvider.recommendAttractions(
-        _appUserProvider.userData.id!, selectedCategory);
+        AppUserProvider.userData.id!, selectedCategory);
 
     return attractions;
   }
@@ -98,7 +98,7 @@ class _HomepageState extends State<Homepage> {
 
   Future loadAppUserFavourite() async {
     var search =
-        AppUserFavouriteSearchObject(appUserId: _appUserProvider.userData.id);
+        AppUserFavouriteSearchObject(appUserId: AppUserProvider.userData.id);
     var favourites = await _appUserFavouriteProvider.get(search.toJson());
     setState(() {
       userFavourite = favourites;
@@ -593,7 +593,7 @@ class _HomepageState extends State<Homepage> {
                         fontSize: 25,
                       ),
                     ),
-                    Text(_appUserProvider.userData.firstName! + "!",
+                    Text(AppUserProvider.userData.firstName! + "!",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 25,

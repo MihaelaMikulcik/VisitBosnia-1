@@ -4,11 +4,16 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:visit_bosnia_mobile/exception/http_exception.dart';
 import 'package:visit_bosnia_mobile/model/appUser/app_user.dart';
+import 'package:visit_bosnia_mobile/model/roles/role.dart';
+import 'package:visit_bosnia_mobile/pages/guide_events.dart';
 import 'package:visit_bosnia_mobile/pages/loading.dart';
 import 'package:visit_bosnia_mobile/pages/register.dart';
 import 'package:visit_bosnia_mobile/pages/home_page.dart';
 import 'package:visit_bosnia_mobile/providers/appuser_provider.dart';
+import 'package:visit_bosnia_mobile/providers/appuser_role_provider.dart';
 import 'package:visit_bosnia_mobile/utils/util.dart';
+
+import '../model/roles/appuser_role_search_object.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -20,20 +25,29 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  AppUserProvider? _appUserProvider;
+  late AppUserProvider _appUserProvider;
+  late AppUserRoleProvider _appUserRoleProvider;
   dynamic result;
   Future<void> login() async {
-    result = await _appUserProvider?.login(
+    result = await _appUserProvider.login(
         _usernameController.text, _passwordController.text);
   }
 
   bool isLoading = false;
+
+  Future<String> GetRole(int appUserId) async {
+    AppUserRoleSearchObject searchObj =
+        AppUserRoleSearchObject(appUserId: appUserId, includeRole: true);
+    var tempData = await _appUserRoleProvider.get(searchObj.toJson());
+    return tempData.first.role!.name!;
+  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _appUserProvider = context.read<AppUserProvider>();
+    _appUserRoleProvider = context.read<AppUserRoleProvider>();
   }
 
   @override
@@ -147,11 +161,25 @@ class _LoginState extends State<Login> {
                               setState(() => isLoading = true);
                               await login();
                               if (result is AppUser) {
+                                if (await GetRole((result as AppUser).id!) ==
+                                    'User') {
+                                  AppUserProvider.role = 'User';
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => Homepage(
+                                            user: result as AppUser,
+                                          )));
+                                } else {
+                                  AppUserProvider.role = 'Agency';
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => GuideEvents(
+                                          // user: result as AppUser,
+                                          )));
+                                }
                                 // Navigator.pushReplacementNamed(context, Homepage.routeName);
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => Homepage(
-                                          user: result as AppUser,
-                                        )));
+                                // Navigator.of(context).push(MaterialPageRoute(
+                                //     builder: (context) => Homepage(
+                                //           user: result as AppUser,
+                                //         )));
                               } else {
                                 showDialog(
                                     context: context,

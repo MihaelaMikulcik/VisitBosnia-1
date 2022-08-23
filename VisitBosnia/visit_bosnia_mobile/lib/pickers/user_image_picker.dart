@@ -26,7 +26,7 @@ class UserImagePicker extends StatefulWidget {
 class _UserImagePickerState extends State<UserImagePicker> {
   File? imageFile;
   // ImageProvider<Object>? profileImg;
-  late AppUserProvider appUserProvider;
+  // late AppUserProvider appUserProvider;
   bool isProfile = false;
 
   @override
@@ -99,8 +99,8 @@ class _UserImagePickerState extends State<UserImagePicker> {
   ImageProvider<Object>? setBackgroundImage(bool isProfile) {
     if (imageFile != null) {
       return FileImage(imageFile!);
-    } else if (isProfile == true && appUserProvider.userData.image != "") {
-      return imageFromBase64String(appUserProvider.userData.image as String)
+    } else if (isProfile == true && AppUserProvider.userData.image != "") {
+      return imageFromBase64String(AppUserProvider.userData.image as String)
           .image;
     } else {
       return Image.asset("assets/images/user3.jpg").image;
@@ -113,7 +113,7 @@ class _UserImagePickerState extends State<UserImagePicker> {
   Widget build(BuildContext context) {
     // final profileImg = widget.profileImg;
     final isProfile = widget.isProfile;
-    appUserProvider = Provider.of<AppUserProvider>(context);
+    // appUserProvider = Provider.of<AppUserProvider>(context);
     return SizedBox(
       height: 140,
       width: 140,

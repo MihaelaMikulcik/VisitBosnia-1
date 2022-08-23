@@ -26,7 +26,7 @@ class ReviewImagePicker extends StatefulWidget {
 class _ReviewImagePickerState extends State<ReviewImagePicker> {
   File? imageFile;
   // ImageProvider<Object>? profileImg;
-  late AppUserProvider appUserProvider;
+  // late AppUserProvider appUserProvider;
   bool isProfile = false;
 
   @override
@@ -99,8 +99,8 @@ class _ReviewImagePickerState extends State<ReviewImagePicker> {
   ImageProvider<Object>? setBackgroundImage(bool isProfile) {
     if (imageFile != null) {
       return FileImage(imageFile!);
-    } else if (isProfile == true && appUserProvider.userData.image != "") {
-      return imageFromBase64String(appUserProvider.userData.image as String)
+    } else if (isProfile == true && AppUserProvider.userData.image != "") {
+      return imageFromBase64String(AppUserProvider.userData.image as String)
           .image;
     } else {
       return Image.asset("assets/images/plus.jpg").image;
@@ -113,7 +113,7 @@ class _ReviewImagePickerState extends State<ReviewImagePicker> {
   Widget build(BuildContext context) {
     // final profileImg = widget.profileImg;
     final isProfile = widget.isProfile;
-    appUserProvider = Provider.of<AppUserProvider>(context);
+    // appUserProvider = Provider.of<AppUserProvider>(context);
     return SizedBox(
       height: 90,
       width: 90,

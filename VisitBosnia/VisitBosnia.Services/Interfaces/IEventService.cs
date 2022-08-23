@@ -10,5 +10,6 @@ namespace VisitBosnia.Services.Interfaces
 {
     public interface IEventService : ICRUDService<Event, EventSearchObject, EventInsertRequest, EventUpdateRequest>
     {
+        public Task<int> GetNumberOfParticipants(int eventId);
     }
 }

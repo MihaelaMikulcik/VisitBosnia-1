@@ -31,7 +31,7 @@ class _UserFavouritesState extends State<UserFavourites> {
 
   AppUser user;
 
-  late AppUserProvider _appUserProvider;
+  // late AppUserProvider _appUserProvider;
   late AppUserFavouriteProvider _appUserFavouriteProvider;
   late TouristFacilityGalleryProvider _touristFacilityGalleryProvider;
   late TouristFacilityProvider _touristFacilityProvider;
@@ -40,7 +40,7 @@ class _UserFavouritesState extends State<UserFavourites> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _appUserProvider = context.read<AppUserProvider>();
+    // _appUserProvider = context.read<AppUserProvider>();
     _appUserFavouriteProvider = context.read<AppUserFavouriteProvider>();
     _touristFacilityGalleryProvider =
         context.read<TouristFacilityGalleryProvider>();
@@ -49,7 +49,7 @@ class _UserFavouritesState extends State<UserFavourites> {
 
   Future<List<AppUserFavourite>> loadAppUserFavourite() async {
     var search =
-        AppUserFavouriteSearchObject(appUserId: _appUserProvider.userData.id);
+        AppUserFavouriteSearchObject(appUserId: AppUserProvider.userData.id);
     var favourites = await _appUserFavouriteProvider.get(search.toJson());
     return favourites;
   }
@@ -259,7 +259,9 @@ class _UserFavouritesState extends State<UserFavourites> {
                 child: Column(children: [
                   titleSection(),
                   Divider(),
-                  Container(child: _buildFavourites())
+                  Container(
+                      height: MediaQuery.of(context).size.height,
+                      child: _buildFavourites())
                 ]))));
   }
 

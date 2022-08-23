@@ -7,11 +7,18 @@ namespace VisitBosnia.Controllers
 {
     public class EventController : BaseCRUDController<Model.Event, EventSearchObject, EventInsertRequest, EventUpdateRequest>
     {
+        IEventService service;
         public EventController(IEventService service) : base(service)
         {
-            
+            this.service = service;
         }
 
-      
+        [HttpGet("GetNumberOfParticipants")]
+        public async Task<int> GetNumberOfParticipants(int eventId)
+        {
+            return await service.GetNumberOfParticipants(eventId);
+        }
+
+
     }
 }

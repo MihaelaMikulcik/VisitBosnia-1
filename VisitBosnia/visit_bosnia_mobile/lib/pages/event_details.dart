@@ -35,7 +35,7 @@ class _EventDetailsState extends State<EventDetails> {
   _EventDetailsState(this.event);
   late TouristFacilityGalleryProvider _touristFacilityGalleryProvider;
   late AppUserFavouriteProvider _appUserFavouriteProvider;
-  late AppUserProvider _appUserProvider;
+  // late AppUserProvider _appUserProvider;
 
   int activeIndex = 0;
   static dynamic gallery;
@@ -51,7 +51,7 @@ class _EventDetailsState extends State<EventDetails> {
     _touristFacilityGalleryProvider =
         context.read<TouristFacilityGalleryProvider>();
     _appUserFavouriteProvider = context.read<AppUserFavouriteProvider>();
-    _appUserProvider = context.read<AppUserProvider>();
+    // _appUserProvider = context.read<AppUserProvider>();
     LoadEventImages();
     loadFavourite();
   }
@@ -65,7 +65,7 @@ class _EventDetailsState extends State<EventDetails> {
 
   Future loadFavourite() async {
     var search = AppUserFavouriteSearchObject(
-        appUserId: _appUserProvider.userData.id, touristFacilityId: event.id!);
+        appUserId: AppUserProvider.userData.id, touristFacilityId: event.id!);
     var favourite = await _appUserFavouriteProvider.get(search.toJson());
     if (favourite.length > 0) {
       setState(() {
@@ -102,7 +102,7 @@ class _EventDetailsState extends State<EventDetails> {
       if (isFavourite == false) {
         var newFavourite = await _appUserFavouriteProvider.insert(
             new AppUserFavouriteInsertRequest(
-                appUserId: _appUserProvider.userData.id,
+                appUserId: AppUserProvider.userData.id,
                 touristFacilityId: event.id!));
         setState(() {
           isFavourite = true;

@@ -4,7 +4,7 @@ using VisitBosnia.Services.Interfaces;
 
 namespace VisitBosnia.Controllers
 {
-    //[AllowAnonymous]
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class BaseReadController<T, TSearch> :ControllerBase where T : class where TSearch : class

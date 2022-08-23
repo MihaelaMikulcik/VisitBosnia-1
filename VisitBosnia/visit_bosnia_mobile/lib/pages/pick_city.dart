@@ -28,14 +28,14 @@ class _PickCityState extends State<PickCity> {
 
   String facility;
 
-  late AppUserProvider _appUserProvider;
+  // late AppUserProvider _appUserProvider;
   late CityProvider _cityProvider;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _appUserProvider = context.read<AppUserProvider>();
+    // _appUserProvider = context.read<AppUserProvider>();
     _cityProvider = context.read<CityProvider>();
   }
 

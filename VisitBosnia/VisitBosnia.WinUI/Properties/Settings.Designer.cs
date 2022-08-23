@@ -25,7 +25,7 @@ namespace VisitBosnia.WinUI.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://localhost:44373/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://localhost:44346/")]
         public string ApiURL {
             get {
                 return ((string)(this["ApiURL"]));
