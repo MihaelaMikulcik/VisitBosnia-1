@@ -9,15 +9,18 @@ import 'package:visit_bosnia_mobile/model/appUser/app_user_register.dart';
 import 'package:visit_bosnia_mobile/model/attractions/attraction.dart';
 import 'package:visit_bosnia_mobile/model/events/event.dart';
 import 'package:visit_bosnia_mobile/model/tourist_facility.dart';
+import 'package:visit_bosnia_mobile/providers/appuser_role_provider.dart';
 import 'package:visit_bosnia_mobile/providers/base_provider.dart';
 
 import '../model/appUser/app_user.dart';
+import '../model/roles/appuser_role_search_object.dart';
 
 class AppUserProvider extends BaseProvider<AppUser> {
   AppUserProvider() : super("AppUser");
 
   // late AppUser userData;
   static late AppUser userData;
+  static late String role;
 
   @override
   AppUser fromJson(data) {

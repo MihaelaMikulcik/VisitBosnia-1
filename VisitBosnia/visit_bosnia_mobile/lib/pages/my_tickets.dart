@@ -7,7 +7,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:cupertino_icons/cupertino_icons.dart';
 import 'package:provider/provider.dart';
-import 'package:visit_bosnia_mobile/model/event_order.dart';
+import 'package:visit_bosnia_mobile/model/eventOrder/event_order.dart';
 import 'package:visit_bosnia_mobile/model/transactions/transaction.dart';
 import 'package:visit_bosnia_mobile/model/transactions/transaction_search_object.dart';
 import 'package:visit_bosnia_mobile/pages/event_details2.dart';

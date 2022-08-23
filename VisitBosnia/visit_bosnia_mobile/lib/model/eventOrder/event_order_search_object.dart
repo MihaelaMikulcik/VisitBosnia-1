@@ -1,31 +1,27 @@
-class EventSearchObject {
+class EventOrderSearchObject {
   String? searchText;
   bool? includeIdNavigation;
-  bool? includeAgencyMember;
-  bool? includeAgency;
+  bool? includeAppUser;
   int? categoryId;
   int? cityId;
-  int? agencyId;
+  int? eventId;
   int? agencyMemberId;
 
-  EventSearchObject(
+  EventOrderSearchObject(
       {this.searchText,
       this.includeIdNavigation,
-      this.includeAgencyMember,
-      this.includeAgency,
-      this.cityId,
       this.categoryId,
-      this.agencyId,
+      this.includeAppUser,
+      this.eventId,
       this.agencyMemberId});
 
-  EventSearchObject.fromJson(Map<String, dynamic> json) {
+  EventOrderSearchObject.fromJson(Map<String, dynamic> json) {
     searchText = json['searchText'];
     includeIdNavigation = json['includeIdNavigation'];
-    includeAgencyMember = json['includeAgencyMember'];
-    includeAgency = json['includeAgency'];
     categoryId = json['categoryId'];
     cityId = json['cityId'];
-    agencyId = json['agencyId'];
+    includeAppUser = json['includeAppUser'];
+    eventId = json['eventId'];
     agencyMemberId = json['agencyMemberId'];
   }
 
@@ -33,11 +29,10 @@ class EventSearchObject {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['searchText'] = this.searchText;
     data['includeIdNavigation'] = this.includeIdNavigation;
-    data['includeAgencyMember'] = this.includeAgencyMember;
-    data['includeAgency'] = this.includeAgency;
     data['categoryId'] = this.categoryId;
     data['cityId'] = this.cityId;
-    data['agencyId'] = this.agencyId;
+    data['includeAppUser'] = this.includeAppUser;
+    data['eventId'] = this.eventId;
     data['agencyMemberId'] = this.agencyMemberId;
     return data;
   }

@@ -65,14 +65,28 @@ builder.Services.AddAutoMapper(typeof(ICityService));
 builder.Services.AddDbContext<VisitBosniaContext>(options => options
 .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AnyOrigin", builder =>
+    {
+        builder
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 builder.Services.AddAuthentication("BasicAuthentication")
     .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseCors("AnyOrigin");
+
 if (app.Environment.IsDevelopment())
 {
+
     app.UseSwagger();
     app.UseSwaggerUI();
 }

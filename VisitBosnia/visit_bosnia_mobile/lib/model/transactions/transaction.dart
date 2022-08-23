@@ -1,4 +1,4 @@
-import 'package:visit_bosnia_mobile/model/event_order.dart';
+import 'package:visit_bosnia_mobile/model/eventOrder/event_order.dart';
 
 class Transaction {
   int? id;
