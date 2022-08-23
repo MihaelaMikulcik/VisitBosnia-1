@@ -31,11 +31,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btn_search = new System.Windows.Forms.Button();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.dtpTo = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dtpFrom = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,13 +49,14 @@
             this.label1.Size = new System.Drawing.Size(189, 31);
             this.label1.TabIndex = 0;
             this.label1.Text = "Generate Report";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.btn_search);
-            this.groupBox1.Controls.Add(this.dateTimePicker2);
+            this.groupBox1.Controls.Add(this.dtpTo);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.dateTimePicker1);
+            this.groupBox1.Controls.Add(this.dtpFrom);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.groupBox1.Location = new System.Drawing.Point(22, 65);
@@ -78,12 +80,12 @@
             this.btn_search.UseVisualStyleBackColor = false;
             this.btn_search.Click += new System.EventHandler(this.btn_search_Click);
             // 
-            // dateTimePicker2
+            // dtpTo
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(463, 22);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(333, 23);
-            this.dateTimePicker2.TabIndex = 3;
+            this.dtpTo.Location = new System.Drawing.Point(463, 22);
+            this.dtpTo.Name = "dtpTo";
+            this.dtpTo.Size = new System.Drawing.Size(333, 23);
+            this.dtpTo.TabIndex = 3;
             // 
             // label3
             // 
@@ -94,12 +96,12 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "To: ";
             // 
-            // dateTimePicker1
+            // dtpFrom
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(53, 22);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(333, 23);
-            this.dateTimePicker1.TabIndex = 2;
+            this.dtpFrom.Location = new System.Drawing.Point(53, 22);
+            this.dtpFrom.Name = "dtpFrom";
+            this.dtpFrom.Size = new System.Drawing.Size(333, 23);
+            this.dtpFrom.TabIndex = 2;
             // 
             // label2
             // 
@@ -117,24 +119,38 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.reportViewer1.AutoScroll = true;
             this.reportViewer1.DocumentMapWidth = 98;
+            this.reportViewer1.LocalReport.ReportEmbeddedResource = "VisitBosnia.VisitBosnia.WinUI.Report.AgencyReport.rdlc";
             this.reportViewer1.Location = new System.Drawing.Point(20, 150);
-            this.reportViewer1.MaximumSize = new System.Drawing.Size(1000, 500);
-            this.reportViewer1.MinimumSize = new System.Drawing.Size(1000, 500);
+            this.reportViewer1.MaximumSize = new System.Drawing.Size(1050, 500);
+            this.reportViewer1.MinimumSize = new System.Drawing.Size(1050, 500);
             this.reportViewer1.Name = "ReportViewer";
             this.reportViewer1.ServerReport.BearerToken = null;
-            this.reportViewer1.Size = new System.Drawing.Size(1000, 500);
+            this.reportViewer1.Size = new System.Drawing.Size(1050, 500);
             this.reportViewer1.TabIndex = 0;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label4.Location = new System.Drawing.Point(970, 651);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(104, 20);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "back to home";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // frmReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1048, 663);
+            this.ClientSize = new System.Drawing.Size(1097, 680);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.reportViewer1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
             this.Name = "frmReport";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmReport";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -153,6 +169,8 @@
         private Label label2;
         private Button btn_search;
         private Microsoft.Reporting.WinForms.ReportViewer reportViewer1;
-       
+        private DateTimePicker dtpTo;
+        private DateTimePicker dtpFrom;
+        private Label label4;
     }
 }

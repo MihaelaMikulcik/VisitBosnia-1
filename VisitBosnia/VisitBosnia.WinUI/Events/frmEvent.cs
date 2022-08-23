@@ -30,6 +30,7 @@ namespace VisitBosnia.WinUI.Events
         {
             var searchObject = new EventSearchObject();
             searchObject.IncludeIdNavigation = true;
+            searchObject.AgencyId = _agencyId;
 
             var events = await EventService.Get<Model.Event>(searchObject);
 
