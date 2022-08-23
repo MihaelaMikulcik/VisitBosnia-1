@@ -13,6 +13,7 @@ using VisitBosnia.WinUI.Agencies;
 using VisitBosnia.WinUI.AgencyMembers;
 using VisitBosnia.WinUI.ApplicationUser;
 using VisitBosnia.WinUI.Events;
+using VisitBosnia.WinUI.Report;
 using VisitBosnia.WinUI.Review;
 
 namespace VisitBosnia.WinUI
@@ -102,6 +103,13 @@ namespace VisitBosnia.WinUI
             this.Close();
             var formLogin = new frmLogin();
             formLogin.Show();
+        }
+
+        private async void button5_Click(object sender, EventArgs e)
+        {
+            var agencyId = await agencyMemberService.Get<AgencyMember>(new AgencyMemberSearchObject { AppUserId = _appUser.Id });
+            var form2 = new frmReport(agencyId.FirstOrDefault().AgencyId);
+            form2.Show();
         }
     }
 }

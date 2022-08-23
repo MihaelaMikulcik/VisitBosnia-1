@@ -33,7 +33,6 @@
             this.btnSingOut = new System.Windows.Forms.Button();
             this.btnProfile = new System.Windows.Forms.Button();
             this.labelRole = new System.Windows.Forms.Label();
-            this.pbProfilePicture = new VisitBosnia.WinUI.CustomInput.Picture();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelUserName = new System.Windows.Forms.Label();
@@ -54,7 +53,6 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbProfilePicture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -75,7 +73,6 @@
             this.splitContainer1.Panel1.Controls.Add(this.btnSingOut);
             this.splitContainer1.Panel1.Controls.Add(this.btnProfile);
             this.splitContainer1.Panel1.Controls.Add(this.labelRole);
-            this.splitContainer1.Panel1.Controls.Add(this.pbProfilePicture);
             this.splitContainer1.Panel1.Controls.Add(this.label2);
             this.splitContainer1.Panel1.Controls.Add(this.pictureBox1);
             this.splitContainer1.Panel1.Controls.Add(this.labelUserName);
@@ -158,19 +155,6 @@
             this.labelRole.TabIndex = 13;
             this.labelRole.Text = "Agency";
             // 
-            // pbProfilePicture
-            // 
-            this.pbProfilePicture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbProfilePicture.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbProfilePicture.Image = global::VisitBosnia.WinUI.Properties.Resources.user;
-            this.pbProfilePicture.Location = new System.Drawing.Point(52, 114);
-            this.pbProfilePicture.Name = "pbProfilePicture";
-            this.pbProfilePicture.Size = new System.Drawing.Size(207, 186);
-            this.pbProfilePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbProfilePicture.TabIndex = 12;
-            this.pbProfilePicture.TabStop = false;
-            this.pbProfilePicture.Click += new System.EventHandler(this.pbProfilePicture_Click);
-            // 
             // label2
             // 
             this.label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -249,6 +233,7 @@
             this.button5.Text = "   Reports";
             this.button5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button5.UseVisualStyleBackColor = false;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // label5
             // 
@@ -383,7 +368,6 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbProfilePicture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
