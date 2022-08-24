@@ -39,45 +39,55 @@ namespace VisitBosnia.Services
             if(user == null)
             {
                 return null;
-                //throw new UserException("Wrong username or password!");
+                //throw new UserException("Wrong username or password!", System.Net.HttpStatusCode.BadRequest);
             }
             var hash = HashHelper.GenerateHash(user.PasswordSalt, password);
             if(hash != user.PasswordHash)
             {
                 return null;
-                //throw new UserException("Wrong username or password!");
+                //throw new UserException("Wrong username or password!", System.Net.HttpStatusCode.BadRequest);
             }
             return Mapper.Map<Model.AppUser>(user);
         }
 
-        public async override Task<Model.AppUser> Insert(AppUserInsertRequest request)
-        {
-            //var userExists = Context.AppUsers.FirstOrDefault(x => x.UserName == request.UserName);
-            //if (userExists != null)
-            //{
-            //    throw new Exception("Username already exists!"); //napraviti odvojenu async funk
-            //}
-            if (await UsernameExists(request.UserName))
-            {
-                throw new Exception("Username already exists!");
+        //public async override Task<Model.AppUser> Insert(AppUserInsertRequest request)
+        //{
+        //    //var userExists = Context.AppUsers.FirstOrDefault(x => x.UserName == request.UserName);
+        //    //if (userExists != null)
+        //    //{
+        //    //    throw new Exception("Username already exists!"); //napraviti odvojenu async funk
+        //    //}
+        //    if (await UsernameExists(request.UserName))
+        //    {
+        //        throw new Exception("Username already exists!");
 
-            }
-            if (request.Password != request.PasswordConfirm)
-            {
-                throw new Exception("Please confirm your password");
-            }
-            Database.AppUser user = Mapper.Map<Database.AppUser>(request);
-            user.PasswordSalt = HashHelper.GenerateSalt();
-            user.PasswordHash = HashHelper.GenerateHash(user.PasswordSalt, request.Password);
+        //    }
+        //    if (request.Password != request.PasswordConfirm)
+        //    {
+        //        throw new Exception("Please confirm your password");
+        //    }
+        //    Database.AppUser user = Mapper.Map<Database.AppUser>(request);
+        //    user.PasswordSalt = HashHelper.GenerateSalt();
+        //    user.PasswordHash = HashHelper.GenerateHash(user.PasswordSalt, request.Password);
 
-            await Context.AppUsers.AddAsync(user);
-            await Context.SaveChangesAsync();
-            return Mapper.Map<Model.AppUser>(user);
-        }
+        //    await Context.AppUsers.AddAsync(user);
+        //    await Context.SaveChangesAsync();
+        //    return Mapper.Map<Model.AppUser>(user);
+        //}
 
         public async Task<bool> UsernameExists(string username) 
         {
             var userExists = await Context.AppUsers.FirstOrDefaultAsync(x => x.UserName == username);
+            if (userExists != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> EmailExists(string email)
+        {
+            var userExists = await Context.AppUsers.FirstOrDefaultAsync(x => x.Email == email);
             if (userExists != null)
             {
                 return true;
@@ -98,6 +108,11 @@ namespace VisitBosnia.Services
             if (await UsernameExists(request.UserName))
             {
                 throw new UserException("Username already exists!");
+
+            }
+            if (await EmailExists(request.Email))
+            {
+                throw new UserException("Email already exists!");
 
             }
             if (request.Password != request.PasswordConfirm)

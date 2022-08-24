@@ -42,5 +42,17 @@ namespace VisitBosnia.Services
 
             return query;
         }
+
+        public int? GetNumberOfReplies(int postId)
+        {
+            var entity = Context.Set<Services.Database.Post>().AsQueryable();
+            entity = entity.Include("PostReplies");
+            var post = entity.Where(x => x.Id == postId).FirstOrDefault();
+            if (post != null)
+            {
+                return post.PostReplies.Count();
+            }
+            return null;
+        }
     }
 }

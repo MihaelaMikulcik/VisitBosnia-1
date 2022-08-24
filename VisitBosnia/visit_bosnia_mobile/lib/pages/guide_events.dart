@@ -41,10 +41,14 @@ class _GuideEventsState extends State<GuideEvents> {
     // _eventOrderProvider = context.read<EventOrderProvider>();
   }
 
-  Future<int> getNumberOfParticipants(int eventId) async {
-    var participantsNumber =
-        await _eventProvider.GetNumberOfParticipants(eventId);
-    return participantsNumber;
+  Future<String> getNumberOfParticipants(int eventId) async {
+    try {
+      var participantsNumber =
+          await _eventProvider.GetNumberOfParticipants(eventId);
+      return participantsNumber.toString();
+    } catch (e) {
+      return "error";
+    }
   }
 
   Future<int> GetAgencyMemberId(int appUserId) async {
@@ -215,7 +219,7 @@ class _GuideEventsState extends State<GuideEvents> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "${snapshot.data.toString()} participants",
+                  "${snapshot.data} participants",
                   // "participants",
                   style: TextStyle(
                       fontSize: 17, color: Color.fromARGB(255, 94, 89, 89)),

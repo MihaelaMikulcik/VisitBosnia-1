@@ -4,6 +4,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:provider/provider.dart';
+import 'package:visit_bosnia_mobile/model/UserExceptionResponse.dart';
 import 'package:visit_bosnia_mobile/model/credit_card.dart';
 import 'package:visit_bosnia_mobile/model/transactions/transaction.dart';
 import 'package:visit_bosnia_mobile/model/transactions/transaction_insert_request.dart';
@@ -301,22 +302,25 @@ class _BuyTicketDialogState extends State<BuyTicketDialog> {
     final isValid = _formKey.currentState!.validate();
     if (isValid) {
       _formKey.currentState!.save();
-      try {
-        var mmyy = _mmyyController.text.split('/');
-        CreditCard card = CreditCard(
-            cvc: _cvcController.text,
-            number: _cardNumberController.text,
-            expMonth: mmyy[0],
-            expYear: mmyy[1]);
-        var request = TransactionInsertRequest(
-            creditCard: card,
-            eventId: event.id,
-            quantity: _count,
-            price: _price,
-            description: event.idNavigation!.name,
-            appUserId: AppUserProvider.userData.id);
-        var response = await _transactionProvider.ProcessTransaction(request);
-        if (response != null) {
+      // try {
+      var mmyy = _mmyyController.text.split('/');
+      CreditCard card = CreditCard(
+          cvc: _cvcController.text,
+          number: _cardNumberController.text,
+          expMonth: mmyy[0],
+          expYear: mmyy[1]);
+      var request = TransactionInsertRequest(
+          creditCard: card,
+          eventId: event.id,
+          quantity: _count,
+          price: _price,
+          description: event.idNavigation!.name,
+          appUserId: AppUserProvider.userData.id);
+      var response = await _transactionProvider.ProcessTransaction(request);
+      if (response != null) {
+        if (response is UserExceptionResponse) {
+          _showErrorMessage(context, response.message!);
+        } else {
           Navigator.pop(context);
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Container(
@@ -327,9 +331,11 @@ class _BuyTicketDialogState extends State<BuyTicketDialog> {
                       Icons.check_circle_outline,
                       color: Colors.white,
                     ),
-                    Text(
-                      " Successfully paid!",
-                      style: TextStyle(color: Colors.white, fontSize: 19),
+                    Expanded(
+                      child: Text(
+                        " Successfully paid!",
+                        style: TextStyle(color: Colors.white, fontSize: 17),
+                      ),
                     ),
                   ],
                 ),
@@ -337,9 +343,10 @@ class _BuyTicketDialogState extends State<BuyTicketDialog> {
               duration: Duration(seconds: 2),
               backgroundColor: Color.fromARGB(255, 3, 131, 78)));
         }
-      } catch (e) {
-        _showErrorMessage(context, e.toString());
       }
+      // } catch (e) {
+      //   _showErrorMessage(context, e.toString());
+      // }
     }
   }
 
@@ -354,8 +361,11 @@ class _BuyTicketDialogState extends State<BuyTicketDialog> {
               Icons.error,
               color: Colors.white,
             ),
-            Text(" Payment failed!",
-                style: TextStyle(color: Colors.white, fontSize: 19)),
+            Expanded(
+              child: Text(message,
+                  // " Payment failed!",
+                  style: TextStyle(color: Colors.white, fontSize: 17)),
+            ),
           ],
         ),
       ),

@@ -155,12 +155,28 @@ class _LoginState extends State<Login> {
                               ));
                               return;
                             }
-                            try {
-                              Authorization.username = _usernameController.text;
-                              Authorization.password = _passwordController.text;
-                              setState(() => isLoading = true);
-                              await login();
-                              if (result is AppUser) {
+                            // try {
+                            Authorization.username = _usernameController.text;
+                            Authorization.password = _passwordController.text;
+                            setState(() => isLoading = true);
+                            await login();
+                            if (result is AppUser) {
+                              if ((result as AppUser).isBlocked == true) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Expanded(
+                                          child: Text(
+                                            "Sorry, you have no access for this account anymore!",
+                                            style: const TextStyle(
+                                                fontSize: 17,
+                                                color: Colors.white),
+                                          ),
+                                        ),
+                                        duration: const Duration(seconds: 2),
+                                        backgroundColor: const Color.fromARGB(
+                                            255, 165, 46, 37)));
+                                setState(() => isLoading = false);
+                              } else {
                                 if (await GetRole((result as AppUser).id!) ==
                                     'User') {
                                   AppUserProvider.role = 'User';
@@ -175,51 +191,27 @@ class _LoginState extends State<Login> {
                                           // user: result as AppUser,
                                           )));
                                 }
-                                // Navigator.pushReplacementNamed(context, Homepage.routeName);
-                                // Navigator.of(context).push(MaterialPageRoute(
-                                //     builder: (context) => Homepage(
-                                //           user: result as AppUser,
-                                //         )));
-                              } else {
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) =>
-                                        AlertDialog(
-                                          title: const Text("Error"),
-                                          content: const Text(
-                                              "Something went wrong..."),
-                                          actions: [
-                                            TextButton(
-                                              child: const Text("Ok"),
-                                              onPressed: () =>
-                                                  Navigator.pop(context),
-                                            )
-                                          ],
-                                        ));
                               }
-                            } catch (e) {
-                              if (e is UserException) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content: Text(
-                                          e.message,
+
+                              // Navigator.pushReplacementNamed(context, Homepage.routeName);
+                              // Navigator.of(context).push(MaterialPageRoute(
+                              //     builder: (context) => Homepage(
+                              //           user: result as AppUser,
+                              //         )));
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Expanded(
+                                        child: Text(
+                                          result,
                                           style: const TextStyle(
+                                              fontSize: 17,
                                               color: Colors.white),
                                         ),
-                                        duration: const Duration(seconds: 2),
-                                        backgroundColor: const Color.fromARGB(
-                                            255, 165, 46, 37)));
-                              }
-                              // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              //     content: Text(
-                              //       e.toString().substring(
-                              //           e.toString().indexOf(':') + 2,
-                              //           e.toString().length),
-                              //       style: TextStyle(color: Colors.white),
-                              //     ),
-                              //     duration: Duration(seconds: 2),
-                              //     backgroundColor:
-                              //         Color.fromARGB(255, 165, 46, 37)));
+                                      ),
+                                      duration: const Duration(seconds: 2),
+                                      backgroundColor: const Color.fromARGB(
+                                          255, 165, 46, 37)));
                               setState(() => isLoading = false);
                             }
                           },

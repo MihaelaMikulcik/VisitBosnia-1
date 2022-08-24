@@ -41,6 +41,15 @@ class _ForumTopicsState extends State<ForumTopics> {
     _postProvider = context.read<PostProvider>();
   }
 
+  Future<String> _numberOfReplies(int postId) async {
+    try {
+      var repliesNumber = await _postProvider.getNumberOfReplies(postId);
+      return repliesNumber.toString();
+    } catch (e) {
+      return "error";
+    }
+  }
+
   Future<List<Post>> GetData() async {
     PostSearchObject searchObj =
         PostSearchObject(forumId: forum.id, includeAppUser: true);
@@ -237,7 +246,7 @@ class _ForumTopicsState extends State<ForumTopics> {
           return null;
         },
         controller: _contentController,
-        keyboardType: TextInputType.multiline,
+        keyboardType: TextInputType.text,
         minLines: 3,
         maxLines: 3,
         decoration: const InputDecoration(
@@ -278,6 +287,8 @@ class _ForumTopicsState extends State<ForumTopics> {
   }
 
   Widget postWidget(Post post) {
+    // var number;
+    // _numberOfReplies(post.id!).then((value) => number = value);
     return InkWell(
       onTap: () {
         Navigator.of(context)
@@ -308,8 +319,7 @@ class _ForumTopicsState extends State<ForumTopics> {
                         fontWeight: FontWeight.bold,
                       )),
                 ),
-                const Text("3",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
+                _buildReplies(post.id!),
               ],
             ),
             const SizedBox(height: 20),
@@ -330,6 +340,28 @@ class _ForumTopicsState extends State<ForumTopics> {
         ),
       ),
     );
+  }
+
+  Widget _buildReplies(int postId) {
+    return FutureBuilder(
+        future: _numberOfReplies(postId),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return SizedBox(
+                height: 16,
+                width: 16,
+                child: CircularProgressIndicator(
+                  color: Colors.black,
+                  strokeWidth: 1,
+                ));
+          } else if (snapshot.hasData) {
+            return Text(snapshot.data,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16));
+          } else {
+            return Text('error',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16));
+          }
+        });
   }
 
   Widget _buildPostsList() {

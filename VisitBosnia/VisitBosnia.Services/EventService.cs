@@ -87,11 +87,11 @@ namespace VisitBosnia.Services
             return Mapper.Map<Model.Event>(model);
         }
 
-        public async Task<int> GetNumberOfParticipants(int eventId)
+        public int GetNumberOfParticipants(int eventId)
         {
             var entity = Context.Set<Services.Database.Event>().AsQueryable();
             entity = entity.Include("EventOrders");
-            var model = await entity.Where(x => x.Id == eventId).FirstOrDefaultAsync();
+            var model =  entity.Where(x => x.Id == eventId).FirstOrDefault();
             if (model!=null && model.EventOrders.Count() > 0)
             {
                 var participants = 0;
@@ -104,6 +104,23 @@ namespace VisitBosnia.Services
             else
                 return 0;
 
+        }
+
+        public bool IsAvailableEvent(int eventId, int newParticipants)
+        {
+            var entity = Context.Set<Services.Database.Event>().AsQueryable();
+            var Event = entity.Where(x => x.Id == eventId).FirstOrDefault();
+            var numberOfParticipants = GetNumberOfParticipants(eventId);
+            if (Event != null)
+            {
+                if (Event.MaxNumberOfParticipants == numberOfParticipants)
+                    return false;
+                else if (numberOfParticipants + newParticipants > Event.MaxNumberOfParticipants)
+                    return false;
+                else
+                    return true;
+            }
+            return false;
         }
 
         

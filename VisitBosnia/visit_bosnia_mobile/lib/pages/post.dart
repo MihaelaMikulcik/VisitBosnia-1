@@ -522,7 +522,7 @@ class _ForumPostState extends State<ForumPost> {
           return null;
         },
         controller: _contentController,
-        keyboardType: TextInputType.multiline,
+        keyboardType: TextInputType.text,
         minLines: 3,
         maxLines: 3,
         decoration: const InputDecoration(

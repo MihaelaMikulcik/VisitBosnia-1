@@ -8,6 +8,8 @@ import 'package:latlong2/latlong.dart';
 import 'package:visit_bosnia_mobile/components/tourist_facility_info.dart';
 import 'package:visit_bosnia_mobile/model/attractions/attraction.dart';
 
+import '../components/review_facility.dart';
+
 class AttractionDetails extends StatefulWidget {
   AttractionDetails(this.attraction, {Key? key}) : super(key: key);
   Attraction attraction;
@@ -72,10 +74,11 @@ class _AttractionDetailsState extends State<AttractionDetails> {
                       ])
                     ],
                   ),
-                )
+                ),
               ],
             ),
-          )
+          ),
+          ReviewFacility(attraction.idNavigation!),
         ],
       ),
     ));

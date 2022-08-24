@@ -294,7 +294,9 @@ class _HomepageState extends State<Homepage> {
             _buildImage(event.id!),
             Positioned(
               child: Text(
-                event.idNavigation!.name!,
+                event.idNavigation!.name!.length > 13
+                    ? '${event.idNavigation!.name!.substring(0, 13)}...'
+                    : event.idNavigation!.name!,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -333,7 +335,9 @@ class _HomepageState extends State<Homepage> {
             _buildImage(attraction.id!),
             Positioned(
               child: Text(
-                attraction.idNavigation!.name!,
+                attraction.idNavigation!.name!.length > 15
+                    ? '${attraction.idNavigation!.name!.substring(0, 15)}...'
+                    : attraction.idNavigation!.name!,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,

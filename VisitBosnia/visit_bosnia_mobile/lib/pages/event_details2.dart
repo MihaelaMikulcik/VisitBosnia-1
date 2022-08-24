@@ -5,6 +5,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:visit_bosnia_mobile/components/buy_ticket_dialog.dart';
@@ -32,6 +33,10 @@ class _EventDetails2State extends State<EventDetails2> {
 
   @override
   Widget build(BuildContext context) {
+    NumberFormat formatter = NumberFormat();
+    formatter.minimumFractionDigits = 2;
+    formatter.maximumFractionDigits = 2;
+
     return Scaffold(
         body: SingleChildScrollView(
       child: Column(children: [
@@ -41,13 +46,15 @@ class _EventDetails2State extends State<EventDetails2> {
           child: Column(
             children: [
               buildDetailRow("Tourist agency", event.agency!.name!),
+              buildDetailRow("Starting point", event.placeOfDeparture!),
               // buildDetailRow("Tourist guide",
               //     "${event.agencyMember!.appUser!.firstName!} ${event.agencyMember!.appUser!.lastName!}"),
               buildDetailRow("Duration", "${getDuration()} hours"),
               buildDetailRow(
                   "Date", formatStringDate(event.date!, 'EEE, MMM d')),
               buildDetailRow("Time", timeToString(event.fromTime!)),
-              buildDetailRow("Price", "${event.pricePerPerson.toString()} KM"),
+              buildDetailRow(
+                  "Price", "${formatter.format(event.pricePerPerson)} BAM"),
               const SizedBox(height: 20),
               btnBuyTicket(),
             ],
@@ -70,26 +77,26 @@ class _EventDetails2State extends State<EventDetails2> {
     }
   }
 
-  Widget buildReviews() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 20.0),
-      child: Row(children: const [
-        Text(
-          "Reviews ",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
-        ),
-        Icon(
-          Icons.reviews_outlined,
-          size: 30,
-        ),
-        Text("2 reviews",
-            style: TextStyle(
-                color: Color.fromARGB(255, 92, 91, 91),
-                fontWeight: FontWeight.bold,
-                fontSize: 18))
-      ]),
-    );
-  }
+  // Widget buildReviews() {
+  //   return Padding(
+  //     padding: const EdgeInsets.only(top: 20.0),
+  //     child: Row(children: const [
+  //       Text(
+  //         "Reviews ",
+  //         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+  //       ),
+  //       Icon(
+  //         Icons.reviews_outlined,
+  //         size: 30,
+  //       ),
+  //       Text("2 reviews",
+  //           style: TextStyle(
+  //               color: Color.fromARGB(255, 92, 91, 91),
+  //               fontWeight: FontWeight.bold,
+  //               fontSize: 18))
+  //     ]),
+  //   );
+  // }
 
   Widget btnBuyTicket() {
     return InkWell(

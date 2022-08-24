@@ -65,7 +65,12 @@ class _AddReviewState extends State<AddReview> {
       if (_formKey.currentState!.validate()) {
         var request = new ReviewInsertRequest();
         request.appUserId = AppUserProvider.userData.id;
-        request.rating = int.parse(_ratingController.text);
+        if (_ratingController.text == "") {
+          request.rating = 3;
+        } else {
+          request.rating = int.parse(_ratingController.text);
+        }
+
         request.text = _contentController.text;
         request.touristFacilityId = facility.id;
         try {
@@ -152,7 +157,7 @@ class _AddReviewState extends State<AddReview> {
 
   void selectImages() async {
     final List<XFile>? selectedImages = await _picker.pickMultiImage();
-    if (selectedImages!.isNotEmpty) {
+    if (selectedImages != null && selectedImages.isNotEmpty) {
       setState(() {
         _imageFileList.addAll(selectedImages);
       });
@@ -247,6 +252,8 @@ class _AddReviewState extends State<AddReview> {
     );
   }
 
+  bool _autovalidate = false;
+
   Widget _txtContent() {
     return TextFormField(
         validator: (value) {
@@ -256,9 +263,16 @@ class _AddReviewState extends State<AddReview> {
           return null;
         },
         controller: _contentController,
-        keyboardType: TextInputType.multiline,
+        keyboardType: TextInputType.text,
         minLines: 3,
         maxLines: 3,
+        onChanged: (_) {
+          setState(() {
+            _autovalidate = true;
+          });
+        },
+        autovalidateMode:
+            _autovalidate ? AutovalidateMode.always : AutovalidateMode.disabled,
         decoration: InputDecoration(
             fillColor: Colors.grey,
             hintText: 'Would you like to write anything about this facility?',
@@ -271,8 +285,9 @@ class _AddReviewState extends State<AddReview> {
             enabledBorder:
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
             focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey),
-                borderRadius: BorderRadius.circular(20.0))));
+              borderSide: BorderSide(color: Colors.grey),
+              // borderRadius: BorderRadius.circular(20.0)
+            )));
   }
 
   Widget _ratingSection() {
