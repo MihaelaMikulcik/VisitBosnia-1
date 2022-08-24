@@ -78,16 +78,24 @@ namespace VisitBosnia.WinUI
 
                     if (confirmResult == DialogResult.Yes)
                     {
-                        var delete = await CityService.Delete<Model.City>(item.Id);
-                        var forumSearchObj = new ForumSearchObject { CityId = item.Id };    
-                        var forumFilter = await ForumService.Get<Model.Forum>(forumSearchObj);
-                        var forum = forumFilter.FirstOrDefault();
-                        if(forum != null)
+                        try
                         {
-                            var deleteForum = ForumService.Delete<Model.Forum>(forum.Id);
+                            var delete = await CityService.Delete<Model.City>(item.Id);
+                            var forumSearchObj = new ForumSearchObject { CityId = item.Id };
+                            var forumFilter = await ForumService.Get<Model.Forum>(forumSearchObj);
+                            var forum = forumFilter.FirstOrDefault();
+                            if (forum != null)
+                            {
+                                var deleteForum = ForumService.Delete<Model.Forum>(forum.Id);
+                            }
+                            LoadTable();
+                            var message = MessageBox.Show("Successfully deleted");
                         }
-                        LoadTable();
-                        var message = MessageBox.Show("Successfully deleted");
+                        catch
+                        {
+                            MessageBox.Show("This city is already in use", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                     
 
                     }
 

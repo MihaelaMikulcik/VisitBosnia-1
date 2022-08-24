@@ -56,12 +56,11 @@ namespace VisitBosnia.Controllers
             return events;
         }
 
-        //[AllowAnonymous]
-        //[HttpPost("/Register")]
-        //public Model.AppUser Register([FromBody]AppUserInsertRequest request)
-        //{
-        //    return service.Register(request);
-        //}
+        [HttpPost("/SendEmail")]
+        public void SendEmail([FromBody] SendEmailRequest request)
+        {
+             service.SendEmail(request);
+        }
 
 
     }

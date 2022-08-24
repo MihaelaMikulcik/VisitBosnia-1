@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VisitBosnia.Helpers;
 using VisitBosnia.Model.Requests;
 using VisitBosnia.Services.Database;
 using VisitBosnia.Services.Interfaces;
@@ -12,7 +13,7 @@ namespace VisitBosnia.Services
 {
     public class AgencyMemberService : BaseCRUDService<Model.AgencyMember, Database.AgencyMember, AgencyMemberSearchObject, AgencyMemberInsertRequest, AgencyMemberUpdateRequest>, IAgencyMemberService
     {
-
+      
         public AgencyMemberService(VisitBosniaContext context, IMapper mapper)
             : base(context, mapper)
         {
@@ -35,6 +36,8 @@ namespace VisitBosnia.Services
 
             return filteredQuery;
         }
+
+      
 
     }
 }

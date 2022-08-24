@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.pbProfilePicture = new System.Windows.Forms.PictureBox();
             this.btnMyAgency = new System.Windows.Forms.Button();
             this.btnSingOut = new System.Windows.Forms.Button();
             this.btnProfile = new System.Windows.Forms.Button();
@@ -53,6 +54,7 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbProfilePicture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -69,6 +71,7 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(51)))), ((int)(((byte)(80)))));
+            this.splitContainer1.Panel1.Controls.Add(this.pbProfilePicture);
             this.splitContainer1.Panel1.Controls.Add(this.btnMyAgency);
             this.splitContainer1.Panel1.Controls.Add(this.btnSingOut);
             this.splitContainer1.Panel1.Controls.Add(this.btnProfile);
@@ -95,6 +98,17 @@
             this.splitContainer1.Size = new System.Drawing.Size(958, 633);
             this.splitContainer1.SplitterDistance = 319;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // pbProfilePicture
+            // 
+            this.pbProfilePicture.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbProfilePicture.Image = global::VisitBosnia.WinUI.Properties.Resources.user;
+            this.pbProfilePicture.Location = new System.Drawing.Point(52, 123);
+            this.pbProfilePicture.Name = "pbProfilePicture";
+            this.pbProfilePicture.Size = new System.Drawing.Size(207, 186);
+            this.pbProfilePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbProfilePicture.TabIndex = 18;
+            this.pbProfilePicture.TabStop = false;
             // 
             // btnMyAgency
             // 
@@ -179,7 +193,7 @@
             this.labelUserName.AutoSize = true;
             this.labelUserName.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.labelUserName.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.labelUserName.Location = new System.Drawing.Point(102, 312);
+            this.labelUserName.Location = new System.Drawing.Point(116, 312);
             this.labelUserName.Name = "labelUserName";
             this.labelUserName.Size = new System.Drawing.Size(110, 28);
             this.labelUserName.TabIndex = 9;
@@ -368,6 +382,7 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbProfilePicture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
@@ -383,7 +398,6 @@
         private Button btnSingOut;
         private Button btnProfile;
         private Label labelRole;
-        private CustomInput.Picture pbProfilePicture;
         private Label label2;
         private PictureBox pictureBox1;
         private Label labelUserName;
@@ -401,5 +415,6 @@
         private Label label6;
         private PictureBox pictureBox5;
         private Button button5;
+        private PictureBox pbProfilePicture;
     }
 }

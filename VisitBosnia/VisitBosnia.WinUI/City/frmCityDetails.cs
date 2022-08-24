@@ -59,6 +59,13 @@ namespace VisitBosnia.WinUI
 
             if (ValidateChildren())
             {
+                if (pbPicture == null || pbPicture.Image == null)
+                {
+                    MessageBox.Show("Image box is empty", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    return;
+                }
+
                 if (_model == null)
                 {
                     var insertRequest = new Model.Requests.CityInsertRequest
@@ -168,6 +175,21 @@ namespace VisitBosnia.WinUI
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void pbPicture_Validating(object sender, CancelEventArgs e)
+        {
+            if (pbPicture == null || pbPicture.Image == null)
+            {
+                e.Cancel = true;
+                pbPicture.Focus();
+                errorProvider.SetError(pbPicture, "Add image");
+            }
+            else
+            {
+                e.Cancel = false;
+                errorProvider.SetError(pbPicture, "");
+            }
         }
     }
 }

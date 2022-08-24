@@ -129,7 +129,7 @@ namespace VisitBosnia.WinUI
                         MessageBox.Show("Uspješna registracija", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         
                         this.Hide();
-                        Application.OpenForms["Login"].Hide();
+                        Application.OpenForms[0].Hide();
                         var form = new AgencyHome(result.Id);
                         form.ShowDialog();
                         

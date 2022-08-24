@@ -171,8 +171,10 @@
             this.pbPicture.Location = new System.Drawing.Point(361, 26);
             this.pbPicture.Name = "pbPicture";
             this.pbPicture.Size = new System.Drawing.Size(286, 258);
+            this.pbPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbPicture.TabIndex = 10;
             this.pbPicture.TabStop = false;
+            this.pbPicture.Validating += new System.ComponentModel.CancelEventHandler(this.pbPicture_Validating);
             // 
             // frmCityDetails
             // 

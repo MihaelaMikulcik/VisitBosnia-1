@@ -23,9 +23,9 @@ namespace VisitBosnia.Services
         {
             var filteredQuery = base.AddFilter(query, search);
 
-            if (!string.IsNullOrEmpty(search?.Name))
+            if (!string.IsNullOrEmpty(search?.SearchText))
             {
-                filteredQuery = filteredQuery.Where(x => x.Name.ToLower().StartsWith(search.Name.ToLower())/* || x.County.ToLower().StartsWith(search.SearchText.ToLower()) || x.ZipCode.ToLower().StartsWith(search.SearchText.ToLower())*/);
+                filteredQuery = filteredQuery.Where(x => x.Name.ToLower().StartsWith(search.SearchText.ToLower())/* || x.County.ToLower().StartsWith(search.SearchText.ToLower()) || x.ZipCode.ToLower().StartsWith(search.SearchText.ToLower())*/);
             }
 
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using VisitBosnia.Model;
 using VisitBosnia.Model.Requests;
 using VisitBosnia.Services.Interfaces;
 
@@ -12,6 +13,10 @@ namespace VisitBosnia.Controllers
             
         }
 
-        
+        [AllowAnonymous]
+        public override Task<IEnumerable<Agency>> Get([FromQuery] AgencySearchObject search)
+        {
+            return base.Get(search);
+        }
     }
 }

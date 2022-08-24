@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Stripe;
+using System.Configuration;
 using VisitBosnia.Filters;
+using VisitBosnia.Helpers;
 using VisitBosnia.Security;
 using VisitBosnia.Services;
 using VisitBosnia.Services.Database;
@@ -10,11 +12,11 @@ using VisitBosnia.Services.Interfaces;
 //using VisitBosnia.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllers(x=>x.Filters.Add<ExceptionFilter>());
 
 // Add services to the container.
 
 //builder.Services.AddControllers();
-builder.Services.AddControllers(x=>x.Filters.Add<ExceptionFilter>());
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -36,6 +38,8 @@ builder.Services.AddSwaggerGen(c =>
          }
     });
 });
+
+//IConfiguration configuration = app.Configuration;
 
 builder.Services.AddTransient<ICityService, CityService>();
 builder.Services.AddTransient<IEventService, VisitBosnia.Services.EventService>();
@@ -65,6 +69,9 @@ builder.Services.AddAutoMapper(typeof(ICityService));
 builder.Services.AddDbContext<VisitBosniaContext>(options => options
 .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.AddTransient<IEmailSender, EmailSender>();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AnyOrigin", builder =>
@@ -79,8 +86,8 @@ builder.Services.AddCors(options =>
 builder.Services.AddAuthentication("BasicAuthentication")
     .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 
-var app = builder.Build();
 
+var app = builder.Build();
 // Configure the HTTP request pipeline.
 app.UseCors("AnyOrigin");
 

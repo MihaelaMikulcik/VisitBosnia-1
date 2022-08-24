@@ -48,6 +48,29 @@ namespace VisitBosnia.WinUI.Events
 
             if (gallery.Count() != 0)
             {
+                if(!gallery.Where(x=> x.Thumbnail == true).Any())
+                {
+                    var first = gallery.FirstOrDefault();
+
+                    var updateRequest = new TouristFacilityGalleryUpdateRequest
+                    {
+                        Image = first.Image,
+                        ImageType = first.ImageType,
+                        TouristFacilityId = first.TouristFacilityId,
+                        Thumbnail = true
+                    };
+
+                    try
+                    {
+                    await TouristFacilityGalleryService.Update<TouristFacilityGallery>(first.Id, updateRequest);
+
+                    }catch(Exception ex)
+                    {
+
+                    }
+
+                }
+
                 pbEvent.SizeMode = PictureBoxSizeMode.StretchImage;
 
                 _selectedIndex = gallery.Count() - 1;
@@ -112,6 +135,11 @@ namespace VisitBosnia.WinUI.Events
 
                 var file = Image.FromFile(ofdNewImage.FileName);
                 var image = Helpers.ImageHelper.imageToByteArray(file);
+                
+                if(_gallery.Count() == 0)
+                        {
+                    request.Thumbnail = true;
+                }
 
                 request.Image = image;
                 request.ImageType = Path.GetExtension(ofdNewImage.FileName);

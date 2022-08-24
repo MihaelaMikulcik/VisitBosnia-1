@@ -159,6 +159,27 @@ namespace VisitBosnia.WinUI
             }
         }
 
+        public async void SendEmail(SendEmailRequest request)
+        {
+            try
+            {
+                var url = $"{_endpoint}{_route}/Register";
+                await url.PostJsonAsync(request);
+            }
+            catch (FlurlHttpException ex)//popraviti 
+            {
+                var errors = await ex.GetResponseJsonAsync<Dictionary<string, string[]>>();
+
+                var stringBuilder = new StringBuilder();
+                foreach (var error in errors)
+                {
+                    stringBuilder.AppendLine($"{error.Key}, {string.Join(",", error.Value)}");
+                }
+
+                MessageBox.Show(stringBuilder.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+              
+            }
+        }
 
 
     }

@@ -9,12 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using VisitBosnia.Model;
 using VisitBosnia.Model.Requests;
+using System.Web.Security;
 
 namespace VisitBosnia.WinUI.AgencyMembers
 {
     public partial class frmAgencyMemberDetails : Form
     {
         private readonly APIService appUserService = new APIService("AppUser");
+        private readonly APIService agencyService = new APIService("Agency");
         private readonly APIService agencyMemberService = new APIService("AgencyMember");
         private int _agencyId;
 
@@ -36,6 +38,18 @@ namespace VisitBosnia.WinUI.AgencyMembers
         {
             if (ValidateChildren())//dodati validaciju
             {
+                StringBuilder builder = new StringBuilder();
+                Random random = new Random();
+                char ch;
+                for (int i = 0; i < 8; i++)
+                {
+                    ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
+                    builder.Append(ch);
+                }
+
+                var tempPass = builder.ToString();
+                var agencyName = await agencyService.GetById<Agency>(_agencyId);
+                appUserService.SendEmail(new SendEmailRequest { Email = txtEmail.Text, AgencyName = agencyName.Name, TempPass = tempPass });
 
                 AppUserInsertRequest request = new AppUserInsertRequest()
                 {
@@ -44,9 +58,10 @@ namespace VisitBosnia.WinUI.AgencyMembers
                     Email = txtEmail.Text,
                     UserName = txtUsername.Text,
                     Phone = txtPhone.Text,
-                    Password = txtPassword.Text,
-                    PasswordConfirm = txtConfirmPass.Text,
-                    IsBlocked = false
+                    Password = tempPass,
+                    PasswordConfirm = tempPass,
+                    IsBlocked = false,
+                    TempPass = tempPass
                 };
 
                 var result = await appUserService.Register(request);
@@ -143,44 +158,6 @@ namespace VisitBosnia.WinUI.AgencyMembers
             }
         }
 
-        private void txtPassword_Validating(object sender, CancelEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtPassword.Text))
-            {
-                e.Cancel = true;
-                txtPassword.Focus();
-                errorProvider.SetError(txtPassword, "Password should not be left blank!");
-            }
-            else
-            {
-                e.Cancel = false;
-                errorProvider.SetError(txtPassword, "");
-            }
-        }
-
-        private void txtConfirmPass_Validating(object sender, CancelEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtPassword.Text) || string.IsNullOrWhiteSpace(txtPassword.Text))
-            {
-                e.Cancel = true;
-                txtConfirmPass.Focus();
-                errorProvider.SetError(txtConfirmPass, "Passwords should not be left blank!");
-
-            }
-            else
-            {
-                if (txtPassword.Text != txtConfirmPass.Text)
-                {
-                    e.Cancel = true;
-                    txtConfirmPass.Focus();
-                    errorProvider.SetError(txtConfirmPass, "Passwords dont match");
-                }
-                else
-                {
-                    e.Cancel = false;
-                    errorProvider.SetError(txtConfirmPass, "");
-                }
-            }
-        }
+     
     }
 }
