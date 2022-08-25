@@ -64,12 +64,12 @@ namespace VisitBosnia.Controllers
             return events;
         }
 
-        [AllowAnonymous]
-        [HttpPost("SendEmail")]
-        public void SendEmail([FromBody] SendEmailRequest request)
-        {
-             service.SendEmail(request);
-        }
+        //[AllowAnonymous]
+        //[HttpPost("SendEmail")]
+        //public void SendEmail([FromBody] SendEmailRequest request)
+        //{
+        //     service.SendEmail(request);
+        //}
 
 
         [HttpPost("SendSms")]
