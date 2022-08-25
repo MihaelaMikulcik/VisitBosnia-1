@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VisitBosnia.Model;
 using VisitBosnia.Model.Requests;
+using VisitBosnia.Model.ViewModels;
 
 namespace VisitBosnia.WinUI
 {
@@ -159,28 +160,37 @@ namespace VisitBosnia.WinUI
             }
         }
 
-        public async void SendEmail(SendEmailRequest request)
+        //public async void SendEmail(SendEmailRequest request)
+        //{
+        //    try
+        //    {
+        //        var url = $"{_endpoint}{_route}/SendEmail";
+        //        await url.WithBasicAuth(Username, Password)
+        //        .PutJsonAsync(request);
+        //    }
+        //    catch (FlurlHttpException ex)//popraviti 
+        //    {
+        //        var errors = await ex.GetResponseJsonAsync<Dictionary<string, string[]>>();
+
+        //        var stringBuilder = new StringBuilder();
+        //        foreach (var error in errors)
+        //        {
+        //            stringBuilder.AppendLine($"{error.Key}, {string.Join(",", error.Value)}");
+        //        }
+
+        //        MessageBox.Show(stringBuilder.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        //    }
+        //}
+
+        public async Task<T> SendSms<T>(SmsMessage request)
         {
-            try
-            {
-                var url = $"{_endpoint}{_route}/Register";
-                await url.PostJsonAsync(request);
-            }
-            catch (FlurlHttpException ex)//popraviti 
-            {
-                var errors = await ex.GetResponseJsonAsync<Dictionary<string, string[]>>();
+            var url = $"{_endpoint}{_route}/SendSms";                  
 
-                var stringBuilder = new StringBuilder();
-                foreach (var error in errors)
-                {
-                    stringBuilder.AppendLine($"{error.Key}, {string.Join(",", error.Value)}");
-                }
+            await url.WithBasicAuth(Username, Password).PostJsonAsync(request).ReceiveJson<int>();
 
-                MessageBox.Show(stringBuilder.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-              
-            }
+            return default(T);
         }
-
 
     }
     

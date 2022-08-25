@@ -3,11 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Stripe;
 using System.Configuration;
+using Twilio.Clients;
 using VisitBosnia.Filters;
 using VisitBosnia.Helpers;
 using VisitBosnia.Security;
 using VisitBosnia.Services;
 using VisitBosnia.Services.Database;
+using VisitBosnia.Services.Helpers;
 using VisitBosnia.Services.Interfaces;
 //using VisitBosnia.Services.Interfaces;
 
@@ -71,6 +73,7 @@ builder.Services.AddDbContext<VisitBosniaContext>(options => options
 
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.AddHttpClient<ITwilioRestClient, TwilioClient>();
 
 builder.Services.AddCors(options =>
 {

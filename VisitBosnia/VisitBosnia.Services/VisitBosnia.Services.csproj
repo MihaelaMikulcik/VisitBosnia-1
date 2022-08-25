@@ -21,6 +21,8 @@
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
     <PackageReference Include="Microsoft.ML" Version="1.7.1" />
     <PackageReference Include="Microsoft.ML.Recommender" Version="0.19.1" />
+    <PackageReference Include="Twilio" Version="5.79.0" />
+    <PackageReference Include="Twilio.AspNet.Core" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>

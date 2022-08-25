@@ -22,8 +22,8 @@ namespace VisitBosnia.WinUI.Events
         {
             InitializeComponent();
             dgvEvent.AutoGenerateColumns = false;
-            LoadTable();
             _agencyId = agencyId;
+            LoadTable();
         }
 
         private async void LoadTable()

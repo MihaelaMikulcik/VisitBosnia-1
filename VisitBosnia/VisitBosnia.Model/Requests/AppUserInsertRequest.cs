@@ -38,7 +38,7 @@ namespace VisitBosnia.Model.Requests
         public DateTime? DateOfBirth { get; set; }
 
         public bool IsBlocked { get; set; }
-        public string? TempPass { get; set; }
+        public bool TempPass { get; set; }
 
         //public List<int> Roles { get; set; } = new List<int>();
     }

@@ -22,14 +22,14 @@ namespace VisitBosnia.Services
     public class AppUserService
         : BaseCRUDService<Model.AppUser, AppUser, AppUserSearchObject, AppUserInsertRequest, AppUserUpdateRequest>, IAppUserService
     {
-        private readonly IEmailSender _emailSender;
+
 
         private readonly IMemoryCache _memoryCache;
-        public AppUserService(VisitBosniaContext context, IMapper mapper, IMemoryCache memoryCache, IEmailSender emailSender)
+        public AppUserService(VisitBosniaContext context, IMapper mapper, IMemoryCache memoryCache)
             : base(context, mapper)
         {
             _memoryCache = memoryCache;
-            _emailSender = emailSender;
+ 
         }
 
 
@@ -370,11 +370,11 @@ namespace VisitBosnia.Services
         }
 
 
-        public async void SendEmail(SendEmailRequest request)
-        {
-            var text = $"{request.AgencyName} added you as their member. This is your temporary password: {request.TempPass}. <br/> Please login and change your password to enjoy our app <br/> Your Visit Bosnia";
-            await _emailSender.SendEmail(request.Email, $"Become {request.AgencyName} member", text);
-        }
+        //public async void SendEmail(SendEmailRequest request)
+        //{
+        //    var text = $"{request.AgencyName} added you as their member. This is your temporary password: {request.TempPass}. <br/> Please login and change your password to enjoy our app <br/> Your Visit Bosnia";
+        //    await _emailSender.SendEmail(request.Email, $"Become {request.AgencyName} member", text);
+        //}
 
     }
 

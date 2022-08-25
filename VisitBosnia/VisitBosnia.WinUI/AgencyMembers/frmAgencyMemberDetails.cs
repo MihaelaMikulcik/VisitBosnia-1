@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using VisitBosnia.Model;
 using VisitBosnia.Model.Requests;
 using System.Web.Security;
+using VisitBosnia.Model.ViewModels;
 
 namespace VisitBosnia.WinUI.AgencyMembers
 {
@@ -49,7 +50,8 @@ namespace VisitBosnia.WinUI.AgencyMembers
 
                 var tempPass = builder.ToString();
                 var agencyName = await agencyService.GetById<Agency>(_agencyId);
-                appUserService.SendEmail(new SendEmailRequest { Email = txtEmail.Text, AgencyName = agencyName.Name, TempPass = tempPass });
+                string msg= $"{agencyName.Name} added you as their member. This is your username and temporary password: {txtUsername.Text} {tempPass}. Please login and change your password to enjoy our app. Your Visit Bosnia";
+                await appUserService.SendSms<AppUser>(new SmsMessage { To = txtPhone.Text, Message = msg, From = "" });
 
                 AppUserInsertRequest request = new AppUserInsertRequest()
                 {
@@ -60,8 +62,8 @@ namespace VisitBosnia.WinUI.AgencyMembers
                     Phone = txtPhone.Text,
                     Password = tempPass,
                     PasswordConfirm = tempPass,
-                    IsBlocked = false,
-                    TempPass = tempPass
+                    IsBlocked = true,
+                    TempPass = true
                 };
 
                 var result = await appUserService.Register(request);
@@ -75,6 +77,7 @@ namespace VisitBosnia.WinUI.AgencyMembers
                     var form2 = new frmAgencyMember(_agencyId);
                     form2.Closed += (s, args) => this.Close();
                     form2.Show();
+                    MessageBox.Show("User is invited", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
                 }
