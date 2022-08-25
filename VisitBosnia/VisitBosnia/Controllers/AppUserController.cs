@@ -50,6 +50,12 @@ namespace VisitBosnia.Controllers
             return await service.Register(request);
         }
 
+        [HttpPost("ChangePassword")]
+        public async Task<Model.AppUser> ChangePassword(AppUserChangePasswordRequest request)
+        {
+            return await service.ChangePassword(request);
+        }
+
         [HttpGet("RecommendAttractions")]
         public async Task<List<Model.Attraction>> RecommendAttractions(int appUserId, int categoryId)
         {

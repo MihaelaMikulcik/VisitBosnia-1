@@ -143,11 +143,49 @@ namespace VisitBosnia.Services
 
             return Mapper.Map<Model.AppUser>(entity);
         }
+
+        public async Task<Model.AppUser> ChangePassword(AppUserChangePasswordRequest request)
+        {
+            AppUser? user = await Context.AppUsers.FirstOrDefaultAsync(x => x.UserName == request.Username);
+            if (user != null)
+            {
+                var oldHash = HashHelper.GenerateHash(user.PasswordSalt, request.OldPassword);
+                if (oldHash != user.PasswordHash)
+                {
+                    throw new UserException("Sorry, old password is not correct!");
+                }
+                if (request.NewPassword != request.NewPasswordConfirm)
+                {
+                    throw new UserException("New password and confirmation do not match!");
+                }
+                user.PasswordSalt = HashHelper.GenerateSalt();
+                user.PasswordHash = HashHelper.GenerateHash(user.PasswordSalt, request.NewPassword);
+
+                if (user.TempPass == true)
+                {
+                    user.TempPass = false;
+                }
+
+                Context.AppUsers.Update(user);
+                Context.SaveChanges();
+                return Mapper.Map<Model.AppUser>(user);
+
+            }
+            throw new UserException("There is no user with this username!");
+
+
+        }
+        
+
         //public async override Task<Model.AppUser> Update(int id, AppUserUpdateRequest request)
         //{
         //    if (await UsernameExists(request.UserName))
         //    {
         //        throw new UserException("Username already exists!");
+        //    }
+        //    if (await EmailExists(request.UserName))
+        //    {
+        //        throw new UserException("Email already exists!");
         //    }
 
         //    return await base.Update(id, request);
