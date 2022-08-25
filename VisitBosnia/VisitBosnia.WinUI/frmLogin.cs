@@ -67,6 +67,61 @@ namespace VisitBosnia.WinUI
             this.ActiveControl = label1;
         }
 
+        //private async void btnLogin_Click(object sender, EventArgs e)
+        //{
+        //    if (ValidateChildren())
+        //    {
+        //        APIService.Username = txtUsername.Text;
+        //        APIService.Password = txtPassword.Text;
+        //        try
+        //        {
+        //            var result = await appUserService.Login<Model.AppUser>(txtUsername.Text, txtPassword.Text);
+        //            //dodati provjeru da li je rola admin ili uposlenik
+        //            if (result != null)
+        //            {
+        //                if (result.IsBlocked == true)
+        //                {
+        //                    MessageBox.Show("You don't have permission to access this account");
+        //                }
+        //                else
+        //                {
+        //                    var appUserRole = await appUserRoleService.Get<AppUserRole>(new AppUserRoleSearchObject { AppUserId = result.Id });
+        //                    var role = await roleService.GetById<Role>(appUserRole.FirstOrDefault().RoleId);
+
+        //                    if (role.Name == "Admin")
+        //                    {
+        //                        this.Hide();
+        //                        //MessageBox.Show("Uspjesna prijava");
+        //                        var form = new AdminHome(result.Id);
+        //                        form.ShowDialog();
+        //                    }
+        //                    else
+        //                    {
+        //                        this.Hide();
+        //                        //MessageBox.Show("Uspjesna prijava");
+        //                        var form = new AgencyHome(result.Id);
+        //                        form.ShowDialog();
+        //                    }
+        //                }
+        //            }
+        //            else
+        //            {
+        //                error.SetError(txtUsername, "Wrong username or password");
+        //                error.SetError(txtPassword, "Wrong username or password");
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            //if(ex is UserException)
+        //            //{
+        //                MessageBox.Show(ex.Message);
+
+        //            //}
+        //        }
+        //    }
+
+        //}
+
         private async void btnLogin_Click(object sender, EventArgs e)
         {
             if (ValidateChildren())
@@ -76,7 +131,6 @@ namespace VisitBosnia.WinUI
                 try
                 {
                     var result = await appUserService.Login<Model.AppUser>(txtUsername.Text, txtPassword.Text);
-                    //dodati provjeru da li je rola admin ili uposlenik
                     if (result != null)
                     {
                         if (result.IsBlocked == true)
@@ -91,14 +145,12 @@ namespace VisitBosnia.WinUI
                             if (role.Name == "Admin")
                             {
                                 this.Hide();
-                                //MessageBox.Show("Uspjesna prijava");
                                 var form = new AdminHome(result.Id);
                                 form.ShowDialog();
                             }
                             else
                             {
                                 this.Hide();
-                                //MessageBox.Show("Uspjesna prijava");
                                 var form = new AgencyHome(result.Id);
                                 form.ShowDialog();
                             }
@@ -112,10 +164,11 @@ namespace VisitBosnia.WinUI
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("Something went wrong...");
+                    
                 }
             }
-            
+
         }
 
         private void lnkCreateAccount_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

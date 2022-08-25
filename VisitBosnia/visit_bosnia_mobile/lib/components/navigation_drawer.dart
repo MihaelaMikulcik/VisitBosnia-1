@@ -29,7 +29,7 @@ class NavigationDrawer extends StatefulWidget {
 
 class _NavigationDrawer extends State<NavigationDrawer> {
   bool isLoading = true;
-  late AppUserRoleProvider _appUserRoleProvider;
+  // late AppUserRoleProvider _appUserRoleProvider;
   late String role;
   bool _isUser = false;
 
@@ -37,7 +37,7 @@ class _NavigationDrawer extends State<NavigationDrawer> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _appUserRoleProvider = context.read<AppUserRoleProvider>();
+    // _appUserRoleProvider = context.read<AppUserRoleProvider>();
     AppUserProvider.role == 'User' ? _isUser = true : _isUser = false;
   }
 

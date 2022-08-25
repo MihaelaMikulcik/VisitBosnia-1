@@ -4,6 +4,8 @@ import 'package:visit_bosnia_mobile/model/transactions/transaction.dart';
 import 'package:visit_bosnia_mobile/model/transactions/transaction_insert_request.dart';
 import 'package:visit_bosnia_mobile/providers/base_provider.dart';
 
+import '../model/UserExceptionResponse.dart';
+
 class TransactionProvider extends BaseProvider<Transaction> {
   TransactionProvider() : super("Transaction");
 
@@ -14,21 +16,17 @@ class TransactionProvider extends BaseProvider<Transaction> {
   }
 
   Future<dynamic> ProcessTransaction(TransactionInsertRequest request) async {
-    var url = "https://10.0.2.2:44373/Transaction/ProcessTransaction";
+    var url = "${BaseProvider.baseUrl}Transaction/ProcessTransaction";
     var uri = Uri.parse(url);
     Map<String, String> headers = createHeaders();
     var jsonRequest = jsonEncode(request.toJson());
-    try {
-      var response = await http!.post(uri, headers: headers, body: jsonRequest);
-      if (isValidResponseCode(response)) {
-        // var data = jsonDecode(response.body);
-        return response.body;
-        // return fromJson(data) as Transaction;
-      } else {
-        return null;
-      }
-    } catch (e) {
-      rethrow;
+
+    var response = await http!.post(uri, headers: headers, body: jsonRequest);
+    if (response.statusCode == 200) {
+      return response.body;
+      // return jsonDecode(response.body);
+    } else if (response.statusCode == 400) {
+      return UserExceptionResponse.fromJson(json.decode(response.body));
     }
   }
 }

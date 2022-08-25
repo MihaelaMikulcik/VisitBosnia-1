@@ -14,9 +14,9 @@ namespace VisitBosnia.Controllers
         }
 
         [HttpGet("GetNumberOfParticipants")]
-        public async Task<int> GetNumberOfParticipants(int eventId)
+        public int GetNumberOfParticipants(int eventId)
         {
-            return await service.GetNumberOfParticipants(eventId);
+            return service.GetNumberOfParticipants(eventId);
         }
 
 

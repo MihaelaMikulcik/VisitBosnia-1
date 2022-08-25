@@ -12,6 +12,7 @@ import 'package:visit_bosnia_mobile/model/tourist_facility.dart';
 import 'package:visit_bosnia_mobile/providers/appuser_role_provider.dart';
 import 'package:visit_bosnia_mobile/providers/base_provider.dart';
 
+import '../model/UserExceptionResponse.dart';
 import '../model/appUser/app_user.dart';
 import '../model/roles/appuser_role_search_object.dart';
 
@@ -46,7 +47,7 @@ class AppUserProvider extends BaseProvider<AppUser> {
     notifyListeners();
   }
 
-  Future<AppUser> login(String username, String password) async {
+  Future<dynamic> login(String username, String password) async {
     var response = null;
     var url =
         "${BaseProvider.baseUrl}Login?Username=$username&Password=$password";
@@ -60,22 +61,28 @@ class AppUserProvider extends BaseProvider<AppUser> {
     try {
       response = await http!.get(uri, headers: headers);
       if (isValidResponseCode(response)) {
-        var data = jsonDecode(response.body);
-        userData = AppUser.fromJson(data);
-        return AppUser.fromJson(data);
+        if (response.body != "") {
+          var data = jsonDecode(response.body);
+          userData = AppUser.fromJson(data);
+          return AppUser.fromJson(data);
+        } else {
+          return "Username or password incorrect";
+        }
       } else {
-        throw Exception("Something went wrong!");
+        return "Something went wrong";
+        // throw Exception("Something went wrong!");
       }
     } catch (e) {
-      if (response != null && response.body == "") {
-        throw UserException("Username or password incorrect!");
-      } else {
-        throw UserException("Something went wrong, please try again later...");
-      }
+      return "Something went wrong";
+      // if (response != null && response.body == "") {
+      //   throw UserException("Username or password incorrect!");
+      // } else {
+      //   throw UserException("Something went wrong, please try again later...");
+      // }
     }
   }
 
-  Future<AppUser?> register(AppUserRegisterRequest request) async {
+  Future<dynamic> register(AppUserRegisterRequest request) async {
     var url = "${BaseProvider.baseUrl}AppUser/Register";
     // const String url = "https://10.0.2.2:44373/AppUser/Register";
     try {
@@ -83,19 +90,44 @@ class AppUserProvider extends BaseProvider<AppUser> {
           body: jsonEncode(request.toJson()),
           headers: <String, String>{'Content-Type': 'application/json'});
 
-      if (isValidResponseCode(response)) {
+      if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         userData = AppUser.fromJson(data);
         return AppUser.fromJson(data);
+      } else if (response.statusCode == 400) {
+        return UserExceptionResponse.fromJson(json.decode(response.body));
       }
     } catch (e) {
-      if (e.toString().contains("Bad request")) {
-        throw UserException("Username already exists!");
-      } else {
-        rethrow;
-      }
+      return "Something went wrong...";
+      // if (e.toString().contains("Bad request")) {
+      //   throw UserException("Username already exists!");
+      // } else {
+      //   rethrow;
+      // }
     }
   }
+
+  // Future<AppUser?> register(AppUserRegisterRequest request) async {
+  //   var url = "${BaseProvider.baseUrl}AppUser/Register";
+  //   // const String url = "https://10.0.2.2:44373/AppUser/Register";
+  //   try {
+  //     final response = await http!.post(Uri.parse(url),
+  //         body: jsonEncode(request.toJson()),
+  //         headers: <String, String>{'Content-Type': 'application/json'});
+
+  //     if (isValidResponseCode(response)) {
+  //       var data = jsonDecode(response.body);
+  //       userData = AppUser.fromJson(data);
+  //       return AppUser.fromJson(data);
+  //     }
+  //   } catch (e) {
+  //     if (e.toString().contains("Bad request")) {
+  //       throw UserException("Username already exists!");
+  //     } else {
+  //       rethrow;
+  //     }
+  //   }
+  // }
 
   Future<List<Attraction>> recommendAttractions(
       int appUserId, int? categoryId) async {

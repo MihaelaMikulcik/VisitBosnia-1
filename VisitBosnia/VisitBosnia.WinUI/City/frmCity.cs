@@ -80,7 +80,6 @@ namespace VisitBosnia.WinUI
                     {
                         try
                         {
-                            var delete = await CityService.Delete<Model.City>(item.Id);
                             var forumSearchObj = new ForumSearchObject { CityId = item.Id };
                             var forumFilter = await ForumService.Get<Model.Forum>(forumSearchObj);
                             var forum = forumFilter.FirstOrDefault();
@@ -88,6 +87,7 @@ namespace VisitBosnia.WinUI
                             {
                                 var deleteForum = ForumService.Delete<Model.Forum>(forum.Id);
                             }
+                            var delete = await CityService.Delete<Model.City>(item.Id);
                             LoadTable();
                             var message = MessageBox.Show("Successfully deleted");
                         }

@@ -214,7 +214,7 @@ class _TouristFacilityInfoState extends State<TouristFacilityInfo> {
 
   Widget buildIndicator() => AnimatedSmoothIndicator(
         activeIndex: activeIndex,
-        count: (gallery.isNotEmpty) ? gallery.length : 0,
+        count: (gallery.isNotEmpty && gallery.length > 1) ? gallery.length : 0,
         effect: const ScrollingDotsEffect(
             dotWidth: 10,
             dotHeight: 10,

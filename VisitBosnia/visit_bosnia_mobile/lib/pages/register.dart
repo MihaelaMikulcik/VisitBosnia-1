@@ -12,6 +12,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:visit_bosnia_mobile/exception/http_exception.dart';
+import 'package:visit_bosnia_mobile/model/UserExceptionResponse.dart';
 import 'package:visit_bosnia_mobile/model/appUser/app_user_register.dart';
 import 'package:visit_bosnia_mobile/pages/home_page.dart';
 import 'package:visit_bosnia_mobile/pickers/user_image_picker.dart';
@@ -79,49 +80,49 @@ class _RegisterState extends State<Register> {
           request.image = base64String(await _userImage!.readAsBytes());
         }
 
-        try {
-          await getData(request);
-          Authorization.username = _username;
-          Authorization.password = _password;
-          if (response is AppUser) {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                      title: const Text("Uspjeh"),
-                      content: const Text("Uspjesna registracija"),
-                      actions: [
-                        TextButton(
-                            child: const Text("Ok"),
-                            onPressed: () {
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => Homepage(
-                                        user: response as AppUser,
-                                      )));
-                            })
-                      ],
-                    ));
-          }
-        } catch (e) {
-          if (e is UserException) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(
-                  e.message,
-                  style: const TextStyle(color: Colors.white),
-                ),
-                duration: const Duration(seconds: 2),
-                backgroundColor: Color.fromARGB(255, 165, 46, 37)));
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text(
-                  "Something went wrong, please try again later...",
-                  style: TextStyle(color: Colors.white),
-                ),
-                duration: Duration(seconds: 2),
-                backgroundColor: Color.fromARGB(255, 165, 46, 37)));
-          }
+        // try {
+        await getData(request);
+        Authorization.username = _username;
+        Authorization.password = _password;
+        if (response is AppUser) {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                    title: const Text("Uspjeh"),
+                    content: const Text("Uspjesna registracija"),
+                    actions: [
+                      TextButton(
+                          child: const Text("Ok"),
+                          onPressed: () {
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => Homepage(
+                                      user: response as AppUser,
+                                    )));
+                          })
+                    ],
+                  ));
         }
+        // } catch (e) {
+        else if (response is UserExceptionResponse) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(
+                response.message!,
+                style: const TextStyle(color: Colors.white),
+              ),
+              duration: const Duration(seconds: 2),
+              backgroundColor: Color.fromARGB(255, 165, 46, 37)));
+        } else if (response is String) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(
+                response,
+                style: TextStyle(color: Colors.white),
+              ),
+              duration: Duration(seconds: 2),
+              backgroundColor: Color.fromARGB(255, 165, 46, 37)));
+        }
+        // }
       }
     } else {
       _autoValidate = true;

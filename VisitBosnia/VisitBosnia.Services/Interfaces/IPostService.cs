@@ -11,5 +11,6 @@ namespace VisitBosnia.Services.Interfaces
 {
     public interface IPostService : ICRUDService<Post, PostSearchObject, PostInsertRequest, object>
     {
+        public int? GetNumberOfReplies(int postId);
     }
 }

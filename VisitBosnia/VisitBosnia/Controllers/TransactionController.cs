@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Stripe;
+using System.Net;
 using VisitBosnia.Filters;
 using VisitBosnia.Model;
 using VisitBosnia.Model.Requests;
@@ -10,12 +11,14 @@ namespace VisitBosnia.Controllers
 {
     public class TransactionController:BaseCRUDController<Model.Transaction, TransactionSearchObject, TransactionInsertRequest, object>
     {
-        ITransactionService transactionService;
-        private readonly IConfiguration configuration;
-        public TransactionController(ITransactionService service, IConfiguration config):base(service)
+        ITransactionService _transactionService;
+        private readonly IConfiguration _configuration;
+        IEventService _eventService;
+        public TransactionController(ITransactionService service, IConfiguration config, IEventService eventService):base(service)
         {
-            transactionService = service;
-            configuration = config;
+            _transactionService = service;
+            _configuration = config;
+            _eventService = eventService;
         }
 
         private Token stripeToken;
@@ -26,6 +29,8 @@ namespace VisitBosnia.Controllers
         [Route("ProcessTransaction")]
         public IActionResult ProcessTransaction(TransactionInsertRequest transaction)
         {
+            if (!_eventService.IsAvailableEvent(transaction.EventId, transaction.Quantity))
+                throw new UserException("Sorry, event tickets are currently sold out!");
             try
             {
                 var token = CreateStripeToken(transaction.creditCard);
@@ -42,13 +47,24 @@ namespace VisitBosnia.Controllers
             {
                 if (ex is StripeException)
                 {
-                    return BadRequest("Payment failed!");
-                    //var stripeErr = ex as StripeException;
-                    //if (stripeErr.StripeError.Code == "invalid_expiry_year")
-                    //{
-                    //    return BadRequest("Your credit card is expired");
-                    //    //throw new UserException("Sorry, your credit card is expired...");
-                    //}
+
+                    var stripeErr = ex as StripeException;
+                    if (stripeErr.StripeError.Code == "invalid_expiry_year" || stripeErr.StripeError.Code == "invalid_expiry_month")
+                    {
+                        throw new UserException("Sorry, your credit card is expired...");
+                    }
+                    else if (stripeErr.StripeError.Code == "incorrect_cvc")
+                    {
+                        throw new UserException("Error, card's security code is incorrect");
+                    }
+                    else if (stripeErr.StripeError.Code == "incorrect_number")
+                    {
+                        throw new UserException("Error, credit card number is incorrect");
+                    }
+                    else
+                    {
+                        throw new UserException("Payment failed...");
+                    }
                 }
                 return StatusCode(500);
             }
@@ -56,12 +72,11 @@ namespace VisitBosnia.Controllers
         }
 
 
-
         private string CreateStripeToken(CreditCardData creditCard)
         {
             try
             {
-                StripeConfiguration.ApiKey = (configuration["Stripe:PublishableKey"]);
+                StripeConfiguration.ApiKey = (_configuration["Stripe:PublishableKey"]);
                 var chargeService = new ChargeService();
                 var options = new TokenCreateOptions
                 {
@@ -87,7 +102,7 @@ namespace VisitBosnia.Controllers
         {
             try
             {
-                StripeConfiguration.ApiKey = (configuration["Stripe:SecretKey"]);
+                StripeConfiguration.ApiKey = (_configuration["Stripe:SecretKey"]);
                 var options = new ChargeCreateOptions
                 {
                     Amount = Convert.ToInt64(request.Price * 100),
@@ -100,7 +115,7 @@ namespace VisitBosnia.Controllers
                 Charge charge = service.Create(options);
                 request.ChargeId = charge.Id;
                 request.Status = charge.Status.ToLower();
-                var transaction = transactionService.Insert(request);
+                var transaction = _transactionService.Insert(request);
                 return charge != null ? true : false;
             }
             catch (Exception ex)

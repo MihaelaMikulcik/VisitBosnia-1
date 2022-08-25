@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using VisitBosnia.Filters;
 using VisitBosnia.Model;
 using VisitBosnia.Model.Requests;
 using VisitBosnia.WinUI.Helpers;
@@ -75,22 +76,23 @@ namespace VisitBosnia.WinUI
             //cmbRole.DisplayMember = "Name";
             //cmbRole.ValueMember = "Id";
 
-            var items = new List<ComboItem>();
 
-            var agency = await agencyService.GetWithoutAuth<Agency>();
+            //var items = new List<ComboItem>();
 
-            foreach (var ag in agency)
-            {
-                items.Add(new ComboItem
-                {
-                    Id = ag.Id,
-                    Text = ag.Name
-                });
-            }
+            //var agency = await agencyService.GetWithoutAuth<Agency>();
 
-            cbAgency.DataSource = items;
-            cbAgency.ValueMember = "Id";
-            cbAgency.DisplayMember = "Text";
+            //foreach (var ag in agency)
+            //{
+            //    items.Add(new ComboItem
+            //    {
+            //        Id = ag.Id,
+            //        Text = ag.Name
+            //    });
+            //}
+
+            //cbAgency.DataSource = items;
+            //cbAgency.ValueMember = "Id";
+            //cbAgency.DisplayMember = "Text";
         }
 
 
@@ -137,8 +139,12 @@ namespace VisitBosnia.WinUI
                     }
                     
                 }
-                catch
+                catch(Exception ex)
                 {
+                    if(ex is UserException)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                     MessageBox.Show("Neuspjesna registracija");
                 }
                 

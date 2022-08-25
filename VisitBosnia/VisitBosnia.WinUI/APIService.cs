@@ -97,20 +97,43 @@ namespace VisitBosnia.WinUI
         public async Task<T> Login<T>(string username, string password)
         {
             var url = $"{_endpoint}{_route}?Username={username}&Password={password}";
+
+            var result = await url.WithBasicAuth(username, password).GetJsonAsync<T>();
+            return result;
+
+
             //try
             //{
-                var result = await url.WithBasicAuth(username, password).GetJsonAsync<T>();
-                return result;
+            //    var url = $"{_endpoint}{_route}?Username={username}&Password={password}";
+            //    var result = await url.WithBasicAuth(username, password).GetJsonAsync<T>();
+            //    return result;
             //}
             //catch (FlurlHttpException ex)
             //{
-            //    var errors = await ex.GetResponseJsonAsync<Dictionary<string, string[]>>();
-            //    var stringBuilder = new StringBuilder();
-            //    foreach (var error in errors)
-            //    {
-            //        stringBuilder.AppendLine($"{error.Key}, ${string.Join(",", error.Value)}");
-            //    }
-            //    MessageBox.Show(stringBuilder.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            //    if (ex.StatusCode == 401)
+            //        MessageBox.Show("Neispravno korisničko ime ili lozinka! ", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    else
+            //        MessageBox.Show("Došlo je do greške, pokušajte opet! ", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            //    return default;
+
+            //    //var errors = await ex.GetResponseJsonAsync<Dictionary<string, string>>();
+            //    //if (errors != null)
+            //    //{
+            //    //    errors.TryGetValue("message", out string message);
+
+            //    //    MessageBox.Show(message, "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    //}
+            //    //else
+            //    //    MessageBox.Show("Došlo je do greške", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    //var errors = await ex.GetResponseJsonAsync<Dictionary<string, string>>();
+            //    //var stringBuilder = new StringBuilder();
+            //    //foreach (var error in errors)
+            //    //{
+            //    //    stringBuilder.AppendLine($"{error.Key}, ${string.Join(",", error.Value)}");
+            //    //}
+            //    //MessageBox.Show(stringBuilder.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             //    return default(T);
             //}
 
@@ -123,17 +146,17 @@ namespace VisitBosnia.WinUI
                 var url = $"{_endpoint}{_route}/Register";
                 return await url.PostJsonAsync(request).ReceiveJson<AppUser>();
             }
-            catch (FlurlHttpException ex)//popraviti 
+            catch (FlurlHttpException ex)
             {
-                var errors = await ex.GetResponseJsonAsync<Dictionary<string, string[]>>();
-
-                var stringBuilder = new StringBuilder();
-                foreach (var error in errors)
+                var errors = await ex.GetResponseJsonAsync<Dictionary<string, string>>();
+                if (errors != null)
                 {
-                    stringBuilder.AppendLine($"{error.Key}, {string.Join(",", error.Value)}");
-                }
+                    errors.TryGetValue("message", out string message);
 
-                MessageBox.Show(stringBuilder.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(message, "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                    MessageBox.Show("Došlo je do greške", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return default(Model.AppUser);
             }
         }
@@ -145,7 +168,7 @@ namespace VisitBosnia.WinUI
                 var url = $"{_endpoint}{_route}/delete/{id}";
             return await url.WithBasicAuth(Username, Password).DeleteAsync().ReceiveJson<T>();
             }
-            catch (FlurlHttpException ex)//popraviti 
+            catch (FlurlHttpException ex) 
             {
                 var errors = await ex.GetResponseJsonAsync<Dictionary<string, string[]>>();
 
