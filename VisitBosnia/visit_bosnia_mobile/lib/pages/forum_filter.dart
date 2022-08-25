@@ -135,11 +135,22 @@ class _ForumFilterState extends State<ForumFilter> {
                 child: Text('Something went wrong...'),
               );
             } else {
-              return ListView(
-                scrollDirection: Axis.vertical,
-                physics: const ScrollPhysics(),
-                children: snapshot.data!.map((e) => forumWidget(e)).toList(),
-              );
+              if (snapshot.data!.isNotEmpty) {
+                return ListView(
+                  scrollDirection: Axis.vertical,
+                  physics: const ScrollPhysics(),
+                  children: snapshot.data!.map((e) => forumWidget(e)).toList(),
+                );
+              } else {
+                return SizedBox(
+                    width: double.infinity,
+                    child: Center(
+                      child: Text(
+                        "There are currently no active forums",
+                        textAlign: TextAlign.center,
+                      ),
+                    ));
+              }
             }
           }
         });

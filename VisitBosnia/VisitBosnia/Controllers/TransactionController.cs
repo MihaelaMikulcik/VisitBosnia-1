@@ -33,8 +33,6 @@ namespace VisitBosnia.Controllers
                 throw new UserException("Sorry, event tickets are currently sold out!");
             try
             {
-                //return BadRequest("Event tickets are sold out!");
-
                 var token = CreateStripeToken(transaction.creditCard);
                 if (token != null)
                 {
@@ -49,23 +47,18 @@ namespace VisitBosnia.Controllers
             {
                 if (ex is StripeException)
                 {
-                    //throw new UserException("Your credit card information is not valid!", HttpStatusCode.BadRequest);
-                    //return BadRequest("Payment failed!");
 
                     var stripeErr = ex as StripeException;
-                    if (stripeErr.StripeError.Code == "invalid_expiry_year" || stripeErr.StripeError.Code == "invalid_expiry_month")// ili expired_card
+                    if (stripeErr.StripeError.Code == "invalid_expiry_year" || stripeErr.StripeError.Code == "invalid_expiry_month")
                     {
-                        //return BadRequest("Your credit card is expired");
                         throw new UserException("Sorry, your credit card is expired...");
                     }
-                    else if (stripeErr.StripeError.Code == "incorrect_cvc")// ili expired_card
+                    else if (stripeErr.StripeError.Code == "incorrect_cvc")
                     {
-                        //return BadRequest("Your credit card is expired");
                         throw new UserException("Error, card's security code is incorrect");
                     }
-                    else if (stripeErr.StripeError.Code == "incorrect_number")// ili expired_card
+                    else if (stripeErr.StripeError.Code == "incorrect_number")
                     {
-                        //return BadRequest("Your credit card is expired");
                         throw new UserException("Error, credit card number is incorrect");
                     }
                     else
@@ -77,25 +70,6 @@ namespace VisitBosnia.Controllers
             }
 
         }
-
-        //public async Task<bool> isAvailableEvent(int eventId, int newParticipants)
-        //{
-        //    //var event = _eventService.GetById(eventId);
-        //    var Event = await _eventService.GetById(eventId);
-        //    var numberOfParticipants = _eventService.GetNumberOfParticipants(eventId);
-        //    if (Event != null)
-        //    {
-        //        if (Event.MaxNumberOfParticipants == numberOfParticipants)
-        //            return false;
-        //        else if (numberOfParticipants + newParticipants > Event.MaxNumberOfParticipants)
-        //            return false;
-        //        else
-        //            return true;
-        //    }
-        //    return false;
-
-        //}
-
 
 
         private string CreateStripeToken(CreditCardData creditCard)

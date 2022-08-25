@@ -378,11 +378,22 @@ class _ForumTopicsState extends State<ForumTopics> {
                 child: Text('Something went wrong...'),
               );
             } else {
-              return ListView(
-                scrollDirection: Axis.vertical,
-                physics: const ScrollPhysics(),
-                children: snapshot.data!.map((e) => postWidget(e)).toList(),
-              );
+              if (snapshot.data!.isNotEmpty) {
+                return ListView(
+                  scrollDirection: Axis.vertical,
+                  physics: const ScrollPhysics(),
+                  children: snapshot.data!.map((e) => postWidget(e)).toList(),
+                );
+              } else {
+                return SizedBox(
+                    width: double.infinity,
+                    child: Center(
+                      child: Text(
+                        "Sorry, there are no topics for this forum yet!",
+                        textAlign: TextAlign.center,
+                      ),
+                    ));
+              }
             }
           }
         });

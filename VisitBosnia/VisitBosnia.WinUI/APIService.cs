@@ -145,9 +145,8 @@ namespace VisitBosnia.WinUI
                 var url = $"{_endpoint}{_route}/Register";
                 return await url.PostJsonAsync(request).ReceiveJson<AppUser>();
             }
-            catch (FlurlHttpException ex)//popraviti 
+            catch (FlurlHttpException ex)
             {
-                //var errors = await ex.GetResponseJsonAsync<Dictionary<string, string[]>>();
                 var errors = await ex.GetResponseJsonAsync<Dictionary<string, string>>();
                 if (errors != null)
                 {
@@ -157,14 +156,6 @@ namespace VisitBosnia.WinUI
                 }
                 else
                     MessageBox.Show("Došlo je do greške", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                //var stringBuilder = new StringBuilder();
-                //foreach (var error in errors)
-                //{
-                //    stringBuilder.AppendLine($"{error.Key}, {string.Join(",", error.Value)}");
-                //}
-
-                //MessageBox.Show(stringBuilder.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return default(Model.AppUser);
             }
         }
@@ -176,7 +167,7 @@ namespace VisitBosnia.WinUI
                 var url = $"{_endpoint}{_route}/delete/{id}";
             return await url.WithBasicAuth(Username, Password).DeleteAsync().ReceiveJson<T>();
             }
-            catch (FlurlHttpException ex)//popraviti 
+            catch (FlurlHttpException ex) 
             {
                 var errors = await ex.GetResponseJsonAsync<Dictionary<string, string[]>>();
 
@@ -198,7 +189,7 @@ namespace VisitBosnia.WinUI
                 var url = $"{_endpoint}{_route}/Register";
                 await url.PostJsonAsync(request);
             }
-            catch (FlurlHttpException ex)//popraviti 
+            catch (FlurlHttpException ex) 
             {
                 var errors = await ex.GetResponseJsonAsync<Dictionary<string, string[]>>();
 

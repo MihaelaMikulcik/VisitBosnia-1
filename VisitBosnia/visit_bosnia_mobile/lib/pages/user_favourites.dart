@@ -54,10 +54,21 @@ class _UserFavouritesState extends State<UserFavourites> {
     return favourites;
   }
 
-  Future<List<TouristFacilityGallery>> getGallery(int facilityId) async {
-    var search = TouristFacilityGallerySearchObject(facilityId: facilityId);
-    var gallery = await _touristFacilityGalleryProvider.get(search.toJson());
-    return gallery;
+  // Future<List<TouristFacilityGallery>> getGallery(int facilityId) async {
+  //   var search = TouristFacilityGallerySearchObject(facilityId: facilityId);
+  //   var gallery = await _touristFacilityGalleryProvider.get(search.toJson());
+  //   return gallery;
+  // }
+
+  Future<String?> getImage(int facilityId) async {
+    var search = TouristFacilityGallerySearchObject(
+        facilityId: facilityId, isThumbnail: true);
+    var image = await _touristFacilityGalleryProvider.get(search.toJson());
+    if (image.isNotEmpty) {
+      return image.first.image!;
+    } else {
+      return null;
+    }
   }
 
   Future<TouristFacility> getFacility(int facilityId) async {
@@ -65,7 +76,7 @@ class _UserFavouritesState extends State<UserFavourites> {
     return facility;
   }
 
-  Container imageContainer(TouristFacilityGallery gallery) {
+  Widget imageContainer(String image) {
     return Container(
         height: 130.0,
         width: 350.0,
@@ -74,21 +85,31 @@ class _UserFavouritesState extends State<UserFavourites> {
                 fit: BoxFit.cover,
                 alignment: FractionalOffset.center,
                 image: MemoryImage(
-                  base64Decode(gallery.image!),
+                  base64Decode(image),
                 )),
             borderRadius: BorderRadius.circular(20)));
   }
 
   _buildImage(int facilityId) {
-    return FutureBuilder<List<TouristFacilityGallery>>(
-        future: getGallery(facilityId),
-        builder: (BuildContext context,
-            AsyncSnapshot<List<TouristFacilityGallery>> snapshot) {
+    return FutureBuilder<String?>(
+        future: getImage(facilityId),
+        builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-              // child: Text('Loading...'),
+            return Container(
+              height: 130.0,
+              width: 350.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Color.fromARGB(255, 205, 210, 215),
+              ),
+
+              child: Center(child: CircularProgressIndicator()),
+              //   // child: Text('Loading...'),
             );
+            // return Center(
+            //   child: CircularProgressIndicator(),
+            //   // child: Text('Loading...'),
+            // );
           } else {
             if (snapshot.hasError) {
               return Center(
@@ -96,8 +117,8 @@ class _UserFavouritesState extends State<UserFavourites> {
                 child: Text('Something went wrong...'),
               );
             } else {
-              if (snapshot.data!.length > 0) {
-                return imageContainer(snapshot.data!.first);
+              if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                return imageContainer(snapshot.data!);
               } else {
                 return Container(
                   height: 130.0,
@@ -123,10 +144,17 @@ class _UserFavouritesState extends State<UserFavourites> {
         builder:
             (BuildContext context, AsyncSnapshot<TouristFacility> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-              // child: Text('Loading...'),
+            return Container(
+              width: 40,
+              height: 40,
+              // child: Text("loading..."),
+              // padding: EdgeInsets.only(bottom: 10),
+              // child: Image.asset("assets/images/black_favourite_location.png"),
             );
+            // return Center(
+            //   child: CircularProgressIndicator(),
+            //   // child: Text('Loading...'),
+            // );
           } else {
             if (snapshot.hasError) {
               return Center(
@@ -211,6 +239,10 @@ class _UserFavouritesState extends State<UserFavourites> {
         builder: (BuildContext context,
             AsyncSnapshot<List<AppUserFavourite>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
+            // return Container(
+            //   padding: EdgeInsets.only(top: 60),
+            //   child: CircularProgressIndicator(),
+            // );
             return Center(
               child: CircularProgressIndicator(),
               // child: Text('Loading...'),

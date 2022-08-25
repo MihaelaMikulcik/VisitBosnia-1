@@ -105,17 +105,27 @@ class _HomepageState extends State<Homepage> {
     });
   }
 
-  Future<List<TouristFacilityGallery>> getGallery(int facilityId) async {
-    var search = TouristFacilityGallerySearchObject(facilityId: facilityId);
-    var gallery = await _touristFacilityGalleryProvider.get(search.toJson());
-    return gallery;
+  Future<String?> getImage(int facilityId) async {
+    var search = TouristFacilityGallerySearchObject(
+        facilityId: facilityId, isThumbnail: true);
+    var image = await _touristFacilityGalleryProvider.get(search.toJson());
+    if (image.isNotEmpty) {
+      return image.first.image!;
+    } else {
+      return null;
+    }
   }
 
+  // Future<List<TouristFacilityGallery>> getGallery(int facilityId) async {
+  //   var search = TouristFacilityGallerySearchObject(facilityId: facilityId);
+  //   var gallery = await _touristFacilityGalleryProvider.get(search.toJson());
+  //   return gallery;
+  // }
+
   _buildImage(int facilityId) {
-    return FutureBuilder<List<TouristFacilityGallery>>(
-        future: getGallery(facilityId),
-        builder: (BuildContext context,
-            AsyncSnapshot<List<TouristFacilityGallery>> snapshot) {
+    return FutureBuilder<String?>(
+        future: getImage(facilityId),
+        builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Container(
               height: 220,
@@ -136,8 +146,8 @@ class _HomepageState extends State<Homepage> {
                 child: Text('Something went wrong...'),
               );
             } else {
-              if (snapshot.data!.length > 0) {
-                return imageContainer(snapshot.data!.first);
+              if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                return imageContainer(snapshot.data!);
               } else {
                 return Container(
                   height: 220,
@@ -157,7 +167,7 @@ class _HomepageState extends State<Homepage> {
         });
   }
 
-  Container imageContainer(TouristFacilityGallery gallery) {
+  Widget imageContainer(String image) {
     return Container(
       height: 220,
       width: 150,
@@ -168,10 +178,11 @@ class _HomepageState extends State<Homepage> {
               Color.fromARGB(66, 77, 76, 76),
               BlendMode.darken,
             ),
-            image: MemoryImage(base64Decode(gallery.image!)),
+            image: MemoryImage(base64Decode(image)),
             fit: BoxFit.cover,
           ),
           borderRadius: BorderRadius.circular(20)),
+
       // child: imageFromBase64String(gallery.image!),
     );
   }
@@ -475,10 +486,14 @@ class _HomepageState extends State<Homepage> {
         builder:
             (BuildContext context, AsyncSnapshot<List<Category>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-              // child: Text('Loading...'),
+            return Container(
+              width: MediaQuery.of(context).size.width,
+              height: 40,
             );
+            // return Center(
+            //   child: CircularProgressIndicator(),
+            //   // child: Text('Loading...'),
+            // );
           } else {
             if (snapshot.hasError) {
               return Center(

@@ -131,7 +131,6 @@ namespace VisitBosnia.WinUI
                 try
                 {
                     var result = await appUserService.Login<Model.AppUser>(txtUsername.Text, txtPassword.Text);
-                    //dodati provjeru da li je rola admin ili uposlenik
                     if (result != null)
                     {
                         if (result.IsBlocked == true)
@@ -146,14 +145,12 @@ namespace VisitBosnia.WinUI
                             if (role.Name == "Admin")
                             {
                                 this.Hide();
-                                //MessageBox.Show("Uspjesna prijava");
                                 var form = new AdminHome(result.Id);
                                 form.ShowDialog();
                             }
                             else
                             {
                                 this.Hide();
-                                //MessageBox.Show("Uspjesna prijava");
                                 var form = new AgencyHome(result.Id);
                                 form.ShowDialog();
                             }
@@ -167,11 +164,8 @@ namespace VisitBosnia.WinUI
                 }
                 catch (Exception ex)
                 {
-                    //if(ex is UserException)
-                    //{
-                    MessageBox.Show(ex.Message);
-
-                    //}
+                    MessageBox.Show("Something went wrong...");
+                    
                 }
             }
 

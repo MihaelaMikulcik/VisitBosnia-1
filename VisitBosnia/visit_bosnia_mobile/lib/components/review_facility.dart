@@ -200,7 +200,10 @@ class _ReviewFacilityState extends State<ReviewFacility> {
               child: Text(''),
             ),
             Container(
-              width: MediaQuery.of(context).size.width * (pct / total) * 0.5,
+              // width: 200,
+              width: total != 0
+                  ? MediaQuery.of(context).size.width * (pct / total) * 0.5
+                  : 0,
               decoration: BoxDecoration(
                   color: Color.fromARGB(255, 211, 75, 70),
                   borderRadius: BorderRadius.circular(20)),
@@ -264,6 +267,7 @@ class _ReviewFacilityState extends State<ReviewFacility> {
       Row(children: [
         Container(
           height: 200.0,
+          // width: MediaQuery.of(context).size.width,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [

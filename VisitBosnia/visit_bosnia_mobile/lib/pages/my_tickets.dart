@@ -130,7 +130,7 @@ class _MyTicketsState extends State<MyTickets> {
                 child: Text('Something went wrong...'),
               );
             } else {
-              if (snapshot.hasData) {
+              if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                 return Container(
                     height: 130.0,
                     width: MediaQuery.of(context).size.width,

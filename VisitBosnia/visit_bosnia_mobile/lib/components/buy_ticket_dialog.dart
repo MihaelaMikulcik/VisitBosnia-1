@@ -320,7 +320,7 @@ class _BuyTicketDialogState extends State<BuyTicketDialog> {
       if (response != null) {
         if (response is UserExceptionResponse) {
           _showErrorMessage(context, response.message!);
-        } else {
+        } else if (response is String) {
           Navigator.pop(context);
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Container(
