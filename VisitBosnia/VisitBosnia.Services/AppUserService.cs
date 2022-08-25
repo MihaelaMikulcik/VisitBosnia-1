@@ -35,19 +35,21 @@ namespace VisitBosnia.Services
 
         public async Task<Model.AppUser> Login(string username, string password)
         {
-            var user = await Context.AppUsers.FirstOrDefaultAsync(x => x.UserName == username); //dodati role
-            if(user == null)
-            {
-                return null;
-                //throw new UserException("Wrong username or password!", System.Net.HttpStatusCode.BadRequest);
-            }
-            var hash = HashHelper.GenerateHash(user.PasswordSalt, password);
-            if(hash != user.PasswordHash)
-            {
-                return null;
-                //throw new UserException("Wrong username or password!", System.Net.HttpStatusCode.BadRequest);
-            }
-            return Mapper.Map<Model.AppUser>(user);
+   
+                var user = await Context.AppUsers.FirstOrDefaultAsync(x => x.UserName == username); //dodati role
+                if (user == null)
+                {
+                    return null;
+                    //throw new UserException("Wrong username or password!", System.Net.HttpStatusCode.BadRequest);
+                }
+                var hash = HashHelper.GenerateHash(user.PasswordSalt, password);
+                if (hash != user.PasswordHash)
+                {
+                    return null;
+                    //throw new UserException("Wrong username or password!", System.Net.HttpStatusCode.BadRequest);
+                }
+                return Mapper.Map<Model.AppUser>(user);
+         
         }
 
         //public async override Task<Model.AppUser> Insert(AppUserInsertRequest request)

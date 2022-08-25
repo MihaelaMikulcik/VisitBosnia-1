@@ -92,6 +92,7 @@
             this.cbAgency.Size = new System.Drawing.Size(508, 25);
             this.cbAgency.TabIndex = 9;
             this.cbAgency.SelectedIndexChanged += new System.EventHandler(this.cbAgency_SelectedIndexChanged);
+            this.cbAgency.Validating += new System.ComponentModel.CancelEventHandler(this.cbAgency_Validating);
             // 
             // txtConfirmPass
             // 

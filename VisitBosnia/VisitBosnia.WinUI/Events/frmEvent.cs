@@ -113,7 +113,7 @@ namespace VisitBosnia.WinUI.Events
                 var review = await ReviewService.Get<Model.Review>(new ReviewSearchObject { FacilityId = item.Id });
                 var order = await EventOrderService.Get<EventOrder>(new EventOrderSearchObject { EventId = item.Id });
 
-                if(favorite != null || review != null || order != null)
+                if(favorite.Count() != 0 || review.Count() != 0 || order.Count() != 0)
                 {
                     MessageBox.Show("This event is already in use", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;

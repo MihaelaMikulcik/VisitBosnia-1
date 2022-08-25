@@ -77,22 +77,22 @@ namespace VisitBosnia.WinUI
             //cmbRole.ValueMember = "Id";
 
 
-            //var items = new List<ComboItem>();
+            var items = new List<ComboItem>();
 
-            //var agency = await agencyService.GetWithoutAuth<Agency>();
+            var agency = await agencyService.GetWithoutAuth<Agency>();
 
-            //foreach (var ag in agency)
-            //{
-            //    items.Add(new ComboItem
-            //    {
-            //        Id = ag.Id,
-            //        Text = ag.Name
-            //    });
-            //}
+            foreach (var ag in agency)
+            {
+                items.Add(new ComboItem
+                {
+                    Id = ag.Id,
+                    Text = ag.Name
+                });
+            }
 
-            //cbAgency.DataSource = items;
-            //cbAgency.ValueMember = "Id";
-            //cbAgency.DisplayMember = "Text";
+            cbAgency.DataSource = items;
+            cbAgency.ValueMember = "Id";
+            cbAgency.DisplayMember = "Text";
         }
 
 
@@ -257,6 +257,21 @@ namespace VisitBosnia.WinUI
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void cbAgency_Validating(object sender, CancelEventArgs e)
+        {
+            if (cbAgency.SelectedItem == null )
+            {
+                e.Cancel = true;
+                cbAgency.Focus();
+                error.SetError(cbAgency, "Must be selected");
+            }
+            else
+            {
+                e.Cancel = false;
+                error.SetError(cbAgency, "");
+            }
         }
     }
 }
