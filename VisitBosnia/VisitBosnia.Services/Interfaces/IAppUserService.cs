@@ -14,6 +14,7 @@ namespace VisitBosnia.Services.Interfaces
     {
         Task<Model.AppUser> Login(string username, string password);
         Task<Model.AppUser> Register(AppUserInsertRequest request);
+        Task<Model.AppUser> ChangePassword(AppUserChangePasswordRequest request);
         Task<List<Model.Attraction>> RecommendAttracions(int appUserId, int? categoryId);
         Task<List<Model.Event>> RecommendEvents(int appUserId, int? categoryId);
 

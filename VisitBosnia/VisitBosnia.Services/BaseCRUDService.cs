@@ -22,7 +22,7 @@ namespace VisitBosnia.Services
                 var set = Context.Set<TDb>();
                 TDb entity = Mapper.Map<TDb>(request);
                 set.Add(entity);
-                await Context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
 
 
                 return Mapper.Map<T>(entity);       

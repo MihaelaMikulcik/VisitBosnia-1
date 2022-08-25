@@ -50,6 +50,12 @@ namespace VisitBosnia.Controllers
             return await service.Register(request);
         }
 
+        [HttpPost("ChangePassword")]
+        public async Task<Model.AppUser> ChangePassword(AppUserChangePasswordRequest request)
+        {
+            return await service.ChangePassword(request);
+        }
+
         [HttpGet("RecommendAttractions")]
         public async Task<List<Model.Attraction>> RecommendAttractions(int appUserId, int categoryId)
         {
@@ -64,12 +70,12 @@ namespace VisitBosnia.Controllers
             return events;
         }
 
-        [AllowAnonymous]
-        [HttpPost("SendEmail")]
-        public void SendEmail([FromBody] SendEmailRequest request)
-        {
-             service.SendEmail(request);
-        }
+        //[AllowAnonymous]
+        //[HttpPost("SendEmail")]
+        //public void SendEmail([FromBody] SendEmailRequest request)
+        //{
+        //     service.SendEmail(request);
+        //}
 
 
         [HttpPost("SendSms")]
