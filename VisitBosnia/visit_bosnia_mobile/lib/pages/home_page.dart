@@ -58,11 +58,8 @@ class _HomepageState extends State<Homepage> {
     super.initState();
     // _eventProvider = context.read<EventProvider>();
     // _attractionProvider = context.read<AttractionProvider>();
-    _touristFacilityGalleryProvider =
-        context.read<TouristFacilityGalleryProvider>();
-    _appUserProvider = context.read<AppUserProvider>();
-    _categoryProvider = context.read<CategoryProvider>();
     _appUserFavouriteProvider = context.read<AppUserFavouriteProvider>();
+
     loadAppUserFavourite();
   }
 
@@ -189,6 +186,11 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
+    _touristFacilityGalleryProvider =
+        context.read<TouristFacilityGalleryProvider>();
+    _appUserProvider = context.watch<AppUserProvider>();
+    // _appUserProvider = context.read<AppUserProvider>();
+    _categoryProvider = context.read<CategoryProvider>();
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -292,8 +294,10 @@ class _HomepageState extends State<Homepage> {
   }
 
   Widget _eventCard(Event event) {
-    var contain =
-        userFavourite.where((element) => element.touristFacilityId == event.id);
+    // var contain =
+    //     userFavourite.where((element) => element.touristFacilityId == event.id);
+    var contain = _appUserFavouriteProvider.favorites
+        .where((element) => element.touristFacilityId == event.id);
     return InkWell(
         onTap: () {
           Navigator.of(context).push(
@@ -317,23 +321,35 @@ class _HomepageState extends State<Homepage> {
               left: 10,
               right: 10,
             ),
-            Positioned(
-              child: Container(
-                height: 30,
-                width: 30,
-                child: contain.length > 0
-                    ? Image.asset("assets/images/heart-icon.png")
-                    : null,
-              ),
-              top: 10,
-              right: 25,
-            )
+            Consumer<AppUserFavouriteProvider>(
+                builder: ((context, value, child) => Positioned(
+                      child: Container(
+                        height: 30,
+                        width: 30,
+                        child: contain.length > 0
+                            ? Image.asset("assets/images/heart-icon.png")
+                            : null,
+                      ),
+                      top: 10,
+                      right: 25,
+                    ))),
+            // Positioned(
+            //   child: Container(
+            //     height: 30,
+            //     width: 30,
+            //     child: contain.length > 0
+            //         ? Image.asset("assets/images/heart-icon.png")
+            //         : null,
+            //   ),
+            //   top: 10,
+            //   right: 25,
+            // )
           ],
         ));
   }
 
   Widget _attractionCard(Attraction attraction) {
-    var contain = userFavourite
+    var contain = _appUserFavouriteProvider.favorites
         .where((element) => element.touristFacilityId == attraction.id);
     return InkWell(
         onTap: () {
@@ -358,17 +374,29 @@ class _HomepageState extends State<Homepage> {
               left: 10,
               right: 10,
             ),
-            Positioned(
-              child: Container(
-                height: 30,
-                width: 30,
-                child: contain.length > 0
-                    ? Image.asset("assets/images/heart-icon.png")
-                    : null,
-              ),
-              top: 10,
-              right: 25,
-            )
+            Consumer<AppUserFavouriteProvider>(
+                builder: ((context, value, child) => Positioned(
+                      child: Container(
+                        height: 30,
+                        width: 30,
+                        child: contain.length > 0
+                            ? Image.asset("assets/images/heart-icon.png")
+                            : null,
+                      ),
+                      top: 10,
+                      right: 25,
+                    ))),
+            // Positioned(
+            //   child: Container(
+            //     height: 30,
+            //     width: 30,
+            //     child: contain.length > 0
+            //         ? Image.asset("assets/images/heart-icon.png")
+            //         : null,
+            //   ),
+            //   top: 10,
+            //   right: 25,
+            // )
           ],
         ));
   }

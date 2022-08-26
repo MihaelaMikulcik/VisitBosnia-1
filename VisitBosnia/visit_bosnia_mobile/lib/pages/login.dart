@@ -9,6 +9,7 @@ import 'package:visit_bosnia_mobile/pages/guide_events.dart';
 import 'package:visit_bosnia_mobile/pages/loading.dart';
 import 'package:visit_bosnia_mobile/pages/register.dart';
 import 'package:visit_bosnia_mobile/pages/home_page.dart';
+import 'package:visit_bosnia_mobile/providers/appuser_favourite_provider.dart';
 import 'package:visit_bosnia_mobile/providers/appuser_provider.dart';
 import 'package:visit_bosnia_mobile/providers/appuser_role_provider.dart';
 import 'package:visit_bosnia_mobile/utils/util.dart';
@@ -27,6 +28,7 @@ class _LoginState extends State<Login> {
   final TextEditingController _passwordController = TextEditingController();
   late AppUserProvider _appUserProvider;
   late AppUserRoleProvider _appUserRoleProvider;
+  late AppUserFavouriteProvider _appUserFavoriteProvider;
   dynamic result;
   Future<void> login() async {
     result = await _appUserProvider.login(
@@ -48,6 +50,7 @@ class _LoginState extends State<Login> {
     super.initState();
     _appUserProvider = context.read<AppUserProvider>();
     _appUserRoleProvider = context.read<AppUserRoleProvider>();
+    _appUserFavoriteProvider = context.read<AppUserFavouriteProvider>();
   }
 
   @override
@@ -175,6 +178,7 @@ class _LoginState extends State<Login> {
                                             255, 165, 46, 37)));
                                 setState(() => isLoading = false);
                               } else {
+                                _appUserFavoriteProvider.loadAppUserFavourite();
                                 var role =
                                     await GetRole((result as AppUser).id!);
                                 if (role == 'User') {
