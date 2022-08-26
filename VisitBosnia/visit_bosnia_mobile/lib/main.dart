@@ -26,6 +26,8 @@ import 'package:visit_bosnia_mobile/providers/tourist_facility_gallery_provider.
 import 'package:visit_bosnia_mobile/providers/tourist_facility_provider.dart';
 import 'package:visit_bosnia_mobile/providers/transaction_provider.dart';
 
+final navigatorKey = GlobalKey<NavigatorState>();
+
 void main() => runApp(MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => AppUserProvider()),
@@ -53,6 +55,7 @@ void main() => runApp(MultiProvider(
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
+            navigatorKey: navigatorKey,
             home: Login(),
             onGenerateRoute: (settings) {
               if (settings.name == Register.routeName) {
