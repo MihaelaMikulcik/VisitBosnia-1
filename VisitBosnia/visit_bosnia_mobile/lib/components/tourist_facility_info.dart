@@ -84,11 +84,13 @@ class _TouristFacilityInfoState extends State<TouristFacilityInfo> {
             new AppUserFavouriteInsertRequest(
                 appUserId: AppUserProvider.userData.id,
                 touristFacilityId: touristFacility.id!));
+        _appUserFavouriteProvider.addFavorite(newFavourite!);
         setState(() {
-          favouriteId = newFavourite!.id!;
+          favouriteId = newFavourite.id!;
         });
       } else {
         await _appUserFavouriteProvider.delete(favouriteId);
+        _appUserFavouriteProvider.removeFavorite(favouriteId);
         setState(() {
           favouriteId = 0;
         });

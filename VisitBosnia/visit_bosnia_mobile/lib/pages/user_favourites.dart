@@ -234,49 +234,71 @@ class _UserFavouritesState extends State<UserFavourites> {
   }
 
   _buildFavourites() {
-    return FutureBuilder<List<AppUserFavourite>>(
-        future: loadAppUserFavourite(),
-        builder: (BuildContext context,
-            AsyncSnapshot<List<AppUserFavourite>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            // return Container(
-            //   padding: EdgeInsets.only(top: 60),
-            //   child: CircularProgressIndicator(),
-            // );
-            return Center(
-              child: CircularProgressIndicator(),
-              // child: Text('Loading...'),
-            );
-          } else {
-            if (snapshot.hasError) {
-              return Center(
-                // child: Text('${snapshot.error}'),
-                child: Text('Something went wrong...'),
-              );
-            } else {
-              if (snapshot.data!.length > 0) {
-                return Column(
-                    children:
-                        snapshot.data!.map((e) => _FavouriteCard(e)).toList());
-              } else {
-                return Container(
-                    padding: EdgeInsets.only(top: 60),
-                    child: ListView(children: [
-                      Container(
-                          padding: EdgeInsets.only(bottom: 20),
-                          height: 90,
-                          width: 90,
-                          child: Image.asset("assets/images/heart2-icon.png")),
-                      Text(
-                        "No favorites yet",
-                        textAlign: TextAlign.center,
-                      )
-                    ]));
-              }
-            }
-          }
-        });
+    return (_appUserFavouriteProvider.favorites.isNotEmpty &&
+            _appUserFavouriteProvider.favorites.length > 0)
+        ? Column(
+            children: _appUserFavouriteProvider.favorites
+                .map((e) => _FavouriteCard(e))
+                .toList())
+        : Container(
+            padding: EdgeInsets.only(top: 60),
+            child: ListView(children: [
+              Container(
+                  padding: EdgeInsets.only(bottom: 20),
+                  height: 90,
+                  width: 90,
+                  child: Image.asset("assets/images/heart2-icon.png")),
+              Text(
+                "No favorites yet",
+                textAlign: TextAlign.center,
+              )
+            ]));
   }
+
+  // _buildFavourites() {
+  //   return FutureBuilder<List<AppUserFavourite>>(
+  //       future: loadAppUserFavourite(),
+  //       builder: (BuildContext context,
+  //           AsyncSnapshot<List<AppUserFavourite>> snapshot) {
+  //         if (snapshot.connectionState == ConnectionState.waiting) {
+  //           // return Container(
+  //           //   padding: EdgeInsets.only(top: 60),
+  //           //   child: CircularProgressIndicator(),
+  //           // );
+  //           return Center(
+  //             child: CircularProgressIndicator(),
+  //             // child: Text('Loading...'),
+  //           );
+  //         } else {
+  //           if (snapshot.hasError) {
+  //             return Center(
+  //               // child: Text('${snapshot.error}'),
+  //               child: Text('Something went wrong...'),
+  //             );
+  //           } else {
+  //             if (snapshot.data!.length > 0) {
+  //               return Column(
+  //                   children:
+  //                       snapshot.data!.map((e) => _FavouriteCard(e)).toList());
+  //             } else {
+  //               return Container(
+  //                   padding: EdgeInsets.only(top: 60),
+  //                   child: ListView(children: [
+  //                     Container(
+  //                         padding: EdgeInsets.only(bottom: 20),
+  //                         height: 90,
+  //                         width: 90,
+  //                         child: Image.asset("assets/images/heart2-icon.png")),
+  //                     Text(
+  //                       "No favorites yet",
+  //                       textAlign: TextAlign.center,
+  //                     )
+  //                   ]));
+  //             }
+  //           }
+  //         }
+  //       });
+  // }
 
   @override
   Widget build(BuildContext context) {
