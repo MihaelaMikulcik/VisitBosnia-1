@@ -72,10 +72,11 @@
             this.lnkForgotPassword.LinkColor = System.Drawing.Color.Black;
             this.lnkForgotPassword.Location = new System.Drawing.Point(276, 248);
             this.lnkForgotPassword.Name = "lnkForgotPassword";
-            this.lnkForgotPassword.Size = new System.Drawing.Size(107, 15);
+            this.lnkForgotPassword.Size = new System.Drawing.Size(103, 15);
             this.lnkForgotPassword.TabIndex = 8;
             this.lnkForgotPassword.TabStop = true;
-            this.lnkForgotPassword.Text = "Forgot password ?";
+            this.lnkForgotPassword.Text = "Change password";
+            this.lnkForgotPassword.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkForgotPassword_LinkClicked);
             // 
             // label2
             // 

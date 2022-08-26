@@ -19,6 +19,8 @@ namespace VisitBosnia.WinUI.AgencyMembers
         private readonly APIService appUserService = new APIService("AppUser");
         private readonly APIService agencyService = new APIService("Agency");
         private readonly APIService agencyMemberService = new APIService("AgencyMember");
+        private readonly APIService roleService = new APIService("Role");
+        private readonly APIService appUserRoleService = new APIService("AppUserRole");
         private int _agencyId;
 
         public frmAgencyMemberDetails(int agencyId)
@@ -39,47 +41,60 @@ namespace VisitBosnia.WinUI.AgencyMembers
         {
             if (ValidateChildren())//dodati validaciju
             {
-                StringBuilder builder = new StringBuilder();
-                Random random = new Random();
-                char ch;
-                for (int i = 0; i < 8; i++)
+                try
                 {
-                    ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
-                    builder.Append(ch);
+                    StringBuilder builder = new StringBuilder();
+                    Random random = new Random();
+                    char ch;
+                    for (int i = 0; i < 8; i++)
+                    {
+                        ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
+                        builder.Append(ch);
+                    }
+
+                    var phone = "+387" + txtPhone.Text;
+
+                    var tempPass = builder.ToString();
+                    var agencyName = await agencyService.GetById<Agency>(_agencyId);
+                    string msg = $"{agencyName.Name} added you as their member. This is your username and temporary password: {txtUsername.Text} {tempPass}. Please login and change your password to enjoy our app. Your Visit Bosnia";
+                    await appUserService.SendSms<AppUser>(new SmsMessage { To = phone, Message = msg, From = "" });
+
+                    AppUserInsertRequest request = new AppUserInsertRequest()
+                    {
+                        FirstName = txtFirstName.Text,
+                        LastName = txtLastName.Text,
+                        Email = txtEmail.Text,
+                        UserName = txtUsername.Text,
+                        Phone = phone,
+                        Password = tempPass,
+                        PasswordConfirm = tempPass,
+                        IsBlocked = true,
+                        TempPass = true
+                    };
+
+                    var result = await appUserService.Register(request);
+
+                    if (result != null)
+                    {
+
+                        var agencyMember = await agencyMemberService.Insert<AgencyMember>(new AgencyMemberInsertRequest { AppUserId = result.Id, AgencyId = _agencyId });
+
+                        var roles = await roleService.Get<Role>();
+                        var userrole = await appUserRoleService.Insert<AppUserRole>(new AppUserRoleInsertRequest { RoleId = roles.Where(x => x.Name == "Agency").FirstOrDefault().Id, AppUserId = result.Id });
+                     
+
+                        this.Hide();
+                        var form2 = new frmAgencyMember(_agencyId);
+                        form2.Closed += (s, args) => this.Close();
+                        form2.Show();
+                        MessageBox.Show("The invitation has been sent", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+                    }
                 }
-
-                var tempPass = builder.ToString();
-                var agencyName = await agencyService.GetById<Agency>(_agencyId);
-                string msg= $"{agencyName.Name} added you as their member. This is your username and temporary password: {txtUsername.Text} {tempPass}. Please login and change your password to enjoy our app. Your Visit Bosnia";
-                await appUserService.SendSms<AppUser>(new SmsMessage { To = txtPhone.Text, Message = msg, From = "" });
-
-                AppUserInsertRequest request = new AppUserInsertRequest()
+                catch
                 {
-                    FirstName = txtFirstName.Text,
-                    LastName = txtLastName.Text,
-                    Email = txtEmail.Text,
-                    UserName = txtUsername.Text,
-                    Phone = txtPhone.Text,
-                    Password = tempPass,
-                    PasswordConfirm = tempPass,
-                    IsBlocked = true,
-                    TempPass = true
-                };
-
-                var result = await appUserService.Register(request);
-
-                if (result != null)
-                {
-
-                    var agencyMember = await agencyMemberService.Insert<AgencyMember>(new AgencyMemberInsertRequest { AppUserId = result.Id, AgencyId = _agencyId });
-
-                    this.Hide();
-                    var form2 = new frmAgencyMember(_agencyId);
-                    form2.Closed += (s, args) => this.Close();
-                    form2.Show();
-                    MessageBox.Show("User is invited", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-
+                    MessageBox.Show("Something went wrong", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
 

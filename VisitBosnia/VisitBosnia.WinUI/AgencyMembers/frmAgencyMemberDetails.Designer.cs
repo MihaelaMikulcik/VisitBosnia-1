@@ -43,16 +43,17 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // txtPhone
             // 
             this.txtPhone.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtPhone.Location = new System.Drawing.Point(136, 307);
-            this.txtPhone.MinimumSize = new System.Drawing.Size(235, 27);
+            this.txtPhone.Location = new System.Drawing.Point(171, 309);
+            this.txtPhone.MinimumSize = new System.Drawing.Size(180, 27);
             this.txtPhone.Name = "txtPhone";
-            this.txtPhone.Size = new System.Drawing.Size(235, 27);
+            this.txtPhone.Size = new System.Drawing.Size(200, 27);
             this.txtPhone.TabIndex = 16;
             this.txtPhone.Validating += new System.ComponentModel.CancelEventHandler(this.txtPhone_Validating);
             // 
@@ -189,11 +190,28 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label7.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label7.Location = new System.Drawing.Point(136, 309);
+            this.label7.Name = "label7";
+            this.label7.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
+            this.label7.Size = new System.Drawing.Size(38, 27);
+            this.label7.TabIndex = 28;
+            this.label7.Text = "+387";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // frmAgencyMemberDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(434, 460);
+            this.Controls.Add(this.txtPhone);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.label6);
@@ -201,7 +219,6 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.txtPhone);
             this.Controls.Add(this.txtEmail);
             this.Controls.Add(this.txtUsername);
             this.Controls.Add(this.txtLastName);
@@ -232,5 +249,6 @@
         private Button btnCancel;
         private Button btnSave;
         private ErrorProvider errorProvider;
+        private Label label7;
     }
 }

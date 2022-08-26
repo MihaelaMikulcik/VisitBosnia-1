@@ -166,6 +166,7 @@ namespace VisitBosnia.Services
                 if (user.TempPass == true)
                 {
                     user.TempPass = false;
+                    user.IsBlocked = false;
                 }
 
                 Context.AppUsers.Update(user);

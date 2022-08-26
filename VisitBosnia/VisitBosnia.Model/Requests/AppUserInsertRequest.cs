@@ -20,7 +20,7 @@ namespace VisitBosnia.Model.Requests
         public string Email { get; set; } = null!;
 
 
-        [RegularExpression(@"^\(?\d{3}\)?-? *\d{3}-? *-?\d{3,4}$")]
+        //[RegularExpression(@"^\(?\d{3}\)?-? *\d{3}-? *-?\d{3,4}$")]
         public string? Phone { get; set; }
 
         [Required(AllowEmptyStrings = false)]
