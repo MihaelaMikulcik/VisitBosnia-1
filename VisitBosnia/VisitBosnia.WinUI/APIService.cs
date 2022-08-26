@@ -208,13 +208,41 @@ namespace VisitBosnia.WinUI
 
         public async Task<T> SendSms<T>(SmsMessage request)
         {
+            try
+            {
+
             var url = $"{_endpoint}{_route}/SendSms";                  
 
             await url.WithBasicAuth(Username, Password).PostJsonAsync(request).ReceiveJson<int>();
+            }catch(Exception ex)
+            {
+
+            }
 
             return default(T);
         }
 
+        public async Task<Model.AppUser> ChangePassword(AppUserChangePasswordRequest request)
+        {
+            try
+            {
+                var url = $"{_endpoint}{_route}/ChangePassword";
+                return await url.PostJsonAsync(request).ReceiveJson<AppUser>();
+            }
+            catch (FlurlHttpException ex)
+            {
+                var errors = await ex.GetResponseJsonAsync<Dictionary<string, string>>();
+                if (errors != null)
+                {
+                    errors.TryGetValue("message", out string message);
+
+                    MessageBox.Show(message, "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                    MessageBox.Show("Došlo je do greške", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return default(Model.AppUser);
+            }
+        }
     }
     
 }

@@ -135,6 +135,15 @@ namespace VisitBosnia.WinUI
                     {
                         if (result.IsBlocked == true)
                         {
+                            if(result.TempPass == true)
+                            {
+                                MessageBox.Show("You have to change your temporary password in order to continue");
+                                this.Hide();
+                                var form = new ChangePassword();
+                                form.ShowDialog();
+
+                            }
+
                             MessageBox.Show("You don't have permission to access this account");
                         }
                         else
@@ -185,6 +194,13 @@ namespace VisitBosnia.WinUI
         private void txtPassword_Validating(object sender, CancelEventArgs e)
         {
             validator.RequiredField(txtPassword, e);
+        }
+
+        private void lnkForgotPassword_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Hide();
+            var form = new ChangePassword();
+            form.ShowDialog();
         }
     }
 }

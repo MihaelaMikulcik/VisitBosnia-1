@@ -28,13 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.txtConfirmPass = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
-            this.txtPhone = new System.Windows.Forms.TextBox();
+            this.txtUsername = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textOldPassword = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
+            this.error = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.error)).BeginInit();
             this.SuspendLayout();
             // 
             // txtConfirmPass
@@ -47,6 +50,7 @@
             this.txtConfirmPass.PlaceholderText = "Confirm password";
             this.txtConfirmPass.Size = new System.Drawing.Size(235, 27);
             this.txtConfirmPass.TabIndex = 10;
+            this.txtConfirmPass.Validating += new System.ComponentModel.CancelEventHandler(this.txtConfirmPass_Validating);
             // 
             // txtPassword
             // 
@@ -55,19 +59,21 @@
             this.txtPassword.MinimumSize = new System.Drawing.Size(235, 27);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
-            this.txtPassword.PlaceholderText = "Password";
+            this.txtPassword.PlaceholderText = "New Password";
             this.txtPassword.Size = new System.Drawing.Size(235, 27);
             this.txtPassword.TabIndex = 9;
+            this.txtPassword.Validating += new System.ComponentModel.CancelEventHandler(this.txtPassword_Validating);
             // 
-            // txtPhone
+            // txtUsername
             // 
-            this.txtPhone.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtPhone.Location = new System.Drawing.Point(71, 151);
-            this.txtPhone.MinimumSize = new System.Drawing.Size(235, 27);
-            this.txtPhone.Name = "txtPhone";
-            this.txtPhone.PlaceholderText = "Phone number";
-            this.txtPhone.Size = new System.Drawing.Size(235, 27);
-            this.txtPhone.TabIndex = 8;
+            this.txtUsername.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtUsername.Location = new System.Drawing.Point(71, 151);
+            this.txtUsername.MinimumSize = new System.Drawing.Size(235, 27);
+            this.txtUsername.Name = "txtUsername";
+            this.txtUsername.PlaceholderText = "UserName";
+            this.txtUsername.Size = new System.Drawing.Size(235, 27);
+            this.txtUsername.TabIndex = 8;
+            this.txtUsername.Validating += new System.ComponentModel.CancelEventHandler(this.txtUsername_Validating);
             // 
             // label1
             // 
@@ -81,15 +87,17 @@
             this.label1.Text = "Change password";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // textBox1
+            // textOldPassword
             // 
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.textBox1.Location = new System.Drawing.Point(71, 204);
-            this.textBox1.MinimumSize = new System.Drawing.Size(235, 27);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.PlaceholderText = "Phone number";
-            this.textBox1.Size = new System.Drawing.Size(235, 27);
-            this.textBox1.TabIndex = 11;
+            this.textOldPassword.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.textOldPassword.Location = new System.Drawing.Point(71, 204);
+            this.textOldPassword.MinimumSize = new System.Drawing.Size(235, 27);
+            this.textOldPassword.Name = "textOldPassword";
+            this.textOldPassword.PasswordChar = '*';
+            this.textOldPassword.PlaceholderText = "Old Password";
+            this.textOldPassword.Size = new System.Drawing.Size(235, 27);
+            this.textOldPassword.TabIndex = 11;
+            this.textOldPassword.Validating += new System.ComponentModel.CancelEventHandler(this.textOldPassword_Validating);
             // 
             // btnCancel
             // 
@@ -103,6 +111,7 @@
             this.btnCancel.TabIndex = 13;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnSave
             // 
@@ -116,6 +125,11 @@
             this.btnSave.TabIndex = 12;
             this.btnSave.Text = "Change";
             this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // error
+            // 
+            this.error.ContainerControl = this;
             // 
             // ChangePassword
             // 
@@ -125,13 +139,15 @@
             this.ClientSize = new System.Drawing.Size(376, 450);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textOldPassword);
             this.Controls.Add(this.txtConfirmPass);
             this.Controls.Add(this.txtPassword);
-            this.Controls.Add(this.txtPhone);
+            this.Controls.Add(this.txtUsername);
             this.Controls.Add(this.label1);
             this.Name = "ChangePassword";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ChangePassword";
+            ((System.ComponentModel.ISupportInitialize)(this.error)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -141,10 +157,11 @@
 
         private TextBox txtConfirmPass;
         private TextBox txtPassword;
-        private TextBox txtPhone;
+        private TextBox txtUsername;
         private Label label1;
-        private TextBox textBox1;
+        private TextBox textOldPassword;
         private Button btnCancel;
         private Button btnSave;
+        private ErrorProvider error;
     }
 }
