@@ -292,6 +292,7 @@
             this.numberMax.Name = "numberMax";
             this.numberMax.Size = new System.Drawing.Size(195, 27);
             this.numberMax.TabIndex = 39;
+            this.numberMax.Validating += new System.ComponentModel.CancelEventHandler(this.numberMax_Validating);
             // 
             // numberPrice
             // 
@@ -301,6 +302,7 @@
             this.numberPrice.Name = "numberPrice";
             this.numberPrice.Size = new System.Drawing.Size(195, 27);
             this.numberPrice.TabIndex = 40;
+            this.numberPrice.Validating += new System.ComponentModel.CancelEventHandler(this.numberPrice_Validating);
             // 
             // cbCategory
             // 

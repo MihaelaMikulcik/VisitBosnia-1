@@ -295,5 +295,35 @@ namespace VisitBosnia.WinUI.Events
         {
 
         }
+
+        private void numberPrice_Validating(object sender, CancelEventArgs e)
+        {
+            if (numberPrice.Value == 0 )
+            {
+                e.Cancel = true;
+                numberPrice.Focus();
+                errorProvider.SetError(numberPrice, "Add price");
+            }
+            else
+            {
+                e.Cancel = false;
+                errorProvider.SetError(numberPrice, "");
+            }
+        }
+
+        private void numberMax_Validating(object sender, CancelEventArgs e)
+        {
+            if (numberMax.Value == 0)
+            {
+                e.Cancel = true;
+                numberMax.Focus();
+                errorProvider.SetError(numberMax, "Add number");
+            }
+            else
+            {
+                e.Cancel = false;
+                errorProvider.SetError(numberMax, "");
+            }
+        }
     }
 }

@@ -196,6 +196,7 @@
             this.numLatitude.Name = "numLatitude";
             this.numLatitude.Size = new System.Drawing.Size(195, 27);
             this.numLatitude.TabIndex = 15;
+            this.numLatitude.Validating += new System.ComponentModel.CancelEventHandler(this.numLatitude_Validating);
             // 
             // numLongitude
             // 
@@ -205,6 +206,7 @@
             this.numLongitude.Name = "numLongitude";
             this.numLongitude.Size = new System.Drawing.Size(195, 27);
             this.numLongitude.TabIndex = 16;
+            this.numLongitude.Validating += new System.ComponentModel.CancelEventHandler(this.numLongitude_Validating);
             // 
             // frmAttractionDetails
             // 

@@ -141,7 +141,7 @@
             this.labelRole.AutoSize = true;
             this.labelRole.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.labelRole.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.labelRole.Location = new System.Drawing.Point(114, 335);
+            this.labelRole.Location = new System.Drawing.Point(124, 335);
             this.labelRole.Name = "labelRole";
             this.labelRole.Size = new System.Drawing.Size(68, 25);
             this.labelRole.TabIndex = 5;
@@ -183,11 +183,12 @@
             this.labelUserName.AutoSize = true;
             this.labelUserName.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.labelUserName.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.labelUserName.Location = new System.Drawing.Point(114, 307);
+            this.labelUserName.Location = new System.Drawing.Point(99, 307);
             this.labelUserName.Name = "labelUserName";
             this.labelUserName.Size = new System.Drawing.Size(110, 28);
             this.labelUserName.TabIndex = 1;
             this.labelUserName.Text = "UserName";
+            this.labelUserName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label1
             // 
