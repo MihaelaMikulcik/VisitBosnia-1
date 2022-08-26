@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.pbProfilePicture = new System.Windows.Forms.PictureBox();
+            this.pbProfilePicture = new VisitBosnia.WinUI.CustomInput.Picture();
             this.btnMyAgency = new System.Windows.Forms.Button();
             this.btnSingOut = new System.Windows.Forms.Button();
             this.btnProfile = new System.Windows.Forms.Button();
@@ -101,11 +101,12 @@
             // 
             // pbProfilePicture
             // 
+            this.pbProfilePicture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbProfilePicture.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbProfilePicture.Image = global::VisitBosnia.WinUI.Properties.Resources.user;
-            this.pbProfilePicture.Location = new System.Drawing.Point(52, 123);
+            this.pbProfilePicture.Location = new System.Drawing.Point(61, 117);
             this.pbProfilePicture.Name = "pbProfilePicture";
-            this.pbProfilePicture.Size = new System.Drawing.Size(207, 186);
+            this.pbProfilePicture.Size = new System.Drawing.Size(202, 192);
             this.pbProfilePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbProfilePicture.TabIndex = 18;
             this.pbProfilePicture.TabStop = false;
@@ -195,9 +196,10 @@
             this.labelUserName.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.labelUserName.Location = new System.Drawing.Point(116, 312);
             this.labelUserName.Name = "labelUserName";
-            this.labelUserName.Size = new System.Drawing.Size(110, 28);
+            this.labelUserName.Size = new System.Drawing.Size(64, 28);
             this.labelUserName.TabIndex = 9;
-            this.labelUserName.Text = "UserName";
+            this.labelUserName.Text = "name";
+            this.labelUserName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label1
             // 
@@ -415,6 +417,6 @@
         private Label label6;
         private PictureBox pictureBox5;
         private Button button5;
-        private PictureBox pbProfilePicture;
+        private CustomInput.Picture pbProfilePicture;
     }
 }

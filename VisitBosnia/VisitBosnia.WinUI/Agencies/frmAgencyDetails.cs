@@ -38,6 +38,14 @@ namespace VisitBosnia.WinUI.Agencies
                 button.ForeColor = Color.White;
                 button.FlatStyle = FlatStyle.Popup;
                 button.Click += new EventHandler(btnBack_Click);
+                txtName.ReadOnly = true;
+                txtPhone.ReadOnly = true;
+                txtAdress.ReadOnly = true;
+                txtResponsiblePerson.ReadOnly = true;
+                txtEmail.ReadOnly = true;
+                cmbCity.Visible = false;
+                City.Visible = false;
+
             }
             validator = new Validator.Validation(errorProvider);
         }

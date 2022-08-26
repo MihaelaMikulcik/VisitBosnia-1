@@ -71,11 +71,17 @@ namespace VisitBosnia.WinUI.Agencies
 
                 if (confirmResult == DialogResult.Yes)
                 {
-                    var deleteAgency = await AgencyService.Delete<Model.Agency>(item.Id);
-                    LoadData();
-                    var message = MessageBox.Show("Successfully deleted");
-
+                    try
+                    {
+                        var deleteAgency = await AgencyService.Delete<Model.Agency>(item.Id);
+                        LoadData();
+                        var message = MessageBox.Show("Successfully deleted");
+                    }   
+                        catch
+                {
+                    MessageBox.Show("This city is agency in use", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+            }
             }
             else
             {

@@ -70,9 +70,15 @@ namespace VisitBosnia.WinUI.Categories
                                           MessageBoxButtons.YesNo);
                     if (confirmResult == DialogResult.Yes)
                     {
+                        try { 
                         var delete = await CategoryService.Delete<Model.Category>(item.Id);
                         LoadTable();
                         var message = MessageBox.Show("Successfully deleted");
+                        }
+                        catch
+                        {
+                            MessageBox.Show("This category is already in use", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
                     }
                 }
             }

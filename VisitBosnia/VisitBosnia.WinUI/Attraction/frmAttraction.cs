@@ -7,7 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using VisitBosnia.Model;
 using VisitBosnia.Model.Requests;
+using VisitBosnia.Model.SearchObjects;
 using VisitBosnia.Model.ViewModels;
 using VisitBosnia.WinUI.Events;
 
@@ -17,6 +19,10 @@ namespace VisitBosnia.WinUI.Attraction
     {
         public APIService AttractionService { get; set; } = new APIService("Attraction");
         public APIService TouristFacilityService { get; set; } = new APIService("TouristFacility");
+        public APIService ReviewService { get; set; } = new APIService("Review");
+        public APIService AppUserFavouriteService { get; set; } = new APIService("AppUserFavourite");
+        public APIService TouristFacilityGalleryService { get; set; } = new APIService("TouristFacilityGallery");
+
         public frmAttraction()
         {
             InitializeComponent();
@@ -93,8 +99,27 @@ namespace VisitBosnia.WinUI.Attraction
                                         "Confirm Delete!!",
                                         MessageBoxButtons.YesNo);
 
+                var favorite = await AppUserFavouriteService.Get<AppUserFavourite>(new AppUserFavouriteSearchObject { TouristFacilityId = item.Id });
+                var review = await ReviewService.Get<Model.Review>(new ReviewSearchObject { FacilityId = item.Id });
+               
+
+                if (favorite.Count() != 0 || review.Count() != 0 )
+                {
+                    MessageBox.Show("This attraction is already in use", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+
+
                 if (confirmResult == DialogResult.Yes)
                 {
+                    var gallery = await TouristFacilityGalleryService.Get<TouristFacilityGallery>(new TouristFacilityGallerySearchObject { FacilityId = item.Id });
+
+                    foreach (var image in gallery)
+                    {
+                        await TouristFacilityGalleryService.Delete<TouristFacilityGallery>(image.Id);
+                    }
+
                     var delete = await AttractionService.Delete<Model.Attraction>(item.Id);
                     var deleteFacility = await TouristFacilityService.Delete<Model.TouristFacility>(item.Id);
                     LoadTable();

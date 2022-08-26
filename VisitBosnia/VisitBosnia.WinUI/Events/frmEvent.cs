@@ -7,7 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using VisitBosnia.Model;
 using VisitBosnia.Model.Requests;
+using VisitBosnia.Model.SearchObjects;
 using VisitBosnia.Model.ViewModels;
 
 namespace VisitBosnia.WinUI.Events
@@ -15,7 +17,11 @@ namespace VisitBosnia.WinUI.Events
     public partial class frmEvent : Form
     {
         public APIService EventService { get; set; } = new APIService("Event");
+        public APIService AppUserFavouriteService { get; set; } = new APIService("AppUserFavourite");
+        public APIService EventOrderService { get; set; } = new APIService("EventOrder");
+        public APIService ReviewService { get; set; } = new APIService("Review");
         public APIService TouristFacilityService { get; set; } = new APIService("TouristFacility");
+        public APIService TouristFacilityGalleryService { get; set; } = new APIService("TouristFacilityGallery");
         private int _agencyId;
 
         public frmEvent(int agencyId)
@@ -102,12 +108,30 @@ namespace VisitBosnia.WinUI.Events
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
                 e.ColumnIndex == 4)
             {
+
+                var favorite = await AppUserFavouriteService.Get<AppUserFavourite>(new AppUserFavouriteSearchObject { TouristFacilityId = item.Id });
+                var review = await ReviewService.Get<Model.Review>(new ReviewSearchObject { FacilityId = item.Id });
+                var order = await EventOrderService.Get<EventOrder>(new EventOrderSearchObject { EventId = item.Id });
+
+                if(favorite.Count() != 0 || review.Count() != 0 || order.Count() != 0)
+                {
+                    MessageBox.Show("This event is already in use", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
                 var confirmResult = MessageBox.Show("Are you sure to delete this item ??",
                                         "Confirm Delete!!",
                                         MessageBoxButtons.YesNo);
 
                 if (confirmResult == DialogResult.Yes)
                 {
+                    var gallery = await TouristFacilityGalleryService.Get<TouristFacilityGallery>(new TouristFacilityGallerySearchObject { FacilityId = item.Id });
+
+                    foreach(var image in gallery)
+                    {
+                        await TouristFacilityGalleryService.Delete<TouristFacilityGallery>(image.Id);
+                    }
+
                     var delete = await EventService.Delete<Model.Event>(item.Id);
                     var deleteFacility = await TouristFacilityService.Delete<Model.TouristFacility>(item.Id);
                     LoadTable();

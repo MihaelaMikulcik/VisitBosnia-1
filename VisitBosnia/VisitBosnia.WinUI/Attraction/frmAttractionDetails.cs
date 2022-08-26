@@ -201,5 +201,35 @@ namespace VisitBosnia.WinUI.Attraction
                 frmAttraction.Show();
             }
         }
+
+        private void numLatitude_Validating(object sender, CancelEventArgs e)
+        {
+            if (numLatitude.Value == 0)
+            {
+                e.Cancel = true;
+                numLatitude.Focus();
+                errorProvider.SetError(numLatitude, "Add Latitude");
+            }
+            else
+            {
+                e.Cancel = false;
+                errorProvider.SetError(numLatitude, "");
+            }
+        }
+
+        private void numLongitude_Validating(object sender, CancelEventArgs e)
+        {
+            if (numLongitude.Value == 0)
+            {
+                e.Cancel = true;
+                numLongitude.Focus();
+                errorProvider.SetError(numLongitude, "Add Longitude");
+            }
+            else
+            {
+                e.Cancel = false;
+                errorProvider.SetError(numLongitude, "");
+            }
+        }
     }
 }
