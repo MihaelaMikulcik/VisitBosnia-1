@@ -55,6 +55,7 @@ class _TouristFacilityInfoState extends State<TouristFacilityInfo> {
     // _appUserProvider = context.read<AppUserProvider>();
     LoadEventImages();
     loadFavourite();
+    _touristFacilityProvider.rating = "...";
   }
 
   @override
@@ -170,11 +171,18 @@ class _TouristFacilityInfoState extends State<TouristFacilityInfo> {
                       color: Color.fromARGB(255, 245, 173, 40),
                       size: 45.0,
                     ),
-                    Text(
-                      "4,0",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    )
+                    // _buildRating(),
+                    Consumer<TouristFacilityProvider>(
+                        builder: ((context, value, child) => Text(
+                              value.rating.toString(),
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ))),
+                    // Text(
+                    //   _touristFacilityProvider.rating,
+                    //   style:
+                    //       TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    // )
                   ])
                 ],
               ),
@@ -195,7 +203,7 @@ class _TouristFacilityInfoState extends State<TouristFacilityInfo> {
                   width: double.infinity,
                   child: Text("Description",
                       style: TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold))),
+                          fontSize: 17, fontWeight: FontWeight.bold))),
               SizedBox(
                 width: double.infinity,
                 child: Container(
@@ -211,6 +219,13 @@ class _TouristFacilityInfoState extends State<TouristFacilityInfo> {
           ))
     ]);
   }
+
+  // _buildRating(){
+  //   Consumer<TouristFacilityProvider>(
+  //       builder: ((context, value, child) => Text()
+  //      ));
+
+  // }
 
   Widget buildIndicator() => AnimatedSmoothIndicator(
         activeIndex: activeIndex,

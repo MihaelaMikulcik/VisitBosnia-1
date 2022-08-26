@@ -103,6 +103,7 @@ class _ReviewFacilityState extends State<ReviewFacility> {
       // four = _four / total * 100;
       // five = _five / total * 100;
     }
+    _touristFacilityProvider.updateRating(rating.toStringAsFixed(2));
   }
 
   Future<List<ReviewGallery>> getGallery(int reviewId) async {

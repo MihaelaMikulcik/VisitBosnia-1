@@ -14,9 +14,12 @@ import 'package:provider/provider.dart';
 import 'package:visit_bosnia_mobile/exception/http_exception.dart';
 import 'package:visit_bosnia_mobile/model/UserExceptionResponse.dart';
 import 'package:visit_bosnia_mobile/model/appUser/app_user_register.dart';
+import 'package:visit_bosnia_mobile/model/roles/appuser_role.dart';
+import 'package:visit_bosnia_mobile/model/roles/appuser_role_insert_request.dart';
 import 'package:visit_bosnia_mobile/pages/home_page.dart';
 import 'package:visit_bosnia_mobile/pickers/user_image_picker.dart';
 import 'package:visit_bosnia_mobile/providers/appuser_provider.dart';
+import 'package:visit_bosnia_mobile/providers/appuser_role_provider.dart';
 import 'package:visit_bosnia_mobile/utils/util.dart';
 
 import '../model/appUser/app_user.dart';
@@ -40,6 +43,7 @@ class _RegisterState extends State<Register> {
   dynamic response;
   AppUserRegisterRequest request = AppUserRegisterRequest();
   late AppUserProvider _appUserProvider;
+  late AppUserRoleProvider _appUserRoleProvider;
 
   final _formKey = GlobalKey<FormState>();
   final String _requiredMessage = "This field is required!";
@@ -85,24 +89,32 @@ class _RegisterState extends State<Register> {
         Authorization.username = _username;
         Authorization.password = _password;
         if (response is AppUser) {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) => AlertDialog(
-                    title: const Text("Uspjeh"),
-                    content: const Text("Uspjesna registracija"),
-                    actions: [
-                      TextButton(
-                          child: const Text("Ok"),
-                          onPressed: () {
-                            Navigator.pop(context);
-                            Navigator.pop(context);
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => Homepage(
-                                      user: response as AppUser,
-                                    )));
-                          })
-                    ],
-                  ));
+          AppUserRoleInsertRequest request = AppUserRoleInsertRequest();
+          request.appUserId = (response as AppUser).id;
+          request.roleId = 3;
+          var role = await _appUserRoleProvider.insert(request);
+          if (role is AppUserRole) {
+            AppUserProvider.role = "User";
+            showDialog(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                      title: const Text("Success"),
+                      content: const Text("Registration succeeded"),
+                      actions: [
+                        TextButton(
+                            child: const Text("Ok"),
+                            onPressed: () {
+                              Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      Homepage(user: AppUserProvider.userData),
+                                ),
+                                (route) => false,
+                              );
+                            })
+                      ],
+                    ));
+          }
         }
         // } catch (e) {
         else if (response is UserExceptionResponse) {
@@ -138,6 +150,7 @@ class _RegisterState extends State<Register> {
     super.initState();
     // _appUserProvider = Provider.of<AppUserProvider>(context);
     _appUserProvider = context.read<AppUserProvider>();
+    _appUserRoleProvider = context.read<AppUserRoleProvider>();
   }
 
   Future<void> getData(AppUserRegisterRequest request) async {

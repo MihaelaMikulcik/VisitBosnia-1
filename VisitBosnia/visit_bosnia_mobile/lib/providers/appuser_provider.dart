@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:http/io_client.dart';
 import 'package:visit_bosnia_mobile/exception/http_exception.dart';
+import 'package:visit_bosnia_mobile/model/appUser/app_user_change_pass_request.dart';
 import 'package:visit_bosnia_mobile/model/appUser/app_user_register.dart';
 import 'package:visit_bosnia_mobile/model/attractions/attraction.dart';
 import 'package:visit_bosnia_mobile/model/events/event.dart';
@@ -104,6 +105,26 @@ class AppUserProvider extends BaseProvider<AppUser> {
       // } else {
       //   rethrow;
       // }
+    }
+  }
+
+  Future<dynamic> changePassword(AppUserChangePasswordRequest request) async {
+    var url = "${BaseProvider.baseUrl}AppUser/ChangePassword";
+    try {
+      var uri = Uri.parse(url);
+      Map<String, String> headers = createHeaders();
+      final response = await http!
+          .post(uri, body: jsonEncode(request.toJson()), headers: headers);
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        userData = AppUser.fromJson(data);
+        return AppUser.fromJson(data);
+      } else if (response.statusCode == 400) {
+        return UserExceptionResponse.fromJson(json.decode(response.body));
+      }
+    } catch (e) {
+      return "Something went wrong...";
     }
   }
 

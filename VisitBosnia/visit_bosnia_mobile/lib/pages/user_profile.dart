@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:visit_bosnia_mobile/exception/http_exception.dart';
 import 'package:visit_bosnia_mobile/model/appUser/app_user.dart';
 import 'package:visit_bosnia_mobile/model/appUser/app_user_update.dart';
+import 'package:visit_bosnia_mobile/pages/change_password.dart';
 import 'package:visit_bosnia_mobile/pages/loading.dart';
 import 'package:visit_bosnia_mobile/utils/util.dart';
 
@@ -228,7 +229,24 @@ class _UserProfileState extends State<UserProfile> {
                       ),
                       txtPhone(),
                       const SizedBox(
-                        height: 20.0,
+                        height: 10.0,
+                      ),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => ChangePassword()));
+                          },
+                          child: Text(
+                            "Change password?",
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 18, 87, 143)),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10.0,
                       ),
                       btnSave(),
                     ],
@@ -243,6 +261,16 @@ class _UserProfileState extends State<UserProfile> {
       return const Loading();
     }
   }
+
+  // Widget changePassword() {
+  //   return widget(
+  //     child: Container(
+  //       height: 100,
+  //       width: MediaQuery.of(context).size.width,
+  //       color: Colors.red,
+  //     ),
+  //   );
+  // }
 
   Widget txtFirstName() {
     return TextFormField(

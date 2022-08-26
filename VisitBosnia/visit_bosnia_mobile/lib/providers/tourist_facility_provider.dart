@@ -9,4 +9,11 @@ class TouristFacilityProvider extends BaseProvider<TouristFacility> {
     // TODO: implement fromJson
     return TouristFacility.fromJson(data);
   }
+
+  late String rating = "...";
+
+  void updateRating(String newRating) {
+    rating = newRating;
+    notifyListeners();
+  }
 }

@@ -164,27 +164,26 @@ class _LoginState extends State<Login> {
                               if ((result as AppUser).isBlocked == true) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                        content: Expanded(
-                                          child: Text(
-                                            "Sorry, you have no access for this account anymore!",
-                                            style: const TextStyle(
-                                                fontSize: 17,
-                                                color: Colors.white),
-                                          ),
+                                        content: Text(
+                                          "You have no access for this account!",
+                                          style: const TextStyle(
+                                              fontSize: 17,
+                                              color: Colors.white),
                                         ),
                                         duration: const Duration(seconds: 2),
                                         backgroundColor: const Color.fromARGB(
                                             255, 165, 46, 37)));
                                 setState(() => isLoading = false);
                               } else {
-                                if (await GetRole((result as AppUser).id!) ==
-                                    'User') {
+                                var role =
+                                    await GetRole((result as AppUser).id!);
+                                if (role == 'User') {
                                   AppUserProvider.role = 'User';
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => Homepage(
                                             user: result as AppUser,
                                           )));
-                                } else {
+                                } else if (role == 'Agency') {
                                   AppUserProvider.role = 'Agency';
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => GuideEvents(
@@ -201,13 +200,10 @@ class _LoginState extends State<Login> {
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
-                                      content: Expanded(
-                                        child: Text(
-                                          result,
-                                          style: const TextStyle(
-                                              fontSize: 17,
-                                              color: Colors.white),
-                                        ),
+                                      content: Text(
+                                        result,
+                                        style: const TextStyle(
+                                            fontSize: 17, color: Colors.white),
                                       ),
                                       duration: const Duration(seconds: 2),
                                       backgroundColor: const Color.fromARGB(
