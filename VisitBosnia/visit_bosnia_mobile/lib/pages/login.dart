@@ -218,32 +218,30 @@ class _LoginState extends State<Login> {
                                   color: Colors.white)),
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              Navigator.pushNamed(context, Register.routeName);
-                            },
-                            child: const Text("Create account",
-                                style: TextStyle(
-                                    fontSize: 14.0,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold)),
-                          ),
-                          const Text(" | ",
+                      Align(
+                        alignment: Alignment.center,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, Register.routeName);
+                          },
+                          child: const Text("Create account",
                               style: TextStyle(
                                   fontSize: 14.0,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold)),
-                          const InkWell(
-                            child: Text("Forgot password?",
-                                style: TextStyle(
-                                    fontSize: 14.0,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold)),
-                          )
-                        ],
+                        ),
+                        // const Text(" | ",
+                        //     style: TextStyle(
+                        //         fontSize: 14.0,
+                        //         color: Colors.white,
+                        //         fontWeight: FontWeight.bold)),
+                        // const InkWell(
+                        //   child: Text("Forgot password?",
+                        //       style: TextStyle(
+                        //           fontSize: 14.0,
+                        //           color: Colors.white,
+                        //           fontWeight: FontWeight.bold)),
+                        // )
                       )
                     ],
                   ),
