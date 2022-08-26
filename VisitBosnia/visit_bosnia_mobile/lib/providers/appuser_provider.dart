@@ -12,6 +12,7 @@ import 'package:visit_bosnia_mobile/model/events/event.dart';
 import 'package:visit_bosnia_mobile/model/tourist_facility.dart';
 import 'package:visit_bosnia_mobile/providers/appuser_role_provider.dart';
 import 'package:visit_bosnia_mobile/providers/base_provider.dart';
+import 'package:visit_bosnia_mobile/utils/util.dart';
 
 import '../model/UserExceptionResponse.dart';
 import '../model/appUser/app_user.dart';
@@ -118,7 +119,8 @@ class AppUserProvider extends BaseProvider<AppUser> {
 
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        userData = AppUser.fromJson(data);
+        Authorization.password = request.newPassword;
+        // userData = AppUser.fromJson(data);
         return AppUser.fromJson(data);
       } else if (response.statusCode == 400) {
         return UserExceptionResponse.fromJson(json.decode(response.body));
@@ -179,7 +181,6 @@ class AppUserProvider extends BaseProvider<AppUser> {
     // var url =
     //     "https://10.0.2.2:44373/AppUser/RecommendAttractions?appUserId=${appUserId.toString()}&categoryId=${categoryId.toString()}";
     var uri = Uri.parse(url);
-
     Map<String, String> headers = createHeaders();
     var response = await http!.get(uri, headers: headers);
     // print("done $response");
