@@ -31,18 +31,28 @@ class AppUserProvider extends BaseProvider<AppUser> {
     return AppUser.fromJson(data);
   }
 
-  // @override
-  // Future<AppUser?> update(int id, [request]) {
-  //   // TODO: implement update
-  //   try {
-  //     return super.update(id, request);
-  //   } catch (e) {
-  //     if (e.toString().contains("Bad request")) {
-  //       throw UserException(e.toString());
-  //     }
-  //   }
-  //   throw ("Unexpected error...");
-  // }
+  Future<dynamic> updateUserData(int id, [request]) async {
+    // TODO: implement update
+    try {
+      var url = "${BaseProvider.baseUrl}AppUser/$id";
+      var uri = Uri.parse(url);
+
+      Map<String, String> headers = createHeaders();
+
+      var response =
+          await http!.put(uri, headers: headers, body: jsonEncode(request));
+      // var response = await update(id, request);
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        userData = AppUser.fromJson(data);
+        return AppUser.fromJson(data);
+      } else if (response.statusCode == 400) {
+        return UserExceptionResponse.fromJson(json.decode(response.body));
+      }
+    } catch (e) {
+      return "Something went wrong...";
+    }
+  }
 
   void changeUserInfo(AppUser newUserData) {
     userData = newUserData;

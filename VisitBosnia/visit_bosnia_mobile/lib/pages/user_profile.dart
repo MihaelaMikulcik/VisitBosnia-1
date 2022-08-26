@@ -6,8 +6,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:provider/provider.dart';
 import 'package:visit_bosnia_mobile/exception/http_exception.dart';
+import 'package:visit_bosnia_mobile/model/UserExceptionResponse.dart';
 import 'package:visit_bosnia_mobile/model/appUser/app_user.dart';
 import 'package:visit_bosnia_mobile/model/appUser/app_user_update.dart';
 import 'package:visit_bosnia_mobile/pages/change_password.dart';
@@ -97,52 +99,72 @@ class _UserProfileState extends State<UserProfile> {
     return regExp.hasMatch(em);
   }
 
-  bool isPhone(String value) {
-    String pattern = r'^[0-9]{3}[-]?[0-9]{3}[-]?[0-9]{3,4}$';
-    RegExp regex = RegExp(pattern);
-    return regex.hasMatch(value);
-  }
+  // bool isPhone(String value) {
+  //   String pattern = r'^[0-9]{3}[-]?[0-9]{3}[-]?[0-9]{3,4}$';
+  //   RegExp regex = RegExp(pattern);
+  //   return regex.hasMatch(value);
+  // }
 
-  var updateResult = null;
+  dynamic updateResult = null;
   void _trySubmit() async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
     if (isValid) {
       var request = AppUserUpdateRequest(
-          firstName: firstnameController.text,
-          lastName: lastnameController.text,
-          userName: usernameController.text,
-          phone: phoneController.text,
-          image: _userImage != null
-              ? base64String(await _userImage!.readAsBytes())
-              : AppUserProvider.userData.image
-          // image: base64String(await _userImage!.readAsBytes())
-          );
+        firstName: firstnameController.text,
+        lastName: lastnameController.text,
+        userName: usernameController.text,
+        phone: phoneController.text,
+        email: emailController.text,
+        image: _userImage != null
+            ? base64String(await _userImage!.readAsBytes())
+            : AppUserProvider.userData.image,
+        changedEmail: emailController.text != AppUserProvider.userData.email
+            ? true
+            : false,
+        changedUsername:
+            usernameController.text != AppUserProvider.userData.userName
+                ? true
+                : false,
+        // image: base64String(await _userImage!.readAsBytes())
+      );
       if (_userImage != null) {
         request.image = base64String(await _userImage!.readAsBytes());
       }
       isLoading = true;
-      updateResult = await _appUserProvider.update(user.id!, request);
-      _appUserProvider.changeUserInfo(updateResult);
+      updateResult = await _appUserProvider.updateUserData(user.id!, request);
       isLoading = false;
-      showDialog(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-                title: const Text("Success"),
-                content: const Text(
-                    "You successfully changed your personal information!"),
-                actions: [
-                  TextButton(
-                      child: const Text("Ok"),
-                      onPressed: () {
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                      })
-                ],
-              ));
+
+      if (updateResult is AppUser) {
+        _appUserProvider.changeUserInfo(updateResult);
+        Authorization.username = usernameController.text;
+        isChanged = false;
+        _showDialog(
+            true, "You successfully changed your personal information!");
+      } else if (updateResult is UserExceptionResponse) {
+        _showDialog(false, updateResult.message);
+      } else if (updateResult is String) {
+        _showDialog(false, "Something went wrong...");
+      }
     } else {
       _autoValidate = true;
     }
+  }
+
+  _showDialog(bool success, String message) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              title: Text(success ? "Success" : "Error"),
+              content: Text(message),
+              actions: [
+                TextButton(
+                    child: const Text("Ok"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    })
+              ],
+            ));
   }
 
   void _pickedImage(File image) {
@@ -338,12 +360,16 @@ class _UserProfileState extends State<UserProfile> {
     return TextFormField(
       controller: phoneController,
       focusNode: fcsPhone,
-      validator: (value) {
-        if (value != "" && !isPhone(value!)) {
-          return "Invalid phone format!";
-        }
-        return null;
-      },
+      // validator: (value) {
+      //   if (value != "" && !isPhone(value!)) {
+      //     return "Invalid phone format!";
+      //   }
+      //   return null;
+      // },
+      inputFormatters: [
+        // MaskedInputFormatter('+387 (00) 000-0000')
+        MaskedInputFormatter('+387 00 000-0000')
+      ],
       decoration: const InputDecoration(
           labelText: "Phone number", border: UnderlineInputBorder()),
     );

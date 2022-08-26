@@ -8,6 +8,7 @@ class AppUserRegisterRequest {
   String? password;
   String? passwordConfirm;
   String? image;
+  String? phone;
   // bool? isBlocked;
 
   AppUserRegisterRequest({
@@ -18,6 +19,7 @@ class AppUserRegisterRequest {
     this.password,
     this.passwordConfirm,
     this.image,
+    this.phone,
     // this.isBlocked
   });
 
@@ -29,6 +31,7 @@ class AppUserRegisterRequest {
     password = json['password'];
     passwordConfirm = json['passwordConfirm'];
     image = json['image'];
+    phone = json['phone'];
     // isBlocked = json['isBlocked'];
   }
 
@@ -41,6 +44,7 @@ class AppUserRegisterRequest {
     data['password'] = this.password;
     data['passwordConfirm'] = this.passwordConfirm;
     data['image'] = this.image;
+    data['phone'] = this.phone;
     // data['isBlocked'] = this.isBlocked;
     return data;
   }

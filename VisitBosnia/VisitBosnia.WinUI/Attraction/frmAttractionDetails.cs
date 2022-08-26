@@ -31,6 +31,7 @@ namespace VisitBosnia.WinUI.Attraction
 
         private async void LoadData(int id)
         {
+            btnSave.Text = id != 0 ? "Change" : "Save";
             var cities = await CityService.Get<City>();
 
             var itemsCity = new List<ComboItem>();

@@ -25,6 +25,7 @@ namespace VisitBosnia.WinUI.Categories
 
         private void LoadData()
         {
+            btnSave.Text = _model!=null ? "Change" : "Save";
             if (_model != null)
             {
                 txtName.Text = _model.Name;

@@ -50,7 +50,6 @@ namespace VisitBosnia.Controllers
             return await service.Register(request);
         }
 
-        //[AllowAnonymous]
         [HttpPost("ChangePassword")]
         public async Task<Model.AppUser> ChangePassword([FromBody] AppUserChangePasswordRequest request)
         {
