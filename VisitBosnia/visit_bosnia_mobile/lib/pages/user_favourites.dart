@@ -314,7 +314,7 @@ class _UserFavouritesState extends State<UserFavourites> {
                   titleSection(),
                   Divider(),
                   Container(
-                      height: MediaQuery.of(context).size.height,
+                      // height: MediaQuery.of(context).size.height,
                       child: _buildFavourites())
                 ]))));
   }

@@ -243,8 +243,13 @@ class _ReviewFacilityState extends State<ReviewFacility> {
             padding: EdgeInsets.only(left: 100, top: 10),
             child: ElevatedButton.icon(
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => AddReview(touristFacility)));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => AddReview(touristFacility)),
+                ).then((value) => setState(() {}));
+                // Navigator.of(context).push(MaterialPageRoute(
+                //     builder: (context) => AddReview(touristFacility)));
               },
               label: const Text('Write a review'),
               icon: const Icon(Icons.create_rounded),
