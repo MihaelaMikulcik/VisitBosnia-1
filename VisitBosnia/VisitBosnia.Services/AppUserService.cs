@@ -178,21 +178,22 @@ namespace VisitBosnia.Services
 
 
         }
-        
 
-        //public async override Task<Model.AppUser> Update(int id, AppUserUpdateRequest request)
-        //{
-        //    if (await UsernameExists(request.UserName))
-        //    {
-        //        throw new UserException("Username already exists!");
-        //    }
-        //    if (await EmailExists(request.UserName))
-        //    {
-        //        throw new UserException("Email already exists!");
-        //    }
 
-        //    return await base.Update(id, request);
-        //}
+        public async override Task<Model.AppUser> Update(int id, AppUserUpdateRequest request)
+        {
+            AppUser? user = await Context.AppUsers.FirstOrDefaultAsync(x => x.UserName == request.UserName);
+            if (request.ChangedUsername && await UsernameExists(request.UserName!))
+            {
+                throw new UserException("Username already exists!");
+            }
+            if (request.ChangedEmail && await EmailExists(request.Email!))
+            {
+                throw new UserException("Email already exists!");
+            }
+
+            return await base.Update(id, request);
+        }
 
         public override IQueryable<AppUser> AddFilter(IQueryable<AppUser> query, AppUserSearchObject search = null)
         {

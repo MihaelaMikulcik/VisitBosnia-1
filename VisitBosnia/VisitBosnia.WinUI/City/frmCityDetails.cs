@@ -39,6 +39,7 @@ namespace VisitBosnia.WinUI
 
         private void LoadData()
         {
+            btnSave.Text = _model != null ? "Change" : "Save";
             pbPicture.Tag = "not_changed";
 
             if (_model != null)

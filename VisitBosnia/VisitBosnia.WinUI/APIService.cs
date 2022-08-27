@@ -222,12 +222,40 @@ namespace VisitBosnia.WinUI
             return default(T);
         }
 
+
         public async Task<Model.AppUser> ChangePassword(AppUserChangePasswordRequest request)
         {
             try
             {
                 var url = $"{_endpoint}{_route}/ChangePassword";
-                return await url.PostJsonAsync(request).ReceiveJson<AppUser>();
+                return await url.WithBasicAuth(request.Username, request.OldPassword).PostJsonAsync(request).ReceiveJson<AppUser>();
+                //return await url.PostJsonAsync(request).ReceiveJson<AppUser>();
+            }
+            catch (FlurlHttpException ex)
+            {
+                var errors = await ex.GetResponseJsonAsync<Dictionary<string, string>>();
+                if (errors != null)
+                {
+                    errors.TryGetValue("message", out string message);
+
+                    MessageBox.Show(message, "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                    MessageBox.Show("Došlo je do greške", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return default(Model.AppUser);
+            }
+        }
+
+        public async Task<Model.AppUser> UpdateUser(int id, AppUserUpdateRequest request)
+        {
+            try
+            {
+                //var url = $"{_endpoint}{_route}/{id}";
+                //var result = await url
+                //    .WithBasicAuth(Username, Password)
+                //    .PutJsonAsync(request).ReceiveJson<T>();
+                var url = $"{_endpoint}{_route}/{id}";
+                return await url.WithBasicAuth(Username, Password).PutJsonAsync(request).ReceiveJson<AppUser>();
             }
             catch (FlurlHttpException ex)
             {

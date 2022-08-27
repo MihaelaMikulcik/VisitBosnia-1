@@ -38,6 +38,8 @@ namespace VisitBosnia.WinUI.Events
 
         private async void LoadData(int id)
         {
+            btnSave.Text = id != 0 ? "Change" : "Save";
+
             var categories = await CategoryService.Get<Category>();
 
             var itemsC = new List<ComboItem>();

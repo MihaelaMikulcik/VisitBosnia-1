@@ -93,6 +93,9 @@ namespace VisitBosnia.WinUI.ApplicationUser
                 LastName = txtLastName.Text,
                 UserName = txtUserName.Text,
                 Phone = txtPhoneNumber.Text,
+                Email = txtEmail.Text,
+                ChangedEmail = txtEmail.Text != _appUser.Email ? true : false,
+                ChangedUsername = txtUserName.Text != _appUser.UserName ? true : false,
             };
             if(pbUserPicture.Tag.ToString() == "new_picture" && pbUserPicture.Image != null)
             {
@@ -102,25 +105,31 @@ namespace VisitBosnia.WinUI.ApplicationUser
             {
                 updateRequest.Image = _appUser.Image;
             }
-            var updateUser = await appUserService.Update<Model.AppUser>(_appUser.Id, updateRequest);
-            MessageBox.Show("Successfully updated profile data!");
-
-            var userRole = await appUserRoleService.Get<Model.AppUserRole>(new AppUserRoleSearchObject { AppUserId = _appUser.Id });
-            var role = await RoleService.GetById<Model.Role>(userRole.FirstOrDefault().RoleId);
-            this.Hide();
-
-            if (role.Name == "Admin")
+            //var updateUser = await appUserService.Update<Model.AppUser>(_appUser.Id, updateRequest);
+            var updateUser = await appUserService.UpdateUser(_appUser.Id, updateRequest);
+            if (updateUser != null)
             {
-                var frmHome = new AdminHome(_appUser.Id);
-                frmHome.Closed += (s, args) => this.Close();
-                frmHome.Show();
+                MessageBox.Show("Successfully updated profile data!");
+                var userRole = await appUserRoleService.Get<Model.AppUserRole>(new AppUserRoleSearchObject { AppUserId = _appUser.Id });
+                var role = await RoleService.GetById<Model.Role>(userRole.FirstOrDefault().RoleId);
+                this.Hide();
+
+                if (role.Name == "Admin")
+                {
+                    var frmHome = new AdminHome(_appUser.Id);
+                    frmHome.Closed += (s, args) => this.Close();
+                    frmHome.Show();
+                }
+                else
+                {
+                    var frmHome = new AgencyHome(_appUser.Id);
+                    frmHome.Closed += (s, args) => this.Close();
+                    frmHome.Show();
+                }
+
             }
-            else
-            {
-                var frmHome = new AgencyHome(_appUser.Id);
-                frmHome.Closed += (s, args) => this.Close();
-                frmHome.Show();
-            }
+
+            
            
             //this.Hide();
             //this.Close();

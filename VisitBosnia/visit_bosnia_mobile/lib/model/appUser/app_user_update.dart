@@ -5,6 +5,8 @@ class AppUserUpdateRequest {
   String? userName;
   String? image;
   String? phone;
+  bool? changedUsername;
+  bool? changedEmail;
 
   AppUserUpdateRequest(
       {this.firstName,
@@ -12,7 +14,9 @@ class AppUserUpdateRequest {
       this.email,
       this.userName,
       this.image,
-      this.phone});
+      this.phone,
+      this.changedUsername,
+      this.changedEmail});
 
   AppUserUpdateRequest.fromJson(Map<String, dynamic> json) {
     firstName = json['firstName'];
@@ -21,6 +25,8 @@ class AppUserUpdateRequest {
     userName = json['userName'];
     image = json['image'];
     phone = json['phone'];
+    changedUsername = json['changedUsername'];
+    changedEmail = json['changedEmail'];
   }
 
   Map<String, dynamic> toJson() {
@@ -31,6 +37,8 @@ class AppUserUpdateRequest {
     data['userName'] = this.userName;
     data['image'] = this.image;
     data['phone'] = this.phone;
+    data['changedUsername'] = this.changedUsername;
+    data['changedEmail'] = this.changedEmail;
 
     return data;
   }

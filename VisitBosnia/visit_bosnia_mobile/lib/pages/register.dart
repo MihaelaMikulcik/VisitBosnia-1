@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:visit_bosnia_mobile/exception/http_exception.dart';
@@ -54,6 +55,7 @@ class _RegisterState extends State<Register> {
   String _username = '';
   String _password = '';
   String _confirmPassword = '';
+  String _phone = '';
 
   bool _autoValidate = false;
 
@@ -79,6 +81,7 @@ class _RegisterState extends State<Register> {
         request.userName = _username;
         request.password = _password;
         request.passwordConfirm = _confirmPassword;
+        request.phone = _phone;
         // request.isBlocked = false;
         if (_userImage != null) {
           request.image = base64String(await _userImage!.readAsBytes());
@@ -214,6 +217,10 @@ class _RegisterState extends State<Register> {
                     const SizedBox(
                       height: 10.0,
                     ),
+                    txtPhone(),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
                     txtPassword(),
                     const SizedBox(
                       height: 10.0,
@@ -294,6 +301,20 @@ class _RegisterState extends State<Register> {
           labelText: "Username", border: UnderlineInputBorder()),
       onSaved: (value) {
         _username = value!;
+      },
+    );
+  }
+
+  Widget txtPhone() {
+    return TextFormField(
+      inputFormatters: [
+        // MaskedInputFormatter('+387 (00) 000-0000')
+        MaskedInputFormatter('+387 00 000-0000')
+      ],
+      decoration: const InputDecoration(
+          labelText: "Phone number", border: UnderlineInputBorder()),
+      onSaved: (value) {
+        _phone = value!;
       },
     );
   }
