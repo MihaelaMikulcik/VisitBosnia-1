@@ -90,7 +90,13 @@ class _ForumPostState extends State<ForumPost> {
           backgroundColor: const Color.fromRGBO(29, 76, 120, 1),
         ),
         body: SingleChildScrollView(
-          child: Column(children: [_buildPost(), _buildeReplies()]),
+          child: Column(children: [
+            _buildPost(),
+            SizedBox(
+              height: 20,
+            ),
+            _buildeReplies()
+          ]),
         ));
   }
 
@@ -120,94 +126,130 @@ class _ForumPostState extends State<ForumPost> {
 
   _buildPost() {
     return Container(
-        padding: EdgeInsets.all(20),
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: const [
+            BoxShadow(offset: Offset(0, 5), blurRadius: 5, color: Colors.grey)
+          ],
+        ),
+
+        // padding: EdgeInsets.all(20),
         child: Column(children: [
           Container(
               child: Row(children: [
-            Column(children: [
-              imageContainer(forumPost.appUser!),
-              Container(
-                width: 100,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(forumPost.appUser!.userName!,
-                      maxLines: 50,
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                ),
-              )
-            ]),
-            SizedBox(width: 20),
-            Align(
-              alignment: Alignment.topCenter,
-              child: Container(
-                padding: EdgeInsets.only(bottom: 6),
-                child: SizedBox(
-                    width: 220,
-                    child: Text(
-                      forumPost.title!,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
-                      maxLines: 50,
-                      overflow: TextOverflow.ellipsis,
-                    )),
-              ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(children: [
+                imageContainer(forumPost.appUser!),
+                Container(
+                  width: 100,
+                  // SizedBox(
+                  //   width: double.infinity,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(forumPost.appUser!.userName!,
+                        maxLines: 50,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18)),
+                  ),
+                  // )
+                )
+              ]),
             ),
+            SizedBox(width: 10),
+            Expanded(
+                child: Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 10.0),
+                child: Text(
+                  forumPost.title!,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21),
+                  maxLines: 50,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            )),
+            // Align(
+            //   alignment: Alignment.topCenter,
+            //   child: Container(
+            //     padding: EdgeInsets.only(bottom: 6),
+            //     child: SizedBox(
+            //         width: 220,
+            //         child: Text(
+            //           forumPost.title!,
+            //           style:
+            //               TextStyle(fontWeight: FontWeight.bold, fontSize: 21),
+            //           maxLines: 50,
+            //           overflow: TextOverflow.ellipsis,
+            //         )),
+            //   ),
+            // ),
           ])),
           SizedBox(height: 25),
           Align(
               alignment: Alignment.centerLeft,
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(
+                    left: 20.0, right: 20.0, bottom: 10.0),
                 child: SizedBox(
-                    width: 350,
+                    width: MediaQuery.of(context).size.width,
                     child: Text(
                       forumPost.content!,
                       maxLines: 100,
                       overflow: TextOverflow.ellipsis,
                     )),
               )),
-          Row(children: [
-            Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      formatStringDate(
-                        forumPost.createdTime!,
-                        'yMd',
-                      ),
-                    ))),
-            Padding(
-              padding: const EdgeInsets.only(left: 190.0, top: 8),
-              child: Container(
-                height: 35,
-                width: 90,
-                child: Center(
-                    child: InkWell(
-                        onTap: () {
-                          showDialog(
-                              context: context,
-                              builder: (_) => AlertDialog(
-                                  title: const Text("Write your reply"),
-                                  content: buildCreateDialog()));
-                        },
-                        child: Text("Reply",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15)))),
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 216, 216, 216),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-            )
-          ]),
-          SizedBox(width: 10),
-          Divider(
-            thickness: 5,
-          )
+          Padding(
+            padding: const EdgeInsets.only(
+                left: 20.0, right: 20.0, top: 10.0, bottom: 15.0),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(formatStringDate(
+                            forumPost.createdTime!,
+                            'yMd',
+                          ) +
+                          ', ' +
+                          getTime(forumPost.createdTime!))),
+                  Container(
+                    height: 35,
+                    width: 90,
+                    child: Center(
+                        child: InkWell(
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (_) => AlertDialog(
+                                      title: const Text("Write your reply"),
+                                      content: buildCreateDialog()));
+                            },
+                            child: Text("Reply",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15)))),
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 216, 216, 216),
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: const [
+                        BoxShadow(
+                            offset: Offset(0, 2),
+                            blurRadius: 2,
+                            color: Color.fromARGB(255, 90, 85, 85))
+                      ],
+                    ),
+                  )
+                ]),
+          ),
+          // SizedBox(width: 20),
+          // Divider(
+          //   thickness: 5,
+          // )
         ]));
   }
 
@@ -347,21 +389,22 @@ class _ForumPostState extends State<ForumPost> {
 
   Widget _buildReplyCard(PostReply reply) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(bottom: 12.0),
       child: Container(
           padding: const EdgeInsets.all(10.0),
-          decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                  //                   <--- left side
-                  color: Colors.grey,
-                  width: 3.0,
-                ),
-              ),
+          decoration: BoxDecoration(color: Color.fromARGB(255, 205, 210, 215),
+              // border: Border(
+              //   bottom: BorderSide(
+              //     //                   <--- left side
+              //     color: Colors.grey,
+              //     width: 3.0,
+              //   ),
+              // ),
               boxShadow: const [
                 BoxShadow(
-                  offset: Offset(0, 2),
-                  color: Color.fromARGB(255, 205, 210, 215),
+                  offset: Offset(0, 3),
+                  color: Color.fromARGB(255, 128, 129, 131),
+                  blurRadius: 3,
                 )
               ]),
           child: Column(children: [
@@ -387,25 +430,23 @@ class _ForumPostState extends State<ForumPost> {
                     )
                   ],
                 ),
-                Padding(
-                    padding: const EdgeInsets.only(left: 14.0, top: 10),
-                    child: SizedBox(
-                      width: 230,
-                      child: Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            reply.content!,
-                            maxLines: 100,
-                            overflow: TextOverflow.ellipsis,
-                          )),
-                    )),
+                Expanded(
+                  // width: 230,
+                  child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        reply.content!,
+                        maxLines: 100,
+                        overflow: TextOverflow.ellipsis,
+                      )),
+                ),
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 10),
+              padding: const EdgeInsets.only(left: 15),
               child: _buildeRole(reply.appUserId!),
             ),
-            Row(children: [
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               reply.appUserId! != AppUserProvider.userData.id!
                   ? Container()
                   : removeReply(reply),
@@ -415,9 +456,11 @@ class _ForumPostState extends State<ForumPost> {
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         formatStringDate(
-                          reply.createdTime!,
-                          'yMd',
-                        ),
+                              reply.createdTime!,
+                              'yMd',
+                            ) +
+                            ', ' +
+                            getTime(reply.createdTime!),
                       ))),
             ])
           ])),
@@ -426,7 +469,7 @@ class _ForumPostState extends State<ForumPost> {
 
   Widget removeReply(reply) {
     return Container(
-      padding: EdgeInsets.only(right: 270),
+      padding: EdgeInsets.only(left: 15),
       child: Align(
         alignment: Alignment.bottomLeft,
         child: InkWell(

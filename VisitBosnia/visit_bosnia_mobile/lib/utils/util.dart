@@ -35,3 +35,10 @@ String formatStringDate(String dateTime, String format) {
   var outputDate = outputFormat.format(tempDate);
   return outputDate.toString();
 }
+
+String getTime(String dateTime) {
+  DateTime tempDate = DateTime.parse(dateTime);
+  var outputFormat = DateFormat.Hm();
+  var outputDate = outputFormat.format(tempDate);
+  return outputDate.toString();
+}
