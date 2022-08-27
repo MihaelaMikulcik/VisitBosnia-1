@@ -218,6 +218,8 @@ class _ReviewFacilityState extends State<ReviewFacility> {
   }
 
   Widget buildReviews() {
+    MediaQueryData queryData;
+    queryData = MediaQuery.of(context);
     return Column(children: [
       Divider(
         thickness: 3,
@@ -240,7 +242,8 @@ class _ReviewFacilityState extends State<ReviewFacility> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(left: 100, top: 10),
+            padding:
+                EdgeInsets.only(left: queryData.devicePixelRatio * 20, top: 10),
             child: ElevatedButton.icon(
               onPressed: () {
                 Navigator.push(
@@ -288,7 +291,7 @@ class _ReviewFacilityState extends State<ReviewFacility> {
           ),
         ),
         Container(
-          padding: EdgeInsets.only(left: 50),
+          padding: EdgeInsets.only(left: queryData.devicePixelRatio * 10),
           child: Text(
             rating.toStringAsFixed(2),
             style: TextStyle(fontSize: 20),
@@ -376,7 +379,8 @@ class _ReviewFacilityState extends State<ReviewFacility> {
         Align(
             alignment: Alignment.centerLeft,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding:
+                  const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
               child: Text(review.text!, style: TextStyle(fontSize: 15)),
             )),
         _buildReviewGallery(review.id!),

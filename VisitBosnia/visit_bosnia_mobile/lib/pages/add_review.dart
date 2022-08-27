@@ -83,7 +83,7 @@ class _AddReviewState extends State<AddReview> {
               await _reviewGalleryProvider.insert(galleryRequest);
             }
           }
-          Navigator.pop(context, true);
+          Navigator.pop(context);
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Container(
                 height: 40,
