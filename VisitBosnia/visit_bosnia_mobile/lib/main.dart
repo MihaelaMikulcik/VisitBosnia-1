@@ -4,8 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:visit_bosnia_mobile/pages/attraction_details.dart';
 import 'package:visit_bosnia_mobile/pages/event_details.dart';
 import 'package:visit_bosnia_mobile/pages/login.dart';
+import 'package:visit_bosnia_mobile/pages/my_tickets.dart';
 import 'package:visit_bosnia_mobile/pages/register.dart';
 import 'package:visit_bosnia_mobile/pages/home_page.dart';
+import 'package:visit_bosnia_mobile/pages/user_favourites.dart';
 import 'package:visit_bosnia_mobile/providers/agency_member_provider.dart';
 import 'package:visit_bosnia_mobile/providers/appuser_role_provider.dart';
 import 'package:visit_bosnia_mobile/providers/appuser_favourite_provider.dart';
@@ -62,8 +64,8 @@ void main() => runApp(MultiProvider(
                 return MaterialPageRoute(
                     builder: ((context) => const Register()));
               }
-              // if (settings.name == Homepage.routeName) {
-              //   return MaterialPageRoute(builder: ((context) => Homepage()));
+              // if (settings.name == MyTickets.routeName) {
+              //   return MaterialPageRoute(builder: ((context) => MyTickets()));
               // }
             })));
 

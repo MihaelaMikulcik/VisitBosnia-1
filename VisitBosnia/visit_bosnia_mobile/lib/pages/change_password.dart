@@ -17,7 +17,8 @@ import 'login.dart';
 class ChangePassword extends StatelessWidget {
   ChangePassword({Key? key}) : super(key: key);
 
-  final _formKey = GlobalKey<FormState>();
+  static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  // static final _formKey = GlobalKey<FormState>();
   final TextEditingController oldPasswordController = TextEditingController();
   final TextEditingController newPasswordController = TextEditingController();
   final TextEditingController confirmPasswordController =
@@ -95,9 +96,9 @@ class ChangePassword extends StatelessWidget {
   Widget txtOldPassword() {
     return TextFormField(
       controller: oldPasswordController,
-      autovalidateMode: _autovalidateMode
-          ? AutovalidateMode.always
-          : AutovalidateMode.disabled,
+      // autovalidateMode: _autovalidateMode
+      //     ? AutovalidateMode.always
+      //     : AutovalidateMode.disabled,
       validator: (value) {
         if (value!.isEmpty) {
           return "This field is required!";
@@ -109,16 +110,16 @@ class ChangePassword extends StatelessWidget {
           suffixIcon: Icon(Icons.lock),
           border: const UnderlineInputBorder()),
       obscureText: true,
-      onChanged: (_) => _autovalidateMode = true,
+      // onChanged: (_) => _autovalidateMode = true,
     );
   }
 
   Widget txtNewPassword() {
     return TextFormField(
       controller: newPasswordController,
-      autovalidateMode: _autovalidateMode
-          ? AutovalidateMode.always
-          : AutovalidateMode.disabled,
+      // autovalidateMode: _autovalidateMode
+      //     ? AutovalidateMode.always
+      //     : AutovalidateMode.disabled,
       validator: (value) {
         if (value!.isEmpty) {
           return "This field is required!";
@@ -136,9 +137,9 @@ class ChangePassword extends StatelessWidget {
 
   Widget txtConfirmPassword() {
     return TextFormField(
-      autovalidateMode: _autovalidateMode
-          ? AutovalidateMode.always
-          : AutovalidateMode.disabled,
+      // autovalidateMode: _autovalidateMode
+      //     ? AutovalidateMode.always
+      //     : AutovalidateMode.disabled,
       validator: (value) {
         if (value!.isEmpty) {
           return "This field is required!";

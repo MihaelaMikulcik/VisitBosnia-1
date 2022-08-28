@@ -131,9 +131,13 @@ class _UserProfileState extends State<UserProfile> {
       if (_userImage != null) {
         request.image = base64String(await _userImage!.readAsBytes());
       }
-      isLoading = true;
+      setState(() {
+        isLoading = true;
+      });
       updateResult = await _appUserProvider.updateUserData(user.id!, request);
-      isLoading = false;
+      setState(() {
+        isLoading = false;
+      });
 
       if (updateResult is AppUser) {
         _appUserProvider.changeUserInfo(updateResult);

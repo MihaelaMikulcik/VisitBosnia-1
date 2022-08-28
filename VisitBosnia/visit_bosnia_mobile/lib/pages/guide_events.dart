@@ -113,7 +113,7 @@ class _GuideEventsState extends State<GuideEvents> {
 
   Widget _buildHeader() {
     return Container(
-      padding: EdgeInsets.all(25),
+      padding: EdgeInsets.only(top: 25, left: 25),
       height: MediaQuery.of(context).size.height * 0.15,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(boxShadow: <BoxShadow>[
@@ -195,10 +195,10 @@ class _GuideEventsState extends State<GuideEvents> {
           Align(
             alignment: Alignment.topCenter,
             child: Text(
-              event.idNavigation!.name!.length > 30
-                  ? '${event.idNavigation!.name!.substring(0, 30)}...'
+              event.idNavigation!.name!.length > 27
+                  ? '${event.idNavigation!.name!.substring(0, 27)}...'
                   : event.idNavigation!.name!,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
             ),
           ),
           SizedBox(
@@ -297,7 +297,7 @@ class _GuideEventsState extends State<GuideEvents> {
             MaterialPageRoute(builder: (context) => GuideParticipants(event)));
       },
       child: Container(
-        margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
+        margin: EdgeInsets.fromLTRB(30, 10, 30, 5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: Colors.white,

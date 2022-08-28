@@ -10,6 +10,8 @@ import 'package:provider/provider.dart';
 import 'package:visit_bosnia_mobile/main.dart';
 import 'package:visit_bosnia_mobile/model/appUser/app_user.dart';
 import 'package:visit_bosnia_mobile/pages/forum_filter.dart';
+import 'package:visit_bosnia_mobile/pages/guide_events.dart';
+import 'package:visit_bosnia_mobile/pages/home_page.dart';
 import 'package:visit_bosnia_mobile/pages/login.dart';
 import 'package:visit_bosnia_mobile/pages/user_profile.dart';
 import 'package:visit_bosnia_mobile/providers/appuser_role_provider.dart';
@@ -231,7 +233,7 @@ class NavigationDrawer extends StatelessWidget {
               ),
             ),
             onTap: () {
-              Navigator.of(context).pop();
+              // Navigator.of(context).pop();
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) =>
                       UserProfile(user: AppUserProvider.userData)));
@@ -244,7 +246,11 @@ class NavigationDrawer extends StatelessWidget {
                   style: TextStyle(color: Colors.white, fontSize: 20)),
             ),
             onTap: () {
-              Navigator.of(context).pop();
+              // Navigator.of(context).pop();
+              Navigator.pushAndRemoveUntil(context,
+                  MaterialPageRoute(builder: (BuildContext context) {
+                return Homepage(user: AppUserProvider.userData);
+              }), (route) => false);
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) =>
                       UserFavourites(user: AppUserProvider.userData)));
@@ -257,7 +263,11 @@ class NavigationDrawer extends StatelessWidget {
                   style: TextStyle(color: Colors.white, fontSize: 20)),
             ),
             onTap: () {
-              Navigator.of(context).pop();
+              // Navigator.of(context).pop();
+              Navigator.pushAndRemoveUntil(context,
+                  MaterialPageRoute(builder: (BuildContext context) {
+                return Homepage(user: AppUserProvider.userData);
+              }), (route) => false);
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (context) => MyTickets()));
             },
@@ -269,7 +279,11 @@ class NavigationDrawer extends StatelessWidget {
                   style: TextStyle(color: Colors.white, fontSize: 20)),
             ),
             onTap: () {
-              Navigator.of(context).pop();
+              // Navigator.of(context).pop();
+              Navigator.pushAndRemoveUntil(context,
+                  MaterialPageRoute(builder: (BuildContext context) {
+                return Homepage(user: AppUserProvider.userData);
+              }), (route) => false);
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (context) => ForumFilter()));
             },
@@ -318,7 +332,11 @@ class NavigationDrawer extends StatelessWidget {
                   style: TextStyle(color: Colors.white, fontSize: 20)),
             ),
             onTap: () {
-              Navigator.of(context).pop();
+              // Navigator.of(context).pop();
+              Navigator.pushAndRemoveUntil(context,
+                  MaterialPageRoute(builder: (BuildContext context) {
+                return GuideEvents();
+              }), (route) => false);
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (context) => ForumFilter()));
             },
