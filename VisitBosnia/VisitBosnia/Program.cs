@@ -89,6 +89,8 @@ builder.Services.AddCors(options =>
 builder.Services.AddAuthentication("BasicAuthentication")
     .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 
+builder.Services.AddScoped<SetupService>();
+
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
@@ -107,6 +109,12 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
+using (var scope = app.Services.CreateScope())
+{
+    scope.ServiceProvider.GetRequiredService<SetupService>();
+    SetupService seeder = scope.ServiceProvider.GetRequiredService<SetupService>();
+    seeder.Init();
+}
 //StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe")["SecretKey"];
 
 

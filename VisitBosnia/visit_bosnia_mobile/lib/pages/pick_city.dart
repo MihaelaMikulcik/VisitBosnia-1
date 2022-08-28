@@ -86,8 +86,8 @@ class PickCity extends StatelessWidget {
           children: [
             Container(
                 // margin: EdgeInsets.only(top: 7),
-                height: 160,
-                width: 190,
+                height: 140,
+                width: 170,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     fit: BoxFit.cover,
@@ -97,7 +97,7 @@ class PickCity extends StatelessWidget {
                 )),
             Container(
               height: 40,
-              width: 180,
+              width: 170,
               alignment: Alignment.center,
               child: Text(
                 city.name!,
@@ -113,7 +113,7 @@ class PickCity extends StatelessWidget {
   _buildGrid() {
     var size = MediaQuery.of(navigatorKey.currentContext!).size;
     /*24 is for notification bar on Android*/
-    final double itemHeight = (size.height - kToolbarHeight) / 3.6;
+    final double itemHeight = (size.height - kToolbarHeight) / 2.9;
     final double itemWidth = (size.width) / 2;
     return FutureBuilder<List<City>>(
         future: loadCites(),
