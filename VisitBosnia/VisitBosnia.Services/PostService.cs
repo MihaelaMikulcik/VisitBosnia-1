@@ -14,9 +14,10 @@ namespace VisitBosnia.Services
 {
     public class PostService:BaseCRUDService<Model.Post, Database.Post, PostSearchObject, PostInsertRequest, object>, IPostService
     {
-        public PostService(VisitBosniaContext context, IMapper mapper):base(context, mapper)
+        private readonly IPostReplyService _postReplyService;
+        public PostService(VisitBosniaContext context, IMapper mapper, IPostReplyService postReplySerice):base(context, mapper)
         {
-
+            this._postReplyService = postReplySerice;
         }
 
         public override IQueryable<Post> AddFilter(IQueryable<Post> query, PostSearchObject search = null)
@@ -41,6 +42,22 @@ namespace VisitBosnia.Services
             }
 
             return query;
+        }
+
+        public async override Task<Model.Post> Delete(int id)
+        {
+            //var entity = Context.Set<Services.Database.PostReply>().AsQueryable();
+            //var postReply = entity.Where(x => x.PostId == id);
+            var search = new PostReplySearchObject{PostId = id };
+            var postReply = await _postReplyService.Get(search);
+            if(postReply != null)
+            {
+                foreach(var reply in postReply)
+                {
+                    await _postReplyService.Delete(reply.Id);
+                }
+            }
+            return await base.Delete(id);
         }
 
         public int? GetNumberOfReplies(int postId)

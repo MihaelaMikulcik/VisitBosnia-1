@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import 'package:visit_bosnia_mobile/model/post/post_insert_request.dart';
 import 'package:visit_bosnia_mobile/model/post/post_search_object.dart';
@@ -142,7 +143,15 @@ class _ForumTopicsState extends State<ForumTopics> {
                 showDialog(
                     context: context,
                     builder: (_) => AlertDialog(
-                        title: const Text("+ Create new post"),
+                        title: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("+ Create new post"),
+                            InkWell(
+                                onTap: () => Navigator.of(context).pop(),
+                                child: Icon(Icons.close))
+                          ],
+                        ),
                         content: buildCreateDialog()));
               },
               child: Container(
@@ -159,7 +168,7 @@ class _ForumTopicsState extends State<ForumTopics> {
                     color: const Color.fromARGB(255, 217, 217, 217),
                     borderRadius: BorderRadius.circular(10)),
                 child: const Text(
-                  "+ New topic",
+                  "+ New post",
                   style: TextStyle(
                       color: Colors.black, fontWeight: FontWeight.bold),
                 ),
@@ -202,9 +211,9 @@ class _ForumTopicsState extends State<ForumTopics> {
         children: [
           _txtTitle(),
           _txtContent(),
-          const SizedBox(
-            height: 5,
-          ),
+          // const SizedBox(
+          //   height: 5,
+          // ),
           MaterialButton(
             onPressed: () async {
               final isValid = _formKey.currentState!.validate();
@@ -235,6 +244,52 @@ class _ForumTopicsState extends State<ForumTopics> {
         ],
       ),
     );
+  }
+
+  removePost(topic) {
+    // return Container(
+    //   padding: EdgeInsets.only(left: 15),
+    //   child: Align(
+    //     alignment: Alignment.bottomLeft,
+    //     child: InkWell(
+    //       onTap: () {
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+              title: const Text('Please Confirm'),
+              content: const Text('Are you sure you want to delete post?'),
+              actions: [
+                // The "Yes" button
+                TextButton(
+                    onPressed: () async {
+                      // Remove the box
+                      try {
+                        await _postProvider.delete(topic.id!);
+                        setState(() {});
+                      } catch (e) {
+                        print(e.toString());
+                      }
+                      // Close the dialog
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('Yes')),
+                TextButton(
+                    onPressed: () {
+                      // Close the dialog
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('No'))
+              ],
+            ));
+    // },
+    // child: Icon(
+    //   Icons.delete_outlined,
+    //   color: Colors.black,
+    //   size: 22.0,
+    // ),
+    //     ),
+    //   ),
+    // );
   }
 
   Widget _txtContent() {
@@ -323,18 +378,28 @@ class _ForumTopicsState extends State<ForumTopics> {
               ],
             ),
             const SizedBox(height: 20),
-            SizedBox(
-              width: double.infinity,
-              child: Text(
-                formatStringDate(
-                  post.createdTime!,
-                  'yMd',
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                AppUserProvider.userData.id == post.appUserId
+                    ? InkWell(
+                        onTap: () => removePost(post),
+                        child: Icon(Icons.delete_outline))
+                    : Container(),
+                SizedBox(
+                  // width: double.infinity,
+                  child: Text(
+                    formatStringDate(
+                      post.createdTime!,
+                      'yMd',
+                    ),
+                    style: const TextStyle(
+                        fontSize: 16,
+                        color: Color.fromARGB(255, 133, 128, 128),
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
-                style: const TextStyle(
-                    fontSize: 16,
-                    color: Color.fromARGB(255, 133, 128, 128),
-                    fontWeight: FontWeight.bold),
-              ),
+              ],
             )
           ],
         ),
