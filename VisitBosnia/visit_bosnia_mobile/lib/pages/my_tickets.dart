@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:cupertino_icons/cupertino_icons.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:visit_bosnia_mobile/model/eventOrder/event_order.dart';
 import 'package:visit_bosnia_mobile/model/transactions/transaction.dart';
@@ -83,7 +84,7 @@ class _MyTicketsState extends State<MyTickets> {
 
   Widget _buildHeader() {
     return Container(
-      padding: EdgeInsets.all(25),
+      padding: EdgeInsets.only(top: 25.0, left: 25.0),
       height: MediaQuery.of(context).size.height * 0.15,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(boxShadow: <BoxShadow>[
@@ -161,6 +162,9 @@ class _MyTicketsState extends State<MyTickets> {
   }
 
   Widget _buildEventText(EventOrder eventOrder) {
+    NumberFormat formatter = NumberFormat();
+    formatter.minimumFractionDigits = 2;
+    formatter.maximumFractionDigits = 2;
     return Padding(
       padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
       child: Column(
@@ -189,10 +193,7 @@ class _MyTicketsState extends State<MyTickets> {
           Row(
             children: [
               Text(
-                eventOrder.price!.toString() +
-                    ' KM, ' +
-                    eventOrder.quantity!.toString() +
-                    'x',
+                '${formatter.format(eventOrder.price!)} BAM, ${eventOrder.quantity!}x',
                 style: TextStyle(fontSize: 18),
               ),
               Icon(Icons.person)

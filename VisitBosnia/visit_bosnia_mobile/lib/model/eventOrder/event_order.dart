@@ -6,7 +6,7 @@ class EventOrder {
   int? eventId;
   int? appUserId;
   int? quantity;
-  int? price;
+  double? price;
   AppUser? appUser;
   Event? event;
 

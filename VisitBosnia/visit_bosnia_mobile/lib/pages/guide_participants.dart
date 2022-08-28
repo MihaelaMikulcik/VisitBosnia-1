@@ -81,12 +81,12 @@ class _GuideParticipantsState extends State<GuideParticipants> {
     return participantsNumber;
   }
 
-  String getTime(String dateTime) {
-    DateTime tempDate = DateTime.parse(dateTime);
-    var outputFormat = DateFormat.Hm();
-    var outputDate = outputFormat.format(tempDate);
-    return outputDate.toString();
-  }
+  // String getTime(String dateTime) {
+  //   DateTime tempDate = DateTime.parse(dateTime);
+  //   var outputFormat = DateFormat.Hm();
+  //   var outputDate = outputFormat.format(tempDate);
+  //   return outputDate.toString();
+  // }
 
   Widget _buildParticipants(int eventId) {
     return FutureBuilder(

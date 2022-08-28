@@ -23,10 +23,14 @@ class TransactionProvider extends BaseProvider<Transaction> {
 
     var response = await http!.post(uri, headers: headers, body: jsonRequest);
     if (response.statusCode == 200) {
-      return response.body;
+      var data = jsonDecode(response.body);
+      return Transaction.fromJson(data);
+      // return response.body;
       // return jsonDecode(response.body);
     } else if (response.statusCode == 400) {
       return UserExceptionResponse.fromJson(json.decode(response.body));
+    } else {
+      return "Something went wrong...";
     }
   }
 }
