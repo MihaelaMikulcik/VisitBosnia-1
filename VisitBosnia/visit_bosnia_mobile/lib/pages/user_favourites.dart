@@ -8,13 +8,19 @@ import 'package:visit_bosnia_mobile/model/appUserFavourite/app_user_favourite.da
 import '../components/navigation_drawer.dart';
 import '../model/appUser/app_user.dart';
 import '../model/appUserFavourite/app_user_favourite_search_object.dart';
+import '../model/attractions/attraction.dart';
+import '../model/events/event.dart';
 import '../model/tourist_facility.dart';
 import '../model/touristFacilityGallery/tourist_facility_gallery.dart';
 import '../model/touristFacilityGallery/tourist_facility_gallery_search_object.dart';
 import '../providers/appuser_favourite_provider.dart';
 import '../providers/appuser_provider.dart';
+import '../providers/attraction_provider.dart';
+import '../providers/event_provider.dart';
 import '../providers/tourist_facility_gallery_provider.dart';
 import '../providers/tourist_facility_provider.dart';
+import 'attraction_details.dart';
+import 'event_details2.dart';
 
 class UserFavourites extends StatefulWidget {
   static const String routeName = "/userFavourite";
@@ -30,11 +36,14 @@ class _UserFavouritesState extends State<UserFavourites> {
   _UserFavouritesState(this.user);
 
   AppUser user;
+  late List<int> attractionIds = [];
 
   // late AppUserProvider _appUserProvider;
   late AppUserFavouriteProvider _appUserFavouriteProvider;
   late TouristFacilityGalleryProvider _touristFacilityGalleryProvider;
   late TouristFacilityProvider _touristFacilityProvider;
+  late AttractionProvider _attractionProvider;
+  late EventProvider _eventProvider;
 
   @override
   void initState() {
@@ -44,16 +53,28 @@ class _UserFavouritesState extends State<UserFavourites> {
     _appUserFavouriteProvider = context.read<AppUserFavouriteProvider>();
     _touristFacilityGalleryProvider =
         context.read<TouristFacilityGalleryProvider>();
+    _attractionProvider = context.read<AttractionProvider>();
+    _eventProvider = context.read<EventProvider>();
     _touristFacilityProvider = context.read<TouristFacilityProvider>();
   }
 
-  Future<List<AppUserFavourite>> loadAppUserFavourite() async {
-    var search =
-        AppUserFavouriteSearchObject(appUserId: AppUserProvider.userData.id);
-    var favourites = await _appUserFavouriteProvider.get(search.toJson());
-    return favourites;
-  }
+  // Future<List<AppUserFavourite>> loadAppUserFavourite() async {
+  //   var search =
+  //       AppUserFavouriteSearchObject(appUserId: AppUserProvider.userData.id);
+  //   var favourites = await _appUserFavouriteProvider.get(search.toJson());
+  //   var attractions = await _attractionProvider.get(null);
+  //   for (var atr in attractions) {
+  //     attractionIds.add(atr.id!);
+  //   }
+  //   return favourites;
+  // }
 
+  Future loadIds() async {
+    var attractions = await _attractionProvider.get(null);
+    for (var atr in attractions) {
+      attractionIds.add(atr.id!);
+    }
+  }
   // Future<List<TouristFacilityGallery>> getGallery(int facilityId) async {
   //   var search = TouristFacilityGallerySearchObject(facilityId: facilityId);
   //   var gallery = await _touristFacilityGalleryProvider.get(search.toJson());
@@ -71,6 +92,16 @@ class _UserFavouritesState extends State<UserFavourites> {
     }
   }
 
+  Future<Attraction> loadAttraction(int id) async {
+    var obj = await _attractionProvider.getById(id);
+    return obj;
+  }
+
+  Future<Event> loadEvent(int id) async {
+    var obj = await _eventProvider.getById(id);
+    return obj;
+  }
+
   Future<TouristFacility> getFacility(int facilityId) async {
     var facility = await _touristFacilityProvider.getById(facilityId);
     return facility;
@@ -78,7 +109,7 @@ class _UserFavouritesState extends State<UserFavourites> {
 
   Widget imageContainer(String image) {
     return Container(
-        height: 130.0,
+        height: 120.0,
         width: 350.0,
         decoration: BoxDecoration(
             image: DecorationImage(
@@ -96,7 +127,7 @@ class _UserFavouritesState extends State<UserFavourites> {
         builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Container(
-              height: 130.0,
+              height: 120.0,
               width: 350.0,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
@@ -188,71 +219,98 @@ class _UserFavouritesState extends State<UserFavourites> {
   }
 
   Widget _FavouriteCard(AppUserFavourite favourite) {
-    return Column(
-      children: [
-        Stack(
-          alignment: Alignment.topCenter,
-          children: <Widget>[
-            Positioned(
-              child: Container(
-                width: 350.0,
-                height: 180,
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: _buildText(favourite.touristFacilityId!),
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5), //color of shadow
-                      spreadRadius: 5, //spread radius
-                      blurRadius: 7, // blur radius
-                      offset: Offset(0, 2), // changes position of shadow
+    return InkWell(
+        onTap: () async {
+          if (attractionIds.contains(favourite.touristFacilityId!)) {
+            var obj = await loadAttraction(favourite.touristFacilityId!);
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => AttractionDetails(obj)));
+          } else {
+            var obj = await loadEvent(favourite.touristFacilityId!);
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => EventDetails2(obj)));
+          }
+        },
+        child: Column(
+          children: [
+            Stack(
+              alignment: Alignment.topCenter,
+              children: <Widget>[
+                Positioned(
+                  child: Container(
+                    width: 350.0,
+                    height: 170,
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: _buildText(favourite.touristFacilityId!),
                     ),
-                  ],
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5), //color of shadow
+                          spreadRadius: 5, //spread radius
+                          blurRadius: 7, // blur radius
+                          offset: Offset(0, 2), // changes position of shadow
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
+                Positioned(
+                  child: _buildImage(favourite.touristFacilityId!),
+                ),
+                Positioned(
+                  child: Container(
+                      height: 30,
+                      width: 30,
+                      child: Image.asset("assets/images/heart-icon.png")),
+                  top: 10,
+                  right: 23,
+                ),
+              ],
             ),
-            Positioned(
-              child: _buildImage(favourite.touristFacilityId!),
-            ),
-            Positioned(
-              child: Container(
-                  height: 30,
-                  width: 30,
-                  child: Image.asset("assets/images/heart-icon.png")),
-              top: 10,
-              right: 23,
-            ),
+            SizedBox(height: 15),
           ],
-        ),
-        SizedBox(height: 15),
-      ],
-    );
+        ));
   }
 
   _buildFavourites() {
-    return (_appUserFavouriteProvider.favorites.isNotEmpty &&
-            _appUserFavouriteProvider.favorites.length > 0)
-        ? Column(
-            children: _appUserFavouriteProvider.favorites
-                .map((e) => _FavouriteCard(e))
-                .toList())
-        : Container(
-            padding: EdgeInsets.only(top: 60),
-            child: ListView(children: [
-              Container(
-                  padding: EdgeInsets.only(bottom: 20),
-                  height: 90,
-                  width: 90,
-                  child: Image.asset("assets/images/heart2-icon.png")),
-              Text(
-                "No favorites yet",
-                textAlign: TextAlign.center,
-              )
-            ]));
+    return FutureBuilder(
+        future: loadIds(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // return Container(
+            //   padding: EdgeInsets.only(top: 60),
+            //   child: CircularProgressIndicator(),
+            // );
+            return Center(
+              child: CircularProgressIndicator(),
+              // child: Text('Loading...'),
+            );
+          } else {
+            return (_appUserFavouriteProvider.favorites.isNotEmpty &&
+                    _appUserFavouriteProvider.favorites.length > 0)
+                ? Column(
+                    children: _appUserFavouriteProvider.favorites
+                        .map((e) => _FavouriteCard(e))
+                        .toList())
+                : Container(
+                    padding: EdgeInsets.only(top: 60),
+                    child: ListView(children: [
+                      Container(
+                          padding: EdgeInsets.only(bottom: 20),
+                          height: 90,
+                          width: 90,
+                          child: Image.asset("assets/images/heart2-icon.png")),
+                      Text(
+                        "No favorites yet",
+                        textAlign: TextAlign.center,
+                      )
+                    ]));
+          }
+        });
   }
 
   // _buildFavourites() {

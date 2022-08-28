@@ -346,7 +346,7 @@ class _ReviewFacilityState extends State<ReviewFacility> {
               child: Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.only(top: 20),
+                    padding: EdgeInsets.only(top: 20, left: 20),
                     child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
