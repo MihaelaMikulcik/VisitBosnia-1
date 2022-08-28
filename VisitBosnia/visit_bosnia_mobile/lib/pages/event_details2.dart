@@ -49,7 +49,7 @@ class _EventDetails2State extends State<EventDetails2> {
               buildDetailRow("Starting point", event.placeOfDeparture!),
               // buildDetailRow("Tourist guide",
               //     "${event.agencyMember!.appUser!.firstName!} ${event.agencyMember!.appUser!.lastName!}"),
-              buildDetailRow("Duration", "${getDuration()} hours"),
+              buildDetailRow("Duration", getDuration()),
               buildDetailRow(
                   "Date", formatStringDate(event.date!, 'EEE, MMM d')),
               buildDetailRow("Time", timeToString(event.fromTime!)),
@@ -67,13 +67,16 @@ class _EventDetails2State extends State<EventDetails2> {
 
   String getDuration() {
     var duration = event.toTime! - event.fromTime!;
+    if (duration < 60) {
+      return '${duration} minutes';
+    }
     var d = Duration(minutes: duration);
     List<String> parts = d.toString().split(':');
     if (parts[1] != '00') {
       int satiInt = int.parse(parts[0]) + 1;
-      return '${parts[0]} - $satiInt';
+      return '${parts[0]} - $satiInt hours';
     } else {
-      return parts[0];
+      return '${parts[0]} hours';
     }
   }
 

@@ -188,8 +188,7 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     _touristFacilityGalleryProvider =
         context.read<TouristFacilityGalleryProvider>();
-    _appUserProvider = context.watch<AppUserProvider>();
-    // _appUserProvider = context.read<AppUserProvider>();
+    _appUserProvider = context.read<AppUserProvider>();
     _categoryProvider = context.read<CategoryProvider>();
     return WillPopScope(
       onWillPop: () async => false,
@@ -632,7 +631,7 @@ class _HomepageState extends State<Homepage> {
                 /*2*/
                 Container(
                   padding: const EdgeInsets.only(bottom: 8),
-                  child: Row(children: <Widget>[
+                  child: Row(children: [
                     Text(
                       'Hi, ',
                       style: TextStyle(
@@ -640,11 +639,15 @@ class _HomepageState extends State<Homepage> {
                         fontSize: 25,
                       ),
                     ),
-                    Text(AppUserProvider.userData.firstName! + "!",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25,
-                        ))
+                    Consumer<AppUserProvider>(
+                        builder: ((context, value, child) {
+                      child:
+                      return Text(AppUserProvider.userData.firstName! + "!",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25,
+                          ));
+                    })),
                   ]),
                 ),
                 Text(

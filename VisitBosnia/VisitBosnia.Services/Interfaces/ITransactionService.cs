@@ -10,6 +10,9 @@ namespace VisitBosnia.Services.Interfaces
 {
     public interface ITransactionService:ICRUDService<Model.Transaction, TransactionSearchObject, TransactionInsertRequest, object>
     {
+        Task<Model.Transaction?> ProcessTransaction(TransactionInsertRequest transaction);
+
     }
+
 
 }

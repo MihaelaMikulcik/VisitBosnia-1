@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:visit_bosnia_mobile/model/UserExceptionResponse.dart';
 import 'package:visit_bosnia_mobile/model/credit_card.dart';
@@ -68,6 +69,9 @@ class _BuyTicketDialogState extends State<BuyTicketDialog> {
 
   @override
   Widget build(BuildContext context) {
+    NumberFormat formatter = NumberFormat();
+    formatter.minimumFractionDigits = 2;
+    formatter.maximumFractionDigits = 2;
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -155,7 +159,7 @@ class _BuyTicketDialogState extends State<BuyTicketDialog> {
                       padding: EdgeInsets.only(left: 20),
                       child: Align(
                           alignment: Alignment.center,
-                          child: Text("${_price.toString()} KM",
+                          child: Text("${formatter.format(_price)} BAM",
                               style: TextStyle(fontWeight: FontWeight.bold))),
                     ),
                   ),
@@ -211,6 +215,9 @@ class _BuyTicketDialogState extends State<BuyTicketDialog> {
                 topRight: Radius.circular(20), topLeft: Radius.circular(20))),
         context: context,
         builder: (context) {
+          NumberFormat formatter = NumberFormat();
+          formatter.maximumFractionDigits = 2;
+          formatter.minimumFractionDigits = 2;
           return Padding(
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -255,7 +262,7 @@ class _BuyTicketDialogState extends State<BuyTicketDialog> {
                         color: Colors.grey,
                       ),
                       Text(
-                        ", " + _price.toString() + " KM",
+                        ", ${formatter.format(_price)} BAM",
                         style: TextStyle(color: Colors.grey, fontSize: 18),
                       ),
                     ],
@@ -317,33 +324,36 @@ class _BuyTicketDialogState extends State<BuyTicketDialog> {
           description: event.idNavigation!.name,
           appUserId: AppUserProvider.userData.id);
       var response = await _transactionProvider.ProcessTransaction(request);
-      if (response != null) {
-        if (response is UserExceptionResponse) {
-          _showErrorMessage(context, response.message!);
-        } else if (response is String) {
-          Navigator.pop(context);
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Container(
-                height: 40,
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.check_circle_outline,
-                      color: Colors.white,
+      // if (response != null) {
+      if (response is Transaction) {
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Container(
+              height: 40,
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.check_circle_outline,
+                    color: Colors.white,
+                  ),
+                  Expanded(
+                    child: Text(
+                      " Successfully paid!",
+                      style: TextStyle(color: Colors.white, fontSize: 17),
                     ),
-                    Expanded(
-                      child: Text(
-                        " Successfully paid!",
-                        style: TextStyle(color: Colors.white, fontSize: 17),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              duration: Duration(seconds: 2),
-              backgroundColor: Color.fromARGB(255, 3, 131, 78)));
-        }
+            ),
+            duration: Duration(seconds: 2),
+            backgroundColor: Color.fromARGB(255, 3, 131, 78)));
       }
+      if (response is UserExceptionResponse) {
+        _showErrorMessage(context, response.message!);
+      } else if (response is String) {
+        _showErrorMessage(context, response);
+      }
+      // }
       // } catch (e) {
       //   _showErrorMessage(context, e.toString());
       // }

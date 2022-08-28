@@ -185,7 +185,7 @@ namespace VisitBosnia.Services.Database
             {
                 entity.ToTable("EventOrder");
 
-                entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
+                entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
 
                 entity.HasOne(d => d.AppUser)
                     .WithMany(p => p.EventOrders)
