@@ -79,6 +79,8 @@ namespace VisitBosnia.Services
             var entity = Context.Set<Services.Database.Event>().AsQueryable();
 
             entity = entity.Include("IdNavigation");
+            entity = entity.Include("Agency");
+            entity = entity.Include("AgencyMember");
             entity = entity.Include("IdNavigation.City");
             entity = entity.Include("IdNavigation.Category");
 

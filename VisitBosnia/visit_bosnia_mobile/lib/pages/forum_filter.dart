@@ -179,7 +179,7 @@ class _ForumFilterState extends State<ForumFilter> {
           forum.city!.name!,
           textAlign: TextAlign.center,
           style: const TextStyle(
-              fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
+              fontSize: 23, color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
     );
