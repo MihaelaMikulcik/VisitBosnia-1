@@ -238,7 +238,7 @@ class _UserFavouritesState extends State<UserFavourites> {
               children: <Widget>[
                 Positioned(
                   child: Container(
-                    width: 350.0,
+                    width: MediaQuery.of(context).size.width,
                     height: 170,
                     child: Align(
                       alignment: Alignment.bottomCenter,
@@ -292,10 +292,13 @@ class _UserFavouritesState extends State<UserFavourites> {
           } else {
             return (_appUserFavouriteProvider.favorites.isNotEmpty &&
                     _appUserFavouriteProvider.favorites.length > 0)
-                ? Column(
-                    children: _appUserFavouriteProvider.favorites
-                        .map((e) => _FavouriteCard(e))
-                        .toList())
+                ? Padding(
+                    padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                    child: Column(
+                        children: _appUserFavouriteProvider.favorites
+                            .map((e) => _FavouriteCard(e))
+                            .toList()),
+                  )
                 : Container(
                     padding: EdgeInsets.only(top: 60),
                     child: ListView(children: [

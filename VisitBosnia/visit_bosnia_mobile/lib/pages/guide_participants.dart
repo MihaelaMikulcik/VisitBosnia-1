@@ -124,7 +124,7 @@ class _GuideParticipantsState extends State<GuideParticipants> {
 
   Widget _eventOrderWidget(EventOrder eventOrder) {
     return Container(
-      margin: EdgeInsets.only(left: 33, right: 33, bottom: 10),
+      margin: EdgeInsets.only(left: 30, right: 30, bottom: 10),
       height: 80,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
@@ -151,14 +151,14 @@ class _GuideParticipantsState extends State<GuideParticipants> {
             ),
             Expanded(
                 child: Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.only(top: 15.0, left: 15.0, right: 5.0),
               child: Column(
                 children: [
                   Row(
                     children: [
                       Text(
                         "${eventOrder.appUser!.firstName!} ${eventOrder.appUser!.lastName!}",
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 17),
                       ),
                     ],
                   ),

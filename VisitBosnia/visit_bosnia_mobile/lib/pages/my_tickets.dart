@@ -23,7 +23,7 @@ import '../model/touristFacilityGallery/tourist_facility_gallery_search_object.d
 
 class MyTickets extends StatefulWidget {
   const MyTickets({Key? key}) : super(key: key);
-
+  static const String routeName = "/myTickets";
   @override
   State<MyTickets> createState() => _MyTicketsState();
 }

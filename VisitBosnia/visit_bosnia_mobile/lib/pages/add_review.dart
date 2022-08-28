@@ -21,7 +21,7 @@ import '../utils/util.dart';
 import 'city_facility.dart';
 
 class AddReview extends StatefulWidget {
-  static const String routeName = "/addReview";
+  // static const String routeName = "/addReview";
 
   AddReview(this.facility, {Key? key}) : super(key: key);
 
@@ -103,7 +103,13 @@ class _AddReviewState extends State<AddReview> {
               duration: Duration(seconds: 2),
               backgroundColor: Color.fromARGB(255, 3, 131, 78)));
         } catch (e) {
-          print(e.toString());
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(
+                "Something went wrong...",
+                style: const TextStyle(fontSize: 17, color: Colors.white),
+              ),
+              duration: const Duration(seconds: 2),
+              backgroundColor: const Color.fromARGB(255, 165, 46, 37)));
         }
         // _ratingController.clear();
         // _contentController.clear();

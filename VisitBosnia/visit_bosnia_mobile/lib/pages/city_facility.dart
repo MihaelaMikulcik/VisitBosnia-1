@@ -68,10 +68,21 @@ class _CityFacilityState extends State<CityFacility> {
     return object;
   }
 
-  Future<List<TouristFacilityGallery>> getGallery(int facilityId) async {
-    var search = TouristFacilityGallerySearchObject(facilityId: facilityId);
-    var gallery = await _touristFacilityGalleryProvider.get(search.toJson());
-    return gallery;
+  // Future<List<TouristFacilityGallery>> getGallery(int facilityId) async {
+  //   var search = TouristFacilityGallerySearchObject(facilityId: facilityId);
+  //   var gallery = await _touristFacilityGalleryProvider.get(search.toJson());
+  //   return gallery;
+  // }
+
+  Future<String?> getImage(int facilityId) async {
+    var search = TouristFacilityGallerySearchObject(
+        facilityId: facilityId, isThumbnail: true);
+    var image = await _touristFacilityGalleryProvider.get(search.toJson());
+    if (image.isNotEmpty) {
+      return image.first.image!;
+    } else {
+      return null;
+    }
   }
 
   Future<List<dynamic>> loadFacilites(int catId) async {
@@ -143,14 +154,14 @@ class _CityFacilityState extends State<CityFacility> {
                 padding: EdgeInsets.only(top: 20), child: _buildCity())));
   }
 
-  Container imageContainer(TouristFacilityGallery gallery) {
+  Container imageContainer(String image) {
     return Container(
       height: 220,
       width: 150,
       margin: EdgeInsets.only(right: 15),
       decoration: BoxDecoration(
           image: DecorationImage(
-            image: MemoryImage(base64Decode(gallery.image!)),
+            image: MemoryImage(base64Decode(image)),
             fit: BoxFit.cover,
           ),
           borderRadius: BorderRadius.circular(20)),
@@ -163,10 +174,9 @@ class _CityFacilityState extends State<CityFacility> {
         future: loadCity(),
         builder: (BuildContext context, AsyncSnapshot<City> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-              // child: Text('Loading...'),
-            );
+            return Center(child: Container()
+                // child: Text('Loading...'),
+                );
           } else {
             if (snapshot.hasError) {
               return Center(
@@ -182,14 +192,21 @@ class _CityFacilityState extends State<CityFacility> {
   }
 
   _buildImage(int facilityId) {
-    return FutureBuilder<List<TouristFacilityGallery>>(
-        future: getGallery(facilityId),
-        builder: (BuildContext context,
-            AsyncSnapshot<List<TouristFacilityGallery>> snapshot) {
+    return FutureBuilder<String?>(
+        future: getImage(facilityId),
+        builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-              // child: Text('Loading...'),
+            return Container(
+              height: 220,
+              width: 150,
+              decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 205, 210, 215),
+                  borderRadius: BorderRadius.circular(20)),
+              margin: EdgeInsets.only(right: 15),
+              child: Center(
+                child: CircularProgressIndicator(),
+                // child: Text('Loading...'),
+              ),
             );
           } else {
             if (snapshot.hasError) {
@@ -198,8 +215,8 @@ class _CityFacilityState extends State<CityFacility> {
                 child: Text('Something went wrong...'),
               );
             } else {
-              if (snapshot.data!.length > 0) {
-                return imageContainer(snapshot.data!.first);
+              if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                return imageContainer(snapshot.data!);
               } else {
                 return Container(
                   height: 220,

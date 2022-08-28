@@ -489,7 +489,17 @@ class _ForumPostState extends State<ForumPost> {
                                 await _postReplyProvider.delete(reply.id!);
                                 setState(() {});
                               } catch (e) {
-                                print(e.toString());
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text(
+                                          "Something went wrong...",
+                                          style: const TextStyle(
+                                              fontSize: 17,
+                                              color: Colors.white),
+                                        ),
+                                        duration: const Duration(seconds: 2),
+                                        backgroundColor: const Color.fromARGB(
+                                            255, 165, 46, 37)));
                               }
                               // Close the dialog
                               Navigator.of(context).pop();

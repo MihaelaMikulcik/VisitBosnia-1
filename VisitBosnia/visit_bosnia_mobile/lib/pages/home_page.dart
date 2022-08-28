@@ -361,8 +361,8 @@ class _HomepageState extends State<Homepage> {
             _buildImage(attraction.id!),
             Positioned(
               child: Text(
-                attraction.idNavigation!.name!.length > 15
-                    ? '${attraction.idNavigation!.name!.substring(0, 15)}...'
+                attraction.idNavigation!.name!.length > 13
+                    ? '${attraction.idNavigation!.name!.substring(0, 13)}...'
                     : attraction.idNavigation!.name!,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -531,54 +531,56 @@ class _HomepageState extends State<Homepage> {
               return Container(
                 width: MediaQuery.of(context).size.width,
                 height: 40,
-                child: DropdownButton2(
-                  // dropdownDecoration: ,
-                  isExpanded: true,
-                  onChanged: dropdownCallback,
-                  hint: Row(
-                    children: const [
-                      SizedBox(
-                        width: 4,
-                      ),
-                      Expanded(
-                        child: Text(
-                          'Choose category',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 90, 90, 85),
-                          ),
-                          overflow: TextOverflow.ellipsis,
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton2(
+                    // dropdownDecoration: ,
+                    isExpanded: true,
+                    onChanged: dropdownCallback,
+                    hint: Row(
+                      children: const [
+                        SizedBox(
+                          width: 4,
                         ),
-                      ),
-                    ],
-                  ),
-                  iconSize: 40,
-                  dropdownMaxHeight: 200,
-                  dropdownElevation: 8,
-                  scrollbarRadius: const Radius.circular(40),
-                  scrollbarThickness: 6,
-                  scrollbarAlwaysShow: true,
-                  buttonPadding: const EdgeInsets.only(left: 14, right: 14),
-                  itemPadding: const EdgeInsets.only(left: 14, right: 14),
-                  items: snapshot.data!.map((e) => _dropDownItem(e)).toList(),
-                  value: selectedCategory == 0 ? null : selectedCategory,
-                  dropdownDecoration: BoxDecoration(
-                    // borderRadius: BorderRadius.circular(14),
-                    color: Color.fromARGB(255, 205, 210, 215),
-                  ),
-                  buttonDecoration: BoxDecoration(
-                    boxShadow: const [
-                      BoxShadow(
-                          offset: Offset(0, 2),
-                          blurRadius: 2,
-                          color: Color.fromARGB(255, 63, 62, 62))
-                    ],
-                    borderRadius: BorderRadius.circular(10),
-                    // border: Border.all(
-                    //     color: Colors.black26,
-                    //     ),
-                    color: Color.fromARGB(255, 205, 210, 215),
+                        Expanded(
+                          child: Text(
+                            'Choose category',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 90, 90, 85),
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                    iconSize: 40,
+                    dropdownMaxHeight: 200,
+                    dropdownElevation: 8,
+                    scrollbarRadius: const Radius.circular(40),
+                    scrollbarThickness: 6,
+                    scrollbarAlwaysShow: true,
+                    buttonPadding: const EdgeInsets.only(left: 14, right: 14),
+                    itemPadding: const EdgeInsets.only(left: 14, right: 14),
+                    items: snapshot.data!.map((e) => _dropDownItem(e)).toList(),
+                    value: selectedCategory == 0 ? null : selectedCategory,
+                    dropdownDecoration: BoxDecoration(
+                      // borderRadius: BorderRadius.circular(14),
+                      color: Color.fromARGB(255, 205, 210, 215),
+                    ),
+                    buttonDecoration: BoxDecoration(
+                      boxShadow: const [
+                        BoxShadow(
+                            offset: Offset(0, 2),
+                            blurRadius: 2,
+                            color: Color.fromARGB(255, 63, 62, 62))
+                      ],
+                      borderRadius: BorderRadius.circular(10),
+                      // border: Border.all(
+                      //     color: Colors.black26,
+                      //     ),
+                      color: Color.fromARGB(255, 205, 210, 215),
+                    ),
                   ),
                 ),
               );

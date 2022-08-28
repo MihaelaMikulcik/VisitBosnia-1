@@ -71,5 +71,16 @@ namespace VisitBosnia.Services
             }
             return null;
         }
+
+        public override async Task<IEnumerable<Model.Post>> Get(PostSearchObject search = null)
+        {
+            var entity = Context.Set<Post>().AsQueryable();
+
+            entity = AddFilter(entity, search);
+            entity = AddInclude(entity, search);
+
+            var list = await entity.ToListAsync();
+            return Mapper.Map<List<Model.Post>>(list.OrderByDescending(x => x.CreatedTime).ToList());
+        }
     }
 }

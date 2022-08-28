@@ -227,7 +227,14 @@ class _ForumTopicsState extends State<ForumTopics> {
                 try {
                   await _postProvider.insert(request);
                 } catch (e) {
-                  print(e.toString());
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(
+                        "Something went wrong...",
+                        style:
+                            const TextStyle(fontSize: 17, color: Colors.white),
+                      ),
+                      duration: const Duration(seconds: 2),
+                      backgroundColor: const Color.fromARGB(255, 165, 46, 37)));
                 }
                 _titleController.clear();
                 _contentController.clear();
@@ -267,7 +274,15 @@ class _ForumTopicsState extends State<ForumTopics> {
                         await _postProvider.delete(topic.id!);
                         setState(() {});
                       } catch (e) {
-                        print(e.toString());
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(
+                              "Something went wrong...",
+                              style: const TextStyle(
+                                  fontSize: 17, color: Colors.white),
+                            ),
+                            duration: const Duration(seconds: 2),
+                            backgroundColor:
+                                const Color.fromARGB(255, 165, 46, 37)));
                       }
                       // Close the dialog
                       Navigator.of(context).pop();
@@ -351,7 +366,7 @@ class _ForumTopicsState extends State<ForumTopics> {
       },
       child: Container(
         padding: const EdgeInsets.all(15),
-        margin: const EdgeInsets.only(left: 20, top: 10, right: 20),
+        margin: const EdgeInsets.only(left: 20, top: 8, right: 20, bottom: 5),
         decoration: BoxDecoration(
           color: const Color.fromARGB(255, 217, 217, 217),
           borderRadius: BorderRadius.circular(10),
