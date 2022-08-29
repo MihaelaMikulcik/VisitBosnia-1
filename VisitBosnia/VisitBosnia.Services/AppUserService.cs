@@ -304,7 +304,7 @@ namespace VisitBosnia.Services
                 });
 
                 predictionResult.Add(new Tuple<Database.Attraction, float>(attraction, prediction.Score));
-                System.Diagnostics.Debug.WriteLine(attraction.Id.ToString() + " - " + prediction.Score);
+                //System.Diagnostics.Debug.WriteLine(attraction.Id.ToString() + " - " + prediction.Score);
             }
 
             var finalResult = predictionResult.OrderByDescending(x => x.Item2)
@@ -340,7 +340,7 @@ namespace VisitBosnia.Services
                 });
 
                 predictionResult.Add(new Tuple<Database.Event, float>(x, prediction.Score));
-                System.Diagnostics.Debug.WriteLine(x.Id.ToString() + " - " + prediction.Score);
+                //System.Diagnostics.Debug.WriteLine(x.Id.ToString() + " - " + prediction.Score);
             }
 
             var finalResult = predictionResult.OrderByDescending(x => x.Item2)
@@ -417,7 +417,7 @@ namespace VisitBosnia.Services
                     if (model == null)
                     {
                         model = est.Fit(trainingData);
-                        _memoryCache.Set("eventsModel", model, TimeSpan.FromMinutes(15));
+                        _memoryCache.Set("eventsModel", model, TimeSpan.FromMinutes(5));
                     }
                 }
 
