@@ -8,7 +8,6 @@ namespace VisitBosnia.Services.Database
     {
         [ForeignKey("IdNavigation")]
         public int Id { get; set; }
-        //public string? AddressMap { get; set; }
         public decimal GeoLong { get; set; }
         public decimal GeoLat { get; set; }
 

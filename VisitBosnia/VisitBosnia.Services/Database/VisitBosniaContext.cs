@@ -338,6 +338,7 @@ namespace VisitBosnia.Services.Database
 
             modelBuilder.Entity<Transaction>(entity =>
             {
+                entity.Property(e => e.ChargeId).HasMaxLength(255);
                 entity.Property(e => e.Date).HasColumnType("datetime");
 
                 entity.Property(e => e.Status).HasMaxLength(255);

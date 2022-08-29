@@ -14,7 +14,7 @@ namespace VisitBosnia.Services.Database
         public int AppUserId { get; set; }
         public int TouristFacilityId { get; set; }
         public int Rating { get; set; }
-        public string? Text { get; set; }
+        public string Text { get; set; } = null!;
 
         public virtual AppUser AppUser { get; set; } = null!;
         public virtual TouristFacility TouristFacility { get; set; } = null!;
