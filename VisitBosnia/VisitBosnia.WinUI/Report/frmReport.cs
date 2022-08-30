@@ -42,7 +42,10 @@ namespace VisitBosnia.WinUI.Report
             var dateFrom = new DateTime(dtpFrom.Value.Year, dtpFrom.Value.Month, dtpFrom.Value.Day, 0, 0, 0);
             var dateTo = new DateTime(dtpTo.Value.Year, dtpTo.Value.Month, dtpTo.Value.Day, 23, 59, 59);
 
-            if (dateFrom <= dateTo && (!_dateFrom.HasValue || _dateFrom.Value != dateFrom || !_dateTo.HasValue || _dateTo.Value != dateTo))
+            reportViewer1.Reset();
+            reportViewer1.LocalReport.DataSources.Clear();
+
+            if (dateFrom <= dateTo)
             {
                 var searchObject = new EventSearchObject();
                 searchObject.IncludeIdNavigation = true;
@@ -61,6 +64,8 @@ namespace VisitBosnia.WinUI.Report
 
                     _dateFrom = dateFrom;
                     _dateTo = dateTo;
+
+                    var rowList = new List<dsSales.TblOrdersRow>();
 
                     if (finalEvents.ToList().Count > 0)
                     {
@@ -89,13 +94,29 @@ namespace VisitBosnia.WinUI.Report
                             row.Amount = total;
 
 
-                            tbl.Rows.Add(row);
+                           rowList.Add(row);
+
 
                             finalTotal += total;
 
-
+                            
                         }
+                   
 
+                        if(topFive.Checked)
+                        {
+                            foreach(var row in rowList.OrderByDescending(x=> x.Amount).Take(5))
+                            {
+                                tbl.Rows.Add(row);
+                            }
+                        }
+                        else
+                        {
+                            foreach (var row in rowList)
+                            {
+                                tbl.Rows.Add(row);
+                            }
+                        }
 
                         ReportParameterCollection parameters = new ReportParameterCollection {
                     new ReportParameter("DateFrom", _dateFrom.ToString()),
@@ -107,8 +128,7 @@ namespace VisitBosnia.WinUI.Report
                         rds.Name = "dsSales";
                         rds.Value = tbl;
 
-                        //reportViewer1.Reset();
-                        //reportViewer1.LocalReport.DataSources.Clear();
+                    
 
                         this.reportViewer1.LocalReport.ReportEmbeddedResource = "VisitBosnia.WinUI.Report.AgencyReport.rdlc";
                         this.reportViewer1.LocalReport.SetParameters(parameters);

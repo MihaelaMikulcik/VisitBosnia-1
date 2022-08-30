@@ -37,6 +37,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             this.label4 = new System.Windows.Forms.Label();
+            this.topFive = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,6 +54,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.topFive);
             this.groupBox1.Controls.Add(this.btn_search);
             this.groupBox1.Controls.Add(this.dtpTo);
             this.groupBox1.Controls.Add(this.label3);
@@ -61,7 +63,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.groupBox1.Location = new System.Drawing.Point(22, 65);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(997, 60);
+            this.groupBox1.Size = new System.Drawing.Size(1052, 60);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Financial Report";
@@ -72,7 +74,7 @@
             this.btn_search.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btn_search.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btn_search.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btn_search.Location = new System.Drawing.Point(836, 20);
+            this.btn_search.Location = new System.Drawing.Point(898, 20);
             this.btn_search.Name = "btn_search";
             this.btn_search.Size = new System.Drawing.Size(139, 28);
             this.btn_search.TabIndex = 4;
@@ -82,7 +84,7 @@
             // 
             // dtpTo
             // 
-            this.dtpTo.Location = new System.Drawing.Point(463, 22);
+            this.dtpTo.Location = new System.Drawing.Point(433, 22);
             this.dtpTo.Name = "dtpTo";
             this.dtpTo.Size = new System.Drawing.Size(333, 23);
             this.dtpTo.TabIndex = 3;
@@ -90,7 +92,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(422, 28);
+            this.label3.Location = new System.Drawing.Point(392, 28);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(25, 15);
             this.label3.TabIndex = 4;
@@ -139,6 +141,16 @@
             this.label4.Text = "back to home";
             this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
+            // topFive
+            // 
+            this.topFive.AutoSize = true;
+            this.topFive.Location = new System.Drawing.Point(787, 26);
+            this.topFive.Name = "topFive";
+            this.topFive.Size = new System.Drawing.Size(81, 19);
+            this.topFive.TabIndex = 5;
+            this.topFive.Text = "Only top 5";
+            this.topFive.UseVisualStyleBackColor = true;
+            // 
             // frmReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -172,5 +184,6 @@
         private DateTimePicker dtpTo;
         private DateTimePicker dtpFrom;
         private Label label4;
+        private CheckBox topFive;
     }
 }
