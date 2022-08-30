@@ -20,16 +20,19 @@ class TransactionProvider extends BaseProvider<Transaction> {
     var uri = Uri.parse(url);
     Map<String, String> headers = createHeaders();
     var jsonRequest = jsonEncode(request.toJson());
-
-    var response = await http!.post(uri, headers: headers, body: jsonRequest);
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      return Transaction.fromJson(data);
-      // return response.body;
-      // return jsonDecode(response.body);
-    } else if (response.statusCode == 400) {
-      return UserExceptionResponse.fromJson(json.decode(response.body));
-    } else {
+    try {
+      var response = await http!.post(uri, headers: headers, body: jsonRequest);
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        return Transaction.fromJson(data);
+        // return response.body;
+        // return jsonDecode(response.body);
+      } else if (response.statusCode == 400) {
+        return UserExceptionResponse.fromJson(json.decode(response.body));
+      } else {
+        return "Something went wrong...";
+      }
+    } catch (e) {
       return "Something went wrong...";
     }
   }

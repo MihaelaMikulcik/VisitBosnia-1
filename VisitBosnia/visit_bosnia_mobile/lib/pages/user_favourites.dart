@@ -25,17 +25,15 @@ import 'event_details2.dart';
 class UserFavourites extends StatefulWidget {
   static const String routeName = "/userFavourite";
 
-  UserFavourites({Key? key, required this.user}) : super(key: key);
-  AppUser user;
+  UserFavourites({Key? key}) : super(key: key);
 
   @override
-  State<UserFavourites> createState() => _UserFavouritesState(user);
+  State<UserFavourites> createState() => _UserFavouritesState();
 }
 
 class _UserFavouritesState extends State<UserFavourites> {
-  _UserFavouritesState(this.user);
+  _UserFavouritesState();
 
-  AppUser user;
   late List<int> attractionIds = [];
 
   // late AppUserProvider _appUserProvider;
@@ -70,9 +68,13 @@ class _UserFavouritesState extends State<UserFavourites> {
   // }
 
   Future loadIds() async {
-    var attractions = await _attractionProvider.get(null);
-    for (var atr in attractions) {
-      attractionIds.add(atr.id!);
+    try {
+      var attractions = await _attractionProvider.get(null);
+      for (var atr in attractions) {
+        attractionIds.add(atr.id!);
+      }
+    } catch (e) {
+      attractionIds = [];
     }
   }
   // Future<List<TouristFacilityGallery>> getGallery(int facilityId) async {
@@ -82,12 +84,16 @@ class _UserFavouritesState extends State<UserFavourites> {
   // }
 
   Future<String?> getImage(int facilityId) async {
-    var search = TouristFacilityGallerySearchObject(
-        facilityId: facilityId, isThumbnail: true);
-    var image = await _touristFacilityGalleryProvider.get(search.toJson());
-    if (image.isNotEmpty) {
-      return image.first.image!;
-    } else {
+    try {
+      var search = TouristFacilityGallerySearchObject(
+          facilityId: facilityId, isThumbnail: true);
+      var image = await _touristFacilityGalleryProvider.get(search.toJson());
+      if (image.isNotEmpty) {
+        return image.first.image!;
+      } else {
+        return null;
+      }
+    } catch (e) {
       return null;
     }
   }
@@ -176,10 +182,16 @@ class _UserFavouritesState extends State<UserFavourites> {
             (BuildContext context, AsyncSnapshot<TouristFacility> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Container(
-              width: 40,
-              height: 40,
-              // child: Text("loading..."),
-              // padding: EdgeInsets.only(bottom: 10),
+              // width: 40,
+              // height: 50,
+              child: Text(
+                "...",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    fontSize: 17),
+              ),
+              padding: EdgeInsets.only(bottom: 10),
               // child: Image.asset("assets/images/black_favourite_location.png"),
             );
             // return Center(
@@ -300,6 +312,7 @@ class _UserFavouritesState extends State<UserFavourites> {
                             .toList()),
                   )
                 : Container(
+                    height: MediaQuery.of(context).size.height,
                     padding: EdgeInsets.only(top: 60),
                     child: ListView(children: [
                       Container(

@@ -111,6 +111,8 @@ app.UseAuthorization();
 
 using (var scope = app.Services.CreateScope())
 {
+    var dataContext = scope.ServiceProvider.GetRequiredService<VisitBosniaContext>();
+    dataContext.Database.Migrate();
     scope.ServiceProvider.GetRequiredService<SetupService>();
     SetupService seeder = scope.ServiceProvider.GetRequiredService<SetupService>();
     seeder.Init();

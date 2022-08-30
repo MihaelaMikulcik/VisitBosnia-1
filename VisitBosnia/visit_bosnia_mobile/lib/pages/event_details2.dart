@@ -80,27 +80,6 @@ class _EventDetails2State extends State<EventDetails2> {
     }
   }
 
-  // Widget buildReviews() {
-  //   return Padding(
-  //     padding: const EdgeInsets.only(top: 20.0),
-  //     child: Row(children: const [
-  //       Text(
-  //         "Reviews ",
-  //         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
-  //       ),
-  //       Icon(
-  //         Icons.reviews_outlined,
-  //         size: 30,
-  //       ),
-  //       Text("2 reviews",
-  //           style: TextStyle(
-  //               color: Color.fromARGB(255, 92, 91, 91),
-  //               fontWeight: FontWeight.bold,
-  //               fontSize: 18))
-  //     ]),
-  //   );
-  // }
-
   Widget btnBuyTicket() {
     return InkWell(
         onTap: () {

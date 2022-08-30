@@ -286,11 +286,32 @@ namespace VisitBosnia.Services
             var model = TrainData(true);
 
             var attractions = await Context.Attractions
-                .Include(x=>x.IdNavigation)
-                .Include(x=>x.IdNavigation.City)
-                .Include(x=>x.IdNavigation.Category)
+                .Include(x => x.IdNavigation)
+                .Include(x => x.IdNavigation.City)
+                .Include(x => x.IdNavigation.Category)
                 .ToListAsync();
-           
+
+            //List<Tuple<Database.Attraction, float>> predictionResult = null;
+
+            //predictionResult = _memoryCache.Get<List<Tuple<Database.Attraction, float>>>("attractionsPrediction");
+            //if (predictionResult == null)
+            //{
+            //    predictionResult = new List<Tuple<Database.Attraction, float>>();
+            //    foreach (var x in attractions)
+            //    {
+            //        var predictionEngine = mlContext.Model.CreatePredictionEngine<TouristFacilityRating, TouristFacilityRatingPrediction>(model);
+
+            //        var prediction = predictionEngine.Predict(new TouristFacilityRating
+            //        {
+            //            FacilityId = (uint)x.Id,
+            //            AppUserId = (uint)appUserId
+            //        });
+
+            //        predictionResult.Add(new Tuple<Database.Attraction, float>(x, prediction.Score));
+            //    }
+            //    _memoryCache.Set("attractionsPrediction", model, TimeSpan.FromMinutes(15));
+            //}
+
             var predictionResult = new List<Tuple<Database.Attraction, float>>();
 
             foreach (var attraction in attractions)
@@ -307,17 +328,32 @@ namespace VisitBosnia.Services
                 //System.Diagnostics.Debug.WriteLine(attraction.Id.ToString() + " - " + prediction.Score);
             }
 
+            //var tempAttractions = predictionResult.Select(x => x.Item1).ToList().AsQueryable();
+            //var finalAttractions = tempAttractions.Include(x => x.IdNavigation)
+            //    .Include(x => x.IdNavigation.City)
+            //    .Include(x => x.IdNavigation.Category);
+
+
+
             var finalResult = predictionResult.OrderByDescending(x => x.Item2)
-                .Select(x => x.Item1).Take(10).ToList();
-            if(categoryId!=0)
+                .Select(x => x.Item1).Take(8).ToList();
+
+            if (categoryId != 0)
                 finalResult = finalResult.Where(x => x.IdNavigation.CategoryId == categoryId).ToList();
+
+            //var includedAttractions = finalResult.AsQueryable<Model.Attraction>().Include(x => x.IdNavigation)
+            //    .Include(x => x.IdNavigation.City)
+            //    .Include(x => x.IdNavigation.Category).ToList();
+
+            //if (categoryId != 0)
+            //    includedAttractions = includedAttractions.Where(x => x.IdNavigation.CategoryId == categoryId).ToList();
+
 
             return Mapper.Map<List<Model.Attraction>>(finalResult);
         }
 
         public async Task<List<Model.Event>> RecommendEvents(int appUserId, int? categoryId = null)
         {
-
             var model = TrainData(false);
 
             var events = await Context.Events
@@ -327,6 +363,28 @@ namespace VisitBosnia.Services
                 .Include(x=>x.Agency)
                 .Include(x=>x.AgencyMember)
                 .ToListAsync();
+
+            //List<Tuple<Database.Event, float>> predictionResult = null;
+
+            //predictionResult = _memoryCache.Get<List<Tuple<Database.Event, float>>>("eventsPrediction");
+            //if (predictionResult == null)
+            //{
+            //    predictionResult = new List<Tuple<Database.Event, float>>();
+            //    foreach (var x in events)
+            //    {
+            //        var predictionEngine = mlContext.Model.CreatePredictionEngine<TouristFacilityRating, TouristFacilityRatingPrediction>(model);
+
+            //        var prediction = predictionEngine.Predict(new TouristFacilityRating
+            //        {
+            //            FacilityId = (uint)x.Id,
+            //            AppUserId = (uint)appUserId
+            //        });
+
+            //        predictionResult.Add(new Tuple<Database.Event, float>(x, prediction.Score));
+            //    }
+            //    _memoryCache.Set("eventsPrediction", model, TimeSpan.FromMinutes(15));
+            //}
+
             var predictionResult = new List<Tuple<Database.Event, float>>();
 
             foreach (var x in events)
@@ -344,7 +402,7 @@ namespace VisitBosnia.Services
             }
 
             var finalResult = predictionResult.OrderByDescending(x => x.Item2)
-                .Select(x => x.Item1).Take(10).ToList();
+                .Select(x => x.Item1).Take(8).ToList();
 
             if (categoryId != 0)
                 finalResult = finalResult.Where(x => x.IdNavigation.CategoryId == categoryId).ToList();
@@ -364,15 +422,11 @@ namespace VisitBosnia.Services
                 if (isAttraction)
                 {
                     tempData = Context.Reviews.Where(x => x.TouristFacility.Attraction != null)
-                    //.Include(x => x.TouristFacility)
-                    //.Include(x => x.AppUser)
                     .ToList();
                 }
                 else
                 {
                     tempData = Context.Reviews.Where(x => x.TouristFacility.Event != null)
-                    //.Include(x => x.TouristFacility)
-                    //.Include(x => x.AppUser)
                     .ToList();
                 }
 
@@ -402,13 +456,16 @@ namespace VisitBosnia.Services
                 var est = mlContext.Recommendation().Trainers.MatrixFactorization(options);
 
                 ITransformer model;
+
+                //model = est.Fit(trainingData);
+
                 if (isAttraction)
                 {
                     model = _memoryCache.Get<ITransformer>("attractionsModel");
                     if (model == null)
                     {
                         model = est.Fit(trainingData);
-                        _memoryCache.Set("attractionsModel", model, TimeSpan.FromMinutes(5));
+                        _memoryCache.Set("attractionsModel", model, TimeSpan.FromMinutes(15));
                     }
                 }
                 else
@@ -417,7 +474,7 @@ namespace VisitBosnia.Services
                     if (model == null)
                     {
                         model = est.Fit(trainingData);
-                        _memoryCache.Set("eventsModel", model, TimeSpan.FromMinutes(5));
+                        _memoryCache.Set("eventsModel", model, TimeSpan.FromMinutes(15));
                     }
                 }
 

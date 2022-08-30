@@ -33,14 +33,18 @@ class _ForumFilterState extends State<ForumFilter> {
     _forumProvider = context.read<ForumProvider>();
   }
 
-  Future<List<Forum>> GetData() async {
-    List<Forum> forums;
-    ForumSearchObject searchObj = ForumSearchObject(includeCity: true);
-    if (search != "") {
-      searchObj.title = search;
+  Future<List<Forum>?> GetData() async {
+    try {
+      List<Forum> forums;
+      ForumSearchObject searchObj = ForumSearchObject(includeCity: true);
+      if (search != "") {
+        searchObj.title = search;
+      }
+      forums = await _forumProvider.get(searchObj.toJson());
+      return forums;
+    } catch (e) {
+      return null;
     }
-    forums = await _forumProvider.get(searchObj.toJson());
-    return forums;
   }
 
   @override
@@ -122,9 +126,9 @@ class _ForumFilterState extends State<ForumFilter> {
   }
 
   Widget _buildForumList() {
-    return FutureBuilder<List<Forum>>(
+    return FutureBuilder<List<Forum>?>(
         future: GetData(),
-        builder: (BuildContext context, AsyncSnapshot<List<Forum>> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<List<Forum>?> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
@@ -135,7 +139,7 @@ class _ForumFilterState extends State<ForumFilter> {
                 child: Text('Something went wrong...'),
               );
             } else {
-              if (snapshot.data!.isNotEmpty) {
+              if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                 return ListView(
                   scrollDirection: Axis.vertical,
                   physics: const ScrollPhysics(),

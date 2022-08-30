@@ -63,9 +63,13 @@ class _CityFacilityState extends State<CityFacility> {
         context.read<TouristFacilityGalleryProvider>();
   }
 
-  Future<City> loadCity() async {
-    var object = await _cityProvider.getById(cityId);
-    return object;
+  Future<City?> loadCity() async {
+    try {
+      var object = await _cityProvider.getById(cityId);
+      return object;
+    } catch (e) {
+      return null;
+    }
   }
 
   // Future<List<TouristFacilityGallery>> getGallery(int facilityId) async {
@@ -77,37 +81,49 @@ class _CityFacilityState extends State<CityFacility> {
   Future<String?> getImage(int facilityId) async {
     var search = TouristFacilityGallerySearchObject(
         facilityId: facilityId, isThumbnail: true);
-    var image = await _touristFacilityGalleryProvider.get(search.toJson());
-    if (image.isNotEmpty) {
-      return image.first.image!;
-    } else {
+    try {
+      var image = await _touristFacilityGalleryProvider.get(search.toJson());
+      if (image.isNotEmpty) {
+        return image.first.image!;
+      } else {
+        return null;
+      }
+    } catch (e) {
       return null;
     }
   }
 
-  Future<List<dynamic>> loadFacilites(int catId) async {
-    if (facility == "Event") {
-      var search = EventSearchObject(
-        includeIdNavigation: true,
-        includeAgency: true,
-        includeAgencyMember: true,
-      );
-      search.cityId = cityId;
-      search.categoryId = catId;
-      var object = await _eventProvider.get(search.toJson());
-      return object;
-    } else {
-      var search = AttractionSearchObject(includeIdNavigation: true);
-      search.categoryId = catId;
-      search.cityId = cityId;
-      var object = await _attractionProvider.get(search.toJson());
-      return object;
+  Future<List<dynamic>?> loadFacilites(int catId) async {
+    try {
+      if (facility == "Event") {
+        var search = EventSearchObject(
+          includeIdNavigation: true,
+          includeAgency: true,
+          includeAgencyMember: true,
+        );
+        search.cityId = cityId;
+        search.categoryId = catId;
+        var object = await _eventProvider.get(search.toJson());
+        return object;
+      } else {
+        var search = AttractionSearchObject(includeIdNavigation: true);
+        search.categoryId = catId;
+        search.cityId = cityId;
+        var object = await _attractionProvider.get(search.toJson());
+        return object;
+      }
+    } catch (e) {
+      return null;
     }
   }
 
-  Future<List<Category>> loadCategories() async {
-    var categories = await _categoryProvider.get(null);
-    return categories;
+  Future<List<Category>?> loadCategories() async {
+    try {
+      var categories = await _categoryProvider.get(null);
+      return categories;
+    } catch (e) {
+      return null;
+    }
   }
 
   Widget titleSection(City city) {
@@ -170,22 +186,22 @@ class _CityFacilityState extends State<CityFacility> {
   }
 
   _buildCity() {
-    return FutureBuilder<City>(
+    return FutureBuilder<City?>(
         future: loadCity(),
-        builder: (BuildContext context, AsyncSnapshot<City> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<City?> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: Container()
                 // child: Text('Loading...'),
                 );
           } else {
-            if (snapshot.hasError) {
+            if (snapshot.hasData) {
+              return Column(
+                  children: [titleSection(snapshot.data!), _buildCategory()]);
+            } else {
               return Center(
                 // child: Text('${snapshot.error}'),
                 child: Text('Something went wrong...'),
               );
-            } else {
-              return Column(
-                  children: [titleSection(snapshot.data!), _buildCategory()]);
             }
           }
         });
@@ -268,9 +284,10 @@ class _CityFacilityState extends State<CityFacility> {
   }
 
   Widget _buildFacility(Category category) {
-    return FutureBuilder<List<dynamic>>(
+    return FutureBuilder<List<dynamic>?>(
         future: loadFacilites(category.id!),
-        builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
+        builder:
+            (BuildContext context, AsyncSnapshot<List<dynamic>?> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(),
@@ -283,7 +300,7 @@ class _CityFacilityState extends State<CityFacility> {
                 child: Text('Something went wrong...'),
               );
             } else {
-              if (snapshot.data!.length > 0) {
+              if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                 return Column(children: [
                   Container(
                     padding: EdgeInsets.only(top: 10, bottom: 20, left: 20),
@@ -349,10 +366,10 @@ class _CityFacilityState extends State<CityFacility> {
   }
 
   _buildCategory() {
-    return FutureBuilder<List<Category>>(
+    return FutureBuilder<List<Category>?>(
         future: loadCategories(),
         builder:
-            (BuildContext context, AsyncSnapshot<List<Category>> snapshot) {
+            (BuildContext context, AsyncSnapshot<List<Category>?> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(),
@@ -365,7 +382,7 @@ class _CityFacilityState extends State<CityFacility> {
                 child: Text('Something went wrong...'),
               );
             } else {
-              if (snapshot.data!.length > 0) {
+              if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                 return Column(
                     children:
                         snapshot.data!.map((e) => _buildFacility(e)).toList());

@@ -19,9 +19,13 @@ class PickCity extends StatelessWidget {
   String facility;
   late CityProvider _cityProvider;
 
-  Future<List<City>> loadCites() async {
-    var cities = await _cityProvider.get(null);
-    return cities;
+  Future<List<City>?> loadCites() async {
+    try {
+      var cities = await _cityProvider.get(null);
+      return cities;
+    } catch (e) {
+      return null;
+    }
   }
 
   Widget titleSection() {
@@ -115,9 +119,9 @@ class PickCity extends StatelessWidget {
     /*24 is for notification bar on Android*/
     final double itemHeight = (size.height - kToolbarHeight) / 2.9;
     final double itemWidth = (size.width) / 2;
-    return FutureBuilder<List<City>>(
+    return FutureBuilder<List<City>?>(
         future: loadCites(),
-        builder: (BuildContext context, AsyncSnapshot<List<City>> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<List<City>?> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(),

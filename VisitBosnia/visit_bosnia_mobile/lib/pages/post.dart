@@ -34,7 +34,7 @@ class ForumPost extends StatefulWidget {
 class _ForumPostState extends State<ForumPost> {
   _ForumPostState(this.forumPost);
 
-  // late PostProvider _postProvider;
+  late PostProvider _postProvider;
   late PostReplyProvider _postReplyProvider;
   late AppUserProvider _appUserProvider;
   late AppUserRoleProvider _appUserRoleProvider;
@@ -55,29 +55,37 @@ class _ForumPostState extends State<ForumPost> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // _postProvider = context.read<PostProvider>();
+    _postProvider = context.read<PostProvider>();
     _postReplyProvider = context.read<PostReplyProvider>();
     _appUserRoleProvider = context.read<AppUserRoleProvider>();
   }
 
-  Future<AppUser> getPostUser(int appUserId) async {
-    var user = await _appUserProvider.getById(appUserId);
-    return user;
+  // Future<AppUser> getPostUser(int appUserId) async {
+  //   var user = await _appUserProvider.getById(appUserId);
+  //   return user;
+  // }
+
+  Future<List<PostReply>?> GetReply() async {
+    try {
+      PostReplySearchObject searchObj =
+          PostReplySearchObject(postId: forumPost.id, includeAppUser: true);
+      var tempData = await _postReplyProvider.get(searchObj.toJson());
+
+      return tempData;
+    } catch (e) {
+      return null;
+    }
   }
 
-  Future<List<PostReply>> GetReply() async {
-    PostReplySearchObject searchObj =
-        PostReplySearchObject(postId: forumPost.id, includeAppUser: true);
-    var tempData = await _postReplyProvider.get(searchObj.toJson());
-
-    return tempData;
-  }
-
-  Future<Role> GetRole(int appUserId) async {
-    AppUserRoleSearchObject searchObj =
-        AppUserRoleSearchObject(appUserId: appUserId, includeRole: true);
-    var tempData = await _appUserRoleProvider.get(searchObj.toJson());
-    return tempData.first.role!;
+  Future<Role?> GetRole(int appUserId) async {
+    try {
+      AppUserRoleSearchObject searchObj =
+          AppUserRoleSearchObject(appUserId: appUserId, includeRole: true);
+      var tempData = await _appUserRoleProvider.get(searchObj.toJson());
+      return tempData.first.role!;
+    } catch (e) {
+      return null;
+    }
   }
 
   @override
@@ -279,20 +287,22 @@ class _ForumPostState extends State<ForumPost> {
             ),
             child: Padding(
               padding: const EdgeInsets.only(left: 7.0),
-              child: DropdownButton(
-                  value: dropdownvalue,
-                  icon: const Icon(Icons.keyboard_arrow_down),
-                  items: items.map((String items) {
-                    return DropdownMenuItem(
-                      value: items,
-                      child: Text(items),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      dropdownvalue = newValue!;
-                    });
-                  }),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton(
+                    value: dropdownvalue,
+                    icon: const Icon(Icons.keyboard_arrow_down),
+                    items: items.map((String items) {
+                      return DropdownMenuItem(
+                        value: items,
+                        child: Text(items),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        dropdownvalue = newValue!;
+                      });
+                    }),
+              ),
             ),
           )
         ],
@@ -301,10 +311,10 @@ class _ForumPostState extends State<ForumPost> {
   }
 
   _buildeReplies() {
-    return FutureBuilder<List<PostReply>>(
+    return FutureBuilder<List<PostReply>?>(
         future: GetReply(),
         builder:
-            (BuildContext context, AsyncSnapshot<List<PostReply>> snapshot) {
+            (BuildContext context, AsyncSnapshot<List<PostReply>?> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(),
@@ -317,7 +327,7 @@ class _ForumPostState extends State<ForumPost> {
                 child: Text('Something went wrong...'),
               );
             } else {
-              if (snapshot.data!.length > 0) {
+              if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                 if (dropdownvalue == 'Newest first') {
                   return Column(children: [
                     Container(
@@ -355,14 +365,15 @@ class _ForumPostState extends State<ForumPost> {
   }
 
   _buildeRole(int appUserId) {
-    return FutureBuilder<Role>(
+    return FutureBuilder<Role?>(
         future: GetRole(appUserId),
-        builder: (BuildContext context, AsyncSnapshot<Role> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<Role?> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-              // child: Text('Loading...'),
-            );
+            return Container();
+            // return Center(
+            //   child: CircularProgressIndicator(),
+            //   // child: Text('Loading...'),
+            // );
           } else {
             if (snapshot.hasError) {
               return Center(
@@ -370,7 +381,7 @@ class _ForumPostState extends State<ForumPost> {
                 child: Text('Something went wrong...'),
               );
             } else {
-              if (snapshot.data!.name! == "Agency") {
+              if (snapshot.hasData && snapshot.data!.name! == "Agency") {
                 return Row(children: [
                   Icon(
                     Icons.flag,
@@ -467,7 +478,7 @@ class _ForumPostState extends State<ForumPost> {
     );
   }
 
-  Widget removeReply(reply) {
+  Widget removeReply(PostReply reply) {
     return Container(
       padding: EdgeInsets.only(left: 15),
       child: Align(
@@ -487,7 +498,9 @@ class _ForumPostState extends State<ForumPost> {
                               // Remove the box
                               try {
                                 await _postReplyProvider.delete(reply.id!);
+
                                 setState(() {});
+                                _postProvider.updateReplies(reply.postId!);
                               } catch (e) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
@@ -547,7 +560,15 @@ class _ForumPostState extends State<ForumPost> {
                     try {
                       await _postReplyProvider.insert(request);
                     } catch (e) {
-                      print(e.toString());
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text(
+                            "Something went wrong...",
+                            style: const TextStyle(
+                                fontSize: 17, color: Colors.white),
+                          ),
+                          duration: const Duration(seconds: 2),
+                          backgroundColor:
+                              const Color.fromARGB(255, 165, 46, 37)));
                     }
                     _contentController.clear();
                     Navigator.pop(context);

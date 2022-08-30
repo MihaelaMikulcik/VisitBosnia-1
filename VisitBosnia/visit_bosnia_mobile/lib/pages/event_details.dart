@@ -64,14 +64,18 @@ class _EventDetailsState extends State<EventDetails> {
   }
 
   Future loadFavourite() async {
-    var search = AppUserFavouriteSearchObject(
-        appUserId: AppUserProvider.userData.id, touristFacilityId: event.id!);
-    var favourite = await _appUserFavouriteProvider.get(search.toJson());
-    if (favourite.length > 0) {
-      setState(() {
-        isFavourite = true;
-        favoruiteId == favourite.first.id;
-      });
+    try {
+      var search = AppUserFavouriteSearchObject(
+          appUserId: AppUserProvider.userData.id, touristFacilityId: event.id!);
+      var favourite = await _appUserFavouriteProvider.get(search.toJson());
+      if (favourite.length > 0) {
+        setState(() {
+          isFavourite = true;
+          favoruiteId == favourite.first.id;
+        });
+      }
+    } catch (e) {
+      isFavourite = false;
     }
   }
 
@@ -116,23 +120,13 @@ class _EventDetailsState extends State<EventDetails> {
         });
       }
     } catch (e) {
-      if (e is UserException) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(
-              e.message,
-              style: const TextStyle(color: Colors.white),
-            ),
-            duration: const Duration(seconds: 2),
-            backgroundColor: Color.fromARGB(255, 165, 46, 37)));
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(
-              "Something went wrong, please try again later...",
-              style: TextStyle(color: Colors.white),
-            ),
-            duration: Duration(seconds: 2),
-            backgroundColor: Color.fromARGB(255, 165, 46, 37)));
-      }
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+            "Something went wrong, please try again later...",
+            style: TextStyle(color: Colors.white),
+          ),
+          duration: Duration(seconds: 2),
+          backgroundColor: Color.fromARGB(255, 165, 46, 37)));
     }
   }
 

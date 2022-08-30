@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -96,23 +97,13 @@ class _TouristFacilityInfoState extends State<TouristFacilityInfo> {
         });
       }
     } catch (e) {
-      if (e is UserException) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(
-              e.message,
-              style: const TextStyle(color: Colors.white),
-            ),
-            duration: const Duration(seconds: 2),
-            backgroundColor: Color.fromARGB(255, 165, 46, 37)));
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(
-              "Something went wrong, please try again later...",
-              style: TextStyle(color: Colors.white),
-            ),
-            duration: Duration(seconds: 2),
-            backgroundColor: Color.fromARGB(255, 165, 46, 37)));
-      }
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+            "Something went wrong, please try again later...",
+            style: TextStyle(color: Colors.white),
+          ),
+          duration: Duration(seconds: 2),
+          backgroundColor: Color.fromARGB(255, 165, 46, 37)));
     }
   }
 

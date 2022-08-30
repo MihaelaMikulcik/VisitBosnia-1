@@ -33,12 +33,16 @@ class _GuideParticipantsState extends State<GuideParticipants> {
   late EventProvider _eventProvider;
 
   Future<String?> getImage(int facilityId) async {
-    var search = TouristFacilityGallerySearchObject(
-        facilityId: facilityId, isThumbnail: true);
-    var image = await _touristFacilityGalleryProvider.get(search.toJson());
-    if (image.isNotEmpty) {
-      return image.first.image!;
-    } else {
+    try {
+      var search = TouristFacilityGallerySearchObject(
+          facilityId: facilityId, isThumbnail: true);
+      var image = await _touristFacilityGalleryProvider.get(search.toJson());
+      if (image.isNotEmpty) {
+        return image.first.image!;
+      } else {
+        return null;
+      }
+    } catch (e) {
       return null;
     }
   }
@@ -65,20 +69,34 @@ class _GuideParticipantsState extends State<GuideParticipants> {
     ));
   }
 
-  Future<List<EventOrder>> GetEventOrders() async {
-    List<EventOrder> eventOrders;
-    EventOrderSearchObject search = EventOrderSearchObject(
-        includeAppUser: true,
-        eventId: event.id,
-        agencyMemberId: event.agencyMemberId);
-    eventOrders = await _eventOrderProvider.get(search.toJson());
-    return eventOrders;
+  Future<List<EventOrder>?> GetEventOrders() async {
+    try {
+      List<EventOrder> eventOrders;
+      EventOrderSearchObject search = EventOrderSearchObject(
+          includeAppUser: true,
+          eventId: event.id,
+          agencyMemberId: event.agencyMemberId);
+      eventOrders = await _eventOrderProvider.get(search.toJson());
+      return eventOrders;
+    } catch (e) {
+      return null;
+    }
   }
 
-  Future<int> getNumberOfParticipants(int eventId) async {
-    var participantsNumber =
-        await _eventProvider.GetNumberOfParticipants(eventId);
-    return participantsNumber;
+  // Future<int> getNumberOfParticipants(int eventId) async {
+  //   var participantsNumber =
+  //       await _eventProvider.GetNumberOfParticipants(eventId);
+  //   return participantsNumber;
+  // }
+
+  Future<String> getNumberOfParticipants(int eventId) async {
+    try {
+      var participantsNumber =
+          await _eventProvider.GetNumberOfParticipants(eventId);
+      return participantsNumber.toString();
+    } catch (e) {
+      return "error";
+    }
   }
 
   // String getTime(String dateTime) {
@@ -223,10 +241,10 @@ class _GuideParticipantsState extends State<GuideParticipants> {
   }
 
   Widget _buildParticipantsList() {
-    return FutureBuilder<List<EventOrder>>(
+    return FutureBuilder<List<EventOrder>?>(
         future: GetEventOrders(),
         builder:
-            (BuildContext context, AsyncSnapshot<List<EventOrder>> snapshot) {
+            (BuildContext context, AsyncSnapshot<List<EventOrder>?> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(

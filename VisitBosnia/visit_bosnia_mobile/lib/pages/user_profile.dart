@@ -21,16 +21,14 @@ import '../pickers/user_image_picker.dart';
 import '../providers/appuser_provider.dart';
 
 class UserProfile extends StatefulWidget {
-  UserProfile({Key? key, required this.user}) : super(key: key);
-  AppUser user;
+  UserProfile({Key? key}) : super(key: key);
+  // AppUser user;
 
   @override
-  State<UserProfile> createState() => _UserProfileState(user);
+  State<UserProfile> createState() => _UserProfileState();
 }
 
 class _UserProfileState extends State<UserProfile> {
-  AppUser user;
-  _UserProfileState(this.user);
   File? _userImage;
   bool isLoading = false;
 
@@ -57,6 +55,8 @@ class _UserProfileState extends State<UserProfile> {
   bool _autoValidate = false;
 
   bool change = false;
+
+  var user = AppUserProvider.userData;
 
   bool isChanged = false;
   Future<void> ImageChanged() async {

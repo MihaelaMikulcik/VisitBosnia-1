@@ -13,6 +13,11 @@ class PostProvider extends BaseProvider<Post> {
     return Post.fromJson(data);
   }
 
+  void updateReplies(int postId) {
+    getNumberOfReplies(postId);
+    notifyListeners();
+  }
+
   Future<int> getNumberOfReplies(int postId) async {
     var url = "${BaseProvider.baseUrl}Post/GetNumberOfReplies?postId=$postId";
     var uri = Uri.parse(url);

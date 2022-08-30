@@ -16,10 +16,14 @@ class AppUserFavouriteProvider extends BaseProvider<AppUserFavourite> {
   late List<AppUserFavourite> favorites = [];
 
   Future loadAppUserFavourite() async {
-    var search =
-        AppUserFavouriteSearchObject(appUserId: AppUserProvider.userData.id);
-    var tempFav = await get(search.toJson());
-    favorites = tempFav;
+    try {
+      var search =
+          AppUserFavouriteSearchObject(appUserId: AppUserProvider.userData.id);
+      var tempFav = await get(search.toJson());
+      favorites = tempFav;
+    } catch (e) {
+      favorites = [];
+    }
   }
 
   void addFavorite(AppUserFavourite newFav) {

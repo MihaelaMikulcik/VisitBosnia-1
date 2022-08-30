@@ -18,7 +18,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
   BaseProvider(String endpoint) {
     baseUrl = const String.fromEnvironment("baseUrl",
         // defaultValue: "https://10.0.2.2:7223/"
-        defaultValue: "https://192.168.0.14:7223/");
+        defaultValue: "https://192.168.0.26:7223/");
 
     if (baseUrl!.endsWith("/") == false) {
       baseUrl = baseUrl! + "/";
@@ -211,6 +211,9 @@ abstract class BaseProvider<T> with ChangeNotifier {
       } else {
         return false;
       }
+      // } else {
+      //   return false;
+      // }
     } else if (response.statusCode == 204) {
       return true;
     } else if (response.statusCode == 400) {

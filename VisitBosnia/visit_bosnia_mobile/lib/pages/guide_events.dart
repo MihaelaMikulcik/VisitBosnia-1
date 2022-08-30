@@ -51,12 +51,16 @@ class _GuideEventsState extends State<GuideEvents> {
     }
   }
 
-  Future<int> GetAgencyMemberId(int appUserId) async {
-    int agencyMemberId;
-    var agenciesMembers = await _agencyMemberProvider
-        .get({'appUserId': AppUserProvider.userData.id!});
-    agencyMemberId = agenciesMembers.first.id!;
-    return agencyMemberId;
+  Future<int?> GetAgencyMemberId(int appUserId) async {
+    try {
+      int agencyMemberId;
+      var agenciesMembers = await _agencyMemberProvider
+          .get({'appUserId': AppUserProvider.userData.id!});
+      agencyMemberId = agenciesMembers.first.id!;
+      return agencyMemberId;
+    } catch (e) {
+      return null;
+    }
   }
   // Future<int> GetAgency(int appUserId) async {
   //   int agencyId;
@@ -66,26 +70,37 @@ class _GuideEventsState extends State<GuideEvents> {
   //   return agencyId;
   // }
 
-  Future<List<Event>> GetData() async {
-    List<Event> transactions;
-    var search = EventSearchObject(
-        includeIdNavigation: true,
-        includeAgency: true,
-        includeAgencyMember: true,
-        agencyMemberId: await GetAgencyMemberId(AppUserProvider.userData.id!
-            // agencyId: await GetAgency(AppUserProvider.userData.id!
-            ));
-    transactions = await _eventProvider.get(search.toJson());
-    return transactions;
+  Future<List<Event>?> GetData() async {
+    var memberId = await GetAgencyMemberId(AppUserProvider.userData.id!);
+    try {
+      if (memberId != null) {
+        List<Event> transactions;
+        var search = EventSearchObject(
+            includeIdNavigation: true,
+            includeAgency: true,
+            includeAgencyMember: true,
+            agencyMemberId: memberId);
+        transactions = await _eventProvider.get(search.toJson());
+        return transactions;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
   }
 
   Future<String?> getImage(int facilityId) async {
-    var search = TouristFacilityGallerySearchObject(
-        facilityId: facilityId, isThumbnail: true);
-    var image = await _touristFacilityGalleryProvider.get(search.toJson());
-    if (image.isNotEmpty) {
-      return image.first.image!;
-    } else {
+    try {
+      var search = TouristFacilityGallerySearchObject(
+          facilityId: facilityId, isThumbnail: true);
+      var image = await _touristFacilityGalleryProvider.get(search.toJson());
+      if (image.isNotEmpty) {
+        return image.first.image!;
+      } else {
+        return null;
+      }
+    } catch (e) {
       return null;
     }
   }
@@ -148,9 +163,9 @@ class _GuideEventsState extends State<GuideEvents> {
   }
 
   Widget _buildEventsList() {
-    return FutureBuilder<List<Event>>(
+    return FutureBuilder<List<Event>?>(
         future: GetData(),
-        builder: (BuildContext context, AsyncSnapshot<List<Event>> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<List<Event>?> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
@@ -161,7 +176,13 @@ class _GuideEventsState extends State<GuideEvents> {
                 child: Text('Something went wrong...'),
               );
             } else {
-              if (snapshot.hasData && snapshot.data!.isEmpty) {
+              if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                return ListView(
+                  scrollDirection: Axis.vertical,
+                  physics: const ScrollPhysics(),
+                  children: snapshot.data!.map((e) => _eventWidget(e)).toList(),
+                );
+              } else {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -174,12 +195,6 @@ class _GuideEventsState extends State<GuideEvents> {
                     // ),
                     Text('No events yet...', style: TextStyle(fontSize: 17)),
                   ],
-                );
-              } else {
-                return ListView(
-                  scrollDirection: Axis.vertical,
-                  physics: const ScrollPhysics(),
-                  children: snapshot.data!.map((e) => _eventWidget(e)).toList(),
                 );
               }
             }

@@ -234,9 +234,8 @@ class NavigationDrawer extends StatelessWidget {
             ),
             onTap: () {
               // Navigator.of(context).pop();
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) =>
-                      UserProfile(user: AppUserProvider.userData)));
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => UserProfile()));
             },
           ),
           buildDivider(),
@@ -251,9 +250,8 @@ class NavigationDrawer extends StatelessWidget {
                   MaterialPageRoute(builder: (BuildContext context) {
                 return Homepage(user: AppUserProvider.userData);
               }), (route) => false);
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) =>
-                      UserFavourites(user: AppUserProvider.userData)));
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => UserFavourites()));
             },
           ),
           buildDivider(),
@@ -320,9 +318,8 @@ class NavigationDrawer extends StatelessWidget {
             ),
             onTap: () {
               Navigator.of(context).pop();
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) =>
-                      UserProfile(user: AppUserProvider.userData)));
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => UserProfile()));
             },
           ),
           buildDivider(),

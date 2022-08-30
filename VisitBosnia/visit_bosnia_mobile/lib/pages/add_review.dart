@@ -75,7 +75,7 @@ class _AddReviewState extends State<AddReview> {
         request.touristFacilityId = facility.id;
         try {
           var newReview = await _reviewProvider.insert(request);
-          if (_imageFileList.length > 0) {
+          if (_imageFileList.isNotEmpty) {
             for (var image in _imageFileList) {
               var galleryRequest = new ReviewGalleryInsertRequest();
               galleryRequest.reviewId = newReview!.id!;

@@ -63,10 +63,6 @@ class AppUserProvider extends BaseProvider<AppUser> {
     var response = null;
     var url =
         "${BaseProvider.baseUrl}Login?Username=$username&Password=$password";
-    // var url =
-    //     "https://10.0.2.2:44373/Login?Username=$username&Password=$password";
-    // var url =
-    //     "https://192.168.0.24/:44373/Login?Username=$username&Password=$password";
     var uri = Uri.parse(url);
 
     Map<String, String> headers = createHeaders();
@@ -96,7 +92,6 @@ class AppUserProvider extends BaseProvider<AppUser> {
 
   Future<dynamic> register(AppUserRegisterRequest request) async {
     var url = "${BaseProvider.baseUrl}AppUser/Register";
-    // const String url = "https://10.0.2.2:44373/AppUser/Register";
     try {
       final response = await http!.post(Uri.parse(url),
           body: jsonEncode(request.toJson()),
@@ -111,11 +106,6 @@ class AppUserProvider extends BaseProvider<AppUser> {
       }
     } catch (e) {
       return "Something went wrong...";
-      // if (e.toString().contains("Bad request")) {
-      //   throw UserException("Username already exists!");
-      // } else {
-      //   rethrow;
-      // }
     }
   }
 
@@ -140,42 +130,16 @@ class AppUserProvider extends BaseProvider<AppUser> {
     }
   }
 
-  // Future<AppUser?> register(AppUserRegisterRequest request) async {
-  //   var url = "${BaseProvider.baseUrl}AppUser/Register";
-  //   // const String url = "https://10.0.2.2:44373/AppUser/Register";
-  //   try {
-  //     final response = await http!.post(Uri.parse(url),
-  //         body: jsonEncode(request.toJson()),
-  //         headers: <String, String>{'Content-Type': 'application/json'});
-
-  //     if (isValidResponseCode(response)) {
-  //       var data = jsonDecode(response.body);
-  //       userData = AppUser.fromJson(data);
-  //       return AppUser.fromJson(data);
-  //     }
-  //   } catch (e) {
-  //     if (e.toString().contains("Bad request")) {
-  //       throw UserException("Username already exists!");
-  //     } else {
-  //       rethrow;
-  //     }
-  //   }
-  // }
-
   Future<List<Attraction>> recommendAttractions(
       int appUserId, int? categoryId) async {
     var url =
         "${BaseProvider.baseUrl}AppUser/RecommendAttractions?appUserId=${appUserId.toString()}&categoryId=${categoryId.toString()}";
-    // var url =
-    //     "https://10.0.2.2:44373/AppUser/RecommendAttractions?appUserId=${appUserId.toString()}&categoryId=${categoryId.toString()}";
     var uri = Uri.parse(url);
 
     Map<String, String> headers = createHeaders();
     var response = await http!.get(uri, headers: headers);
-    // print("done $response");
     if (isValidResponseCode(response)) {
       var data = jsonDecode(response.body);
-      // return Attraction.fromJson(data);
       return data
           .map((x) => Attraction.fromJson(x))
           .cast<Attraction>()
@@ -188,12 +152,9 @@ class AppUserProvider extends BaseProvider<AppUser> {
   Future<List<Event>> recommendEvents(int appUserId, int? categoryId) async {
     var url =
         "${BaseProvider.baseUrl}AppUser/RecommendEvents?appUserId=${appUserId.toString()}&categoryId=${categoryId.toString()}";
-    // var url =
-    //     "https://10.0.2.2:44373/AppUser/RecommendAttractions?appUserId=${appUserId.toString()}&categoryId=${categoryId.toString()}";
     var uri = Uri.parse(url);
     Map<String, String> headers = createHeaders();
     var response = await http!.get(uri, headers: headers);
-    // print("done $response");
     if (isValidResponseCode(response)) {
       var data = jsonDecode(response.body);
       // return Attraction.fromJson(data);

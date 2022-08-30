@@ -1,13 +1,13 @@
-// import 'dart:html';
+// // import 'dart:html';
 
-// import 'package:flutter/cupertino.dart';
+// // import 'package:flutter/cupertino.dart';
 
-class UserException implements Exception {
-  final String message;
-  UserException(this.message);
+// class UserException implements Exception {
+//   final String message;
+//   UserException(this.message);
 
-  @override
-  String toString() {
-    return message;
-  }
-}
+//   @override
+//   String toString() {
+//     return message;
+//   }
+// }

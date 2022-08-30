@@ -44,24 +44,32 @@ class _MyTicketsState extends State<MyTickets> {
   }
 
   Future<String?> getImage(int facilityId) async {
-    var search = TouristFacilityGallerySearchObject(
-        facilityId: facilityId, isThumbnail: true);
-    var image = await _touristFacilityGalleryProvider.get(search.toJson());
-    if (image.isNotEmpty) {
-      return image.first.image!;
-    } else {
+    try {
+      var search = TouristFacilityGallerySearchObject(
+          facilityId: facilityId, isThumbnail: true);
+      var image = await _touristFacilityGalleryProvider.get(search.toJson());
+      if (image.isNotEmpty) {
+        return image.first.image!;
+      } else {
+        return null;
+      }
+    } catch (e) {
       return null;
     }
   }
 
-  Future<List<Transaction>> GetData() async {
-    List<Transaction> transactions;
-    var search = TransactionSearchObject(
-        appUserId: AppUserProvider.userData.id,
-        status: "succeeded",
-        includeEventOrder: true);
-    transactions = await _transactionProvider.get(search.toJson());
-    return transactions;
+  Future<List<Transaction>?> GetData() async {
+    try {
+      List<Transaction> transactions;
+      var search = TransactionSearchObject(
+          appUserId: AppUserProvider.userData.id,
+          status: "succeeded",
+          includeEventOrder: true);
+      transactions = await _transactionProvider.get(search.toJson());
+      return transactions;
+    } catch (e) {
+      return null;
+    }
   }
 
   @override
@@ -232,10 +240,10 @@ class _MyTicketsState extends State<MyTickets> {
   }
 
   Widget _buildTicketsList() {
-    return FutureBuilder<List<Transaction>>(
+    return FutureBuilder<List<Transaction>?>(
         future: GetData(),
         builder:
-            (BuildContext context, AsyncSnapshot<List<Transaction>> snapshot) {
+            (BuildContext context, AsyncSnapshot<List<Transaction>?> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),

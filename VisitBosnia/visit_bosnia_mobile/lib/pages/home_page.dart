@@ -63,7 +63,7 @@ class _HomepageState extends State<Homepage> {
     loadAppUserFavourite();
   }
 
-  Future<List<Event>> loadEvents() async {
+  Future<List<Event>?> loadEvents() async {
     // var search = EventSearchObject(
     //     includeAgency: true,
     //     includeAgencyMember: true,
@@ -71,44 +71,64 @@ class _HomepageState extends State<Homepage> {
     // if (selectedCategory != 0) {
     //   search.categoryId = selectedCategory;
     // }
-    var events = await _appUserProvider.recommendEvents(
-        AppUserProvider.userData.id!, selectedCategory);
-    return events;
+    try {
+      var events = await _appUserProvider.recommendEvents(
+          AppUserProvider.userData.id!, selectedCategory);
+      return events;
+    } catch (e) {
+      return null;
+    }
   }
 
-  Future<List<Attraction>> loadAttractions() async {
+  Future<List<Attraction>?> loadAttractions() async {
     // var search = AttractionSearchObject(includeIdNavigation: true);
     // if (selectedCategory != 0) {
     //   search.categoryId = selectedCategory;
     // }
     // var attractions = await _attractionProvider.get(search.toJson());
-    var attractions = await _appUserProvider.recommendAttractions(
-        AppUserProvider.userData.id!, selectedCategory);
+    try {
+      var attractions = await _appUserProvider.recommendAttractions(
+          AppUserProvider.userData.id!, selectedCategory);
 
-    return attractions;
+      return attractions;
+    } catch (e) {
+      return null;
+    }
   }
 
-  Future<List<Category>> loadCategories() async {
-    var categories = await _categoryProvider.get(null);
-    return categories;
+  Future<List<Category>?> loadCategories() async {
+    try {
+      var categories = await _categoryProvider.get(null);
+      return categories;
+    } catch (e) {
+      return null;
+    }
   }
 
   Future loadAppUserFavourite() async {
-    var search =
-        AppUserFavouriteSearchObject(appUserId: AppUserProvider.userData.id);
-    var favourites = await _appUserFavouriteProvider.get(search.toJson());
-    setState(() {
-      userFavourite = favourites;
-    });
+    try {
+      var search =
+          AppUserFavouriteSearchObject(appUserId: AppUserProvider.userData.id);
+      var favourites = await _appUserFavouriteProvider.get(search.toJson());
+      setState(() {
+        userFavourite = favourites;
+      });
+    } catch (e) {
+      return null;
+    }
   }
 
   Future<String?> getImage(int facilityId) async {
-    var search = TouristFacilityGallerySearchObject(
-        facilityId: facilityId, isThumbnail: true);
-    var image = await _touristFacilityGalleryProvider.get(search.toJson());
-    if (image.isNotEmpty) {
-      return image.first.image!;
-    } else {
+    try {
+      var search = TouristFacilityGallerySearchObject(
+          facilityId: facilityId, isThumbnail: true);
+      var image = await _touristFacilityGalleryProvider.get(search.toJson());
+      if (image.isNotEmpty) {
+        return image.first.image!;
+      } else {
+        return null;
+      }
+    } catch (e) {
       return null;
     }
   }
@@ -401,10 +421,10 @@ class _HomepageState extends State<Homepage> {
   }
 
   _buildAttractions() {
-    return FutureBuilder<List<Attraction>>(
+    return FutureBuilder<List<Attraction>?>(
         future: loadAttractions(),
         builder:
-            (BuildContext context, AsyncSnapshot<List<Attraction>> snapshot) {
+            (BuildContext context, AsyncSnapshot<List<Attraction>?> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(),
@@ -417,7 +437,7 @@ class _HomepageState extends State<Homepage> {
                 child: Text('Something went wrong...'),
               );
             } else {
-              if (snapshot.data!.length > 0) {
+              if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                 return ListView(
                   scrollDirection: Axis.horizontal,
                   physics: ScrollPhysics(),
@@ -445,9 +465,9 @@ class _HomepageState extends State<Homepage> {
   }
 
   _buildEvents() {
-    return FutureBuilder<List<Event>>(
+    return FutureBuilder<List<Event>?>(
         future: loadEvents(),
-        builder: (BuildContext context, AsyncSnapshot<List<Event>> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<List<Event>?> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(),
@@ -460,7 +480,7 @@ class _HomepageState extends State<Homepage> {
                 child: Text('Something went wrong...'),
               );
             } else {
-              if (snapshot.data!.length > 0) {
+              if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                 return ListView(
                   scrollDirection: Axis.horizontal,
                   physics: ScrollPhysics(),
@@ -508,10 +528,10 @@ class _HomepageState extends State<Homepage> {
   }
 
   _buildDropDown() {
-    return FutureBuilder<List<Category>>(
+    return FutureBuilder<List<Category>?>(
         future: loadCategories(),
         builder:
-            (BuildContext context, AsyncSnapshot<List<Category>> snapshot) {
+            (BuildContext context, AsyncSnapshot<List<Category>?> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Container(
               width: MediaQuery.of(context).size.width,

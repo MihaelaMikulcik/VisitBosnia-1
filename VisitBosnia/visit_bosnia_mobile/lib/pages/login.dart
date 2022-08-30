@@ -228,9 +228,9 @@ class _LoginState extends State<Login> {
                           onTap: () {
                             Navigator.pushNamed(context, Register.routeName);
                           },
-                          child: const Text("Create account",
+                          child: const Text("Create account?",
                               style: TextStyle(
-                                  fontSize: 14.0,
+                                  fontSize: 15.0,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold)),
                         ),

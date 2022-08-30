@@ -51,19 +51,24 @@ class _ForumTopicsState extends State<ForumTopics> {
     }
   }
 
-  Future<List<Post>> GetData() async {
-    PostSearchObject searchObj =
-        PostSearchObject(forumId: forum.id, includeAppUser: true);
-    if (search != "") {
-      searchObj.title = search;
+  Future<List<Post>?> GetData() async {
+    try {
+      PostSearchObject searchObj =
+          PostSearchObject(forumId: forum.id, includeAppUser: true);
+      if (search != "") {
+        searchObj.title = search;
+      }
+      var tempData = await _postProvider.get(searchObj.toJson());
+      return tempData;
+    } catch (e) {
+      return null;
     }
-    var tempData = await _postProvider.get(searchObj.toJson());
-    return tempData;
   }
 
   @override
   Widget build(BuildContext context) {
     // _appUserProvider = context.read<AppUserProvider>();
+    // _postProvider = context.watch<PostProvider>();
 
     return Scaffold(
       drawer: NavigationDrawer(),
@@ -254,22 +259,14 @@ class _ForumTopicsState extends State<ForumTopics> {
   }
 
   removePost(topic) {
-    // return Container(
-    //   padding: EdgeInsets.only(left: 15),
-    //   child: Align(
-    //     alignment: Alignment.bottomLeft,
-    //     child: InkWell(
-    //       onTap: () {
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
               title: const Text('Please Confirm'),
               content: const Text('Are you sure you want to delete post?'),
               actions: [
-                // The "Yes" button
                 TextButton(
                     onPressed: () async {
-                      // Remove the box
                       try {
                         await _postProvider.delete(topic.id!);
                         setState(() {});
@@ -284,27 +281,16 @@ class _ForumTopicsState extends State<ForumTopics> {
                             backgroundColor:
                                 const Color.fromARGB(255, 165, 46, 37)));
                       }
-                      // Close the dialog
                       Navigator.of(context).pop();
                     },
                     child: const Text('Yes')),
                 TextButton(
                     onPressed: () {
-                      // Close the dialog
                       Navigator.of(context).pop();
                     },
                     child: const Text('No'))
               ],
             ));
-    // },
-    // child: Icon(
-    //   Icons.delete_outlined,
-    //   color: Colors.black,
-    //   size: 22.0,
-    // ),
-    //     ),
-    //   ),
-    // );
   }
 
   Widget _txtContent() {
@@ -389,7 +375,15 @@ class _ForumTopicsState extends State<ForumTopics> {
                         fontWeight: FontWeight.bold,
                       )),
                 ),
-                _buildReplies(post.id!),
+                // Padding(
+                //     padding: EdgeInsets.only(left: 10),
+                //     child: _buildReplies(post.id!)),
+
+                Consumer<PostProvider>(builder: ((context, value, child) {
+                  return Padding(
+                      padding: EdgeInsets.only(left: 10),
+                      child: _buildReplies(post.id!));
+                })),
               ],
             ),
             const SizedBox(height: 20),
@@ -409,7 +403,7 @@ class _ForumTopicsState extends State<ForumTopics> {
                       'yMd',
                     ),
                     style: const TextStyle(
-                        fontSize: 16,
+                        fontSize: 14,
                         color: Color.fromARGB(255, 133, 128, 128),
                         fontWeight: FontWeight.bold),
                   ),
@@ -445,9 +439,9 @@ class _ForumTopicsState extends State<ForumTopics> {
   }
 
   Widget _buildPostsList() {
-    return FutureBuilder<List<Post>>(
+    return FutureBuilder<List<Post>?>(
         future: GetData(),
-        builder: (BuildContext context, AsyncSnapshot<List<Post>> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<List<Post>?> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
@@ -458,7 +452,7 @@ class _ForumTopicsState extends State<ForumTopics> {
                 child: Text('Something went wrong...'),
               );
             } else {
-              if (snapshot.data!.isNotEmpty) {
+              if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                 return ListView(
                   scrollDirection: Axis.vertical,
                   physics: const ScrollPhysics(),

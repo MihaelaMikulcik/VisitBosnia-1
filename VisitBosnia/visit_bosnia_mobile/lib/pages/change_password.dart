@@ -46,7 +46,8 @@ class ChangePassword extends StatelessWidget {
       if (response is AppUser) {
         Authorization.password = newPasswordController.text;
 
-        _showDialog(true, "Password changed successfully!");
+        _showDialog(true,
+            "Password changed successfully, please log in with your new password!");
       } else if (response is UserExceptionResponse) {
         _showDialog(false, response.message!);
       } else if (response is String) {
@@ -66,8 +67,14 @@ class ChangePassword extends StatelessWidget {
                     child: const Text("Ok"),
                     onPressed: () {
                       if (success) {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).pop();
+                        Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => Login(),
+                          ),
+                          (route) => false,
+                        );
+                        // Navigator.of(context).pop();
+                        // Navigator.of(context).pop();
                       } else {
                         Navigator.of(context).pop();
                       }
