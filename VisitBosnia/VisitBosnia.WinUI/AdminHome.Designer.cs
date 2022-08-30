@@ -183,7 +183,7 @@
             this.labelUserName.AutoSize = true;
             this.labelUserName.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.labelUserName.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.labelUserName.Location = new System.Drawing.Point(99, 307);
+            this.labelUserName.Location = new System.Drawing.Point(124, 307);
             this.labelUserName.Name = "labelUserName";
             this.labelUserName.Size = new System.Drawing.Size(110, 28);
             this.labelUserName.TabIndex = 1;
