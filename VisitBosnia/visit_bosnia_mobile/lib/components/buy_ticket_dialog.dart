@@ -326,6 +326,9 @@ class _BuyTicketDialogState extends State<BuyTicketDialog> {
       var response = await _transactionProvider.ProcessTransaction(request);
       // if (response != null) {
       if (response is Transaction) {
+        // setState(() {
+        //   _isLoading = false;
+        // });
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Container(
@@ -358,6 +361,11 @@ class _BuyTicketDialogState extends State<BuyTicketDialog> {
       //   _showErrorMessage(context, e.toString());
       // }
     }
+    // else {
+    //   setState(() {
+    //     _isLoading = false;
+    //   });
+    // }
   }
 
   _showErrorMessage(context, String message) {

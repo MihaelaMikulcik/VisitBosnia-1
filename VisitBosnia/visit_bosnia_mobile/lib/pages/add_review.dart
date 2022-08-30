@@ -46,6 +46,7 @@ class _AddReviewState extends State<AddReview> {
 
   final ImagePicker _picker = ImagePicker();
   List<XFile> _imageFileList = [];
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -116,6 +117,10 @@ class _AddReviewState extends State<AddReview> {
         // _imageFileList.length = 0;
         // setState(() {});
       }
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -235,24 +240,35 @@ class _AddReviewState extends State<AddReview> {
                       fit: BoxFit.cover);
                 }),
           ),
-          InkWell(
-              onTap: () {
-                _submitReview();
-              },
-              child: Container(
-                alignment: Alignment.center,
-                width: MediaQuery.of(context).size.width,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 211, 75, 70),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Text("Submit review",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20)),
-              ))
+          Visibility(
+              visible: !_isLoading,
+              child: InkWell(
+                  onTap: () {
+                    setState(() {
+                      _isLoading = true;
+                    });
+                    _submitReview();
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: MediaQuery.of(context).size.width,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 211, 75, 70),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Text("Submit review",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20)),
+                  ))),
+          Visibility(
+            visible: _isLoading,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          )
         ],
       ),
     );
