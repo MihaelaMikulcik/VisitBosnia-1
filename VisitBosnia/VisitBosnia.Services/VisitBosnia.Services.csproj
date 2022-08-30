@@ -24,6 +24,7 @@
     <PackageReference Include="Stripe.net" Version="40.5.0" />
     <PackageReference Include="Twilio" Version="5.79.0" />
     <PackageReference Include="Twilio.AspNet.Core" Version="6.0.0" />
+    <PackageReference Include="Vonage" Version="6.0.3" />
   </ItemGroup>
 
   <ItemGroup>

@@ -7,11 +7,14 @@ class Loading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromRGBO(29, 76, 120, 1),
-      body: Center(
-        child: CircularProgressIndicator(
-          color: Colors.white,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        backgroundColor: const Color.fromRGBO(29, 76, 120, 1),
+        body: Center(
+          child: CircularProgressIndicator(
+            color: Colors.white,
+          ),
         ),
       ),
     );

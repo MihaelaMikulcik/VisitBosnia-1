@@ -176,7 +176,7 @@ class _ForumFilterState extends State<ForumFilter> {
             image: imageFromBase64String(forum.city!.image!).image,
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
-                Colors.black.withOpacity(0.5), BlendMode.darken),
+                Colors.black.withOpacity(0.2), BlendMode.darken),
           ),
         ),
         child: Text(

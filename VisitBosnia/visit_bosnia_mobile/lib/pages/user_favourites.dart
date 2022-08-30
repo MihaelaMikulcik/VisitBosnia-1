@@ -236,11 +236,11 @@ class _UserFavouritesState extends State<UserFavourites> {
           if (attractionIds.contains(favourite.touristFacilityId!)) {
             var obj = await loadAttraction(favourite.touristFacilityId!);
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => AttractionDetails(obj)));
+                builder: (context) => AttractionDetails(obj.id!)));
           } else {
             var obj = await loadEvent(favourite.touristFacilityId!);
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => EventDetails2(obj)));
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => EventDetails2(obj.id!)));
           }
         },
         child: Column(
