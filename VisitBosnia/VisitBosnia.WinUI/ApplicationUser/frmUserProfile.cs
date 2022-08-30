@@ -110,6 +110,7 @@ namespace VisitBosnia.WinUI.ApplicationUser
             if (updateUser != null)
             {
                 MessageBox.Show("Successfully updated profile data!");
+                APIService.Username = updateUser.UserName;
                 var userRole = await appUserRoleService.Get<Model.AppUserRole>(new AppUserRoleSearchObject { AppUserId = _appUser.Id });
                 var role = await RoleService.GetById<Model.Role>(userRole.FirstOrDefault().RoleId);
                 this.Hide();

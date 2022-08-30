@@ -65,6 +65,7 @@ builder.Services.AddTransient<IReviewService, VisitBosnia.Services.ReviewService
 builder.Services.AddTransient<IEventOrderService, EventOrderService>();
 builder.Services.AddTransient<ITransactionService, TransactionService>();
 builder.Services.AddTransient<IPostReplyService, PostReplyService>();
+builder.Services.AddTransient<ISMSService, SMSService>();
 
 builder.Services.AddMemoryCache();
 builder.Services.AddAutoMapper(typeof(ICityService));
