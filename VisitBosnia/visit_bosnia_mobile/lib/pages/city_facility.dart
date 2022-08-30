@@ -93,13 +93,37 @@ class _CityFacilityState extends State<CityFacility> {
     }
   }
 
+  // Future<List<dynamic>?> loadFacilites(int catId) async {
+  //   try {
+  //     if (facility == "Event") {
+  //       var search = EventSearchObject(
+  //         includeIdNavigation: true,
+  //         includeAgency: true,
+  //         includeAgencyMember: true,
+  //       );
+  //       search.cityId = cityId;
+  //       search.categoryId = catId;
+  //       var object = await _eventProvider.get(search.toJson());
+  //       return object;
+  //     } else {
+  //       var search = AttractionSearchObject(includeIdNavigation: true);
+  //       search.categoryId = catId;
+  //       search.cityId = cityId;
+  //       var object = await _attractionProvider.get(search.toJson());
+  //       return object;
+  //     }
+  //   } catch (e) {
+  //     return null;
+  //   }
+  // }
+
   Future<List<dynamic>?> loadFacilites(int catId) async {
     try {
       if (facility == "Event") {
         var search = EventSearchObject(
           includeIdNavigation: true,
-          includeAgency: true,
-          includeAgencyMember: true,
+          // includeAgency: true,
+          // includeAgencyMember: true,
         );
         search.cityId = cityId;
         search.categoryId = catId;
@@ -252,32 +276,36 @@ class _CityFacilityState extends State<CityFacility> {
         });
   }
 
-  Widget _buildCards(dynamic object) {
+  Widget _buildCards(TouristFacility facility) {
     return InkWell(
         onTap: () {
           if (facility == "Event") {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => EventDetails2(object)));
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => EventDetails2(facility.id!)));
           } else {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => AttractionDetails(object)));
+                builder: (context) => AttractionDetails(facility.id!)));
           }
         },
         child: Stack(
           children: [
-            _buildImage(object.id!),
+            _buildImage(facility.id!),
             Positioned(
               child: Center(
                 child: Text(
-                  object.idNavigation!.name!,
+                  facility.name!.length > 13
+                      ? '${facility.name!.substring(0, 13)}...'
+                      : facility.name!,
+                  // object.idNavigation!.name!,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
-                      fontSize: 15),
+                      fontSize: 17),
                   textAlign: TextAlign.center,
                 ),
               ),
               bottom: 5,
+              left: 5,
             )
           ],
         ));
@@ -323,7 +351,7 @@ class _CityFacilityState extends State<CityFacility> {
                           scrollDirection: Axis.horizontal,
                           physics: ScrollPhysics(),
                           children: (snapshot.data!
-                              .map((e) => _buildCards(e))
+                              .map((e) => _buildCards(e.idNavigation))
                               .toList())),
                     ),
                   ),

@@ -180,7 +180,9 @@ class _MyTicketsState extends State<MyTickets> {
           Align(
             alignment: Alignment.topLeft,
             child: Text(
-              eventOrder.event!.idNavigation!.name!,
+              eventOrder.event!.idNavigation!.name!.length > 25
+                  ? eventOrder.event!.idNavigation!.name!.substring(0, 25)
+                  : eventOrder.event!.idNavigation!.name!,
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
             ),
           ),
@@ -217,7 +219,7 @@ class _MyTicketsState extends State<MyTickets> {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) =>
-                EventDetails2(transaction.eventOrder!.event!)));
+                EventDetails2(transaction.eventOrder!.event!.id!)));
       },
       child: Container(
         margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
@@ -228,7 +230,7 @@ class _MyTicketsState extends State<MyTickets> {
             BoxShadow(offset: Offset(0, 10), blurRadius: 10, color: Colors.grey)
           ],
         ),
-        height: 250,
+        height: 220,
         child: Column(children: [
           Expanded(
             child: _buildImage(transaction.eventOrder!.eventId!),

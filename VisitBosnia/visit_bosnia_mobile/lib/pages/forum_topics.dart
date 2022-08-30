@@ -89,7 +89,7 @@ class _ForumTopicsState extends State<ForumTopics> {
                     base64Decode(forum.city!.image!),
                     gaplessPlayback: true,
                     fit: BoxFit.cover,
-                    color: Colors.black.withOpacity(0.5),
+                    color: Colors.black.withOpacity(0.2),
                     colorBlendMode: BlendMode.darken,
                   ),
                 ),

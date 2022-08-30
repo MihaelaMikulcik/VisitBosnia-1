@@ -287,7 +287,7 @@ namespace VisitBosnia.Services
 
             var attractions = await Context.Attractions
                 .Include(x => x.IdNavigation)
-                .Include(x => x.IdNavigation.City)
+                //.Include(x => x.IdNavigation.City)
                 .Include(x => x.IdNavigation.Category)
                 .ToListAsync();
 
@@ -358,10 +358,10 @@ namespace VisitBosnia.Services
 
             var events = await Context.Events
                 .Include(x => x.IdNavigation)
-                .Include(x => x.IdNavigation.City)
+                //.Include(x => x.IdNavigation.City)
                 .Include(x => x.IdNavigation.Category)
-                .Include(x=>x.Agency)
-                .Include(x=>x.AgencyMember)
+                //.Include(x => x.Agency)
+                //.Include(x => x.AgencyMember)
                 .ToListAsync();
 
             //List<Tuple<Database.Event, float>> predictionResult = null;

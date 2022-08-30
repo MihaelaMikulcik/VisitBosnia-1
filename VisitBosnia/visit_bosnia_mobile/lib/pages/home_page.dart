@@ -190,6 +190,7 @@ class _HomepageState extends State<Homepage> {
       width: 150,
       margin: EdgeInsets.only(right: 15),
       decoration: BoxDecoration(
+          color: Color.fromARGB(255, 205, 210, 215),
           image: DecorationImage(
             colorFilter: const ColorFilter.mode(
               Color.fromARGB(66, 77, 76, 76),
@@ -319,8 +320,8 @@ class _HomepageState extends State<Homepage> {
         .where((element) => element.touristFacilityId == event.id);
     return InkWell(
         onTap: () {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => EventDetails2(event)));
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => EventDetails2(event.id!)));
         },
         child: Stack(
           alignment: Alignment.bottomCenter,
@@ -373,7 +374,7 @@ class _HomepageState extends State<Homepage> {
     return InkWell(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => AttractionDetails(attraction)));
+              builder: (context) => AttractionDetails(attraction.id!)));
         },
         child: Stack(
           alignment: Alignment.bottomCenter,
