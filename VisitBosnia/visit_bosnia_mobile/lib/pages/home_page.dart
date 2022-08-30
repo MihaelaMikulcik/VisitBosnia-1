@@ -543,12 +543,7 @@ class _HomepageState extends State<Homepage> {
             //   // child: Text('Loading...'),
             // );
           } else {
-            if (snapshot.hasError) {
-              return Center(
-                // child: Text('${snapshot.error}'),
-                child: Text('Something went wrong...'),
-              );
-            } else {
+            if (snapshot.hasData) {
               return Container(
                 width: MediaQuery.of(context).size.width,
                 height: 40,
@@ -605,6 +600,12 @@ class _HomepageState extends State<Homepage> {
                   ),
                 ),
               );
+            } else {
+              return Center(
+                // child: Text('${snapshot.error}'),
+                child: Text('Something went wrong...'),
+              );
+
               // return Container(
               //     // width: 250,
               //     width: MediaQuery.of(context).size.width,

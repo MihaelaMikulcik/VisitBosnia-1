@@ -63,7 +63,7 @@ namespace VisitBosnia.WinUI.AgencyMembers
 
                     var tempPass = builder.ToString();
                     var agencyName = await agencyService.GetById<Agency>(_agencyId);
-                    string msg = $"{agencyName.Name} added you as a member. Temporary login data: {txtUsername.Text} {tempPass}. Please login and change your password. Visit Bosnia";
+                    string msg = $"{agencyName.Name} added you as a member. Login data: {txtUsername.Text} {tempPass}. Please log in and change password";
                     var smsResult = await smsService.SendSms(new SmsMessage { To = phone, Message = msg, From = "Vonage APIs" });
                     if(smsResult == 200)
                     {
