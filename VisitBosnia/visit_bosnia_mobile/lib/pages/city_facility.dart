@@ -276,26 +276,26 @@ class _CityFacilityState extends State<CityFacility> {
         });
   }
 
-  Widget _buildCards(TouristFacility facility) {
+  Widget _buildCards(TouristFacility touristFacility) {
     return InkWell(
         onTap: () {
           if (facility == "Event") {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => EventDetails2(facility.id!)));
+                builder: (context) => EventDetails2(touristFacility.id!)));
           } else {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => AttractionDetails(facility.id!)));
+                builder: (context) => AttractionDetails(touristFacility.id!)));
           }
         },
         child: Stack(
           children: [
-            _buildImage(facility.id!),
+            _buildImage(touristFacility.id!),
             Positioned(
               child: Center(
                 child: Text(
-                  facility.name!.length > 13
-                      ? '${facility.name!.substring(0, 13)}...'
-                      : facility.name!,
+                  touristFacility.name!.length > 13
+                      ? '${touristFacility.name!.substring(0, 13)}...'
+                      : touristFacility.name!,
                   // object.idNavigation!.name!,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
