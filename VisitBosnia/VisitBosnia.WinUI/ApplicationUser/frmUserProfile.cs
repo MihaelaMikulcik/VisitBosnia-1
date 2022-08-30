@@ -48,8 +48,8 @@ namespace VisitBosnia.WinUI.ApplicationUser
             if(_appUser.Image?.Length>0)
             {
                 pbUserPicture.Image = Helpers.ImageHelper.byteArrayToImage(_appUser.Image);
-                pbUserPicture.Tag = "user_picture";
             }
+                pbUserPicture.Tag = "user_picture";
         }
 
         private void btnChangeImage_Click(object sender, EventArgs e)
@@ -110,6 +110,7 @@ namespace VisitBosnia.WinUI.ApplicationUser
             if (updateUser != null)
             {
                 MessageBox.Show("Successfully updated profile data!");
+                APIService.Username = updateUser.UserName;
                 var userRole = await appUserRoleService.Get<Model.AppUserRole>(new AppUserRoleSearchObject { AppUserId = _appUser.Id });
                 var role = await RoleService.GetById<Model.Role>(userRole.FirstOrDefault().RoleId);
                 this.Hide();
