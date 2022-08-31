@@ -12,5 +12,6 @@ namespace VisitBosnia.Services.Interfaces
     {
         public int GetNumberOfParticipants(int eventId);
         public bool IsAvailableEvent(int eventId, int newParticipants);
+        public bool isValidDate(int eventId);
     }
 }

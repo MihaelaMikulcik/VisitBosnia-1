@@ -52,7 +52,7 @@ namespace VisitBosnia.Services
 
         public override IQueryable<Event> AddInclude(IQueryable<Event> query, EventSearchObject search = null)
         {
-            if(search?.IncludeAgency == true)
+            if (search?.IncludeAgency == true)
             {
                 query = query.Include("Agency");
             }
@@ -60,6 +60,11 @@ namespace VisitBosnia.Services
             if (search?.IncludeAgencyMember == true)
             {
                 query = query.Include("AgencyMember");
+            }
+
+            if (search?.IncludeIdNavigationPartial == true)
+            {
+                query = query.Include("IdNavigation");
             }
 
             if (search?.IncludeIdNavigation == true)
@@ -125,7 +130,21 @@ namespace VisitBosnia.Services
             return false;
         }
 
-        
+        public bool isValidDate(int eventId)
+        {
+            var entity = Context.Set<Services.Database.Event>().AsQueryable();
+            var Event = entity.Where(x => x.Id == eventId).FirstOrDefault();
+            if (Event != null)
+            {
+                if (Event.Date < DateTime.Now)
+                    return false;
+                else
+                    return true;
+            }
+            return false;
+        }
+
+
 
     }
 }

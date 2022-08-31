@@ -76,9 +76,9 @@ class _GuideEventsState extends State<GuideEvents> {
       if (memberId != null) {
         List<Event> transactions;
         var search = EventSearchObject(
-            includeIdNavigation: true,
-            includeAgency: true,
-            includeAgencyMember: true,
+            includeIdNavigationPartial: true,
+            // includeAgency: true,
+            // includeAgencyMember: true,
             agencyMemberId: memberId);
         transactions = await _eventProvider.get(search.toJson());
         return transactions;

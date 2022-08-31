@@ -257,12 +257,18 @@ class _GuideParticipantsState extends State<GuideParticipants> {
                 child: Text('Something went wrong...'),
               );
             } else {
-              return ListView(
-                scrollDirection: Axis.vertical,
-                physics: const ScrollPhysics(),
-                children:
-                    snapshot.data!.map((e) => _eventOrderWidget(e)).toList(),
-              );
+              if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                return ListView(
+                  scrollDirection: Axis.vertical,
+                  physics: const ScrollPhysics(),
+                  children:
+                      snapshot.data!.map((e) => _eventOrderWidget(e)).toList(),
+                );
+              } else {
+                return const Center(
+                  child: Text('No participants for this event yet...'),
+                );
+              }
             }
           }
         });

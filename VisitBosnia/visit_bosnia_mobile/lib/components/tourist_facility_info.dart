@@ -252,7 +252,7 @@ class _TouristFacilityInfoState extends State<TouristFacilityInfo> {
           color: Color.fromARGB(255, 197, 194, 194),
         ),
         child: const Center(
-            child: Text("There are no currently available pictures...")),
+            child: Text("There are currently no available pictures...")),
       );
     } else {
       return CarouselSlider(
@@ -260,7 +260,7 @@ class _TouristFacilityInfoState extends State<TouristFacilityInfo> {
               autoPlay:
                   (gallery.isNotEmpty && gallery.length > 1) ? true : false,
               autoPlayCurve: Curves.easeInBack,
-              autoPlayInterval: Duration(seconds: 3),
+              autoPlayInterval: Duration(seconds: 4),
               autoPlayAnimationDuration: Duration(milliseconds: 800),
               height: 300.0,
               viewportFraction: 1,

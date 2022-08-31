@@ -85,6 +85,8 @@ namespace VisitBosnia.Services
         {
             if (!_eventService.IsAvailableEvent(transaction.EventId, transaction.Quantity))
                 throw new UserException("Sorry, event tickets are currently sold out!");
+            if(!_eventService.isValidDate(transaction.EventId))
+                throw new UserException("Sorry, this event has already passed!");
             try
             {
                 var token = CreateStripeToken(transaction.creditCard);
@@ -121,7 +123,7 @@ namespace VisitBosnia.Services
                 {
                     throw new UserException("Payment failed...");
                 }
-                return null;
+                //return null;
             }
 
         }

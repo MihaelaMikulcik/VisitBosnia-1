@@ -10,6 +10,7 @@ namespace VisitBosnia.Model.Requests
     {
         public string? SearchText { get; set; }
         public bool IncludeIdNavigation { get; set; }
+        public bool IncludeIdNavigationPartial { get; set; }
         public bool IncludeAgencyMember { get; set; }
         public bool IncludeAgency { get; set; }
         public int? CategoryId { get; set; }
