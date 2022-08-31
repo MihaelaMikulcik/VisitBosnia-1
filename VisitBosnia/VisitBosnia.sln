@@ -9,7 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisitBosnia.Services", "Vis
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisitBosnia.Model", "VisitBosnia.Model\VisitBosnia.Model.csproj", "{2132E868-D69A-4343-B4B9-E3077E34B1E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisitBosnia.WinUI", "VisitBosnia.WinUI\VisitBosnia.WinUI.csproj", "{B9638991-E4B0-4815-9099-630D59E72A56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisitBosnia.WinUI", "VisitBosnia.WinUI\VisitBosnia.WinUI.csproj", "{B9638991-E4B0-4815-9099-630D59E72A56}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{312040A1-1690-48BC-9B10-B13EA669E9C4}"
+	ProjectSection(SolutionItems) = preProject
+		..\docker-compose.yml = ..\docker-compose.yml
+		..\Dockerfile = ..\Dockerfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
