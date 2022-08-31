@@ -28,12 +28,6 @@ namespace VisitBosnia.WinUI.ApplicationUser
             validator = new Validator.Validation(errorProvider);
         }
 
-        //private async void LoadUserRole(int id)
-        //{
-        //    _appUser = await appUserService.GetById<Model.AppUser>(id);
-        //    var userRole = await appUserRoleService.Get<Model.AppUserRole>(new AppUserRoleSearchObject { AppUserId = _appUser.Id });
-        //    _role = await RoleService.GetById<Model.Role>(userRole.FirstOrDefault().Id);
-        //}
 
         private async void LoadUserData(int id)
         {
@@ -131,9 +125,7 @@ namespace VisitBosnia.WinUI.ApplicationUser
             }
 
             
-           
-            //this.Hide();
-            //this.Close();
+         
         }
 
         private void txtFirstName_Validating(object sender, CancelEventArgs e)
