@@ -55,12 +55,6 @@ namespace VisitBosnia.WinUI.AgencyMembers
 
                     var phone = "387" + txtPhone.Text;
 
-                    //var tempPass = builder.ToString();
-                    //var agencyName = await agencyService.GetById<Agency>(_agencyId);
-                    //string msg = $"{agencyName.Name} added you as their member. This is your username and temporary password: {txtUsername.Text} {tempPass}. Please login and change your password to enjoy our app. Your Visit Bosnia";
-                    //await appUserService.SendSms<AppUser>(new SmsMessage { To = phone, Message = msg, From = "" });
-
-
                     var tempPass = builder.ToString();
                     var agencyName = await agencyService.GetById<Agency>(_agencyId);
                     string msg = $"{agencyName.Name} added you as a member. Login data: {txtUsername.Text} {tempPass}. Please log in and change password";
