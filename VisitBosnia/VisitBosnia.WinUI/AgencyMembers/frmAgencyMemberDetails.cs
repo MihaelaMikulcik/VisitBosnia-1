@@ -40,7 +40,7 @@ namespace VisitBosnia.WinUI.AgencyMembers
 
         private async void btnSave_Click(object sender, EventArgs e)
         {
-            if (ValidateChildren())//dodati validaciju
+            if (ValidateChildren())
             {
                 try
                 {

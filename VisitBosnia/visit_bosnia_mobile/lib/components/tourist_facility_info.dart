@@ -196,7 +196,7 @@ class _TouristFacilityInfoState extends State<TouristFacilityInfo> {
                   width: double.infinity,
                   child: Text("Description",
                       style: TextStyle(
-                          fontSize: 17, fontWeight: FontWeight.bold))),
+                          fontSize: 18, fontWeight: FontWeight.bold))),
               SizedBox(
                 width: double.infinity,
                 child: Container(
@@ -204,7 +204,7 @@ class _TouristFacilityInfoState extends State<TouristFacilityInfo> {
                   child: Text(
                     touristFacility.description!,
                     textAlign: TextAlign.left,
-                    style: const TextStyle(fontSize: 18),
+                    style: const TextStyle(fontSize: 17),
                   ),
                 ),
               ),

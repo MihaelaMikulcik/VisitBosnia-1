@@ -76,11 +76,6 @@ namespace VisitBosnia.WinUI
             form2.Show();
         }
 
-        private void pbProfilePicture_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnProfile_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -92,9 +87,7 @@ namespace VisitBosnia.WinUI
         private async void btnMyAgency_Click(object sender, EventArgs e)
         {
             var agencyId = await agencyMemberService.Get<AgencyMember>(new AgencyMemberSearchObject { AppUserId = _appUser.Id });
-            //this.Hide();
             var frmAgency = new frmAgencyDetails(agencyId.FirstOrDefault().AgencyId, true);
-            //frmAgency.Closed += (s, args) => this.Close();
             frmAgency.Show();
         }
 

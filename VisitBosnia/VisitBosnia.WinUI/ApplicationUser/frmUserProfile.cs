@@ -99,7 +99,6 @@ namespace VisitBosnia.WinUI.ApplicationUser
             {
                 updateRequest.Image = _appUser.Image;
             }
-            //var updateUser = await appUserService.Update<Model.AppUser>(_appUser.Id, updateRequest);
             var updateUser = await appUserService.UpdateUser(_appUser.Id, updateRequest);
             if (updateUser != null)
             {

@@ -168,16 +168,6 @@ namespace VisitBosnia.WinUI
             }
         }
 
-        private void txtCounty_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void pbPicture_Validating(object sender, CancelEventArgs e)
         {
             if (pbPicture == null || pbPicture.Image == null)

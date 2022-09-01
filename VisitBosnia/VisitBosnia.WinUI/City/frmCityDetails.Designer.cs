@@ -75,7 +75,6 @@
             this.label3.Size = new System.Drawing.Size(58, 20);
             this.label3.TabIndex = 2;
             this.label3.Text = "County:";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label4
             // 
@@ -103,7 +102,6 @@
             this.txtCounty.Name = "txtCounty";
             this.txtCounty.Size = new System.Drawing.Size(195, 27);
             this.txtCounty.TabIndex = 5;
-            this.txtCounty.TextChanged += new System.EventHandler(this.txtCounty_TextChanged);
             this.txtCounty.Validating += new System.ComponentModel.CancelEventHandler(this.txtCounty_Validating);
             // 
             // txtZipCode

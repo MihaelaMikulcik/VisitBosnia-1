@@ -157,7 +157,6 @@
             this.MaximizeBox = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmCategory";
-            this.Load += new System.EventHandler(this.frmCategory_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCategories)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

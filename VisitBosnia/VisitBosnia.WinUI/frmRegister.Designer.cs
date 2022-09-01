@@ -30,6 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cbAgency = new System.Windows.Forms.ComboBox();
             this.txtConfirmPass = new System.Windows.Forms.TextBox();
@@ -54,6 +62,14 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(51)))), ((int)(((byte)(80)))));
+            this.panel1.Controls.Add(this.label10);
+            this.panel1.Controls.Add(this.label9);
+            this.panel1.Controls.Add(this.label8);
+            this.panel1.Controls.Add(this.label7);
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.cbAgency);
             this.panel1.Controls.Add(this.txtConfirmPass);
@@ -71,53 +87,135 @@
             this.panel1.Size = new System.Drawing.Size(589, 519);
             this.panel1.TabIndex = 0;
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label10.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label10.Location = new System.Drawing.Point(312, 290);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(99, 20);
+            this.label10.TabIndex = 18;
+            this.label10.Text = "Date of birth";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label9.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label9.Location = new System.Drawing.Point(312, 231);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(137, 20);
+            this.label9.TabIndex = 17;
+            this.label9.Text = "Confirm password";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label8.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label8.Location = new System.Drawing.Point(312, 172);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(76, 20);
+            this.label8.TabIndex = 16;
+            this.label8.Text = "Password";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label7.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label7.Location = new System.Drawing.Point(312, 113);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(112, 20);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "Phone number";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label6.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label6.Location = new System.Drawing.Point(39, 290);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(80, 20);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Username";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label5.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label5.Location = new System.Drawing.Point(39, 231);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(47, 20);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "Email";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label4.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label4.Location = new System.Drawing.Point(39, 172);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(81, 20);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "Last name";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label3.Location = new System.Drawing.Point(39, 113);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(83, 20);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "First name";
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label2.Location = new System.Drawing.Point(39, 327);
+            this.label2.Location = new System.Drawing.Point(39, 362);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(57, 19);
+            this.label2.Size = new System.Drawing.Size(65, 20);
             this.label2.TabIndex = 10;
             this.label2.Text = "Agency:";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // cbAgency
             // 
-            this.cbAgency.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cbAgency.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cbAgency.FormattingEnabled = true;
-            this.cbAgency.Location = new System.Drawing.Point(39, 350);
+            this.cbAgency.Location = new System.Drawing.Point(39, 385);
             this.cbAgency.Name = "cbAgency";
-            this.cbAgency.Size = new System.Drawing.Size(508, 25);
+            this.cbAgency.Size = new System.Drawing.Size(508, 28);
             this.cbAgency.TabIndex = 9;
-            this.cbAgency.SelectedIndexChanged += new System.EventHandler(this.cbAgency_SelectedIndexChanged);
             this.cbAgency.Validating += new System.ComponentModel.CancelEventHandler(this.cbAgency_Validating);
             // 
             // txtConfirmPass
             // 
             this.txtConfirmPass.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtConfirmPass.Location = new System.Drawing.Point(312, 234);
+            this.txtConfirmPass.Location = new System.Drawing.Point(312, 254);
             this.txtConfirmPass.MinimumSize = new System.Drawing.Size(235, 27);
             this.txtConfirmPass.Name = "txtConfirmPass";
             this.txtConfirmPass.PasswordChar = '*';
-            this.txtConfirmPass.PlaceholderText = "Confirm password";
             this.txtConfirmPass.Size = new System.Drawing.Size(235, 27);
             this.txtConfirmPass.TabIndex = 6;
-            this.txtConfirmPass.TextChanged += new System.EventHandler(this.txtConfirmPass_TextChanged);
             this.txtConfirmPass.Validating += new System.ComponentModel.CancelEventHandler(this.txtConfirmPass_Validating);
             // 
             // txtPassword
             // 
             this.txtPassword.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtPassword.Location = new System.Drawing.Point(312, 186);
+            this.txtPassword.Location = new System.Drawing.Point(312, 195);
             this.txtPassword.MinimumSize = new System.Drawing.Size(235, 27);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
-            this.txtPassword.PlaceholderText = "Password";
             this.txtPassword.Size = new System.Drawing.Size(235, 27);
             this.txtPassword.TabIndex = 5;
-            this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
             this.txtPassword.Validating += new System.ComponentModel.CancelEventHandler(this.txtPassword_Validating);
             // 
             // txtPhone
@@ -126,46 +224,38 @@
             this.txtPhone.Location = new System.Drawing.Point(312, 136);
             this.txtPhone.MinimumSize = new System.Drawing.Size(235, 27);
             this.txtPhone.Name = "txtPhone";
-            this.txtPhone.PlaceholderText = "Phone number";
             this.txtPhone.Size = new System.Drawing.Size(235, 27);
             this.txtPhone.TabIndex = 4;
-            this.txtPhone.TextChanged += new System.EventHandler(this.txtPhone_TextChanged);
             this.txtPhone.Validating += new System.ComponentModel.CancelEventHandler(this.txtPhone_Validating);
             // 
             // txtEmail
             // 
             this.txtEmail.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtEmail.Location = new System.Drawing.Point(39, 234);
+            this.txtEmail.Location = new System.Drawing.Point(39, 254);
             this.txtEmail.MinimumSize = new System.Drawing.Size(235, 27);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.PlaceholderText = "Email";
             this.txtEmail.Size = new System.Drawing.Size(235, 27);
             this.txtEmail.TabIndex = 2;
-            this.txtEmail.TextChanged += new System.EventHandler(this.txtEmail_TextChanged);
             this.txtEmail.Validating += new System.ComponentModel.CancelEventHandler(this.txtEmail_Validating);
             // 
             // txtUsername
             // 
             this.txtUsername.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtUsername.Location = new System.Drawing.Point(39, 282);
+            this.txtUsername.Location = new System.Drawing.Point(39, 313);
             this.txtUsername.MinimumSize = new System.Drawing.Size(235, 27);
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.PlaceholderText = "Username";
             this.txtUsername.Size = new System.Drawing.Size(235, 27);
             this.txtUsername.TabIndex = 3;
-            this.txtUsername.TextChanged += new System.EventHandler(this.txtUsername_TextChanged);
             this.txtUsername.Validating += new System.ComponentModel.CancelEventHandler(this.txtUsername_Validating);
             // 
             // txtLastName
             // 
             this.txtLastName.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtLastName.Location = new System.Drawing.Point(39, 186);
+            this.txtLastName.Location = new System.Drawing.Point(39, 195);
             this.txtLastName.MinimumSize = new System.Drawing.Size(235, 27);
             this.txtLastName.Name = "txtLastName";
-            this.txtLastName.PlaceholderText = "Last name";
             this.txtLastName.Size = new System.Drawing.Size(235, 27);
             this.txtLastName.TabIndex = 1;
-            this.txtLastName.TextChanged += new System.EventHandler(this.txtLastName_TextChanged);
             this.txtLastName.Validating += new System.ComponentModel.CancelEventHandler(this.txtLastName_Validating);
             // 
             // dtpDateOfBirth
@@ -176,19 +266,18 @@
             this.dtpDateOfBirth.CalendarTrailingForeColor = System.Drawing.SystemColors.WindowFrame;
             this.dtpDateOfBirth.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.dtpDateOfBirth.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDateOfBirth.Location = new System.Drawing.Point(312, 282);
+            this.dtpDateOfBirth.Location = new System.Drawing.Point(312, 313);
             this.dtpDateOfBirth.MinimumSize = new System.Drawing.Size(235, 27);
             this.dtpDateOfBirth.Name = "dtpDateOfBirth";
             this.dtpDateOfBirth.Size = new System.Drawing.Size(235, 27);
             this.dtpDateOfBirth.TabIndex = 7;
-            this.dtpDateOfBirth.ValueChanged += new System.EventHandler(this.dtpDateOfBirth_ValueChanged);
             // 
             // btnRegister
             // 
             this.btnRegister.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.btnRegister.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnRegister.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnRegister.Location = new System.Drawing.Point(132, 415);
+            this.btnRegister.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnRegister.Location = new System.Drawing.Point(134, 442);
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Size = new System.Drawing.Size(315, 30);
             this.btnRegister.TabIndex = 8;
@@ -202,10 +291,8 @@
             this.txtFirstName.Location = new System.Drawing.Point(39, 136);
             this.txtFirstName.MinimumSize = new System.Drawing.Size(235, 27);
             this.txtFirstName.Name = "txtFirstName";
-            this.txtFirstName.PlaceholderText = "First name";
             this.txtFirstName.Size = new System.Drawing.Size(235, 27);
             this.txtFirstName.TabIndex = 0;
-            this.txtFirstName.TextChanged += new System.EventHandler(this.txtFirstName_TextChanged);
             this.txtFirstName.Validating += new System.ComponentModel.CancelEventHandler(this.txtFirstName_Validating);
             // 
             // label1
@@ -218,7 +305,6 @@
             this.label1.Size = new System.Drawing.Size(269, 37);
             this.label1.TabIndex = 1;
             this.label1.Text = "Create new account";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // btnChooseImage
             // 
@@ -253,7 +339,6 @@
             this.pbProfilePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbProfilePicture.TabIndex = 2;
             this.pbProfilePicture.TabStop = false;
-            this.pbProfilePicture.Click += new System.EventHandler(this.pbProfilePicture_Click);
             // 
             // frmRegister
             // 
@@ -296,5 +381,13 @@
         private CustomInput.Picture pbProfilePicture;
         private Label label2;
         private ComboBox cbAgency;
+        private Label label10;
+        private Label label9;
+        private Label label8;
+        private Label label7;
+        private Label label6;
+        private Label label5;
+        private Label label4;
+        private Label label3;
     }
 }
