@@ -12,10 +12,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisitBosnia.WinUI", "VisitBosnia.WinUI\VisitBosnia.WinUI.csproj", "{B9638991-E4B0-4815-9099-630D59E72A56}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{312040A1-1690-48BC-9B10-B13EA669E9C4}"
-	ProjectSection(SolutionItems) = preProject
-		..\docker-compose.yml = ..\docker-compose.yml
-		..\Dockerfile = ..\Dockerfile
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
