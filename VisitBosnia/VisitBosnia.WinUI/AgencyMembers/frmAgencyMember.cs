@@ -69,7 +69,9 @@ namespace VisitBosnia.WinUI.AgencyMembers
                     FirstName = item.FirstName,
                     LastName = item.LastName,
                     UserName = item.UserName,
-                    Phone = item.Phone
+                    Phone = item.Phone,
+                    Email = item.Email,
+                    Image=item.Image
                 };
 
                 var updatedUser = await appUserService.Update<AppUser>(item.Id, updateRequest);

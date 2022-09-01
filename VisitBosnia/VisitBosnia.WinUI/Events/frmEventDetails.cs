@@ -327,5 +327,20 @@ namespace VisitBosnia.WinUI.Events
                 errorProvider.SetError(numberMax, "");
             }
         }
+
+        private void txtDescription_Validating(object sender, CancelEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtDescription.Text))
+            {
+                e.Cancel = true;
+                txtDescription.Focus();
+                errorProvider.SetError(txtDescription, "Description should not be left blank!");
+            }
+            else
+            {
+                e.Cancel = false;
+                errorProvider.SetError(txtDescription, "");
+            }
+        }
     }
 }
