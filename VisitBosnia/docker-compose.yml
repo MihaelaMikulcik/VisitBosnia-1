@@ -7,11 +7,11 @@ services:
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=QWElkj132!
-      - MSSQL_PID=Developer
+      - MSSQL_PID=Developer    
     ports:
-      - 80:80
+      - 1401:1433
     expose:
-        - 80
+        - 1433
     networks:
       - VisitBosnianet
 

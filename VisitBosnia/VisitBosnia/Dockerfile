@@ -19,5 +19,5 @@ RUN dotnet publish "VisitBosnia.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ADD ./script.sql ./script.sql
+ADD ./VisitBosnia/VisitBosnia/script.sql ./VisitBosnia/VisitBosnia/script.sql
 ENTRYPOINT ["dotnet", "VisitBosnia.dll"]
