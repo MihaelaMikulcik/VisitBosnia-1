@@ -51,7 +51,7 @@ namespace VisitBosnia.Services
             entity = AddInclude(entity, search);
 
             var list = await entity.ToListAsync();
-            return Mapper.Map<List<Model.PostReply>>(list.OrderBy(x => x.CreatedTime).ToList());
+            return Mapper.Map<List<Model.PostReply>>(list.OrderBy(x => x.CreatedTime).ThenBy(x => x.CreatedTime.TimeOfDay).ToList());
         }
     }
 }
