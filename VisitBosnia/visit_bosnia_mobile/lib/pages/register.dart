@@ -68,6 +68,13 @@ class _RegisterState extends State<Register> {
     return regExp.hasMatch(em);
   }
 
+  bool isPhone(String value) {
+    // String pattern = r'^[0-9]{3}[-]?[0-9]{3}[-]?[0-9]{3,4}$';
+    String pattern = r'^(387){1}([0-9]{8,9})$';
+    RegExp regex = RegExp(pattern);
+    return regex.hasMatch(value);
+  }
+
   void _trySubmit() async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
@@ -307,10 +314,16 @@ class _RegisterState extends State<Register> {
 
   Widget txtPhone() {
     return TextFormField(
-      inputFormatters: [
-        // MaskedInputFormatter('+387 (00) 000-0000')
-        MaskedInputFormatter('+387 00 000-0000')
-      ],
+      validator: (value) {
+        if (value != null && !isPhone(value)) {
+          return "Invalid phone format (387xxxxxxxxx)";
+        }
+        return null;
+      },
+      // inputFormatters: [
+      //   // MaskedInputFormatter('+387 (00) 000-0000')
+      //   MaskedInputFormatter('+387 00 000-0000')
+      // ],
       decoration: const InputDecoration(
           labelText: "Phone number", border: UnderlineInputBorder()),
       onSaved: (value) {

@@ -73,7 +73,8 @@ namespace VisitBosnia.WinUI.Agencies
             {
                 _model = await AgencyService.GetById<Model.Agency>(id);
                 txtName.Text = _model.Name;
-                txtPhone.Text = _model.Phone;
+                if (!string.IsNullOrEmpty(_model.Phone))
+                    txtPhone.Text = _model.Phone?.Substring(3, _model.Phone.Length - 3);
                 txtAdress.Text = _model.Address;
                 txtEmail.Text = _model.Email;
                 txtResponsiblePerson.Text = _model.ResponsiblePerson;
@@ -122,13 +123,14 @@ namespace VisitBosnia.WinUI.Agencies
                     var agencyInsertRequest = new AgencyInsertRequest
                     {
                         Name = txtName.Text,
-                        Phone = txtPhone.Text, 
                         Email = txtEmail.Text, 
                         Address = txtAdress.Text, 
                         ResponsiblePerson = txtResponsiblePerson.Text,
                         CityId = (int)cmbCity.SelectedValue
                         
                     };
+                    if (!string.IsNullOrEmpty(txtPhone.Text))
+                        agencyInsertRequest.Phone = "387" + txtPhone.Text;
                     var newAgency = await AgencyService.Insert<Model.Agency>(agencyInsertRequest);
                 }
                 else
@@ -136,13 +138,14 @@ namespace VisitBosnia.WinUI.Agencies
                     var agencyUpdateRequest = new AgencyUpdateRequest
                     {
                         Name = txtName.Text,
-                        Phone = txtPhone.Text,
                         Email = txtEmail.Text,
                         Address = txtAdress.Text,
                         ResponsiblePerson = txtResponsiblePerson.Text,
                         CityId = (int)cmbCity.SelectedValue
 
                     };
+                    if (!string.IsNullOrEmpty(txtPhone.Text))
+                        agencyUpdateRequest.Phone = "387" + txtPhone.Text;
                     var updateAgency = await AgencyService.Update<Model.Agency>(_model.Id,agencyUpdateRequest);
 
                 }
