@@ -17,6 +17,8 @@ namespace VisitBosnia.Services.Interfaces
         Task<Model.AppUser> ChangePassword(AppUserChangePasswordRequest request);
         Task<List<Model.Attraction>> RecommendAttracions(int appUserId, int? categoryId);
         Task<List<Model.Event>> RecommendEvents(int appUserId, int? categoryId);
+        Task<bool> UsernameExists(string username);
+        Task<bool> EmailExists(string email);
 
         //ITransformer TrainData(bool isAttraction, bool retrainData);
         //Task<bool> UsernameExists(string username);

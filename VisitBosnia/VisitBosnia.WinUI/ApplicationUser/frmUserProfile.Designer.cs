@@ -30,6 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.dtpDateofBirth = new System.Windows.Forms.DateTimePicker();
             this.pbUserPicture = new VisitBosnia.WinUI.CustomInput.Picture();
             this.btnChangeImage = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -55,6 +58,9 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(51)))), ((int)(((byte)(80)))));
+            this.panel1.Controls.Add(this.label8);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.dtpDateofBirth);
             this.panel1.Controls.Add(this.pbUserPicture);
             this.panel1.Controls.Add(this.btnChangeImage);
             this.panel1.Controls.Add(this.btnCancel);
@@ -74,6 +80,40 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(614, 622);
             this.panel1.TabIndex = 0;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label8.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label8.Location = new System.Drawing.Point(331, 372);
+            this.label8.MinimumSize = new System.Drawing.Size(0, 27);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(45, 27);
+            this.label8.TabIndex = 18;
+            this.label8.Text = "+387";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label5.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label5.Location = new System.Drawing.Point(333, 479);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(99, 20);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "Date of birth";
+            // 
+            // dtpDateofBirth
+            // 
+            this.dtpDateofBirth.CustomFormat = "";
+            this.dtpDateofBirth.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.dtpDateofBirth.Location = new System.Drawing.Point(333, 502);
+            this.dtpDateofBirth.MinimumSize = new System.Drawing.Size(0, 27);
+            this.dtpDateofBirth.Name = "dtpDateofBirth";
+            this.dtpDateofBirth.Size = new System.Drawing.Size(213, 27);
+            this.dtpDateofBirth.TabIndex = 16;
             // 
             // pbUserPicture
             // 
@@ -191,9 +231,9 @@
             // txtPhoneNumber
             // 
             this.txtPhoneNumber.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtPhoneNumber.Location = new System.Drawing.Point(333, 372);
+            this.txtPhoneNumber.Location = new System.Drawing.Point(376, 372);
             this.txtPhoneNumber.Name = "txtPhoneNumber";
-            this.txtPhoneNumber.Size = new System.Drawing.Size(213, 27);
+            this.txtPhoneNumber.Size = new System.Drawing.Size(170, 27);
             this.txtPhoneNumber.TabIndex = 5;
             this.txtPhoneNumber.Validating += new System.ComponentModel.CancelEventHandler(this.txtPhoneNumber_Validating);
             // 
@@ -282,5 +322,8 @@
         private CustomInput.Picture pbUserPicture;
         private OpenFileDialog openFileDialog;
         private ErrorProvider errorProvider;
+        private Label label5;
+        private DateTimePicker dtpDateofBirth;
+        private Label label8;
     }
 }

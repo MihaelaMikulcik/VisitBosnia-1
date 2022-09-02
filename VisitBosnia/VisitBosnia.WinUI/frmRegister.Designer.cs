@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -62,6 +63,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(51)))), ((int)(((byte)(80)))));
+            this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.label8);
@@ -86,6 +88,20 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(589, 519);
             this.panel1.TabIndex = 0;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(51)))), ((int)(((byte)(80)))));
+            this.label11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label11.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label11.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label11.Location = new System.Drawing.Point(312, 136);
+            this.label11.MinimumSize = new System.Drawing.Size(35, 27);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(45, 27);
+            this.label11.TabIndex = 19;
+            this.label11.Text = "+387";
             // 
             // label10
             // 
@@ -221,10 +237,10 @@
             // txtPhone
             // 
             this.txtPhone.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtPhone.Location = new System.Drawing.Point(312, 136);
-            this.txtPhone.MinimumSize = new System.Drawing.Size(235, 27);
+            this.txtPhone.Location = new System.Drawing.Point(357, 136);
+            this.txtPhone.MinimumSize = new System.Drawing.Size(190, 27);
             this.txtPhone.Name = "txtPhone";
-            this.txtPhone.Size = new System.Drawing.Size(235, 27);
+            this.txtPhone.Size = new System.Drawing.Size(190, 27);
             this.txtPhone.TabIndex = 4;
             this.txtPhone.Validating += new System.ComponentModel.CancelEventHandler(this.txtPhone_Validating);
             // 
@@ -389,5 +405,6 @@
         private Label label5;
         private Label label4;
         private Label label3;
+        private Label label11;
     }
 }

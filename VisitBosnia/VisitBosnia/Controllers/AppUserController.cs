@@ -70,6 +70,18 @@ namespace VisitBosnia.Controllers
             return events;
         }
 
+        [HttpGet("EmailExists")]
+        public async Task<bool> EmailExists([FromQuery]string email)
+        {
+            return await service.EmailExists(email);
+        }
+
+        [HttpGet("UsernameExists")]
+        public async Task<bool> UsernameExists([FromQuery]string username)
+        {
+            return await service.UsernameExists(username);
+        }
+
         //[AllowAnonymous]
         //[HttpPost("SendEmail")]
         //public void SendEmail([FromBody] SendEmailRequest request)

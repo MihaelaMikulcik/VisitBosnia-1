@@ -29,7 +29,7 @@ namespace VisitBosnia.WinUI
                 url += "?";
                 url += await request.ToQueryString();
             }
-            
+
             return await url
             .WithBasicAuth(Username, Password)
             .GetJsonAsync<IEnumerable<T>>();
@@ -59,7 +59,7 @@ namespace VisitBosnia.WinUI
 
         public async Task<T> Insert<T>(object request)
         {
-            
+
             var url = $"{_endpoint}{_route}";
             try
             {
@@ -68,11 +68,11 @@ namespace VisitBosnia.WinUI
                     .PostJsonAsync(request).ReceiveJson<T>();
                 return result;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return default(T);
             }
-        
+
         }
 
         public async Task<T> Update<T>(int id, object request)
@@ -120,9 +120,9 @@ namespace VisitBosnia.WinUI
             try
             {
                 var url = $"{_endpoint}{_route}/delete/{id}";
-            return await url.WithBasicAuth(Username, Password).DeleteAsync().ReceiveJson<T>();
+                return await url.WithBasicAuth(Username, Password).DeleteAsync().ReceiveJson<T>();
             }
-            catch (FlurlHttpException ex) 
+            catch (FlurlHttpException ex)
             {
                 var errors = await ex.GetResponseJsonAsync<Dictionary<string, string[]>>();
 
@@ -196,6 +196,22 @@ namespace VisitBosnia.WinUI
                 return default(Model.AppUser);
             }
         }
+
+        public async Task<bool> UsernameExists(string username)
+        {
+            
+            var url = $"{_endpoint}{_route}/UsernameExists?username={username}";
+            return await url.WithBasicAuth(Username, Password).GetJsonAsync<bool>();
+            
+           
+        }
+
+        public async Task<bool> EmailExists(string email)
+        {
+            var url = $"{_endpoint}{_route}/EmailExists?email={email}";
+            return await url.WithBasicAuth(Username, Password).GetJsonAsync<bool>();
+        }
+
     }
     
 }

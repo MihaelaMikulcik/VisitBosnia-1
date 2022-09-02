@@ -65,15 +65,15 @@ namespace VisitBosnia.WinUI.Validator
         }
         public void PhoneValidation(TextBox textbox, CancelEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(textbox.Text))
-            {
-                e.Cancel = true;
-                _errorProvider.SetError(textbox, ErrMessages.RequiredField);
-            }
-            else
-            {
-                Regex regex = new Regex(@"^\(?\d{3}\)?-? *\d{3}-? *-?\d{3,4}$");
-                //Regex regex = new Regex(@"^387\(?\d{3}\)?-? *\d{3}-? *-?\d{3,4}$");
+            //if (string.IsNullOrWhiteSpace(textbox.Text))
+            //{
+            //    e.Cancel = true;
+            //    _errorProvider.SetError(textbox, ErrMessages.RequiredField);
+            //}
+            //else
+            //{
+                //Regex regex = new Regex(@"^(387){1}[0-9]{7}([0-9]{1})?$");
+                Regex regex = new Regex(@"^(\(?\d{2}\)?-? *\d{3}-? *-?\d{3,4})?$");
                 Match match = regex.Match(textbox.Text);
                 if (!match.Success)
                 {
@@ -83,7 +83,7 @@ namespace VisitBosnia.WinUI.Validator
                 else
                     _errorProvider.SetError(textbox, null);
 
-            }
+            //}
         }
 
 

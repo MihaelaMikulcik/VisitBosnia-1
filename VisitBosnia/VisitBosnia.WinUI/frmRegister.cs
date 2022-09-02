@@ -82,7 +82,7 @@ namespace VisitBosnia.WinUI
                         LastName = txtLastName.Text,
                         Email = txtEmail.Text,
                         UserName = txtUsername.Text,
-                        Phone = txtPhone.Text,
+                        Phone = "387" + txtPhone.Text,
                         Password = txtPassword.Text,
                         PasswordConfirm = txtConfirmPass.Text,
                         DateOfBirth = dtpDateOfBirth.Value,
@@ -186,5 +186,7 @@ namespace VisitBosnia.WinUI
                 error.SetError(cbAgency, "");
             }
         }
+
+       
     }
 }

@@ -10,7 +10,7 @@ namespace VisitBosnia.WinUI.Validator
     {
         public static string RequiredField = "This field is required!";
         public static string WrongEmailFormat = "Your email format is not valid!";
-        public static string WrongPhoneFormat = "Your phone format is not valid!";
+        public static string WrongPhoneFormat = "Invalid phone format (+387 xx xxx xxxx)";
 
 
     }
