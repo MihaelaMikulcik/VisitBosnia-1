@@ -181,7 +181,6 @@
             this.label3.Size = new System.Drawing.Size(107, 46);
             this.label3.TabIndex = 7;
             this.label3.Text = "Users";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // dgvUsers
             // 
@@ -248,7 +247,6 @@
             this.textSearch.Name = "textSearch";
             this.textSearch.Size = new System.Drawing.Size(304, 27);
             this.textSearch.TabIndex = 14;
-            this.textSearch.TextChanged += new System.EventHandler(this.textSearch_TextChanged);
             // 
             // frmUsers
             // 

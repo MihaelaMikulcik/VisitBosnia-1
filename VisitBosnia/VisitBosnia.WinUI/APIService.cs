@@ -29,12 +29,7 @@ namespace VisitBosnia.WinUI
                 url += "?";
                 url += await request.ToQueryString();
             }
-            //var result = await url
-            //    //.WithHeader(RequestConstants.UserAgent, RequestConstants.UserAgentValue)
-            //    .WithBasicAuth(Username, Password)
-            //    .GetJsonAsync<T>();
-            //return result;
-          
+            
             return await url
             .WithBasicAuth(Username, Password)
             .GetJsonAsync<IEnumerable<T>>();
@@ -48,11 +43,6 @@ namespace VisitBosnia.WinUI
                 url += "?";
                 url += await request.ToQueryString();
             }
-            //var result = await url
-            //    //.WithHeader(RequestConstants.UserAgent, RequestConstants.UserAgentValue)
-            //    .WithBasicAuth(Username, Password)
-            //    .GetJsonAsync<T>();
-            //return result;
 
             return await url
             .GetJsonAsync<IEnumerable<T>>();
@@ -101,42 +91,6 @@ namespace VisitBosnia.WinUI
             var result = await url.WithBasicAuth(username, password).GetJsonAsync<T>();
             return result;
 
-
-            //try
-            //{
-            //    var url = $"{_endpoint}{_route}?Username={username}&Password={password}";
-            //    var result = await url.WithBasicAuth(username, password).GetJsonAsync<T>();
-            //    return result;
-            //}
-            //catch (FlurlHttpException ex)
-            //{
-
-            //    if (ex.StatusCode == 401)
-            //        MessageBox.Show("Neispravno korisničko ime ili lozinka! ", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    else
-            //        MessageBox.Show("Došlo je do greške, pokušajte opet! ", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            //    return default;
-
-            //    //var errors = await ex.GetResponseJsonAsync<Dictionary<string, string>>();
-            //    //if (errors != null)
-            //    //{
-            //    //    errors.TryGetValue("message", out string message);
-
-            //    //    MessageBox.Show(message, "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    //}
-            //    //else
-            //    //    MessageBox.Show("Došlo je do greške", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    //var errors = await ex.GetResponseJsonAsync<Dictionary<string, string>>();
-            //    //var stringBuilder = new StringBuilder();
-            //    //foreach (var error in errors)
-            //    //{
-            //    //    stringBuilder.AppendLine($"{error.Key}, ${string.Join(",", error.Value)}");
-            //    //}
-            //    //MessageBox.Show(stringBuilder.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return default(T);
-            //}
-
         }
 
         public async Task<Model.AppUser> Register(AppUserInsertRequest request)
@@ -183,45 +137,6 @@ namespace VisitBosnia.WinUI
             }
         }
 
-        //public async void SendEmail(SendEmailRequest request)
-        //{
-        //    try
-        //    {
-        //        var url = $"{_endpoint}{_route}/SendEmail";
-        //        await url.WithBasicAuth(Username, Password)
-        //        .PutJsonAsync(request);
-        //    }
-        //    catch (FlurlHttpException ex)//popraviti 
-        //    {
-        //        var errors = await ex.GetResponseJsonAsync<Dictionary<string, string[]>>();
-
-        //        var stringBuilder = new StringBuilder();
-        //        foreach (var error in errors)
-        //        {
-        //            stringBuilder.AppendLine($"{error.Key}, {string.Join(",", error.Value)}");
-        //        }
-
-        //        MessageBox.Show(stringBuilder.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-        //    }
-        //}
-
-        //public async Task<T> SendSms<T>(SmsMessage request)
-        //{
-        //    try
-        //    {
-
-        //    var url = $"{_endpoint}{_route}/SendSms";                  
-
-        //    await url.WithBasicAuth(Username, Password).PostJsonAsync(request).ReceiveJson<int>();
-        //    }catch(Exception ex)
-        //    {
-
-        //    }
-
-        //    return default(T);
-        //}
-
         public async Task<int> SendSms(SmsMessage request)
         {
             try
@@ -244,7 +159,6 @@ namespace VisitBosnia.WinUI
             {
                 var url = $"{_endpoint}{_route}/ChangePassword";
                 return await url.WithBasicAuth(request.Username, request.OldPassword).PostJsonAsync(request).ReceiveJson<AppUser>();
-                //return await url.PostJsonAsync(request).ReceiveJson<AppUser>();
             }
             catch (FlurlHttpException ex)
             {
@@ -265,10 +179,6 @@ namespace VisitBosnia.WinUI
         {
             try
             {
-                //var url = $"{_endpoint}{_route}/{id}";
-                //var result = await url
-                //    .WithBasicAuth(Username, Password)
-                //    .PutJsonAsync(request).ReceiveJson<T>();
                 var url = $"{_endpoint}{_route}/{id}";
                 return await url.WithBasicAuth(Username, Password).PutJsonAsync(request).ReceiveJson<AppUser>();
             }

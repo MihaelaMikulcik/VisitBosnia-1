@@ -24,9 +24,6 @@ namespace VisitBosnia.WinUI.Helpers
                 Image returnImage = Image.FromStream(ms);
                 return returnImage;
             }
-            //MemoryStream ms = new MemoryStream(byteArrayIn);
-            //Image returnImage = Image.FromStream(ms);
-            //return returnImage;
         }
     }
 }

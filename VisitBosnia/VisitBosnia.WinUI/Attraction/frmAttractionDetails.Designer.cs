@@ -155,6 +155,7 @@
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(654, 157);
             this.txtDescription.TabIndex = 12;
+            this.txtDescription.Validating += new System.ComponentModel.CancelEventHandler(this.txtDescription_Validating);
             // 
             // btnSave
             // 
@@ -233,7 +234,6 @@
             this.Name = "frmAttractionDetails";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmAttractionDetails";
-            this.Load += new System.EventHandler(this.frmAttractionDetails_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLatitude)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLongitude)).EndInit();

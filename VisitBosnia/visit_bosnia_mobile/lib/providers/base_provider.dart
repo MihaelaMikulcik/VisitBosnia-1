@@ -17,10 +17,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
 
   BaseProvider(String endpoint) {
     baseUrl = const String.fromEnvironment("baseUrl",
-        // defaultValue: "https://10.0.2.2:7223/"
-        defaultValue: "http://10.0.2.2:5223/"
-        // defaultValue: "https://192.168.0.26:7223/"
-        );
+        defaultValue: "http://10.0.2.2:5223/");
 
     if (baseUrl!.endsWith("/") == false) {
       baseUrl = baseUrl! + "/";
@@ -174,38 +171,6 @@ abstract class BaseProvider<T> with ChangeNotifier {
     return query;
   }
 
-  // String getQueryString(Map params,
-  //     {String prefix: '&', bool inRecursion: false}) {
-  //   String query = '';
-  //   params.forEach((key, value) {
-  //     if (inRecursion) {
-  //       if (key is int) {
-  //         key = '[$key]';
-  //       } else if (value is List || value is Map) {
-  //         key = '.$key';
-  //       } else {
-  //         key = '.$key';
-  //       }
-  //     }
-  //     if (value is String || value is int || value is double || value is bool) {
-  //       var encoded = value;
-  //       if (value is String) {
-  //         encoded = Uri.encodeComponent(value);
-  //       }
-  //       query += '$prefix$key=$encoded';
-  //     } else if (value is DateTime) {
-  //       query += '$prefix$key=${(value as DateTime).toIso8601String()}';
-  //     } else if (value is List || value is Map) {
-  //       if (value is List) value = value.asMap();
-  //       value.forEach((k, v) {
-  //         query +=
-  //             getQueryString({k: v}, prefix: '$prefix$key', inRecursion: true);
-  //       });
-  //     }
-  //   });
-  //   return query;
-  // }
-
   bool isValidResponseCode(Response response) {
     if (response.statusCode == 200) {
       if (response.body != "") {
@@ -213,9 +178,6 @@ abstract class BaseProvider<T> with ChangeNotifier {
       } else {
         return false;
       }
-      // } else {
-      //   return false;
-      // }
     } else if (response.statusCode == 204) {
       return true;
     } else if (response.statusCode == 400) {

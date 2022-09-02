@@ -23,10 +23,6 @@ namespace VisitBosnia.WinUI.Categories
             LoadTable();
         }
 
-        private void frmCategory_Load(object sender, EventArgs e)
-        {
-
-        }
 
         private async void LoadTable()
         {

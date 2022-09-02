@@ -78,11 +78,6 @@ namespace VisitBosnia.WinUI.Attraction
             }
         }
 
-        private void frmAttractionDetails_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
 
@@ -230,6 +225,21 @@ namespace VisitBosnia.WinUI.Attraction
             {
                 e.Cancel = false;
                 errorProvider.SetError(numLongitude, "");
+            }
+        }
+
+        private void txtDescription_Validating(object sender, CancelEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtDescription.Text))
+            {
+                e.Cancel = true;
+                txtDescription.Focus();
+                errorProvider.SetError(txtDescription, "Description should not be left blank!");
+            }
+            else
+            {
+                e.Cancel = false;
+                errorProvider.SetError(txtDescription, "");
             }
         }
     }

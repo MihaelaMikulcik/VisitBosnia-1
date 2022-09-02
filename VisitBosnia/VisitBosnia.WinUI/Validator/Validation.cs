@@ -73,6 +73,7 @@ namespace VisitBosnia.WinUI.Validator
             else
             {
                 Regex regex = new Regex(@"^\(?\d{3}\)?-? *\d{3}-? *-?\d{3,4}$");
+                //Regex regex = new Regex(@"^387\(?\d{3}\)?-? *\d{3}-? *-?\d{3,4}$");
                 Match match = regex.Match(textbox.Text);
                 if (!match.Success)
                 {

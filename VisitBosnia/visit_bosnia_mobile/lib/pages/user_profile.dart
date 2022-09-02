@@ -372,7 +372,7 @@ class _UserProfileState extends State<UserProfile> {
       // },
       inputFormatters: [
         // MaskedInputFormatter('+387 (00) 000-0000')
-        MaskedInputFormatter('+387 00 000-0000')
+        MaskedInputFormatter('387 00 000-0000')
       ],
       decoration: const InputDecoration(
           labelText: "Phone number", border: UnderlineInputBorder()),
