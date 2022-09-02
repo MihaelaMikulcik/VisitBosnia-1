@@ -8,16 +8,29 @@ Aplikacija namijenjena turistima koji žele da posjete Bosnu i Hercegovinu, kao 
 Kredencijali za prijavu
 
 * ADMIN
-desktop -> username: admin;
+desktop -> username: Admin;
            password: test
            
 * AGENCY (član agencije)
-desktop i mobilna -> username: agency;
+desktop i mobilna -> username: Agency;
                      password: test
                      
 * USER
-mobilna -> username: userA; username: userB; usernameC;
+mobilna -> username: UserA; username: UserB; username: UserC;
            password (za sve): test
+
+* Pokretanje aplikacija:
+
+1. git clone https://github.com/NudzejmaDedovic/VisitBosnia
+
+2. Pokrenuti API i DB (docker-compose build, docker-compose up)
+
+3. Otvoriti mobilnu aplikaciju u Visual Studio Code i nakon preuzimanja dependency-a kroz terminal pokrenuti:
+   flutter run --dart-define=baseUrl=http://IPv4_adresa:5223
+
+4. Otvoriti solution u Visual Studiu i pokrenuti VisitBosnia.WinUI projekat 
            
 Napomena: za pokretanje aplikacije potrebno je više vremena zbog izvršavanja SQL skripte za import podataka
+
+
         
