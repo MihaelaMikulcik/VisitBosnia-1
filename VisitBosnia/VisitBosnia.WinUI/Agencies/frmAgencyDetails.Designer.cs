@@ -45,6 +45,7 @@
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.cmbCity = new System.Windows.Forms.ComboBox();
             this.City = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -99,10 +100,10 @@
             // txtPhone
             // 
             this.txtPhone.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtPhone.Location = new System.Drawing.Point(177, 182);
-            this.txtPhone.MinimumSize = new System.Drawing.Size(216, 27);
+            this.txtPhone.Location = new System.Drawing.Point(213, 182);
+            this.txtPhone.MinimumSize = new System.Drawing.Size(180, 27);
             this.txtPhone.Name = "txtPhone";
-            this.txtPhone.Size = new System.Drawing.Size(216, 27);
+            this.txtPhone.Size = new System.Drawing.Size(180, 27);
             this.txtPhone.TabIndex = 4;
             this.txtPhone.Validating += new System.ComponentModel.CancelEventHandler(this.txtPhone_Validating);
             // 
@@ -207,11 +208,27 @@
             this.City.TabIndex = 15;
             this.City.Text = "City";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label7.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label7.Location = new System.Drawing.Point(177, 182);
+            this.label7.Name = "label7";
+            this.label7.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
+            this.label7.Size = new System.Drawing.Size(38, 27);
+            this.label7.TabIndex = 29;
+            this.label7.Text = "+387";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // frmAgencyDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(756, 452);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.City);
             this.Controls.Add(this.cmbCity);
             this.Controls.Add(this.label6);
@@ -255,5 +272,6 @@
         private ErrorProvider errorProvider;
         private Label City;
         private ComboBox cmbCity;
+        private Label label7;
     }
 }

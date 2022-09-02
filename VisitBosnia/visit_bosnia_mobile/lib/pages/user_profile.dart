@@ -101,7 +101,7 @@ class _UserProfileState extends State<UserProfile> {
 
   bool isPhone(String value) {
     // String pattern = r'^[0-9]{3}[-]?[0-9]{3}[-]?[0-9]{3,4}$';
-    String pattern = r'^[387]{1}([0-9]{7}|[0,9]{8})$';
+    String pattern = r'^(387){1}([0-9]{8,9})$';
     RegExp regex = RegExp(pattern);
     return regex.hasMatch(value);
   }

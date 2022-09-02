@@ -225,9 +225,9 @@ namespace VisitBosnia.Services
 
         class TouristFacilityRating
         {
-            [KeyType(count: 400)]
+            [KeyType(count: 200)]
             public uint AppUserId { get; set; }
-            [KeyType(count: 400)]
+            [KeyType(count: 200)]
             public uint FacilityId { get; set; }
             public float Rating { get; set; }
         }
