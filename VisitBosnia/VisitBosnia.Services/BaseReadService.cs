@@ -20,11 +20,7 @@ namespace VisitBosnia.Services
             Mapper = mapper;
         }
 
-        //public virtual async Task<List<T>> Get(TSearch search = null)
-        //{
-        //    var list = await Context.Set<TDb>().ToListAsync();
-        //    return Mapper.Map<List<T>>(list);
-        //}
+      
 
         public virtual async Task<IEnumerable<T>> Get(TSearch search = null)
         {

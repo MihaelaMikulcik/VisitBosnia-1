@@ -28,12 +28,7 @@ namespace VisitBosnia.Services
                 filteredQuery = filteredQuery.Where(x => x.AppUserId == search.AppUserId);
             }
 
-            //if (!string.IsNullOrEmpty(search?.SearchText))
-            //{
-            //    filteredQuery = filteredQuery.Where(x => x.Name.ToLower().StartsWith(search.SearchText.ToLower()) || x.County.ToLower().StartsWith(search.SearchText.ToLower()) || x.ZipCode.ToLower().StartsWith(search.SearchText.ToLower()));
-            //}
-
-
+          
 
             return filteredQuery;
         }

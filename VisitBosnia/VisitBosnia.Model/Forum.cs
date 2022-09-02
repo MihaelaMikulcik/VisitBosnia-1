@@ -14,6 +14,6 @@ namespace VisitBosnia.Model
         public int CityId { get; set; }
         public DateTime CreatedTime { get; set; }
         public virtual City City { get; set; } = null!;
-        //public virtual ICollection<Post> Posts { get; set; }
+        
     }
 }

@@ -78,7 +78,7 @@ namespace VisitBosnia.WinUI
                     var result = await appUserService.Login<Model.AppUser>(txtUsername.Text, txtPassword.Text);
                     if (result != null)
                     {
-                        if (result.IsBlocked == true)
+                        if (result.IsBlocked == true || result.TempPass == true)
                         {
                             if(result.TempPass == true)
                             {

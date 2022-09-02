@@ -11,9 +11,7 @@ namespace VisitBosnia.Helpers
             var rng = new RNGCryptoServiceProvider();
             rng.GetBytes(bytes);
             return Convert.ToBase64String(bytes);
-            //var buf = new byte[16];
-            //(new RSACryptoServiceProvider()).GetBytes(buf);
-            //return Convert.ToBase64String(buf);
+           
         }
 
         public static string GenerateHash(string salt, string password)

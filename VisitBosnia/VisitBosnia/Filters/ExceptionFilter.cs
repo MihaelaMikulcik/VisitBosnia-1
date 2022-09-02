@@ -27,7 +27,7 @@ namespace VisitBosnia.Filters
             }
 
             var list = context.ModelState.Where(x => x.Value.Errors.Count > 0).ToDictionary(x => x.Key, y => string.Join(" ", y.Value.Errors.Select(z => z.ErrorMessage)));
-            //var list = context.ModelState.Where(x => x.Value.Errors.Count > 0).ToDictionary(x => x.Key, y => y.Value.Errors.Select(z => z.ErrorMessage));
+
             context.Result = new JsonResult(list);
         }
 

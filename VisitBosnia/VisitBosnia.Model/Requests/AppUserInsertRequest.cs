@@ -20,7 +20,7 @@ namespace VisitBosnia.Model.Requests
         public string Email { get; set; } = null!;
 
 
-        //[RegularExpression(@"^\(?\d{3}\)?-? *\d{3}-? *-?\d{3,4}$")]
+        
         public string? Phone { get; set; }
 
         [Required(AllowEmptyStrings = false)]
@@ -34,12 +34,12 @@ namespace VisitBosnia.Model.Requests
 
         public byte[]? Image { get; set; }
 
-        //[Required(AllowEmptyStrings = false)]
+   
         public DateTime? DateOfBirth { get; set; }
 
         public bool IsBlocked { get; set; }
         public bool TempPass { get; set; }
 
-        //public List<int> Roles { get; set; } = new List<int>();
+      
     }
 }

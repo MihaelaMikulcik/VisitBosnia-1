@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VisitBosnia.Filters;
-//using VisitBosnia.Model;
+
 using VisitBosnia.Model.Requests;
 using VisitBosnia.Model.SearchObjects;
 using VisitBosnia.Services.Database;
@@ -75,8 +75,7 @@ namespace VisitBosnia.Services
                 query = query.Include("EventOrder.Event.IdNavigation.City");
                 query = query.Include("EventOrder.Event.Agency");
                 query = query.Include("EventOrder.Event.AgencyMember");
-                //query = query.Include("EventOrder.Event.AgencyMember");
-                //query = query.Include("IdNavigation");
+            
             }
             return query;
         }
@@ -123,7 +122,7 @@ namespace VisitBosnia.Services
                 {
                     throw new UserException("Payment failed...");
                 }
-                //return null;
+               
             }
 
         }

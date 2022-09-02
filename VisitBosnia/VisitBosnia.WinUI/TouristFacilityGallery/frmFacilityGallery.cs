@@ -29,16 +29,19 @@ namespace VisitBosnia.WinUI.Events
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
-            if (_selectedIndex == 0)
+            if (_gallery.Count() != 0)
             {
-                _selectedIndex = 0;
-            }
-            else
-            {
-                _selectedIndex--;
-            }
+                if (_selectedIndex == 0)
+                {
+                    _selectedIndex = 0;
+                }
+                else
+                {
+                    _selectedIndex--;
+                }
 
-            RenderPicture(_selectedIndex);
+                RenderPicture(_selectedIndex);
+            }
         }
 
         private async void InitPictures()
@@ -96,7 +99,9 @@ namespace VisitBosnia.WinUI.Events
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            if (_selectedIndex == _gallery.Count() - 1)
+            if (_gallery.Count() != 0)
+            {
+                if (_selectedIndex == _gallery.Count() - 1)
             {
                 _selectedIndex = 0;
             }
@@ -106,20 +111,24 @@ namespace VisitBosnia.WinUI.Events
             }
 
             RenderPicture(_selectedIndex);
+            }
         }
 
         private void btnNext_Click_1(object sender, EventArgs e)
         {
-            if (_selectedIndex == _gallery.Count() - 1)
+            if (_gallery?.Count() != 0)
             {
-                _selectedIndex = 0;
-            }
-            else
-            {
-                _selectedIndex++;
-            }
+                if (_selectedIndex == _gallery.Count() - 1)
+                {
+                    _selectedIndex = 0;
+                }
+                else
+                {
+                    _selectedIndex++;
+                }
 
-            RenderPicture(_selectedIndex);
+                RenderPicture(_selectedIndex);
+            }
         }
 
         private async void btnAdd_Click(object sender, EventArgs e)
@@ -155,10 +164,13 @@ namespace VisitBosnia.WinUI.Events
 
         private async void btnDelete_Click(object sender, EventArgs e)
         {
-            int imageId = _gallery[_selectedIndex].Id;
-            var image = await TouristFacilityGalleryService.Delete<TouristFacilityGallery>(imageId);
-            MessageBox.Show("Successfully deleted selected picture.");
-            InitPictures();
+            if (_gallery.Count() != 0)
+            {
+                int imageId = _gallery[_selectedIndex].Id;
+                var image = await TouristFacilityGalleryService.Delete<TouristFacilityGallery>(imageId);
+                MessageBox.Show("Successfully deleted selected picture.");
+                InitPictures();
+            }
         }
 
         private void labelBack_Click(object sender, EventArgs e)
