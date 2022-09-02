@@ -300,13 +300,15 @@ namespace VisitBosnia.WinUI.Events
 
         private void numberPrice_Validating(object sender, CancelEventArgs e)
         {
-            if (numberPrice.Value == 0 )
+            if (numberPrice.Value == 0 || numberPrice.Value == null)
             {
                 e.Cancel = true;
                 numberPrice.Focus();
                 errorProvider.SetError(numberPrice, "Add price");
             }
             else
+            
+            
             {
                 e.Cancel = false;
                 errorProvider.SetError(numberPrice, "");
