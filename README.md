@@ -19,7 +19,7 @@ desktop i mobilna -> username: Agency;
 mobilna -> username: UserA; username: UserB; username: UserC;
            password (za sve): test
 
-* Pokretanje aplikacija:
+Pokretanje aplikacija:
 
 1. git clone https://github.com/NudzejmaDedovic/VisitBosnia
 
