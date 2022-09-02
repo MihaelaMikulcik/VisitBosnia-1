@@ -18,7 +18,7 @@ namespace VisitBosnia.Model
         public byte[]? Image { get; set; }
         public bool TempPass { get; set; }
 
-        //public DateTime? DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
         //public virtual ICollection<AppUserRole> AppUserRoles { get; set; }
 

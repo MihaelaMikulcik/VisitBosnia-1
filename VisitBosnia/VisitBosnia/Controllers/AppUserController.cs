@@ -63,7 +63,38 @@ namespace VisitBosnia.Controllers
             var events = await service.RecommendEvents(appUserId, categoryId);
             return events;
         }
-       
+
+        [HttpGet("EmailExists")]
+        public async Task<bool> EmailExists([FromQuery]string email)
+        {
+            return await service.EmailExists(email);
+        }
+
+        [HttpGet("UsernameExists")]
+        public async Task<bool> UsernameExists([FromQuery]string username)
+        {
+            return await service.UsernameExists(username);
+        }
+
+        //[AllowAnonymous]
+        //[HttpPost("SendEmail")]
+        //public void SendEmail([FromBody] SendEmailRequest request)
+        //{
+        //     service.SendEmail(request);
+        //}
+
+
+        [HttpPost("SendSms")]
+        public int SendSms(SmsMessage model)
+        {
+            var message = MessageResource.Create(
+                to: new Twilio.Types.PhoneNumber(model.To),
+                from: new Twilio.Types.PhoneNumber(_config["Twilio:Number"]),
+                body: model.Message,
+                client: _client); // pass in the custom client
+
+            return 200;
+        }
 
     }
 }

@@ -37,8 +37,11 @@ namespace VisitBosnia.WinUI.ApplicationUser
             txtFirstName.Text = _appUser.FirstName;
             txtLastName.Text = _appUser.LastName;
             txtUserName.Text = _appUser.UserName;
-            txtPhoneNumber.Text = _appUser.Phone;
+            if(!string.IsNullOrEmpty(_appUser.Phone))
+               txtPhoneNumber.Text = _appUser.Phone?.Substring(3, _appUser.Phone.Length-3);
             txtEmail.Text = _appUser.Email;
+            if(_appUser.DateOfBirth!=null)
+               dtpDateofBirth.Value = _appUser.DateOfBirth.Value;
             if(_appUser.Image?.Length>0)
             {
                 pbUserPicture.Image = Helpers.ImageHelper.byteArrayToImage(_appUser.Image);
@@ -86,11 +89,17 @@ namespace VisitBosnia.WinUI.ApplicationUser
                 FirstName = txtFirstName.Text,
                 LastName = txtLastName.Text,
                 UserName = txtUserName.Text,
-                Phone = txtPhoneNumber.Text,
+                //Phone = txtPhoneNumber.Text,
                 Email = txtEmail.Text,
                 ChangedEmail = txtEmail.Text != _appUser.Email ? true : false,
                 ChangedUsername = txtUserName.Text != _appUser.UserName ? true : false,
+                DateOfBirth = dtpDateofBirth.Value
             };
+            if (!string.IsNullOrEmpty(txtPhoneNumber.Text))
+                updateRequest.Phone = "387" + txtPhoneNumber.Text;
+            else
+                updateRequest.Phone = "";
+
             if(pbUserPicture.Tag.ToString() == "new_picture" && pbUserPicture.Image != null)
             {
                 updateRequest.Image = Helpers.ImageHelper.imageToByteArray(pbUserPicture.Image);

@@ -99,11 +99,12 @@ class _UserProfileState extends State<UserProfile> {
     return regExp.hasMatch(em);
   }
 
-  // bool isPhone(String value) {
-  //   String pattern = r'^[0-9]{3}[-]?[0-9]{3}[-]?[0-9]{3,4}$';
-  //   RegExp regex = RegExp(pattern);
-  //   return regex.hasMatch(value);
-  // }
+  bool isPhone(String value) {
+    // String pattern = r'^[0-9]{3}[-]?[0-9]{3}[-]?[0-9]{3,4}$';
+    String pattern = r'^[387]{1}([0-9]{7}|[0,9]{8})$';
+    RegExp regex = RegExp(pattern);
+    return regex.hasMatch(value);
+  }
 
   dynamic updateResult = null;
   void _trySubmit() async {
@@ -288,16 +289,6 @@ class _UserProfileState extends State<UserProfile> {
     }
   }
 
-  // Widget changePassword() {
-  //   return widget(
-  //     child: Container(
-  //       height: 100,
-  //       width: MediaQuery.of(context).size.width,
-  //       color: Colors.red,
-  //     ),
-  //   );
-  // }
-
   Widget txtFirstName() {
     return TextFormField(
       controller: firstnameController,
@@ -364,18 +355,20 @@ class _UserProfileState extends State<UserProfile> {
     return TextFormField(
       controller: phoneController,
       focusNode: fcsPhone,
-      // validator: (value) {
-      //   if (value != "" && !isPhone(value!)) {
-      //     return "Invalid phone format!";
-      //   }
-      //   return null;
-      // },
-      inputFormatters: [
-        // MaskedInputFormatter('+387 (00) 000-0000')
-        MaskedInputFormatter('387 00 000-0000')
-      ],
+      validator: (value) {
+        if (value != "" && !isPhone(value!)) {
+          return "Invalid phone format (387xxxxxxxxx)";
+        }
+        return null;
+      },
+      // inputFormatters: [
+      //   // MaskedInputFormatter('+387 (00) 000-0000')
+      //   MaskedInputFormatter('387000000000')
+      // ],
       decoration: const InputDecoration(
-          labelText: "Phone number", border: UnderlineInputBorder()),
+          // hintText: "387xxxxxxxxx",
+          labelText: "Phone number",
+          border: UnderlineInputBorder()),
     );
   }
 

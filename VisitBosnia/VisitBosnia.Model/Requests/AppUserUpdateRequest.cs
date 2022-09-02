@@ -16,7 +16,7 @@ namespace VisitBosnia.Model.Requests
         public string? UserName { get; set; }
         public string? Email { get; set; }
         public byte[]? Image { get; set; }
-        //public DateTime? DateOfBirth { get; set; } = null;
+        public DateTime? DateOfBirth { get; set; } = null;
 
 
         public bool? TempPass { get; set; }

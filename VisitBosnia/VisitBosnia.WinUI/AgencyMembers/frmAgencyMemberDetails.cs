@@ -11,6 +11,8 @@ using VisitBosnia.Model;
 using VisitBosnia.Model.Requests;
 using System.Web.Security;
 using VisitBosnia.Model.ViewModels;
+using System.Text.RegularExpressions;
+using VisitBosnia.WinUI.Validator;
 
 namespace VisitBosnia.WinUI.AgencyMembers
 {
@@ -44,6 +46,17 @@ namespace VisitBosnia.WinUI.AgencyMembers
             {
                 try
                 {
+                    if(await appUserService.UsernameExists(txtUsername.Text))
+                    {
+                        MessageBox.Show("Username already exists!");
+                        return;
+                    }
+                    if (await appUserService.EmailExists(txtEmail.Text))
+                    {
+                        MessageBox.Show("Email already exists!");
+                        return;
+                    }
+
                     StringBuilder builder = new StringBuilder();
                     Random random = new Random();
                     char ch;
@@ -180,8 +193,17 @@ namespace VisitBosnia.WinUI.AgencyMembers
             }
             else
             {
-                e.Cancel = false;
-                errorProvider.SetError(txtPhone, "");
+                Regex regex = new Regex(@"^\(?\d{2}\)?-? *\d{3}-? *-?\d{3,4}$");
+                Match match = regex.Match(txtPhone.Text);
+                if (!match.Success)
+                {
+                    e.Cancel = true;
+                    errorProvider.SetError(txtPhone, ErrMessages.WrongPhoneFormat);
+                }
+                else
+                    errorProvider.SetError(txtPhone, null);
+                //e.Cancel = false;
+                //errorProvider.SetError(txtPhone, "");
             }
         }
 
