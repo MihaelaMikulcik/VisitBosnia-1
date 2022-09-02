@@ -25,8 +25,9 @@ Pokretanje aplikacija:
 
 2. Pokrenuti API i DB (docker-compose build, docker-compose up)
 
-3. Otvoriti mobilnu aplikaciju u Visual Studio Code i nakon preuzimanja dependency-a kroz terminal pokrenuti:
-   flutter run --dart-define=baseUrl=http://IPv4_adresa:5223
+3. Otvoriti mobilnu aplikaciju u Visual Studio Code i nakon preuzimanja dependency-a (flutter pub get), kroz terminal pokrenuti:
+   flutter run --dart-define=baseUrl=http://IPv4_adresa:5223 (mobilni uređaj)
+   flutter run (emulator)
 
 4. Otvoriti solution u Visual Studiu i pokrenuti VisitBosnia.WinUI projekat 
            
