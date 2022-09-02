@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:http/io_client.dart';
-import 'package:visit_bosnia_mobile/exception/http_exception.dart';
 import 'package:visit_bosnia_mobile/model/appUser/app_user_change_pass_request.dart';
 import 'package:visit_bosnia_mobile/model/appUser/app_user_register.dart';
 import 'package:visit_bosnia_mobile/model/attractions/attraction.dart';
@@ -21,7 +20,6 @@ import '../model/roles/appuser_role_search_object.dart';
 class AppUserProvider extends BaseProvider<AppUser> {
   AppUserProvider() : super("AppUser");
 
-  // late AppUser userData;
   static late AppUser userData;
   static late String role;
 
@@ -32,7 +30,6 @@ class AppUserProvider extends BaseProvider<AppUser> {
   }
 
   Future<dynamic> updateUserData(int id, [request]) async {
-    // TODO: implement update
     try {
       var url = "${BaseProvider.baseUrl}AppUser/$id";
       var uri = Uri.parse(url);
@@ -41,7 +38,6 @@ class AppUserProvider extends BaseProvider<AppUser> {
 
       var response =
           await http!.put(uri, headers: headers, body: jsonEncode(request));
-      // var response = await update(id, request);
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         userData = AppUser.fromJson(data);
@@ -78,15 +74,9 @@ class AppUserProvider extends BaseProvider<AppUser> {
         }
       } else {
         return "Something went wrong";
-        // throw Exception("Something went wrong!");
       }
     } catch (e) {
       return "Something went wrong";
-      // if (response != null && response.body == "") {
-      //   throw UserException("Username or password incorrect!");
-      // } else {
-      //   throw UserException("Something went wrong, please try again later...");
-      // }
     }
   }
 
@@ -120,7 +110,6 @@ class AppUserProvider extends BaseProvider<AppUser> {
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         Authorization.password = request.newPassword;
-        // userData = AppUser.fromJson(data);
         return AppUser.fromJson(data);
       } else if (response.statusCode == 400) {
         return UserExceptionResponse.fromJson(json.decode(response.body));
@@ -157,7 +146,6 @@ class AppUserProvider extends BaseProvider<AppUser> {
     var response = await http!.get(uri, headers: headers);
     if (isValidResponseCode(response)) {
       var data = jsonDecode(response.body);
-      // return Attraction.fromJson(data);
       return data.map((x) => Event.fromJson(x)).cast<Event>().toList();
     } else {
       throw Exception("Exception... handle this gracefully");

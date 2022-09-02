@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -28,7 +30,6 @@ class _GuideEventsState extends State<GuideEvents> {
   late EventProvider _eventProvider;
   late AgencyMemberProvider _agencyMemberProvider;
   late TouristFacilityGalleryProvider _touristFacilityGalleryProvider;
-  // late EventOrderProvider _eventOrderProvider;
 
   @override
   void initState() {
@@ -38,7 +39,6 @@ class _GuideEventsState extends State<GuideEvents> {
     _agencyMemberProvider = context.read<AgencyMemberProvider>();
     _touristFacilityGalleryProvider =
         context.read<TouristFacilityGalleryProvider>();
-    // _eventOrderProvider = context.read<EventOrderProvider>();
   }
 
   Future<String> getNumberOfParticipants(int eventId) async {
@@ -62,13 +62,6 @@ class _GuideEventsState extends State<GuideEvents> {
       return null;
     }
   }
-  // Future<int> GetAgency(int appUserId) async {
-  //   int agencyId;
-  //   var agencies = await _agencyMemberProvider
-  //       .get({'appUserId': AppUserProvider.userData.id!.toString()});
-  //   agencyId = agencies.first.agencyId!;
-  //   return agencyId;
-  // }
 
   Future<List<Event>?> GetData() async {
     var memberId = await GetAgencyMemberId(AppUserProvider.userData.id!);
@@ -76,10 +69,7 @@ class _GuideEventsState extends State<GuideEvents> {
       if (memberId != null) {
         List<Event> transactions;
         var search = EventSearchObject(
-            includeIdNavigationPartial: true,
-            // includeAgency: true,
-            // includeAgencyMember: true,
-            agencyMemberId: memberId);
+            includeIdNavigationPartial: true, agencyMemberId: memberId);
         transactions = await _eventProvider.get(search.toJson());
         return transactions;
       } else {
@@ -140,10 +130,9 @@ class _GuideEventsState extends State<GuideEvents> {
           Row(
             children: [
               Text(
-                "Hi, " + AppUserProvider.userData.firstName! + "!",
+                "Hi, ${AppUserProvider.userData.firstName!}!",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              // Icon(CupertinoIcons.ticket, size: 30)
             ],
           ),
           SizedBox(
@@ -187,12 +176,6 @@ class _GuideEventsState extends State<GuideEvents> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Container(
-                    //   padding: EdgeInsets.only(bottom: 20),
-                    //   height: 90,
-                    //   width: 90,
-                    //   // child: Image.asset("assets/images/no_ticket.png")
-                    // ),
                     Text('No events yet...', style: TextStyle(fontSize: 17)),
                   ],
                 );
@@ -235,7 +218,6 @@ class _GuideEventsState extends State<GuideEvents> {
               children: [
                 Text(
                   "${snapshot.data} participants",
-                  // "participants",
                   style: TextStyle(
                       fontSize: 17, color: Color.fromARGB(255, 94, 89, 89)),
                 ),
@@ -246,17 +228,6 @@ class _GuideEventsState extends State<GuideEvents> {
             return Text("loading...");
           }
         });
-    // return Row(
-    //         mainAxisAlignment: MainAxisAlignment.center,
-    //         children:[
-    //           Text(
-    //             "${getNumberOfParticipants(eventId).toString()} participants",
-    //             // "participants",
-    //             style: TextStyle(fontSize: 18),
-    //           ),
-    //           Icon(Icons.person)
-    //         ],
-    //       )
   }
 
   Widget _buildImage(int facilityId) {
@@ -266,12 +237,10 @@ class _GuideEventsState extends State<GuideEvents> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(),
-              // child: Text('Loading...'),
             );
           } else {
             if (snapshot.hasError) {
               return Center(
-                // child: Text('${snapshot.error}'),
                 child: Text('Something went wrong...'),
               );
             } else {
@@ -322,9 +291,6 @@ class _GuideEventsState extends State<GuideEvents> {
         ),
         height: 210,
         child: Column(children: [
-          // Expanded(
-          //   child: _buildImage(event.id!),
-          // ),
           SizedBox(
             height: 130,
             child: _buildImage(event.id!),

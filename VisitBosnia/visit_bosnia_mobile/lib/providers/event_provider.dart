@@ -20,7 +20,6 @@ class EventProvider extends BaseProvider<Event> {
     var response = await http!.get(uri, headers: headers);
     if (isValidResponseCode(response)) {
       var data = jsonDecode(response.body);
-      // return Attraction.fromJson(data);
       return data;
     } else {
       throw Exception("Exception... handle this gracefully");

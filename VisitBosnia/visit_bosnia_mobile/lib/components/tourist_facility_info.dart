@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:convert';
 import 'dart:math';
 
@@ -10,8 +12,6 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:visit_bosnia_mobile/model/touristFacilityGallery/tourist_facility_gallery.dart';
 import 'package:visit_bosnia_mobile/model/tourist_facility.dart';
 import 'package:visit_bosnia_mobile/providers/tourist_facility_provider.dart';
-
-import '../exception/http_exception.dart';
 import '../model/appUserFavourite/app_user_favourite_insert_request.dart';
 import '../model/appUserFavourite/app_user_favourite_search_object.dart';
 import '../model/touristFacilityGallery/tourist_facility_gallery_search_object.dart';
@@ -32,13 +32,11 @@ class _TouristFacilityInfoState extends State<TouristFacilityInfo> {
   late TouristFacilityGalleryProvider _touristFacilityGalleryProvider;
   late TouristFacilityProvider _touristFacilityProvider;
   late AppUserFavouriteProvider _appUserFavouriteProvider;
-  // late AppUserProvider _appUserProvider;
 
   TouristFacility touristFacility;
   _TouristFacilityInfoState(this.touristFacility);
 
   int activeIndex = 0;
-  // static dynamic gallery;
   static List<TouristFacilityGallery> gallery = [];
   bool hasImages = false;
   bool loading = false;
@@ -53,7 +51,6 @@ class _TouristFacilityInfoState extends State<TouristFacilityInfo> {
         context.read<TouristFacilityGalleryProvider>();
     _touristFacilityProvider = context.read<TouristFacilityProvider>();
     _appUserFavouriteProvider = context.read<AppUserFavouriteProvider>();
-    // _appUserProvider = context.read<AppUserProvider>();
     LoadEventImages();
     loadFavourite();
     _touristFacilityProvider.rating = "...";
@@ -164,25 +161,18 @@ class _TouristFacilityInfoState extends State<TouristFacilityInfo> {
                       color: Color.fromARGB(255, 245, 173, 40),
                       size: 45.0,
                     ),
-                    // _buildRating(),
                     Consumer<TouristFacilityProvider>(
                         builder: ((context, value, child) => Text(
                               value.rating.toString(),
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             ))),
-                    // Text(
-                    //   _touristFacilityProvider.rating,
-                    //   style:
-                    //       TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    // )
                   ])
                 ],
               ),
               Row(
                 children: [
                   Text(
-                    // "Višegrad",
                     touristFacility.city!.name!,
                     style: const TextStyle(fontSize: 20),
                   ),
@@ -212,13 +202,6 @@ class _TouristFacilityInfoState extends State<TouristFacilityInfo> {
           ))
     ]);
   }
-
-  // _buildRating(){
-  //   Consumer<TouristFacilityProvider>(
-  //       builder: ((context, value, child) => Text()
-  //      ));
-
-  // }
 
   Widget buildIndicator() => AnimatedSmoothIndicator(
         activeIndex: activeIndex,

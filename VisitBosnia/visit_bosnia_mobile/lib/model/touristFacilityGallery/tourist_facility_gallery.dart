@@ -22,7 +22,6 @@ class TouristFacilityGallery {
     thumbnail = json['thumbnail'];
     image = json['image'];
     touristFacilityId = json['touristFacilityId'];
-    // touristFacility = json['touristFacility'];
     touristFacility = json['idNavigation'] != null
         ? new TouristFacility.fromJson(json['idNavigation'])
         : null;
@@ -35,7 +34,6 @@ class TouristFacilityGallery {
     data['thumbnail'] = this.thumbnail;
     data['image'] = this.image;
     data['touristFacilityId'] = this.touristFacilityId;
-    // data['touristFacility'] = this.touristFacility;
     if (this.touristFacility != null) {
       data['idNavigation'] = this.touristFacility!.toJson();
     }

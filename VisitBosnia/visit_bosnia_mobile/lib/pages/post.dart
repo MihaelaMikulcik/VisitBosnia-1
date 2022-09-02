@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -59,11 +61,6 @@ class _ForumPostState extends State<ForumPost> {
     _postReplyProvider = context.read<PostReplyProvider>();
     _appUserRoleProvider = context.read<AppUserRoleProvider>();
   }
-
-  // Future<AppUser> getPostUser(int appUserId) async {
-  //   var user = await _appUserProvider.getById(appUserId);
-  //   return user;
-  // }
 
   Future<List<PostReply>?> GetReply() async {
     try {
@@ -141,8 +138,6 @@ class _ForumPostState extends State<ForumPost> {
             BoxShadow(offset: Offset(0, 5), blurRadius: 5, color: Colors.grey)
           ],
         ),
-
-        // padding: EdgeInsets.all(20),
         child: Column(children: [
           Container(
               child: Row(children: [
@@ -152,8 +147,6 @@ class _ForumPostState extends State<ForumPost> {
                 imageContainer(forumPost.appUser!),
                 Container(
                   width: 100,
-                  // SizedBox(
-                  //   width: double.infinity,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(forumPost.appUser!.userName!,
@@ -181,21 +174,6 @@ class _ForumPostState extends State<ForumPost> {
                 ),
               ),
             )),
-            // Align(
-            //   alignment: Alignment.topCenter,
-            //   child: Container(
-            //     padding: EdgeInsets.only(bottom: 6),
-            //     child: SizedBox(
-            //         width: 220,
-            //         child: Text(
-            //           forumPost.title!,
-            //           style:
-            //               TextStyle(fontWeight: FontWeight.bold, fontSize: 21),
-            //           maxLines: 50,
-            //           overflow: TextOverflow.ellipsis,
-            //         )),
-            //   ),
-            // ),
           ])),
           SizedBox(height: 25),
           Align(
@@ -254,10 +232,6 @@ class _ForumPostState extends State<ForumPost> {
                   )
                 ]),
           ),
-          // SizedBox(width: 20),
-          // Divider(
-          //   thickness: 5,
-          // )
         ]));
   }
 
@@ -280,9 +254,6 @@ class _ForumPostState extends State<ForumPost> {
                     color: Color.fromARGB(255, 63, 62, 62))
               ],
               borderRadius: BorderRadius.circular(10),
-              // border: Border.all(
-              //     color: Colors.black26,
-              //     ),
               color: Color.fromARGB(255, 205, 210, 215),
             ),
             child: Padding(
@@ -318,12 +289,10 @@ class _ForumPostState extends State<ForumPost> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(),
-              // child: Text('Loading...'),
             );
           } else {
             if (snapshot.hasError) {
               return Center(
-                // child: Text('${snapshot.error}'),
                 child: Text('Something went wrong...'),
               );
             } else {
@@ -370,14 +339,9 @@ class _ForumPostState extends State<ForumPost> {
         builder: (BuildContext context, AsyncSnapshot<Role?> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Container();
-            // return Center(
-            //   child: CircularProgressIndicator(),
-            //   // child: Text('Loading...'),
-            // );
           } else {
             if (snapshot.hasError) {
               return Center(
-                // child: Text('${snapshot.error}'),
                 child: Text('Something went wrong...'),
               );
             } else {
@@ -403,14 +367,8 @@ class _ForumPostState extends State<ForumPost> {
       padding: const EdgeInsets.only(bottom: 12.0),
       child: Container(
           padding: const EdgeInsets.all(10.0),
-          decoration: BoxDecoration(color: Color.fromARGB(255, 205, 210, 215),
-              // border: Border(
-              //   bottom: BorderSide(
-              //     //                   <--- left side
-              //     color: Colors.grey,
-              //     width: 3.0,
-              //   ),
-              // ),
+          decoration: BoxDecoration(
+              color: Color.fromARGB(255, 205, 210, 215),
               boxShadow: const [
                 BoxShadow(
                   offset: Offset(0, 3),
@@ -442,7 +400,6 @@ class _ForumPostState extends State<ForumPost> {
                   ],
                 ),
                 Expanded(
-                  // width: 230,
                   child: Align(
                       alignment: Alignment.topLeft,
                       child: Text(
@@ -492,10 +449,8 @@ class _ForumPostState extends State<ForumPost> {
                       content:
                           const Text('Are you sure you want to delete reply?'),
                       actions: [
-                        // The "Yes" button
                         TextButton(
                             onPressed: () async {
-                              // Remove the box
                               try {
                                 await _postReplyProvider.delete(reply.id!);
 
@@ -514,13 +469,11 @@ class _ForumPostState extends State<ForumPost> {
                                         backgroundColor: const Color.fromARGB(
                                             255, 165, 46, 37)));
                               }
-                              // Close the dialog
                               Navigator.of(context).pop();
                             },
                             child: const Text('Yes')),
                         TextButton(
                             onPressed: () {
-                              // Close the dialog
                               Navigator.of(context).pop();
                             },
                             child: const Text('No'))

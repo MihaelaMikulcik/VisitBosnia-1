@@ -1,5 +1,6 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:convert';
-// import 'dart:html';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,6 @@ class MyTickets extends StatefulWidget {
 
 class _MyTicketsState extends State<MyTickets> {
   late TransactionProvider _transactionProvider;
-  // late AppUserProvider _appUserProvider;
   late TouristFacilityGalleryProvider _touristFacilityGalleryProvider;
 
   @override
@@ -38,7 +38,6 @@ class _MyTicketsState extends State<MyTickets> {
     // TODO: implement initState
     super.initState();
     _transactionProvider = context.read<TransactionProvider>();
-    // _appUserProvider = context.read<AppUserProvider>();
     _touristFacilityGalleryProvider =
         context.read<TouristFacilityGalleryProvider>();
   }
@@ -130,12 +129,10 @@ class _MyTicketsState extends State<MyTickets> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(),
-              // child: Text('Loading...'),
             );
           } else {
             if (snapshot.hasError) {
               return Center(
-                // child: Text('${snapshot.error}'),
                 child: Text('Something went wrong...'),
               );
             } else {

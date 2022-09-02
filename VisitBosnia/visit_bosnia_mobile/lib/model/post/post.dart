@@ -8,7 +8,6 @@ class Post {
   String? title;
   String? content;
   AppUser? appUser;
-  // Null? forum;
 
   Post({
     this.id,
@@ -18,7 +17,6 @@ class Post {
     this.title,
     this.content,
     this.appUser,
-    // this.forum
   });
 
   Post.fromJson(Map<String, dynamic> json) {
@@ -30,8 +28,6 @@ class Post {
     content = json['content'];
     appUser =
         json['appUser'] != null ? new AppUser.fromJson(json['appUser']) : null;
-    // appUser = json['appUser'];
-    // forum = json['forum'];
   }
 
   Map<String, dynamic> toJson() {
@@ -45,8 +41,6 @@ class Post {
     if (this.appUser != null) {
       data['appUser'] = this.appUser!.toJson();
     }
-    // data['appUser'] = this.appUser;
-    // data['forum'] = this.forum;
     return data;
   }
 }

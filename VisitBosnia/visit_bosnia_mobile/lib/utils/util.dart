@@ -9,8 +9,6 @@ class Authorization {
   static String? password;
 }
 
-// class UserData with ChangeNotifier {}
-
 Image imageFromBase64String(String base64String) {
   return Image.memory(base64Decode(base64String));
 }

@@ -15,7 +15,6 @@ class ReviewGallery {
     imageType = json['imageType'];
     reviewId = json['reviewId'];
     image = json['image'];
-    // touristFacility = json['touristFacility'];
     review =
         json['review'] != null ? new Review.fromJson(json['review']) : null;
   }
@@ -27,7 +26,6 @@ class ReviewGallery {
     data['review'] = this.review;
     data['image'] = this.image;
     data['reviewId'] = this.reviewId;
-    // data['touristFacility'] = this.touristFacility;
     if (this.review != null) {
       data['review'] = this.review!.toJson();
     }

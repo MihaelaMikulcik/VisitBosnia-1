@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:convert';
 import 'dart:math';
 
@@ -83,12 +85,6 @@ class _GuideParticipantsState extends State<GuideParticipants> {
     }
   }
 
-  // Future<int> getNumberOfParticipants(int eventId) async {
-  //   var participantsNumber =
-  //       await _eventProvider.GetNumberOfParticipants(eventId);
-  //   return participantsNumber;
-  // }
-
   Future<String> getNumberOfParticipants(int eventId) async {
     try {
       var participantsNumber =
@@ -98,13 +94,6 @@ class _GuideParticipantsState extends State<GuideParticipants> {
       return "error";
     }
   }
-
-  // String getTime(String dateTime) {
-  //   DateTime tempDate = DateTime.parse(dateTime);
-  //   var outputFormat = DateFormat.Hm();
-  //   var outputDate = outputFormat.format(tempDate);
-  //   return outputDate.toString();
-  // }
 
   Widget _buildParticipants(int eventId) {
     return FutureBuilder(
@@ -116,7 +105,6 @@ class _GuideParticipantsState extends State<GuideParticipants> {
               children: [
                 Text(
                   "${snapshot.data.toString()} participants",
-                  // "participants",
                   style: TextStyle(
                       fontSize: 17, color: Color.fromARGB(255, 94, 89, 89)),
                 ),
@@ -129,7 +117,6 @@ class _GuideParticipantsState extends State<GuideParticipants> {
               children: const [
                 Text(
                   "loading...",
-                  // "participants",
                   style: TextStyle(
                       fontSize: 17, color: Color.fromARGB(255, 94, 89, 89)),
                 ),
@@ -186,7 +173,6 @@ class _GuideParticipantsState extends State<GuideParticipants> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text("${eventOrder.quantity!}x",
-                            // textAlign: TextAlign.left,
                             style: TextStyle(
                               fontSize: 18,
                             )),
@@ -198,43 +184,6 @@ class _GuideParticipantsState extends State<GuideParticipants> {
               ),
             ))
           ],
-          // crossAxisAlignment: CrossAxisAlignment.center,
-          // mainAxisAlignment: MainAxisAlignment.start,
-          // children: [
-          //   CircleAvatar(
-          //     backgroundColor: Colors.grey,
-          //     backgroundImage: eventOrder.appUser!.image! == ""
-          //         ? const AssetImage("assets/images/user3.jpg")
-          //         : imageFromBase64String(eventOrder.appUser!.image!).image,
-          //     radius: 30,
-          //   ),
-          //   Padding(
-          //     padding: const EdgeInsets.all(15.0),
-          //     child: Column(
-          //       mainAxisAlignment: MainAxisAlignment.start,
-          //       children: [
-          //         Text(
-          //           "${eventOrder.appUser!.firstName!} ${eventOrder.appUser!.lastName!}",
-          //           style: TextStyle(fontSize: 18),
-          //         ),
-          //         Row(
-          //           mainAxisAlignment: MainAxisAlignment.start,
-          //           children: [
-          //             Align(
-          //               alignment: Alignment.centerLeft,
-          //               child: Text("${eventOrder.quantity!}x",
-          //                   // textAlign: TextAlign.left,
-          //                   style: TextStyle(
-          //                     fontSize: 18,
-          //                   )),
-          //             ),
-          //             // Icon(Icons.person)
-          //           ],
-          //         )
-          //       ],
-          //     ),
-          //   )
-          // ]
         ),
       ),
     );
@@ -279,13 +228,6 @@ class _GuideParticipantsState extends State<GuideParticipants> {
       padding: EdgeInsets.all(15),
       decoration: BoxDecoration(
         border: Border(bottom: BorderSide(color: Colors.grey)),
-        // color: Colors.white,
-        // boxShadow: const [
-        //   BoxShadow(
-        //       offset: Offset(0, 2),
-        //       blurRadius: 2,
-        //       color: Color.fromARGB(255, 63, 62, 62))
-        // ],
       ),
       child: Column(children: [
         Row(
@@ -310,13 +252,6 @@ class _GuideParticipantsState extends State<GuideParticipants> {
             )
           ],
         ),
-        // SizedBox(
-        //   width: double.infinity,
-        //   child: Text(
-        //     "${event.idNavigation!.name!}, ${formatStringDate(event.date!, "yMd")} ${getTime(event.date!)}",
-        //     style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
-        //   ),
-        // ),
         SizedBox(
           height: 5,
         ),
@@ -331,18 +266,6 @@ class _GuideParticipantsState extends State<GuideParticipants> {
           height: 5,
         ),
         _buildParticipants(event.id!),
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.start,
-        //   children: [
-        //     Text(
-        //       " participants",
-        //       // "participants",
-        //       style: TextStyle(
-        //           fontSize: 18, color: Color.fromARGB(255, 94, 89, 89)),
-        //     ),
-        //     Icon(Icons.person)
-        //   ],
-        // ),
       ]),
     );
   }
@@ -382,12 +305,6 @@ class _GuideParticipantsState extends State<GuideParticipants> {
                 base64Decode(snapshot.data!),
                 fit: BoxFit.cover,
               ),
-              // decoration: BoxDecoration(
-              //     borderRadius: BorderRadius.only(
-              //         bottomRight: Radius.circular(20),
-              //         bottomLeft: Radius.circular(20)),
-              //     image: DecorationImage(
-              //         image: imageFromBase64String(snapshot.data).image)),
             );
           } else {
             return Container(
@@ -399,9 +316,7 @@ class _GuideParticipantsState extends State<GuideParticipants> {
                   image: AssetImage("assets/images/location.jpg"),
                   fit: BoxFit.cover,
                 ),
-                // borderRadius: BorderRadius.circular(20)
               ),
-              // child: imageFromBase64String(gallery.image!),
             );
           }
         });

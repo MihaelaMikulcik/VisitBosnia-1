@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
-import 'package:visit_bosnia_mobile/exception/http_exception.dart';
 import 'package:visit_bosnia_mobile/model/appUser/app_user.dart';
 import 'package:visit_bosnia_mobile/model/roles/role.dart';
 import 'package:visit_bosnia_mobile/pages/guide_events.dart';
@@ -57,7 +56,6 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) => isLoading
       ? const Loading()
       : Scaffold(
-          // resizeToAvoidBottomInset: false,
           body: Center(
             child: Container(
                 decoration: const BoxDecoration(
@@ -190,17 +188,9 @@ class _LoginState extends State<Login> {
                                 } else if (role == 'Agency') {
                                   AppUserProvider.role = 'Agency';
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => GuideEvents(
-                                          // user: result as AppUser,
-                                          )));
+                                      builder: (context) => GuideEvents()));
                                 }
                               }
-
-                              // Navigator.pushReplacementNamed(context, Homepage.routeName);
-                              // Navigator.of(context).push(MaterialPageRoute(
-                              //     builder: (context) => Homepage(
-                              //           user: result as AppUser,
-                              //         )));
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
@@ -234,18 +224,6 @@ class _LoginState extends State<Login> {
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold)),
                         ),
-                        // const Text(" | ",
-                        //     style: TextStyle(
-                        //         fontSize: 14.0,
-                        //         color: Colors.white,
-                        //         fontWeight: FontWeight.bold)),
-                        // const InkWell(
-                        //   child: Text("Forgot password?",
-                        //       style: TextStyle(
-                        //           fontSize: 14.0,
-                        //           color: Colors.white,
-                        //           fontWeight: FontWeight.bold)),
-                        // )
                       )
                     ],
                   ),

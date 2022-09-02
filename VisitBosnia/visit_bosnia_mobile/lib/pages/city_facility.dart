@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -42,7 +44,6 @@ class _CityFacilityState extends State<CityFacility> {
   String facility;
   int cityId;
 
-  // late AppUserProvider _appUserProvider;
   late CityProvider _cityProvider;
   late AttractionProvider _attractionProvider;
   late EventProvider _eventProvider;
@@ -54,7 +55,6 @@ class _CityFacilityState extends State<CityFacility> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // _appUserProvider = context.read<AppUserProvider>();
     _cityProvider = context.read<CityProvider>();
     _eventProvider = context.read<EventProvider>();
     _attractionProvider = context.read<AttractionProvider>();
@@ -72,12 +72,6 @@ class _CityFacilityState extends State<CityFacility> {
     }
   }
 
-  // Future<List<TouristFacilityGallery>> getGallery(int facilityId) async {
-  //   var search = TouristFacilityGallerySearchObject(facilityId: facilityId);
-  //   var gallery = await _touristFacilityGalleryProvider.get(search.toJson());
-  //   return gallery;
-  // }
-
   Future<String?> getImage(int facilityId) async {
     var search = TouristFacilityGallerySearchObject(
         facilityId: facilityId, isThumbnail: true);
@@ -93,37 +87,11 @@ class _CityFacilityState extends State<CityFacility> {
     }
   }
 
-  // Future<List<dynamic>?> loadFacilites(int catId) async {
-  //   try {
-  //     if (facility == "Event") {
-  //       var search = EventSearchObject(
-  //         includeIdNavigation: true,
-  //         includeAgency: true,
-  //         includeAgencyMember: true,
-  //       );
-  //       search.cityId = cityId;
-  //       search.categoryId = catId;
-  //       var object = await _eventProvider.get(search.toJson());
-  //       return object;
-  //     } else {
-  //       var search = AttractionSearchObject(includeIdNavigation: true);
-  //       search.categoryId = catId;
-  //       search.cityId = cityId;
-  //       var object = await _attractionProvider.get(search.toJson());
-  //       return object;
-  //     }
-  //   } catch (e) {
-  //     return null;
-  //   }
-  // }
-
   Future<List<dynamic>?> loadFacilites(int catId) async {
     try {
       if (facility == "Event") {
         var search = EventSearchObject(
           includeIdNavigation: true,
-          // includeAgency: true,
-          // includeAgencyMember: true,
         );
         search.cityId = cityId;
         search.categoryId = catId;
@@ -169,7 +137,7 @@ class _CityFacilityState extends State<CityFacility> {
           ),
           Container(
             child: Text(
-              "Browse " + facility + "s in " + city.name!,
+              "Browse ${facility}s in ${city.name!}",
               style: TextStyle(
                 color: Colors.grey[500],
                 fontSize: 20,
@@ -205,7 +173,6 @@ class _CityFacilityState extends State<CityFacility> {
             fit: BoxFit.cover,
           ),
           borderRadius: BorderRadius.circular(20)),
-      // child: imageFromBase64String(gallery.image!),
     );
   }
 
@@ -214,16 +181,13 @@ class _CityFacilityState extends State<CityFacility> {
         future: loadCity(),
         builder: (BuildContext context, AsyncSnapshot<City?> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: Container()
-                // child: Text('Loading...'),
-                );
+            return Center(child: Container());
           } else {
             if (snapshot.hasData) {
               return Column(
                   children: [titleSection(snapshot.data!), _buildCategory()]);
             } else {
               return Center(
-                // child: Text('${snapshot.error}'),
                 child: Text('Something went wrong...'),
               );
             }
@@ -245,13 +209,11 @@ class _CityFacilityState extends State<CityFacility> {
               margin: EdgeInsets.only(right: 15),
               child: Center(
                 child: CircularProgressIndicator(),
-                // child: Text('Loading...'),
               ),
             );
           } else {
             if (snapshot.hasError) {
               return Center(
-                // child: Text('${snapshot.error}'),
                 child: Text('Something went wrong...'),
               );
             } else {
@@ -268,7 +230,6 @@ class _CityFacilityState extends State<CityFacility> {
                         fit: BoxFit.cover,
                       ),
                       borderRadius: BorderRadius.circular(20)),
-                  // child: imageFromBase64String(gallery.image!),
                 );
               }
             }
@@ -296,7 +257,6 @@ class _CityFacilityState extends State<CityFacility> {
                   touristFacility.name!.length > 13
                       ? '${touristFacility.name!.substring(0, 13)}...'
                       : touristFacility.name!,
-                  // object.idNavigation!.name!,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -319,12 +279,10 @@ class _CityFacilityState extends State<CityFacility> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(),
-              // child: Text('Loading...'),
             );
           } else {
             if (snapshot.hasError) {
               return Center(
-                // child: Text('${snapshot.error}'),
                 child: Text('Something went wrong...'),
               );
             } else {
@@ -401,12 +359,10 @@ class _CityFacilityState extends State<CityFacility> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(),
-              // child: Text('Loading...'),
             );
           } else {
             if (snapshot.hasError) {
               return Center(
-                // child: Text('${snapshot.error}'),
                 child: Text('Something went wrong...'),
               );
             } else {

@@ -11,7 +11,6 @@ import 'package:visit_bosnia_mobile/model/events/event_search_object.dart';
 import 'package:visit_bosnia_mobile/model/touristFacilityGallery/tourist_facility_gallery.dart';
 import 'package:visit_bosnia_mobile/model/touristFacilityGallery/tourist_facility_gallery_search_object.dart';
 import 'package:visit_bosnia_mobile/pages/attraction_details.dart';
-import 'package:visit_bosnia_mobile/pages/event_details.dart';
 import 'package:visit_bosnia_mobile/pages/event_details2.dart';
 import 'package:visit_bosnia_mobile/pages/pick_city.dart';
 import 'package:visit_bosnia_mobile/providers/appuser_favourite_provider.dart';
@@ -40,8 +39,6 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   _HomepageState(this.user);
-  // late EventProvider _eventProvider;
-  // late AttractionProvider _attractionProvider;
   late TouristFacilityGalleryProvider _touristFacilityGalleryProvider;
   late AppUserProvider _appUserProvider;
   late CategoryProvider _categoryProvider;
@@ -56,21 +53,12 @@ class _HomepageState extends State<Homepage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // _eventProvider = context.read<EventProvider>();
-    // _attractionProvider = context.read<AttractionProvider>();
     _appUserFavouriteProvider = context.read<AppUserFavouriteProvider>();
 
     loadAppUserFavourite();
   }
 
   Future<List<Event>?> loadEvents() async {
-    // var search = EventSearchObject(
-    //     includeAgency: true,
-    //     includeAgencyMember: true,
-    //     includeIdNavigation: true);
-    // if (selectedCategory != 0) {
-    //   search.categoryId = selectedCategory;
-    // }
     try {
       var events = await _appUserProvider.recommendEvents(
           AppUserProvider.userData.id!, selectedCategory);
@@ -81,11 +69,6 @@ class _HomepageState extends State<Homepage> {
   }
 
   Future<List<Attraction>?> loadAttractions() async {
-    // var search = AttractionSearchObject(includeIdNavigation: true);
-    // if (selectedCategory != 0) {
-    //   search.categoryId = selectedCategory;
-    // }
-    // var attractions = await _attractionProvider.get(search.toJson());
     try {
       var attractions = await _appUserProvider.recommendAttractions(
           AppUserProvider.userData.id!, selectedCategory);
@@ -133,12 +116,6 @@ class _HomepageState extends State<Homepage> {
     }
   }
 
-  // Future<List<TouristFacilityGallery>> getGallery(int facilityId) async {
-  //   var search = TouristFacilityGallerySearchObject(facilityId: facilityId);
-  //   var gallery = await _touristFacilityGalleryProvider.get(search.toJson());
-  //   return gallery;
-  // }
-
   _buildImage(int facilityId) {
     return FutureBuilder<String?>(
         future: getImage(facilityId),
@@ -153,13 +130,11 @@ class _HomepageState extends State<Homepage> {
               margin: EdgeInsets.only(right: 15),
               child: Center(
                 child: CircularProgressIndicator(),
-                // child: Text('Loading...'),
               ),
             );
           } else {
             if (snapshot.hasError) {
               return Center(
-                // child: Text('${snapshot.error}'),
                 child: Text('Something went wrong...'),
               );
             } else {
@@ -176,7 +151,6 @@ class _HomepageState extends State<Homepage> {
                         fit: BoxFit.cover,
                       ),
                       borderRadius: BorderRadius.circular(20)),
-                  // child: imageFromBase64String(gallery.image!),
                 );
               }
             }
@@ -200,8 +174,6 @@ class _HomepageState extends State<Homepage> {
             fit: BoxFit.cover,
           ),
           borderRadius: BorderRadius.circular(20)),
-
-      // child: imageFromBase64String(gallery.image!),
     );
   }
 
@@ -224,7 +196,6 @@ class _HomepageState extends State<Homepage> {
             child: Column(children: [
               titleSection(),
               Container(
-                // width: 340,
                 width: MediaQuery.of(context).size.width,
                 padding:
                     EdgeInsets.only(top: 15, bottom: 20, right: 30, left: 10),
@@ -314,8 +285,6 @@ class _HomepageState extends State<Homepage> {
   }
 
   Widget _eventCard(Event event) {
-    // var contain =
-    //     userFavourite.where((element) => element.touristFacilityId == event.id);
     var contain = _appUserFavouriteProvider.favorites
         .where((element) => element.touristFacilityId == event.id);
     return InkWell(
@@ -353,17 +322,6 @@ class _HomepageState extends State<Homepage> {
                       top: 10,
                       right: 25,
                     ))),
-            // Positioned(
-            //   child: Container(
-            //     height: 30,
-            //     width: 30,
-            //     child: contain.length > 0
-            //         ? Image.asset("assets/images/heart-icon.png")
-            //         : null,
-            //   ),
-            //   top: 10,
-            //   right: 25,
-            // )
           ],
         ));
   }
@@ -406,17 +364,6 @@ class _HomepageState extends State<Homepage> {
                       top: 10,
                       right: 25,
                     ))),
-            // Positioned(
-            //   child: Container(
-            //     height: 30,
-            //     width: 30,
-            //     child: contain.length > 0
-            //         ? Image.asset("assets/images/heart-icon.png")
-            //         : null,
-            //   ),
-            //   top: 10,
-            //   right: 25,
-            // )
           ],
         ));
   }
@@ -429,12 +376,10 @@ class _HomepageState extends State<Homepage> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(),
-              // child: Text('Loading...'),
             );
           } else {
             if (snapshot.hasError) {
               return Center(
-                // child: Text('${snapshot.error}'),
                 child: Text('Something went wrong...'),
               );
             } else {
@@ -472,12 +417,10 @@ class _HomepageState extends State<Homepage> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(),
-              // child: Text('Loading...'),
             );
           } else {
             if (snapshot.hasError) {
               return Center(
-                // child: Text('${snapshot.error}'),
                 child: Text('Something went wrong...'),
               );
             } else {
@@ -538,10 +481,6 @@ class _HomepageState extends State<Homepage> {
               width: MediaQuery.of(context).size.width,
               height: 40,
             );
-            // return Center(
-            //   child: CircularProgressIndicator(),
-            //   // child: Text('Loading...'),
-            // );
           } else {
             if (snapshot.hasData) {
               return Container(
@@ -549,7 +488,6 @@ class _HomepageState extends State<Homepage> {
                 height: 40,
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton2(
-                    // dropdownDecoration: ,
                     isExpanded: true,
                     onChanged: dropdownCallback,
                     hint: Row(
@@ -581,7 +519,6 @@ class _HomepageState extends State<Homepage> {
                     items: snapshot.data!.map((e) => _dropDownItem(e)).toList(),
                     value: selectedCategory == 0 ? null : selectedCategory,
                     dropdownDecoration: BoxDecoration(
-                      // borderRadius: BorderRadius.circular(14),
                       color: Color.fromARGB(255, 205, 210, 215),
                     ),
                     buttonDecoration: BoxDecoration(
@@ -592,9 +529,6 @@ class _HomepageState extends State<Homepage> {
                             color: Color.fromARGB(255, 63, 62, 62))
                       ],
                       borderRadius: BorderRadius.circular(10),
-                      // border: Border.all(
-                      //     color: Colors.black26,
-                      //     ),
                       color: Color.fromARGB(255, 205, 210, 215),
                     ),
                   ),
@@ -602,41 +536,8 @@ class _HomepageState extends State<Homepage> {
               );
             } else {
               return Center(
-                // child: Text('${snapshot.error}'),
                 child: Text('Something went wrong...'),
               );
-
-              // return Container(
-              //     // width: 250,
-              //     width: MediaQuery.of(context).size.width,
-              //     height: 40,
-              //     padding: EdgeInsets.only(left: 20, right: 20),
-              //     decoration: BoxDecoration(
-              //         boxShadow: const [
-              //           BoxShadow(
-              //               offset: Offset(0, 2),
-              //               blurRadius: 2,
-              //               color: Color.fromARGB(255, 63, 62, 62))
-              //         ],
-              //         color: Color.fromARGB(255, 205, 210, 215),
-              //         // border: Border.all(color: Colors.black),
-              //         borderRadius: BorderRadius.circular(12)),
-              //     child: DropdownButtonHideUnderline(
-              //         child: DropdownButton<int>(
-              //       dropdownColor: Color.fromARGB(255, 205, 210, 215),
-              //       items: snapshot.data!.map((e) => _dropDownItem(e)).toList(),
-              //       onChanged: dropdownCallback,
-              //       iconSize: 40.0,
-              //       isExpanded: true,
-              //       value: selectedCategory == 0 ? null : selectedCategory,
-              //       hint: Text(
-              //         "Choose category",
-              //       ),
-              //       style: TextStyle(
-              //         color: Colors.black,
-              //         fontSize: 20,
-              //       ),
-              //     )));
             }
           }
         });

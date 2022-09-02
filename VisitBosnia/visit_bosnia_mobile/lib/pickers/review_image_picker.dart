@@ -14,10 +14,8 @@ class ReviewImagePicker extends StatefulWidget {
   ReviewImagePicker(
       {Key? key, required this.imagePickFn, required this.isProfile})
       : super(key: key);
-  final void Function(File pickedImage) imagePickFn; //dodano
+  final void Function(File pickedImage) imagePickFn;
   bool isProfile = false;
-
-  // final ImageProvider<Object>? profileImg;
 
   @override
   State<ReviewImagePicker> createState() => _ReviewImagePickerState();
@@ -25,15 +23,12 @@ class ReviewImagePicker extends StatefulWidget {
 
 class _ReviewImagePickerState extends State<ReviewImagePicker> {
   File? imageFile;
-  // ImageProvider<Object>? profileImg;
-  // late AppUserProvider appUserProvider;
   bool isProfile = false;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    // final profileImg = widget.profileImg;
     final isProfile = widget.isProfile;
   }
 
@@ -43,7 +38,7 @@ class _ReviewImagePickerState extends State<ReviewImagePicker> {
       if (image == null) return;
       final imageTemporary = File(image.path);
       setState(() => imageFile = imageTemporary);
-      widget.imagePickFn(imageTemporary); // dodano
+      widget.imagePickFn(imageTemporary);
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
@@ -88,14 +83,6 @@ class _ReviewImagePickerState extends State<ReviewImagePicker> {
     );
   }
 
-  // ImageProvider<Object>? setBackgroundImage() {
-  //   if (imageFile != null) {
-  //     return FileImage(imageFile!);
-  //   } else {
-  //     return const AssetImage("assets/images/user3.jpg")
-  //         as ImageProvider<Object>?;
-  //   }
-  // }
   ImageProvider<Object>? setBackgroundImage(bool isProfile) {
     if (imageFile != null) {
       return FileImage(imageFile!);
@@ -104,16 +91,12 @@ class _ReviewImagePickerState extends State<ReviewImagePicker> {
           .image;
     } else {
       return Image.asset("assets/images/plus.jpg").image;
-      // return const AssetImage("assets/images/user3.jpg")
-      //     as ImageProvider<Object>?;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // final profileImg = widget.profileImg;
     final isProfile = widget.isProfile;
-    // appUserProvider = Provider.of<AppUserProvider>(context);
     return SizedBox(
       height: 90,
       width: 90,
@@ -122,24 +105,9 @@ class _ReviewImagePickerState extends State<ReviewImagePicker> {
         fit: StackFit.expand,
         children: [
           CircleAvatar(
-            //backgroundImage: AssetImage("assets/images/user.png"),
             backgroundImage: setBackgroundImage(isProfile),
-            // backgroundImage: imageFile != null
-            //     ? FileImage(imageFile!)
-            //     : const AssetImage("assets/images/user3.jpg")
-            //         as ImageProvider<Object>?,
             backgroundColor: const Color.fromARGB(255, 123, 179, 231),
-            // radius: 70.0,
           ),
-          // ClipOval(
-          //     child: image != null
-          //         ? Image.file(image!)
-          //         : const Image(
-          //             image: AssetImage("assets/images/user.png"),
-          //             height: 150,
-          //             width: 150,
-          //             fit: BoxFit.cover,
-          //           )),
           Positioned(
             bottom: 0,
             right: -20,

@@ -10,7 +10,6 @@ class PostReply {
   String? content;
   AppUser? appUser;
   Post? post;
-  // Null? forum;
 
   PostReply({
     this.id,
@@ -20,7 +19,6 @@ class PostReply {
     this.post,
     this.content,
     this.appUser,
-    // this.forum
   });
 
   PostReply.fromJson(Map<String, dynamic> json) {
@@ -32,8 +30,6 @@ class PostReply {
     appUser =
         json['appUser'] != null ? new AppUser.fromJson(json['appUser']) : null;
     post = json['post'] != null ? new Post.fromJson(json['post']) : null;
-    // appUser = json['appUser'];
-    // forum = json['forum'];
   }
 
   Map<String, dynamic> toJson() {
@@ -49,8 +45,6 @@ class PostReply {
     if (this.post != null) {
       data['post'] = this.post!.toJson();
     }
-    // data['appUser'] = this.appUser;
-    // data['forum'] = this.forum;
     return data;
   }
 }

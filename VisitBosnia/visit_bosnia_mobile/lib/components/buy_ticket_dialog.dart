@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -27,7 +29,6 @@ class _BuyTicketDialogState extends State<BuyTicketDialog> {
   double _price = 0;
   Event event;
 
-  // late AppUserProvider _appUserProvider;
   late TransactionProvider _transactionProvider;
 
   final TextEditingController _cardNumberController = TextEditingController();
@@ -42,7 +43,6 @@ class _BuyTicketDialogState extends State<BuyTicketDialog> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // _appUserProvider = context.read<AppUserProvider>();
     _transactionProvider = context.read<TransactionProvider>();
   }
 
@@ -356,16 +356,7 @@ class _BuyTicketDialogState extends State<BuyTicketDialog> {
       } else if (response is String) {
         _showErrorMessage(context, response);
       }
-      // }
-      // } catch (e) {
-      //   _showErrorMessage(context, e.toString());
-      // }
     }
-    // else {
-    //   setState(() {
-    //     _isLoading = false;
-    //   });
-    // }
   }
 
   _showErrorMessage(context, String message) {

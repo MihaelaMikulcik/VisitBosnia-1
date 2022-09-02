@@ -1,5 +1,3 @@
-// import 'dart:ffi';
-
 class AppUser {
   int? id;
   String? firstName;

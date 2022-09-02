@@ -106,7 +106,6 @@ class _ForumFilterState extends State<ForumFilter> {
                             contentPadding: EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 8)),
                         onChanged: (value) {
-                          // print(value);
                           setState(() {
                             search = value;
                           });

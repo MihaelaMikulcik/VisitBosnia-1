@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
@@ -8,7 +10,6 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:provider/provider.dart';
-import 'package:visit_bosnia_mobile/exception/http_exception.dart';
 import 'package:visit_bosnia_mobile/model/UserExceptionResponse.dart';
 import 'package:visit_bosnia_mobile/model/appUser/app_user.dart';
 import 'package:visit_bosnia_mobile/model/appUser/app_user_update.dart';
@@ -22,7 +23,6 @@ import '../providers/appuser_provider.dart';
 
 class UserProfile extends StatefulWidget {
   UserProfile({Key? key}) : super(key: key);
-  // AppUser user;
 
   @override
   State<UserProfile> createState() => _UserProfileState();
@@ -127,7 +127,6 @@ class _UserProfileState extends State<UserProfile> {
             usernameController.text != AppUserProvider.userData.userName
                 ? true
                 : false,
-        // image: base64String(await _userImage!.readAsBytes())
       );
       if (_userImage != null) {
         request.image = base64String(await _userImage!.readAsBytes());
@@ -361,14 +360,8 @@ class _UserProfileState extends State<UserProfile> {
         }
         return null;
       },
-      // inputFormatters: [
-      //   // MaskedInputFormatter('+387 (00) 000-0000')
-      //   MaskedInputFormatter('387000000000')
-      // ],
       decoration: const InputDecoration(
-          // hintText: "387xxxxxxxxx",
-          labelText: "Phone number",
-          border: UnderlineInputBorder()),
+          labelText: "Phone number", border: UnderlineInputBorder()),
     );
   }
 

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -27,7 +29,6 @@ class ForumTopics extends StatefulWidget {
 class _ForumTopicsState extends State<ForumTopics> {
   _ForumTopicsState(this.forum);
   late PostProvider _postProvider;
-  // late AppUserProvider _appUserProvider;
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -67,9 +68,6 @@ class _ForumTopicsState extends State<ForumTopics> {
 
   @override
   Widget build(BuildContext context) {
-    // _appUserProvider = context.read<AppUserProvider>();
-    // _postProvider = context.watch<PostProvider>();
-
     return Scaffold(
       drawer: NavigationDrawer(),
       appBar: AppBar(
@@ -216,9 +214,6 @@ class _ForumTopicsState extends State<ForumTopics> {
         children: [
           _txtTitle(),
           _txtContent(),
-          // const SizedBox(
-          //   height: 5,
-          // ),
           MaterialButton(
             onPressed: () async {
               final isValid = _formKey.currentState!.validate();
@@ -343,8 +338,6 @@ class _ForumTopicsState extends State<ForumTopics> {
   }
 
   Widget postWidget(Post post) {
-    // var number;
-    // _numberOfReplies(post.id!).then((value) => number = value);
     return InkWell(
       onTap: () {
         Navigator.of(context)
@@ -375,10 +368,6 @@ class _ForumTopicsState extends State<ForumTopics> {
                         fontWeight: FontWeight.bold,
                       )),
                 ),
-                // Padding(
-                //     padding: EdgeInsets.only(left: 10),
-                //     child: _buildReplies(post.id!)),
-
                 Consumer<PostProvider>(builder: ((context, value, child) {
                   return Padding(
                       padding: EdgeInsets.only(left: 10),
@@ -396,7 +385,6 @@ class _ForumTopicsState extends State<ForumTopics> {
                         child: Icon(Icons.delete_outline))
                     : Container(),
                 SizedBox(
-                  // width: double.infinity,
                   child: Text(
                     formatStringDate(
                       post.createdTime!,

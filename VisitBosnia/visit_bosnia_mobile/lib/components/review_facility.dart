@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:convert';
 
 import 'dart:ffi';
@@ -15,7 +17,6 @@ import 'package:visit_bosnia_mobile/model/reviewGallery.dart/review_gallery_inse
 
 import 'package:visit_bosnia_mobile/providers/tourist_facility_provider.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import '../exception/http_exception.dart';
 import '../model/appUser/app_user.dart';
 import '../model/review/review.dart';
 import '../model/review/review_insert_request.dart';
@@ -76,7 +77,7 @@ class _ReviewFacilityState extends State<ReviewFacility> {
     var search = ReviewSearchObject(
         facilityId: touristFacility.id!, includeAppUser: true);
     var reviews = await _reviewProvider.get(search.toJson());
-    if (reviews.length > 0) {
+    if (reviews.isNotEmpty) {
       setRatings(reviews);
     }
     return reviews;
@@ -88,7 +89,6 @@ class _ReviewFacilityState extends State<ReviewFacility> {
   }
 
   void setRatings(List<Review> reviews) {
-    // setState(() {
     one = reviews.where((element) => element.rating == 1).length;
     two = reviews.where((element) => element.rating == 2).length;
     three = reviews.where((element) => element.rating == 3).length;
@@ -97,11 +97,6 @@ class _ReviewFacilityState extends State<ReviewFacility> {
     total = one + two + three + four + five;
     if (total != 0) {
       rating = (one + two * 2 + three * 3 + four * 4 + five * 5) / total;
-      // one = _one / total * 100;
-      // two = _two / total * 100;
-      // three = _three / total * 100;
-      // four = _four / total * 100;
-      // five = _five / total * 100;
     }
     _touristFacilityProvider.updateRating(rating.toStringAsFixed(2));
   }
@@ -121,65 +116,6 @@ class _ReviewFacilityState extends State<ReviewFacility> {
   Widget build(BuildContext context) {
     return Padding(
         padding: EdgeInsets.fromLTRB(20, 0, 20, 10), child: _buildReviewList());
-    // return FutureBuilder<void>(
-    //     future: loadReviews(),
-    //     builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-    //       if (snapshot.connectionState == ConnectionState.waiting) {
-    //         return Center(
-    //           child: CircularProgressIndicator(),
-    //           // child: Text('Loading...'),
-    //         );
-    //       } else {
-    //         if (snapshot.hasError) {
-    //           return Center(
-    //             // child: Text('${snapshot.error}'),
-    //             child: Text('Something went wrong...'),
-    //           );
-    //         } else {
-    //           return Padding(
-    //               padding: const EdgeInsets.all(8),
-    //               child: Column(children: [
-    //                 Column(children: [
-    //                   Column(children: [
-    //                     Padding(
-    //                       padding: const EdgeInsets.only(left: 10),
-    //                       child: buildReviews(),
-    //                     ),
-    //                     ListView.builder(
-    //                         shrinkWrap: true,
-    //                         physics: const NeverScrollableScrollPhysics(),
-    //                         // itemCount:
-    //                         itemCount: perPage,
-    //                         itemBuilder: (context, index) {
-    //                           return Column(children: [
-    //                             Container(child: _reviewCard(items[index])),
-    //                           ]);
-    //                           // : Container(child: Text(index.toString()));
-    //                         }),
-    //                     (perPage <= items.length)
-    //                         ? Container(
-    //                             child: TextButton(
-    //                               child: Text("Load More"),
-    //                               onPressed: () {
-    //                                 setState(() {
-    //                                   perPage = perPage + 3;
-    //                                   if ((perPage) > originalItems.length) {
-    //                                     items.addAll(originalItems);
-    //                                   } else {
-    //                                     items.addAll(
-    //                                         originalItems.getRange(0, perPage));
-    //                                   }
-    //                                 });
-    //                               },
-    //                             ),
-    //                           )
-    //                         : Container()
-    //                   ])
-    //                 ])
-    //               ]));
-    //         }
-    //       }
-    //     });
   }
 
   Widget chartRow(String label, int pct) {
@@ -201,7 +137,6 @@ class _ReviewFacilityState extends State<ReviewFacility> {
               child: Text(''),
             ),
             Container(
-              // width: 200,
               width: total != 0
                   ? MediaQuery.of(context).size.width * (pct / total) * 0.5
                   : 0,
@@ -251,8 +186,6 @@ class _ReviewFacilityState extends State<ReviewFacility> {
                   MaterialPageRoute(
                       builder: (context) => AddReview(touristFacility)),
                 ).then((value) => setState(() {}));
-                // Navigator.of(context).push(MaterialPageRoute(
-                //     builder: (context) => AddReview(touristFacility)));
               },
               label: const Text('Write a review'),
               icon: const Icon(Icons.create_rounded),
@@ -276,7 +209,6 @@ class _ReviewFacilityState extends State<ReviewFacility> {
       Row(children: [
         Container(
           height: 200.0,
-          // width: MediaQuery.of(context).size.width,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -395,12 +327,10 @@ class _ReviewFacilityState extends State<ReviewFacility> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(),
-              // child: Text('Loading...'),
             );
           } else {
             if (snapshot.hasError) {
               return Center(
-                // child: Text('${snapshot.error}'),
                 child: Text('Something went wrong...'),
               );
             } else {
@@ -434,7 +364,6 @@ class _ReviewFacilityState extends State<ReviewFacility> {
                         : Container()
                   ],
                 );
-                // snapshot.data!.map((e) => _reviewCard(e)).toList());
               } else {
                 return Container(child: buildReviews());
               }
@@ -451,24 +380,21 @@ class _ReviewFacilityState extends State<ReviewFacility> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(),
-              // child: Text('Loading...'),
             );
           } else {
             if (snapshot.hasError) {
               return Center(
-                // child: Text('${snapshot.error}'),
                 child: Text('Something went wrong...'),
               );
             } else {
-              if (snapshot.data!.length > 0) {
+              if (snapshot.data!.isNotEmpty) {
                 return Container(
                     height: 80.0,
-                    child: new ListView(
+                    child: ListView(
                         scrollDirection: Axis.horizontal,
                         children: snapshot.data!
                             .map((e) => buildReviewImage(e))
                             .toList()));
-                // snapshot.data!.map((e) => _reviewCard(e)).toList());
               } else {
                 return Divider();
               }

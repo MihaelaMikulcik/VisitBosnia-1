@@ -54,15 +54,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
     var uri = Uri.parse(url);
 
     Map<String, String> headers = createHeaders();
-    // print("get me");
-    // Map<String, String> headers = {
-    //   HttpHeaders.contentTypeHeader: "application/json",
-    //   "Connection": "Keep-Alive",
-    //   "Keep-Alive": "timeout=5, max=1000"
-    // };
-
     var response = await http!.get(uri, headers: headers);
-    // print("done $response");
     if (isValidResponseCode(response)) {
       var data = jsonDecode(response.body);
       return data.map((x) => fromJson(x)).cast<T>().toList();
@@ -156,7 +148,6 @@ abstract class BaseProvider<T> with ChangeNotifier {
         if (value is String) {
           encoded = Uri.encodeComponent(value);
         }
-        // query == "" ? query+='$key=$encoded' : query += '$prefix$key=$encoded';
         query += '$prefix$key=$encoded';
       } else if (value is DateTime) {
         query += '$prefix$key=${(value as DateTime).toIso8601String()}';

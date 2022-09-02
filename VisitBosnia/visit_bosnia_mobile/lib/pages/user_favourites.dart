@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -36,7 +38,6 @@ class _UserFavouritesState extends State<UserFavourites> {
 
   late List<int> attractionIds = [];
 
-  // late AppUserProvider _appUserProvider;
   late AppUserFavouriteProvider _appUserFavouriteProvider;
   late TouristFacilityGalleryProvider _touristFacilityGalleryProvider;
   late TouristFacilityProvider _touristFacilityProvider;
@@ -47,7 +48,6 @@ class _UserFavouritesState extends State<UserFavourites> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // _appUserProvider = context.read<AppUserProvider>();
     _appUserFavouriteProvider = context.read<AppUserFavouriteProvider>();
     _touristFacilityGalleryProvider =
         context.read<TouristFacilityGalleryProvider>();
@@ -55,17 +55,6 @@ class _UserFavouritesState extends State<UserFavourites> {
     _eventProvider = context.read<EventProvider>();
     _touristFacilityProvider = context.read<TouristFacilityProvider>();
   }
-
-  // Future<List<AppUserFavourite>> loadAppUserFavourite() async {
-  //   var search =
-  //       AppUserFavouriteSearchObject(appUserId: AppUserProvider.userData.id);
-  //   var favourites = await _appUserFavouriteProvider.get(search.toJson());
-  //   var attractions = await _attractionProvider.get(null);
-  //   for (var atr in attractions) {
-  //     attractionIds.add(atr.id!);
-  //   }
-  //   return favourites;
-  // }
 
   Future loadIds() async {
     try {
@@ -77,11 +66,6 @@ class _UserFavouritesState extends State<UserFavourites> {
       attractionIds = [];
     }
   }
-  // Future<List<TouristFacilityGallery>> getGallery(int facilityId) async {
-  //   var search = TouristFacilityGallerySearchObject(facilityId: facilityId);
-  //   var gallery = await _touristFacilityGalleryProvider.get(search.toJson());
-  //   return gallery;
-  // }
 
   Future<String?> getImage(int facilityId) async {
     try {
@@ -139,18 +123,11 @@ class _UserFavouritesState extends State<UserFavourites> {
                 borderRadius: BorderRadius.circular(20),
                 color: Color.fromARGB(255, 205, 210, 215),
               ),
-
               child: Center(child: CircularProgressIndicator()),
-              //   // child: Text('Loading...'),
             );
-            // return Center(
-            //   child: CircularProgressIndicator(),
-            //   // child: Text('Loading...'),
-            // );
           } else {
             if (snapshot.hasError) {
               return Center(
-                // child: Text('${snapshot.error}'),
                 child: Text('Something went wrong...'),
               );
             } else {
@@ -167,7 +144,6 @@ class _UserFavouritesState extends State<UserFavourites> {
                         fit: BoxFit.cover,
                       ),
                       borderRadius: BorderRadius.circular(20)),
-                  // child: imageFromBase64String(gallery.image!),
                 );
               }
             }
@@ -182,8 +158,6 @@ class _UserFavouritesState extends State<UserFavourites> {
             (BuildContext context, AsyncSnapshot<TouristFacility> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Container(
-              // width: 40,
-              // height: 50,
               child: Text(
                 "...",
                 style: TextStyle(
@@ -192,22 +166,15 @@ class _UserFavouritesState extends State<UserFavourites> {
                     fontSize: 17),
               ),
               padding: EdgeInsets.only(bottom: 10),
-              // child: Image.asset("assets/images/black_favourite_location.png"),
             );
-            // return Center(
-            //   child: CircularProgressIndicator(),
-            //   // child: Text('Loading...'),
-            // );
           } else {
             if (snapshot.hasError) {
               return Center(
-                // child: Text('${snapshot.error}'),
                 child: Text('Something went wrong...'),
               );
             } else {
               return Row(children: [
                 Expanded(
-                  // padding: EdgeInsets.only(left: 50, bottom: 10),
                   child: Text(
                     snapshot.data!.name! + ", " + snapshot.data!.city!.name!,
                     textAlign: TextAlign.center,
@@ -261,10 +228,10 @@ class _UserFavouritesState extends State<UserFavourites> {
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withOpacity(0.5), //color of shadow
-                          spreadRadius: 5, //spread radius
-                          blurRadius: 7, // blur radius
-                          offset: Offset(0, 2), // changes position of shadow
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: Offset(0, 2),
                         ),
                       ],
                     ),
@@ -293,13 +260,8 @@ class _UserFavouritesState extends State<UserFavourites> {
         future: loadIds(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            // return Container(
-            //   padding: EdgeInsets.only(top: 60),
-            //   child: CircularProgressIndicator(),
-            // );
             return Center(
               child: CircularProgressIndicator(),
-              // child: Text('Loading...'),
             );
           } else {
             return (_appUserFavouriteProvider.favorites.isNotEmpty &&
@@ -329,51 +291,6 @@ class _UserFavouritesState extends State<UserFavourites> {
         });
   }
 
-  // _buildFavourites() {
-  //   return FutureBuilder<List<AppUserFavourite>>(
-  //       future: loadAppUserFavourite(),
-  //       builder: (BuildContext context,
-  //           AsyncSnapshot<List<AppUserFavourite>> snapshot) {
-  //         if (snapshot.connectionState == ConnectionState.waiting) {
-  //           // return Container(
-  //           //   padding: EdgeInsets.only(top: 60),
-  //           //   child: CircularProgressIndicator(),
-  //           // );
-  //           return Center(
-  //             child: CircularProgressIndicator(),
-  //             // child: Text('Loading...'),
-  //           );
-  //         } else {
-  //           if (snapshot.hasError) {
-  //             return Center(
-  //               // child: Text('${snapshot.error}'),
-  //               child: Text('Something went wrong...'),
-  //             );
-  //           } else {
-  //             if (snapshot.data!.length > 0) {
-  //               return Column(
-  //                   children:
-  //                       snapshot.data!.map((e) => _FavouriteCard(e)).toList());
-  //             } else {
-  //               return Container(
-  //                   padding: EdgeInsets.only(top: 60),
-  //                   child: ListView(children: [
-  //                     Container(
-  //                         padding: EdgeInsets.only(bottom: 20),
-  //                         height: 90,
-  //                         width: 90,
-  //                         child: Image.asset("assets/images/heart2-icon.png")),
-  //                     Text(
-  //                       "No favorites yet",
-  //                       textAlign: TextAlign.center,
-  //                     )
-  //                   ]));
-  //             }
-  //           }
-  //         }
-  //       });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -387,9 +304,7 @@ class _UserFavouritesState extends State<UserFavourites> {
                 child: Column(children: [
                   titleSection(),
                   Divider(),
-                  Container(
-                      // height: MediaQuery.of(context).size.height,
-                      child: _buildFavourites())
+                  Container(child: _buildFavourites())
                 ]))));
   }
 

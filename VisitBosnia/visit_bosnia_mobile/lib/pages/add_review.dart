@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -21,8 +23,6 @@ import '../utils/util.dart';
 import 'city_facility.dart';
 
 class AddReview extends StatefulWidget {
-  // static const String routeName = "/addReview";
-
   AddReview(this.facility, {Key? key}) : super(key: key);
 
   TouristFacility facility;
@@ -36,7 +36,6 @@ class _AddReviewState extends State<AddReview> {
 
   TouristFacility facility;
 
-  // late AppUserProvider _appUserProvider;
   late ReviewProvider _reviewProvider;
   late ReviewGalleryProvider _reviewGalleryProvider;
 
@@ -52,7 +51,6 @@ class _AddReviewState extends State<AddReview> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // _appUserProvider = context.read<AppUserProvider>();
     _reviewProvider = context.read<ReviewProvider>();
     _reviewGalleryProvider = context.read<ReviewGalleryProvider>();
   }
@@ -62,9 +60,8 @@ class _AddReviewState extends State<AddReview> {
     FocusScope.of(context).unfocus();
 
     if (isValid) {
-      // _formKey.currentState!.save();
       if (_formKey.currentState!.validate()) {
-        var request = new ReviewInsertRequest();
+        var request = ReviewInsertRequest();
         request.appUserId = AppUserProvider.userData.id;
         if (_ratingController.text == "") {
           request.rating = 3;
@@ -112,10 +109,6 @@ class _AddReviewState extends State<AddReview> {
               duration: const Duration(seconds: 2),
               backgroundColor: const Color.fromARGB(255, 165, 46, 37)));
         }
-        // _ratingController.clear();
-        // _contentController.clear();
-        // _imageFileList.length = 0;
-        // setState(() {});
       }
     } else {
       setState(() {
@@ -191,11 +184,6 @@ class _AddReviewState extends State<AddReview> {
             padding: const EdgeInsets.all(10.0),
             child: _txtContent(),
           ),
-          // Padding(
-          //   padding: const EdgeInsets.only(top: 50.0, left: 10),
-          //   child: Text("How would you rate your experience?",
-          //       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-          // ),
           Align(
             alignment: Alignment.center,
             child: _ratingSection(),
@@ -212,10 +200,6 @@ class _AddReviewState extends State<AddReview> {
             alignment: Alignment.center,
             child: Container(
               padding: const EdgeInsets.all(10.0),
-              // decoration: BoxDecoration(
-              //     border: Border.all(
-              //         color: Color.fromRGBO(83, 109, 254, 1), width: 4.0),
-              //     shape: BoxShape.circle),
               child: OutlinedButton(
                 child: Text(
                   "+ add photos",
@@ -299,7 +283,6 @@ class _AddReviewState extends State<AddReview> {
             fillColor: Colors.grey,
             hintText: 'Would you like to write anything about this facility?',
             errorStyle: TextStyle(height: 0),
-            // hintText: "Write your post here...",
             focusedErrorBorder:
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
             errorBorder:
@@ -308,7 +291,6 @@ class _AddReviewState extends State<AddReview> {
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.grey),
-              // borderRadius: BorderRadius.circular(20.0)
             )));
   }
 
