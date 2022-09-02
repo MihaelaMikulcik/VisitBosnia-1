@@ -20,7 +20,7 @@ namespace VisitBosnia.Model
 
         public DateTime? DateOfBirth { get; set; }
 
-        //public virtual ICollection<AppUserRole> AppUserRoles { get; set; }
+     
 
     }
 }

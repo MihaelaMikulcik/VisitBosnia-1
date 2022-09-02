@@ -36,46 +36,23 @@ namespace VisitBosnia.Services
         public async Task<Model.AppUser> Login(string username, string password)
         {
    
-                var user = await Context.AppUsers.FirstOrDefaultAsync(x => x.UserName == username); //dodati role
+                var user = await Context.AppUsers.FirstOrDefaultAsync(x => x.UserName == username); 
                 if (user == null)
                 {
                     return null;
-                    //throw new UserException("Wrong username or password!", System.Net.HttpStatusCode.BadRequest);
+                 
                 }
                 var hash = HashHelper.GenerateHash(user.PasswordSalt, password);
                 if (hash != user.PasswordHash)
                 {
                     return null;
-                    //throw new UserException("Wrong username or password!", System.Net.HttpStatusCode.BadRequest);
+                    
                 }
                 return Mapper.Map<Model.AppUser>(user);
          
         }
 
-        //public async override Task<Model.AppUser> Insert(AppUserInsertRequest request)
-        //{
-        //    //var userExists = Context.AppUsers.FirstOrDefault(x => x.UserName == request.UserName);
-        //    //if (userExists != null)
-        //    //{
-        //    //    throw new Exception("Username already exists!"); //napraviti odvojenu async funk
-        //    //}
-        //    if (await UsernameExists(request.UserName))
-        //    {
-        //        throw new Exception("Username already exists!");
-
-        //    }
-        //    if (request.Password != request.PasswordConfirm)
-        //    {
-        //        throw new Exception("Please confirm your password");
-        //    }
-        //    Database.AppUser user = Mapper.Map<Database.AppUser>(request);
-        //    user.PasswordSalt = HashHelper.GenerateSalt();
-        //    user.PasswordHash = HashHelper.GenerateHash(user.PasswordSalt, request.Password);
-
-        //    await Context.AppUsers.AddAsync(user);
-        //    await Context.SaveChangesAsync();
-        //    return Mapper.Map<Model.AppUser>(user);
-        //}
+    
 
         public async Task<bool> UsernameExists(string username) 
         {
@@ -102,11 +79,7 @@ namespace VisitBosnia.Services
         public async Task<Model.AppUser> Register(AppUserInsertRequest request)
         {
 
-            //var userExists = Context.AppUsers.FirstOrDefault(x => x.UserName == request.UserName);
-            //if (userExists != null)
-            //{
-            //    throw new UserException("Username already exists!"); //napraviti odvojenu async funk
-            //}
+           
             if (await UsernameExists(request.UserName))
             {
                 throw new UserException("Username already exists!");
@@ -129,19 +102,7 @@ namespace VisitBosnia.Services
             await Context.AppUsers.AddAsync(entity);
             await Context.SaveChangesAsync();
 
-            //var role = await Context.Roles
-            //    .Where(i => i.Name == "User")
-            //    .SingleAsync();
-
-
-            //var userRole = new Database.AppUserRole()
-            //{
-            //    AppUserId = entity.Id,
-            //    RoleId = role.Id
-            //};
-
-            //await Context.AppUserRoles.AddAsync(userRole);
-            //await Context.SaveChangesAsync();
+          
 
             return Mapper.Map<Model.AppUser>(entity);
         }
@@ -205,20 +166,7 @@ namespace VisitBosnia.Services
             }
 
 
-            //if (!string.IsNullOrEmpty(search?.LastName))
-            //{
-            //    filteredQuery = filteredQuery.Where(x => x.LastName.ToLower().StartsWith(search.LastName.ToLower()));
-            //}
-
-            //if (!string.IsNullOrEmpty(search?.Email))
-            //{
-            //    filteredQuery = filteredQuery.Where(x => x.Email.ToLower().StartsWith(search.Email.ToLower()));
-            //}
-
-            //if (!string.IsNullOrEmpty(search?.UserName))
-            //{
-            //    filteredQuery = filteredQuery.Where(x => x.UserName.ToLower().StartsWith(search.UserName.ToLower()));
-            //}
+           
 
             return filteredQuery;
         }
@@ -240,77 +188,20 @@ namespace VisitBosnia.Services
 
         static object isLocked = new object();
         private static MLContext mlContext = null;
-        //private static ITransformer model = null;
-
+     
         public async Task<List<Model.Attraction>> RecommendAttracions(int appUserId, int? categoryId = null)
         {
-            //lock (isLocked)
-            //{
-            //    mlContext = new MLContext();
-
-            //    //var tmpData = Context.Reviews.ToList();
-            //    var tmpData = Context.Reviews.Where(x => x.TouristFacility.Attraction != null)
-            //        .Include(x => x.TouristFacility)
-            //        .Include(x => x.AppUser)
-            //        .ToList();
-            //    var data = new List<TouristFacilityRating>();
-
-            //    foreach (var review in tmpData)
-            //    {
-            //        data.Add(new TouristFacilityRating
-            //        {
-            //            AppUserId = (uint)review.AppUserId,
-            //            AttractionId = (uint)review.TouristFacilityId,
-            //            Rating = review.Rating
-            //        });
-            //    }
-
-            //    var trainingData = mlContext.Data.LoadFromEnumerable(data);
-
-            //    var options = new MatrixFactorizationTrainer.Options
-            //    {
-            //        MatrixColumnIndexColumnName = "AppUserId",
-            //        MatrixRowIndexColumnName = "AttractionId",
-            //        LabelColumnName = "Rating",
-            //        NumberOfIterations = 20,
-            //        ApproximationRank = 100
-            //    };
-
-            //    var est = mlContext.Recommendation().Trainers.MatrixFactorization(options);
-
-
-            //    model = est.Fit(trainingData);
-            //    //model = est.Append(mlContext.Recommendation().Trainers.MatrixFactorization(options));
-            //}
+                
 
             var model = TrainData(true);
 
             var attractions = await Context.Attractions
                 .Include(x => x.IdNavigation)
-                //.Include(x => x.IdNavigation.City)
+     
                 .Include(x => x.IdNavigation.Category)
                 .ToListAsync();
 
-            //List<Tuple<Database.Attraction, float>> predictionResult = null;
-
-            //predictionResult = _memoryCache.Get<List<Tuple<Database.Attraction, float>>>("attractionsPrediction");
-            //if (predictionResult == null)
-            //{
-            //    predictionResult = new List<Tuple<Database.Attraction, float>>();
-            //    foreach (var x in attractions)
-            //    {
-            //        var predictionEngine = mlContext.Model.CreatePredictionEngine<TouristFacilityRating, TouristFacilityRatingPrediction>(model);
-
-            //        var prediction = predictionEngine.Predict(new TouristFacilityRating
-            //        {
-            //            FacilityId = (uint)x.Id,
-            //            AppUserId = (uint)appUserId
-            //        });
-
-            //        predictionResult.Add(new Tuple<Database.Attraction, float>(x, prediction.Score));
-            //    }
-            //    _memoryCache.Set("attractionsPrediction", model, TimeSpan.FromMinutes(15));
-            //}
+           
 
             var predictionResult = new List<Tuple<Database.Attraction, float>>();
 
@@ -325,13 +216,10 @@ namespace VisitBosnia.Services
                 });
 
                 predictionResult.Add(new Tuple<Database.Attraction, float>(attraction, prediction.Score));
-                //System.Diagnostics.Debug.WriteLine(attraction.Id.ToString() + " - " + prediction.Score);
+              
             }
 
-            //var tempAttractions = predictionResult.Select(x => x.Item1).ToList().AsQueryable();
-            //var finalAttractions = tempAttractions.Include(x => x.IdNavigation)
-            //    .Include(x => x.IdNavigation.City)
-            //    .Include(x => x.IdNavigation.Category);
+        
 
 
 
@@ -341,12 +229,6 @@ namespace VisitBosnia.Services
             if (categoryId != 0)
                 finalResult = finalResult.Where(x => x.IdNavigation.CategoryId == categoryId).ToList();
 
-            //var includedAttractions = finalResult.AsQueryable<Model.Attraction>().Include(x => x.IdNavigation)
-            //    .Include(x => x.IdNavigation.City)
-            //    .Include(x => x.IdNavigation.Category).ToList();
-
-            //if (categoryId != 0)
-            //    includedAttractions = includedAttractions.Where(x => x.IdNavigation.CategoryId == categoryId).ToList();
 
 
             return Mapper.Map<List<Model.Attraction>>(finalResult);
@@ -357,33 +239,11 @@ namespace VisitBosnia.Services
             var model = TrainData(false);
 
             var events = await Context.Events
-                .Include(x => x.IdNavigation)
-                //.Include(x => x.IdNavigation.City)
-                .Include(x => x.IdNavigation.Category)
-                //.Include(x => x.Agency)
-                //.Include(x => x.AgencyMember)
+                .Include(x => x.IdNavigation)    
+                .Include(x => x.IdNavigation.Category)          
                 .ToListAsync();
 
-            //List<Tuple<Database.Event, float>> predictionResult = null;
-
-            //predictionResult = _memoryCache.Get<List<Tuple<Database.Event, float>>>("eventsPrediction");
-            //if (predictionResult == null)
-            //{
-            //    predictionResult = new List<Tuple<Database.Event, float>>();
-            //    foreach (var x in events)
-            //    {
-            //        var predictionEngine = mlContext.Model.CreatePredictionEngine<TouristFacilityRating, TouristFacilityRatingPrediction>(model);
-
-            //        var prediction = predictionEngine.Predict(new TouristFacilityRating
-            //        {
-            //            FacilityId = (uint)x.Id,
-            //            AppUserId = (uint)appUserId
-            //        });
-
-            //        predictionResult.Add(new Tuple<Database.Event, float>(x, prediction.Score));
-            //    }
-            //    _memoryCache.Set("eventsPrediction", model, TimeSpan.FromMinutes(15));
-            //}
+          
 
             var predictionResult = new List<Tuple<Database.Event, float>>();
 
@@ -398,7 +258,7 @@ namespace VisitBosnia.Services
                 });
 
                 predictionResult.Add(new Tuple<Database.Event, float>(x, prediction.Score));
-                //System.Diagnostics.Debug.WriteLine(x.Id.ToString() + " - " + prediction.Score);
+                
             }
 
             var finalResult = predictionResult.OrderByDescending(x => x.Item2)
@@ -457,7 +317,7 @@ namespace VisitBosnia.Services
 
                 ITransformer model;
 
-                //model = est.Fit(trainingData);
+              
 
                 if (isAttraction)
                 {
@@ -479,16 +339,12 @@ namespace VisitBosnia.Services
                 }
 
                 return model;
-                //model = est.Append(mlContext.Recommendation().Trainers.MatrixFactorization(options));
+              
             }
         }
 
 
-        //public async void SendEmail(SendEmailRequest request)
-        //{
-        //    var text = $"{request.AgencyName} added you as their member. This is your temporary password: {request.TempPass}. <br/> Please login and change your password to enjoy our app <br/> Your Visit Bosnia";
-        //    await _emailSender.SendEmail(request.Email, $"Become {request.AgencyName} member", text);
-        //}
+       
 
     }
 

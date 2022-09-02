@@ -15,8 +15,6 @@ namespace VisitBosnia.Model
         public virtual Agency Agency { get; set; } = null!;
         public virtual AppUser AppUser { get; set; } = null!;
 
-        //public virtual ICollection<Agency> Agencies { get; set; }
-        //public virtual ICollection<Forum> Forums { get; set; }
-        //public virtual ICollection<TouristFacility> TouristFacilities { get; set; }
+   
     }
 }

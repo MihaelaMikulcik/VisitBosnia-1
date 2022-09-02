@@ -15,8 +15,6 @@ namespace VisitBosnia.Model
 
         public byte[]? Image { get; set; }
 
-        //public virtual ICollection<Agency> Agencies { get; set; }
-        //public virtual ICollection<Forum> Forums { get; set; }
-        //public virtual ICollection<TouristFacility> TouristFacilities { get; set; }
+        
     }
 }

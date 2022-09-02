@@ -14,10 +14,10 @@ namespace VisitBosnia.Services
 {
     public class ReviewService:BaseCRUDService<Model.Review, Database.Review, ReviewSearchObject, ReviewInsertRequest, object>, IReviewService
     {
-        //private readonly IAppUserService _appUserService;
-        public ReviewService(VisitBosniaContext context, IMapper mapper, IAppUserService appUserService):base(context, mapper)
+        
+        public ReviewService(VisitBosniaContext context, IMapper mapper):base(context, mapper)
         {
-            //_appUserService = appUserService;
+  
         }
 
 
@@ -62,20 +62,7 @@ namespace VisitBosnia.Services
             return query;
         }
 
-        //public override async Task<Model.Review> Insert(ReviewInsertRequest request)
-        //{
-        //    //var result = await base.Insert(request);
-        //    Database.Review review = Mapper.Map<Database.Review>(request);
-        //    await Context.Reviews.AddAsync(review);
-        //    await Context.SaveChangesAsync();
-        //    var isAttraction = await Context.Attractions.Where(x => x.IdNavigation.Id == request.TouristFacilityId).FirstOrDefaultAsync();
-        //    if (isAttraction != null)
-        //        _appUserService.TrainData(true, true);
-        //    else
-        //        _appUserService.TrainData(false, true);
-        //    return Mapper.Map<Model.Review>(review);
-        //    //return result;
-        //}
+     
 
     }
 }

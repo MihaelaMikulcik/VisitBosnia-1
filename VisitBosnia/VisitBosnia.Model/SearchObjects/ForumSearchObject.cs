@@ -8,7 +8,7 @@ namespace VisitBosnia.Model.SearchObjects
 {
     public class ForumSearchObject
     {
-        //public string? SearchText { get; set; }
+      
         public string? Title { get; set; }
         public int? CityId { get; set; }
         public bool? IncludeCity { get; set; }

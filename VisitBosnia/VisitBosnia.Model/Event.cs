@@ -22,7 +22,6 @@ namespace VisitBosnia.Model
         public virtual AgencyMember AgencyMember { get; set; } = null!;
         public virtual TouristFacility IdNavigation { get; set; } = null!;
 
-        //public string? CityName { get; set; } => (IdNavigation != null ? IdNavigation.City.Name : "");
-        //public string? CategoryName { get; set; } => (IdNavigation != null ? IdNavigation.Category.Name : "");
+    
     }
 }

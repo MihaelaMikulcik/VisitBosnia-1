@@ -20,7 +20,6 @@ namespace VisitBosnia.Services.Interfaces
         Task<bool> UsernameExists(string username);
         Task<bool> EmailExists(string email);
 
-        //ITransformer TrainData(bool isAttraction, bool retrainData);
-        //Task<bool> UsernameExists(string username);
+       
     }
 }

@@ -19,7 +19,7 @@ namespace VisitBosnia.Security
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-            //TODO: dodati role
+          
             if (!Request.Headers.ContainsKey("Authorization"))
             {
                 return AuthenticateResult.Fail("Missing authentication header");

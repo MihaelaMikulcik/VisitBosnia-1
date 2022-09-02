@@ -46,8 +46,7 @@ namespace VisitBosnia.Services
 
         public async override Task<Model.Post> Delete(int id)
         {
-            //var entity = Context.Set<Services.Database.PostReply>().AsQueryable();
-            //var postReply = entity.Where(x => x.PostId == id);
+           
             var search = new PostReplySearchObject{PostId = id };
             var postReply = await _postReplyService.Get(search);
             if(postReply != null)

@@ -17,16 +17,5 @@ namespace VisitBosnia.Services
 
         }
 
-        //public override IQueryable<Role> AddFilter(IQueryable<Role> query, RoleSearchObject search = null)
-        //{
-        //    var filteredQuery = base.AddFilter(query, search);
-
-        //    if (!string.IsNullOrEmpty(search?.Name))
-        //    {
-        //        filteredQuery = filteredQuery.Where(x => x.Name == search.Name);
-        //    }    
-
-        //    return filteredQuery;
-        //}
     }
 }
