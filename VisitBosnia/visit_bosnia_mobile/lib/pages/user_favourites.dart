@@ -116,7 +116,7 @@ class _UserFavouritesState extends State<UserFavourites> {
   Widget imageContainer(String image) {
     return Container(
         height: 120.0,
-        width: 350.0,
+        width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
             image: DecorationImage(
                 fit: BoxFit.cover,
@@ -134,7 +134,7 @@ class _UserFavouritesState extends State<UserFavourites> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Container(
               height: 120.0,
-              width: 350.0,
+              width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 color: Color.fromARGB(255, 205, 210, 215),
@@ -159,7 +159,7 @@ class _UserFavouritesState extends State<UserFavourites> {
               } else {
                 return Container(
                   height: 130.0,
-                  width: 350.0,
+                  width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       image: DecorationImage(
                         alignment: FractionalOffset.center,
