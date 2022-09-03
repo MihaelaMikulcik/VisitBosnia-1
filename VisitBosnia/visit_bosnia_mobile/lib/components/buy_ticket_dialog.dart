@@ -7,6 +7,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:visit_bosnia_mobile/main.dart';
 import 'package:visit_bosnia_mobile/model/UserExceptionResponse.dart';
 import 'package:visit_bosnia_mobile/model/credit_card.dart';
 import 'package:visit_bosnia_mobile/model/transactions/transaction.dart';
@@ -309,7 +310,6 @@ class _BuyTicketDialogState extends State<BuyTicketDialog> {
     final isValid = _formKey.currentState!.validate();
     if (isValid) {
       _formKey.currentState!.save();
-      // try {
       var mmyy = _mmyyController.text.split('/');
       CreditCard card = CreditCard(
           cvc: _cvcController.text,
@@ -323,12 +323,33 @@ class _BuyTicketDialogState extends State<BuyTicketDialog> {
           price: _price,
           description: event.idNavigation!.name,
           appUserId: AppUserProvider.userData.id);
+
       var response = await _transactionProvider.ProcessTransaction(request);
-      // if (response != null) {
+      final _context = navigatorKey.currentContext;
+      if (_context != null) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Container(
+              height: 40,
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.info,
+                    color: Colors.white,
+                  ),
+                  Expanded(
+                    child: Text(
+                      " Request has been sent, please wait for response...",
+                      style: TextStyle(color: Colors.white, fontSize: 17),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            duration: Duration(seconds: 2),
+            backgroundColor: Color.fromARGB(255, 9, 121, 165)));
+      }
+
       if (response is Transaction) {
-        // setState(() {
-        //   _isLoading = false;
-        // });
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Container(
@@ -372,7 +393,6 @@ class _BuyTicketDialogState extends State<BuyTicketDialog> {
             ),
             Expanded(
               child: Text(message,
-                  // " Payment failed!",
                   style: TextStyle(color: Colors.white, fontSize: 17)),
             ),
           ],
