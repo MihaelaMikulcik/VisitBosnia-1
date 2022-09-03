@@ -11,7 +11,6 @@ using VisitBosnia.Services;
 using VisitBosnia.Services.Database;
 
 using VisitBosnia.Services.Interfaces;
-//using VisitBosnia.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers(x=>x.Filters.Add<ExceptionFilter>());
@@ -41,7 +40,6 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-//IConfiguration configuration = app.Configuration;
 
 builder.Services.AddTransient<ICityService, CityService>();
 builder.Services.AddTransient<IEventService, VisitBosnia.Services.EventService>();
@@ -54,7 +52,6 @@ builder.Services.AddTransient<IAgencyMemberService, AgencyMemberService>();
 
 builder.Services.AddTransient<IAppUserRoleService, AppUserRoleService>();
 builder.Services.AddTransient<IAppUserService, AppUserService>();
-//builder.Services.AddTransient<IRoleService, RoleService>();
 builder.Services.AddTransient<IReadService<VisitBosnia.Model.Role, object>, RoleService>();
 builder.Services.AddTransient<IForumService, ForumService>();
 builder.Services.AddTransient<IPostService, PostService>();
@@ -114,7 +111,6 @@ using (var scope = app.Services.CreateScope())
     SetupService seeder = scope.ServiceProvider.GetRequiredService<SetupService>();
     seeder.Init();
 }
-//StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe")["SecretKey"];
 
 
 app.MapControllers();

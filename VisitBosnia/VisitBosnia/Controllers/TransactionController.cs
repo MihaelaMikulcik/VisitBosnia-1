@@ -11,7 +11,7 @@ namespace VisitBosnia.Controllers
 {
     public class TransactionController : BaseCRUDController<Model.Transaction, TransactionSearchObject, TransactionInsertRequest, object>
     {
-        ITransactionService _service;
+        private readonly ITransactionService _service;
       
         public TransactionController(ITransactionService service ) : base(service)
         {
