@@ -8,15 +8,15 @@ Aplikacija namijenjena turistima koji žele da posjete Bosnu i Hercegovinu, kao 
 Kredencijali za prijavu
 
 * ADMIN
-desktop -> username: Admin;
+desktop -> username: admin;
            password: test
            
 * AGENCY (član agencije)
-desktop i mobilna -> username: Agency;
+desktop i mobilna -> username: agency;
                      password: test
                      
 * USER
-mobilna -> username: UserA; username: UserB; username: UserC;
+mobilna -> username: userA; username: userB; username: userC;
            password (za sve): test
 
 Pokretanje aplikacija:
