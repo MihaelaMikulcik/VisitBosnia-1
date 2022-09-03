@@ -25,7 +25,6 @@ namespace VisitBosnia.WinUI.Report
         public frmReport(int agencyId)
         {
             InitializeComponent();
-            //reportViewer1 = new ReportViewer { ProcessingMode = ProcessingMode.Local };
             _agencyId = agencyId;
                  
         }

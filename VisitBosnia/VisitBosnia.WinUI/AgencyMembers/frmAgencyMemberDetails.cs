@@ -202,8 +202,6 @@ namespace VisitBosnia.WinUI.AgencyMembers
                 }
                 else
                     errorProvider.SetError(txtPhone, null);
-                //e.Cancel = false;
-                //errorProvider.SetError(txtPhone, "");
             }
         }
 

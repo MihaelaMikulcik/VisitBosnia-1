@@ -85,7 +85,6 @@
             this.label1.Size = new System.Drawing.Size(243, 37);
             this.label1.TabIndex = 7;
             this.label1.Text = "Change password";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // textOldPassword
             // 

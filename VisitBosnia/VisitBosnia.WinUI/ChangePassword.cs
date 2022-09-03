@@ -21,11 +21,6 @@ namespace VisitBosnia.WinUI
             this.ActiveControl = label1;
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private async void btnSave_Click(object sender, EventArgs e)
         {
             if (ValidateChildren())
