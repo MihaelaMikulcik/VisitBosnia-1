@@ -55,7 +55,7 @@ namespace VisitBosnia.WinUI.Agencies
             btnSave.Text = id != 0 ? "Change" : "Save";
             var cities = await CityService.Get<Model.City>();
             var itemsCity = new List<ComboItem>();
-            itemsCity.Add(new ComboItem { Id = -1, Text = "Select a city"});
+          
 
             foreach (var city in cities)
             {
