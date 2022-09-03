@@ -93,6 +93,8 @@ namespace VisitBosnia.WinUI
 
         private void btnSingOut_Click(object sender, EventArgs e)
         {
+            APIService.Username = "";
+            APIService.Password = "";
             this.Close();
             var formLogin = new frmLogin();
             formLogin.Show();
